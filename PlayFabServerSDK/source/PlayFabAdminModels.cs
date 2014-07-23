@@ -15,38 +15,33 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier for the build executable
 		/// </summary>
-		
 		public string BuildId { get; set;}
 		
 		/// <summary>
 		/// date and time to apply (stamp) to this build (usually current time/date)
 		/// </summary>
-		
 		public DateTime? Timestamp { get; set;}
 		
 		/// <summary>
 		/// is this build currently allowed to be used
 		/// </summary>
-		
 		public bool Active { get; set;}
 		
 		/// <summary>
 		/// is this build intended to run on dedicated ("bare metal") servers
 		/// </summary>
-		
 		public bool DedicatedServerEligible { get; set;}
 		
 		/// <summary>
 		/// Server host regions in which this build can be used
 		/// </summary>
-		
 		public List<string> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
-		
 		public string Comment { get; set;}
+		
 		
 	}
 	
@@ -59,154 +54,191 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier for this build executable
 		/// </summary>
-		
 		public string BuildId { get; set;}
 		
 		/// <summary>
 		/// is this build currently allowed to be used
 		/// </summary>
-		
 		public bool Active { get; set;}
 		
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		
 		public List<string> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
-		
 		public string Comment { get; set;}
 		
 		/// <summary>
 		/// time this build was last modified (or uploaded, if this build has never been modified)
 		/// </summary>
-		
 		public DateTime? Timestamp { get; set;}
 		
 		/// <summary>
 		/// the unique identifier for the title, found in the URL on the PlayFab developer site as "TitleId=[n]" when a title has been selected
 		/// </summary>
-		
 		public string TitleId { get; set;}
+		
 		
 	}
 	
 	
 	
-	public class CatalogItem
+	public class BanAccountRequest
+	{
+		
+		
+		public string TitleId { get; set;}
+		
+		public string PlayFabId { get; set;}
+		
+		public string BannedByPlayFabId { get; set;}
+		
+		public string Reason { get; set;}
+		
+		public string IPAddress { get; set;}
+		
+		public string MACAddress { get; set;}
+		
+		public uint? DurationInHours { get; set;}
+		
+		public string Notes { get; set;}
+		
+		public string UniqueBanId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class BanMultipleAccountsRequest
+	{
+		
+		
+		public List<BanAccountRequest> accounts { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class BanMultipleAccountsResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	/// <summary>
+	/// A purchasable item from the item catalog
+	/// </summary>
+	public class CatalogItem : IComparable<CatalogItem>
 	{
 		
 		
 		/// <summary>
 		/// internal item name
 		/// </summary>
-		
 		public string ItemId { get; set;}
 		
 		/// <summary>
 		/// class name to which item belongs
 		/// </summary>
-		
 		public string ItemClass { get; set;}
 		
 		/// <summary>
 		/// catalog item we are working against
 		/// </summary>
-		
 		public string CatalogVersion { get; set;}
 		
 		/// <summary>
 		/// displayable item name
 		/// </summary>
-		
 		public string DisplayName { get; set;}
 		
 		/// <summary>
 		/// text description of item
 		/// </summary>
-		
 		public string Description { get; set;}
 		
 		/// <summary>
 		/// Price of this object in virtual currencies
 		/// </summary>
-		
 		public Dictionary<string,uint> VirtualCurrencyPrices { get; set;}
 		
 		/// <summary>
 		/// Price of this object in real money currencies
 		/// </summary>
-		
 		public Dictionary<string,uint> RealCurrencyPrices { get; set;}
 		
 		/// <summary>
 		/// if this object was dropped, when it was dropped (optional)
 		/// </summary>
-		
 		public DateTime? ReleaseDate { get; set;}
 		
 		/// <summary>
 		/// date this object will no longer be viable (optional)
 		/// </summary>
-		
 		public DateTime? ExpirationDate { get; set;}
 		
 		/// <summary>
 		/// is this a free object?
 		/// </summary>
-		
 		public bool? IsFree { get; set;}
 		
 		/// <summary>
 		/// can we buy this object (might be only gettable by being dropped by a monster)
 		/// </summary>
-		
 		public bool? NotForSale { get; set;}
 		
 		/// <summary>
 		/// can we pass this object to someone else?
 		/// </summary>
-		
 		public bool? NotForTrade { get; set;}
 		
 		/// <summary>
 		/// List of item tags
 		/// </summary>
-		
+		[Unordered]
 		public List<string> Tags { get; set;}
 		
 		/// <summary>
 		/// Game specific custom data field (could be json, xml, etc)
 		/// </summary>
-		
 		public string CustomData { get; set;}
 		
 		/// <summary>
 		/// array of unique item Id's that, if the player already has, will automatically place this item in a players inventory
 		/// </summary>
-		
+		[Unordered]
 		public List<string> GrantedIfPlayerHas { get; set;}
 		
 		/// <summary>
 		/// If set, makes this item consumable and sets consumable properties
 		/// </summary>
-		
 		public CatalogItemConsumableInfo Consumable { get; set;}
 		
 		/// <summary>
 		/// If set, makes this item a container and sets container properties
 		/// </summary>
-		
 		public CatalogItemContainerInfo Container { get; set;}
 		
 		/// <summary>
 		/// If set, makes this item a bundle and sets bundle properties
 		/// </summary>
-		
 		public CatalogItemBundleInfo Bundle { get; set;}
+		
+		
+		public int CompareTo(CatalogItem other)
+        {
+            if (other == null || other.ItemId == null) return 1;
+            if (ItemId == null) return -1;
+            return ItemId.CompareTo(other.ItemId);
+        }
 		
 	}
 	
@@ -219,20 +251,20 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of Unique item id's that this item will grant you once you have this item in your inventory
 		/// </summary>
-		
+		[Unordered]
 		public List<string> BundledItems { get; set;}
 		
 		/// <summary>
 		/// array of result table id's that this item will reference and randomly create items from
 		/// </summary>
-		
+		[Unordered]
 		public List<string> BundledResultTables { get; set;}
 		
 		/// <summary>
 		/// Virtual currencies contained in this item
 		/// </summary>
-		
 		public Dictionary<string,uint> BundledVirtualCurrencies { get; set;}
+		
 		
 	}
 	
@@ -245,20 +277,18 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// number of times this object can be used
 		/// </summary>
-		
 		public uint UsageCount { get; set;}
 		
 		/// <summary>
 		/// duration of how long this item is viable after player aqquires it (in seconds) (optional)
 		/// </summary>
-		
 		public uint? UsagePeriod { get; set;}
 		
 		/// <summary>
 		/// All items that have the same value in this string get their expiration dates added together.
 		/// </summary>
-		
 		public string UsagePeriodGroup { get; set;}
+		
 		
 	}
 	
@@ -271,26 +301,25 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique item id that, if in posession, the object unlocks and provides the player with content items
 		/// </summary>
-		
 		public string KeyItemId { get; set;}
 		
 		/// <summary>
 		/// array of Unique item id's that this item will grant you once you have opened it
 		/// </summary>
-		
+		[Unordered]
 		public List<string> ItemContents { get; set;}
 		
 		/// <summary>
 		/// array of result table id's that this item will reference and randomly create items from
 		/// </summary>
-		
+		[Unordered]
 		public List<string> ResultTableContents { get; set;}
 		
 		/// <summary>
 		/// Virtual currencies contained in this item
 		/// </summary>
-		
 		public Dictionary<string,uint> VirtualCurrencyContents { get; set;}
+		
 		
 	}
 	
@@ -316,26 +345,23 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// specific game mode type
 		/// </summary>
-		
 		public string Gamemode { get; set;}
 		
 		/// <summary>
 		/// minimum user count required for this Game Server Instance to continue (usually 1)
 		/// </summary>
-		
 		public uint MinPlayerCount { get; set;}
 		
 		/// <summary>
 		/// maximum user count a specific Game Server Instance can support
 		/// </summary>
-		
 		public uint MaxPlayerCount { get; set;}
 		
 		/// <summary>
 		/// performance cost of a Game Server Instance on a given server TODO what are the values expected?
 		/// </summary>
-		
 		public float PerfCostPerGame { get; set;}
+		
 		
 	}
 	
@@ -348,8 +374,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// which catalog is being requested
 		/// </summary>
-		
 		public string CatalogVersion { get; set;}
+		
 		
 	}
 	
@@ -362,8 +388,9 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of items which can be purchased
 		/// </summary>
-		
+		[Unordered(SortProperty="ItemId")]
 		public List<CatalogItem> Catalog { get; set;}
+		
 		
 	}
 	
@@ -376,8 +403,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier of the lobby for which info is being requested
 		/// </summary>
-		
 		public string LobbyId { get; set;}
+		
 		
 	}
 	
@@ -390,37 +417,31 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier of the lobby 
 		/// </summary>
-		
 		public string LobbyId { get; set;}
 		
 		/// <summary>
 		/// unique identifier of the Game Server Instance for this lobby
 		/// </summary>
-		
 		public string TitleId { get; set;}
 		
 		/// <summary>
 		/// time when the Game Server Instance was created
 		/// </summary>
-		
 		public DateTime? StartTime { get; set;}
 		
 		/// <summary>
 		/// time when Game Server Instance is currently scheduled to end
 		/// </summary>
-		
 		public DateTime? EndTime { get; set;}
 		
 		/// <summary>
 		/// game mode for this Game Server Instance
 		/// </summary>
-		
 		public string Mode { get; set;}
 		
 		/// <summary>
 		/// version identifier of the game server executable binary being run
 		/// </summary>
-		
 		public string BuildVersion { get; set;}
 		
 		/// <summary>
@@ -432,32 +453,29 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of unique PlayFab identifiers for users currently connected to this Game Server Instance
 		/// </summary>
-		
+		[Unordered]
 		public List<string> Players { get; set;}
 		
 		/// <summary>
 		/// IP address for this Game Server Instance
 		/// </summary>
-		
 		public string ServerAddress { get; set;}
 		
 		/// <summary>
 		/// communication port for this Game Server Instance
 		/// </summary>
-		
 		public uint ServerPort { get; set;}
 		
 		/// <summary>
 		/// output log from this Game Server Instance
 		/// </summary>
-		
 		public string StdOutLog { get; set;}
 		
 		/// <summary>
 		/// error log from this Game Server Instance
 		/// </summary>
-		
 		public string StdErrLog { get; set;}
+		
 		
 	}
 	
@@ -470,8 +488,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// previously uploaded build version for which game modes are being requested
 		/// </summary>
-		
 		public string BuildVersion { get; set;}
+		
 		
 	}
 	
@@ -484,8 +502,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of game modes available for the specified build
 		/// </summary>
-		
 		public List<GameModeInfo> GameModes { get; set;}
+		
 		
 	}
 	
@@ -493,6 +511,7 @@ namespace PlayFab.AdminModels
 	
 	public class GetRandomResultTablesRequest
 	{
+		
 		
 		
 	}
@@ -506,8 +525,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of random result tables currently available
 		/// </summary>
-		
 		public Dictionary<string,RandomResultTable> Tables { get; set;}
+		
 		
 	}
 	
@@ -520,52 +539,58 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier of the previously uploaded build executable for which information is being requested
 		/// </summary>
-		
 		public string BuildId { get; set;}
+		
 		
 	}
 	
 	
 	
-	public class GetServerBuildInfoResult
+	/// <summary>
+	/// Information about particular server build
+	/// </summary>
+	public class GetServerBuildInfoResult : IComparable<GetServerBuildInfoResult>
 	{
 		
 		
 		/// <summary>
 		/// unique identifier for this build executable
 		/// </summary>
-		
 		public string BuildId { get; set;}
 		
 		/// <summary>
 		/// is this build currently allowed to be used
 		/// </summary>
-		
 		public bool Active { get; set;}
 		
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		
+		[Unordered]
 		public List<string> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
-		
 		public string Comment { get; set;}
 		
 		/// <summary>
 		/// time this build was last modified (or uploaded, if this build has never been modified)
 		/// </summary>
-		
 		public DateTime? Timestamp { get; set;}
 		
 		/// <summary>
 		/// the unique identifier for the title, found in the URL on the PlayFab developer site as "TitleId=[n]" when a title has been selected
 		/// </summary>
-		
 		public string TitleId { get; set;}
+		
+		
+		public int CompareTo(GetServerBuildInfoResult other)
+        {
+            if (other == null || other.BuildId == null) return 1;
+            if (BuildId == null) return -1;
+            return BuildId.CompareTo(other.BuildId);
+        }
 		
 	}
 	
@@ -578,8 +603,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		///  array of keys to get back data from the TitleData data blob, set by the admin tools
 		/// </summary>
-		
 		public List<string> Keys { get; set;}
+		
 		
 	}
 	
@@ -592,8 +617,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// a dictionary object of key / value pairs
 		/// </summary>
-		
 		public Dictionary<string,string> Data { get; set;}
+		
 		
 	}
 	
@@ -606,14 +631,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// PlayFab unique identifier of the user whose inventory is being requested
 		/// </summary>
-		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// used to limit results to only those from a specific catalog version
 		/// </summary>
-		
 		public string CatalogVersion { get; set;}
+		
 		
 	}
 	
@@ -626,70 +650,73 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of inventory items belonging to the user
 		/// </summary>
-		
+		[Unordered(SortProperty="ItemInstanceId")]
 		public List<ItemInstance> Inventory { get; set;}
+		
 		
 	}
 	
 	
 	
-	public class ItemInstance
+	/// <summary>
+	/// A unique item instance in a player's inventory
+	/// </summary>
+	public class ItemInstance : IComparable<ItemInstance>
 	{
 		
 		
 		/// <summary>
 		/// Object name
 		/// </summary>
-		
 		public string ItemId { get; set;}
 		
 		/// <summary>
 		/// unique item id
 		/// </summary>
-		
 		public string ItemInstanceId { get; set;}
 		
 		/// <summary>
 		/// class name object belongs to
 		/// </summary>
-		
 		public string ItemClass { get; set;}
 		
 		/// <summary>
 		/// date purchased
 		/// </summary>
-		
 		public string PurchaseDate { get; set;}
 		
 		/// <summary>
 		/// date object will expire (optional)
 		/// </summary>
-		
 		public string Expiration { get; set;}
 		
 		/// <summary>
 		/// number of remaining uses (optional)
 		/// </summary>
-		
 		public uint? RemainingUses { get; set;}
 		
 		/// <summary>
 		/// game specific comment
 		/// </summary>
-		
 		public string Annotation { get; set;}
 		
 		/// <summary>
 		/// catalog version that this item is part of
 		/// </summary>
-		
 		public string CatalogVersion { get; set;}
 		
 		/// <summary>
 		/// Unique ID of the parent of where this item may have come from (e.g. if it comes from a crate or coupon)
 		/// </summary>
-		
 		public string BundleParent { get; set;}
+		
+		
+		public int CompareTo(ItemInstance other)
+        {
+            if (other == null || other.ItemInstanceId == null) return 1;
+            if (ItemInstanceId == null) return -1;
+            return ItemInstanceId.CompareTo(other.ItemInstanceId);
+        }
 		
 	}
 	
@@ -697,6 +724,7 @@ namespace PlayFab.AdminModels
 	
 	public class ListBuildsRequest
 	{
+		
 		
 		
 	}
@@ -710,8 +738,9 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of uploaded builds
 		/// </summary>
-		
+		[Unordered(SortProperty="BuildId")]
 		public List<GetServerBuildInfoResult> Builds { get; set;}
+		
 		
 	}
 	
@@ -724,26 +753,23 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// PlayFab unique identifier to match against existing user accounts
 		/// </summary>
-		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// email address to match against existing user accounts
 		/// </summary>
-		
 		public string Email { get; set;}
 		
 		/// <summary>
 		/// PlayFab username to match against existing user accounts
 		/// </summary>
-		
 		public string Username { get; set;}
 		
 		/// <summary>
 		/// title-specific username to match against existing user accounts
 		/// </summary>
-		
 		public string TitleDisplayName { get; set;}
+		
 		
 	}
 	
@@ -756,8 +782,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// user info for the user matching the request
 		/// </summary>
-		
 		public UserAccountInfo UserInfo { get; set;}
+		
 		
 	}
 	
@@ -770,14 +796,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// previously uploaded build version for which game modes are being specified
 		/// </summary>
-		
 		public string BuildVersion { get; set;}
 		
 		/// <summary>
 		/// array of game modes (Note: this will replace all game modes for the indicated build version)
 		/// </summary>
-		
 		public List<GameModeInfo> GameModes { get; set;}
+		
 		
 	}
 	
@@ -785,6 +810,7 @@ namespace PlayFab.AdminModels
 	
 	public class ModifyMatchmakerGameModesResult
 	{
+		
 		
 		
 	}
@@ -798,32 +824,28 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier of the previously uploaded build executable to be updated
 		/// </summary>
-		
 		public string BuildId { get; set;}
 		
 		/// <summary>
 		/// new timestamp
 		/// </summary>
-		
 		public DateTime? Timestamp { get; set;}
 		
 		/// <summary>
 		/// is this build currently allowed to be used
 		/// </summary>
-		
 		public bool? Active { get; set;}
 		
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		
 		public List<string> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
-		
 		public string Comment { get; set;}
+		
 		
 	}
 	
@@ -836,38 +858,33 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier for this build executable
 		/// </summary>
-		
 		public string BuildId { get; set;}
 		
 		/// <summary>
 		/// is this build currently allowed to be used
 		/// </summary>
-		
 		public bool Active { get; set;}
 		
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		
 		public List<string> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
-		
 		public string Comment { get; set;}
 		
 		/// <summary>
 		/// time this build was last modified (or uploaded, if this build has never been modified)
 		/// </summary>
-		
 		public DateTime? Timestamp { get; set;}
 		
 		/// <summary>
 		/// the unique identifier for the title, found in the URL on the PlayFab developer site as "TitleId=[n]" when a title has been selected
 		/// </summary>
-		
 		public string TitleId { get; set;}
+		
 		
 	}
 	
@@ -880,14 +897,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// Unique name for this drop table
 		/// </summary>
-		
 		public string TableId { get; set;}
 		
 		/// <summary>
 		/// Child nodes that indicate what kind of drop table item this actually is.
 		/// </summary>
-		
 		public List<ResultTableNode> Nodes { get; set;}
+		
 		
 	}
 	
@@ -916,8 +932,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier of the previously uploaded build executable to be removed
 		/// </summary>
-		
 		public string BuildId { get; set;}
+		
 		
 	}
 	
@@ -930,8 +946,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique identifier of the previously uploaded build executable to be removed
 		/// </summary>
-		
 		public string BuildId { get; set;}
+		
 		
 	}
 	
@@ -950,14 +966,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// Either an ItemId, or the TableId of another random result table
 		/// </summary>
-		
 		public string ResultItem { get; set;}
 		
 		/// <summary>
 		/// How likely this is to be rolled - larger numbers add more weight
 		/// </summary>
-		
 		public int Weight { get; set;}
+		
 		
 	}
 	
@@ -978,14 +993,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique PlayFab identifier for the user account which is to have the specified item removed
 		/// </summary>
-		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// unique PlayFab identifier for the item instance to be removed
 		/// </summary>
-		
 		public string ItemInstanceId { get; set;}
+		
 		
 	}
 	
@@ -993,6 +1007,7 @@ namespace PlayFab.AdminModels
 	
 	public class RevokeInventoryResult
 	{
+		
 		
 		
 	}
@@ -1006,8 +1021,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// email address to match against existing user accounts
 		/// </summary>
-		
 		public string Email { get; set;}
+		
 		
 	}
 	
@@ -1015,6 +1030,7 @@ namespace PlayFab.AdminModels
 	
 	public class SendAccountRecoveryEmailResult
 	{
+		
 		
 		
 	}
@@ -1028,14 +1044,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name
 		/// </summary>
-		
 		public string Key { get; set;}
 		
 		/// <summary>
 		/// new value to set
 		/// </summary>
-		
 		public string Value { get; set;}
+		
 		
 	}
 	
@@ -1048,14 +1063,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// key that was set
 		/// </summary>
-		
 		public string Key { get; set;}
 		
 		/// <summary>
 		/// new value set for key
 		/// </summary>
-		
 		public string Value { get; set;}
+		
 		
 	}
 	
@@ -1079,14 +1093,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// which catalog is being updated
 		/// </summary>
-		
 		public string CatalogVersion { get; set;}
 		
 		/// <summary>
 		/// array of catalog items to be submitted
 		/// </summary>
-		
 		public List<CatalogItem> CatalogItems { get; set;}
+		
 		
 	}
 	
@@ -1094,6 +1107,7 @@ namespace PlayFab.AdminModels
 	
 	public class UpdateCatalogItemsResult
 	{
+		
 		
 		
 	}
@@ -1107,14 +1121,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of random result tables to make available (Note: specifying an existing TableId will result in overwriting that table, while any others will be added to the available set)
 		/// </summary>
-		
 		public List<RandomResultTable> Tables { get; set;}
 		
 		/// <summary>
 		/// unique identifier of the title for which the tables are to be added
 		/// </summary>
-		
 		public string TitleId { get; set;}
+		
 		
 	}
 	
@@ -1122,6 +1135,7 @@ namespace PlayFab.AdminModels
 	
 	public class UpdateRandomResultTablesResult
 	{
+		
 		
 		
 	}
@@ -1135,14 +1149,13 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// PlayFab unique identifier of the user whose title specific display name is to be changed
 		/// </summary>
-		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// new title display name for the user - must be between 3 and 25 characters
 		/// </summary>
-		
 		public string DisplayName { get; set;}
+		
 		
 	}
 	
@@ -1155,8 +1168,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// current title display name for the user (this will be the original display name if the rename attempt failed)
 		/// </summary>
-		
 		public string DisplayName { get; set;}
+		
 		
 	}
 	
@@ -1169,50 +1182,43 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// unique id for account
 		/// </summary>
-		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// time / date account was created
 		/// </summary>
-		
 		public DateTime? Created { get; set;}
 		
 		/// <summary>
 		/// account name
 		/// </summary>
-		
 		public string Username { get; set;}
 		
 		/// <summary>
 		/// specific game title information
 		/// </summary>
-		
 		public UserTitleInfo TitleInfo { get; set;}
 		
 		/// <summary>
 		/// user's private account into
 		/// </summary>
-		
 		public UserPrivateAccountInfo PrivateInfo { get; set;}
 		
 		/// <summary>
 		/// facebook information (if linked)
 		/// </summary>
-		
 		public UserFacebookInfo FacebookInfo { get; set;}
 		
 		/// <summary>
 		/// steam information (if linked)
 		/// </summary>
-		
 		public UserSteamInfo SteamInfo { get; set;}
 		
 		/// <summary>
 		/// gamecenter information (if linked)
 		/// </summary>
-		
 		public UserGameCenterInfo GameCenterInfo { get; set;}
+		
 		
 	}
 	
@@ -1225,20 +1231,18 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// facebook id
 		/// </summary>
-		
 		public string FacebookId { get; set;}
 		
 		/// <summary>
 		/// facebook username
 		/// </summary>
-		
 		public string FacebookUsername { get; set;}
 		
 		/// <summary>
 		/// facebook display name
 		/// </summary>
-		
 		public string FacebookDisplayname { get; set;}
+		
 		
 	}
 	
@@ -1251,8 +1255,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// gamecenter id if account is linked
 		/// </summary>
-		
 		public string GameCenterId { get; set;}
+		
 		
 	}
 	
@@ -1282,8 +1286,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// Email address
 		/// </summary>
-		
 		public string Email { get; set;}
+		
 		
 	}
 	
@@ -1296,13 +1300,11 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// steam id
 		/// </summary>
-		
 		public string SteamId { get; set;}
 		
 		/// <summary>
 		/// if account is linked to steam, this is the country that steam reports the player being in
 		/// </summary>
-		
 		public string SteamCountry { get; set;}
 		
 		/// <summary>
@@ -1317,6 +1319,7 @@ namespace PlayFab.AdminModels
 		[JsonConverter(typeof(StringEnumConverter))]
 		public TitleActivationStatus? SteamActivationStatus { get; set;}
 		
+		
 	}
 	
 	
@@ -1328,7 +1331,6 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// displayable game name
 		/// </summary>
-		
 		public string DisplayName { get; set;}
 		
 		/// <summary>
@@ -1340,20 +1342,18 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// When this object was created. Title specific reporting for user creation time should be done against this rather than the User created field since account creation can differ significantly between title registration.
 		/// </summary>
-		
 		public DateTime? Created { get; set;}
 		
 		/// <summary>
 		/// Last time the user logged in to this title
 		/// </summary>
-		
 		public DateTime? LastLogin { get; set;}
 		
 		/// <summary>
 		///  Time the user first logged in. This can be different from when the UTD was created. For example we create a UTD when issuing a beta key. An arbitrary amount of time can pass before the user actually logs in.
 		/// </summary>
-		
 		public DateTime? FirstLogin { get; set;}
+		
 		
 	}
 	
