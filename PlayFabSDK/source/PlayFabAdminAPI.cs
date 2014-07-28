@@ -116,6 +116,230 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Retrieves the title-specific custom data for the user which is readable and writable by the client
+		/// </summary>
+        public static async Task<PlayFabResult<GetUserDataResult>> GetUserDataAsync(GetUserDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the title-specific custom data for the user which cannot be accessed by the client
+		/// </summary>
+        public static async Task<PlayFabResult<GetUserDataResult>> GetUserInternalDataAsync(GetUserDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the title-specific custom data for the user which can only be read by the client
+		/// </summary>
+        public static async Task<PlayFabResult<GetUserDataResult>> GetUserReadOnlyDataAsync(GetUserDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Updates the title-specific custom data for the user which is readable and writable by the client
+		/// </summary>
+        public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserDataAsync(UpdateUserDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UpdateUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Updates the title-specific custom data for the user which cannot be accessed by the client
+		/// </summary>
+        public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserInternalDataAsync(UpdateUserDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UpdateUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Updates the title-specific custom data for the user which can only be read by the client
+		/// </summary>
+        public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserReadOnlyDataAsync(UpdateUserDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UpdateUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Adds a list of virtual currencies to this title
+		/// </summary>
+        public static async Task<PlayFabResult<BlankResult>> AddVirtualCurrencyTypesAsync(AddVirtualCurrencyTypesRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/AddVirtualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<BlankResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<BlankResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			BlankResult result = resultData.data;
+			
+			
+            return new PlayFabResult<BlankResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
 		/// </summary>
         public static async Task<PlayFabResult<GetCatalogItemsResult>> GetCatalogItemsAsync(GetCatalogItemsRequest request)
@@ -206,6 +430,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<GetTitleDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retuns a list of all defined virtual currencies for this title
+		/// </summary>
+        public static async Task<PlayFabResult<ListVirtualCurrencyTypesResult>> ListVirualCurrencyTypesAsync(ListVirtualCurrencyTypesRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ListVirualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ListVirtualCurrencyTypesResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListVirtualCurrencyTypesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ListVirtualCurrencyTypesResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ListVirtualCurrencyTypesResult>
                 {
                     Result = result
                 };
@@ -340,6 +596,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Increments the specified virtual currency by the stated amount
+		/// </summary>
+        public static async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> AddUserVirtualCurrencyAsync(AddUserVirtualCurrencyRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/AddUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ModifyUserVirtualCurrencyResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ModifyUserVirtualCurrencyResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ModifyUserVirtualCurrencyResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves the specified user's current inventory of virtual goods
 		/// </summary>
         public static async Task<PlayFabResult<GetUserInventoryResult>> GetUserInventoryAsync(GetUserInventoryRequest request)
@@ -372,6 +660,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Adds the specified items to the specified user inventories
+		/// </summary>
+        public static async Task<PlayFabResult<GrantItemsToUsersResult>> GrantItemsToUsersAsync(GrantItemsToUsersRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GrantItemsToUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GrantItemsToUsersResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GrantItemsToUsersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GrantItemsToUsersResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GrantItemsToUsersResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Revokes access to an item in a user's inventory
 		/// </summary>
         public static async Task<PlayFabResult<RevokeInventoryResult>> RevokeInventoryItemAsync(RevokeInventoryItemRequest request)
@@ -398,6 +718,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<RevokeInventoryResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Decrements the specified virtual currency by the stated amount
+		/// </summary>
+        public static async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> SubtractUserVirtualCurrencyAsync(SubtractUserVirtualCurrencyRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SubtractUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ModifyUserVirtualCurrencyResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ModifyUserVirtualCurrencyResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ModifyUserVirtualCurrencyResult>
                 {
                     Result = result
                 };

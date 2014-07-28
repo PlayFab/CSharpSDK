@@ -86,45 +86,45 @@ namespace PlayFab.AdminModels
 	
 	
 	
-	public class BanAccountRequest
+	public class AddUserVirtualCurrencyRequest
 	{
 		
 		
-		public string TitleId { get; set;}
-		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose virtual currency balance is to be incremented
+		/// </summary>
 		public string PlayFabId { get; set;}
 		
-		public string BannedByPlayFabId { get; set;}
+		/// <summary>
+		/// name of the virtual currency which is to be incremented
+		/// </summary>
+		public string VirtualCurrency { get; set;}
 		
-		public string Reason { get; set;}
-		
-		public string IPAddress { get; set;}
-		
-		public string MACAddress { get; set;}
-		
-		public uint? DurationInHours { get; set;}
-		
-		public string Notes { get; set;}
-		
-		public string UniqueBanId { get; set;}
+		/// <summary>
+		/// amount to be added to the user balance of the specified virtual currency
+		/// </summary>
+		public int Amount { get; set;}
 		
 		
 	}
 	
 	
 	
-	public class BanMultipleAccountsRequest
+	public class AddVirtualCurrencyTypesRequest
 	{
 		
 		
-		public List<BanAccountRequest> accounts { get; set;}
+		/// <summary>
+		/// List of virtual currency names to add as valid virtual currencies for this title
+		/// </summary>
+		public List<string> VirtualCurrencyIds { get; set;}
 		
 		
 	}
 	
 	
 	
-	public class BanMultipleAccountsResult
+	public class BlankResult
 	{
 		
 		
@@ -624,6 +624,44 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class GetUserDataRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose custom data is being requested
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// specific keys to search for in the custom user data
+		/// </summary>
+		public List<string> Keys { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetUserDataResult
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose custom data is being returned
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// user specific data for this title
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetUserInventoryRequest
 	{
 		
@@ -652,6 +690,97 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
 		public List<ItemInstance> Inventory { get; set;}
+		
+		/// <summary>
+		/// array of virtual currency balance(s) belonging to the user
+		/// </summary>
+		public Dictionary<string,int> VirtualCurrency { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GrantItemsToUsersRequest
+	{
+		
+		
+		/// <summary>
+		/// catalog version from which items are to be granted
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		/// <summary>
+		/// array of items to grant and the users to whom the items are to be granted
+		/// </summary>
+		public List<ItemGrant> ItemGrants { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GrantItemsToUsersResult
+	{
+		
+		
+		/// <summary>
+		/// array of items granted to users
+		/// </summary>
+		public List<ItemGrantResult> ItemGrantResults { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ItemGrant
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user to whom the catalog item is to be granted
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// unique identifier of the catalog item to be granted to the user
+		/// </summary>
+		public string ItemId { get; set;}
+		
+		/// <summary>
+		/// string detailing any additional information concerning this operation
+		/// </summary>
+		public string Annotation { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ItemGrantResult
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user to whom the catalog item is to be granted
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// unique identifier of the catalog item to be granted to the user
+		/// </summary>
+		public string ItemId { get; set;}
+		
+		/// <summary>
+		/// string detailing any additional information concerning this operation
+		/// </summary>
+		public string Annotation { get; set;}
+		
+		/// <summary>
+		/// result of this operation
+		/// </summary>
+		public bool Result { get; set;}
 		
 		
 	}
@@ -740,6 +869,30 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		[Unordered(SortProperty="BuildId")]
 		public List<GetServerBuildInfoResult> Builds { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ListVirtualCurrencyTypesRequest
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class ListVirtualCurrencyTypesResult
+	{
+		
+		
+		/// <summary>
+		/// List of virtual currency names defined for this title
+		/// </summary>
+		[Unordered]
+		public List<string> VirtualCurrencyIds { get; set;}
 		
 		
 	}
@@ -884,6 +1037,25 @@ namespace PlayFab.AdminModels
 		/// the unique identifier for the title, found in the URL on the PlayFab developer site as "TitleId=[n]" when a title has been selected
 		/// </summary>
 		public string TitleId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ModifyUserVirtualCurrencyResult
+	{
+		
+		
+		/// <summary>
+		/// name of the virtual currency which was modified
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// balance of the virtual currency after modification
+		/// </summary>
+		public int Balance { get; set;}
 		
 		
 	}
@@ -1060,15 +1232,29 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// key that was set
-		/// </summary>
-		public string Key { get; set;}
+		
+	}
+	
+	
+	
+	public class SubtractUserVirtualCurrencyRequest
+	{
+		
 		
 		/// <summary>
-		/// new value set for key
+		/// PlayFab unique identifier of the user whose virtual currency balance is to be decremented
 		/// </summary>
-		public string Value { get; set;}
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// name of the virtual currency which is to be decremented
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// amount to be subtracted from the user balance of the specified virtual currency
+		/// </summary>
+		public int Amount { get; set;}
 		
 		
 	}
@@ -1123,17 +1309,40 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public List<RandomResultTable> Tables { get; set;}
 		
-		/// <summary>
-		/// unique identifier of the title for which the tables are to be added
-		/// </summary>
-		public string TitleId { get; set;}
-		
 		
 	}
 	
 	
 	
 	public class UpdateRandomResultTablesResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class UpdateUserDataRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose custom data is being updated
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// data to be written to the user's custom data
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateUserDataResult
 	{
 		
 		

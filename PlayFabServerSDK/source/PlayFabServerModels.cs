@@ -441,6 +441,11 @@ namespace PlayFab.ServerModels
 		[Unordered(SortProperty="ItemInstanceId")]
 		public List<ItemInstance> Inventory { get; set;}
 		
+		/// <summary>
+		/// array of virtual currency balance(s) belonging to the user
+		/// </summary>
+		public Dictionary<string,int> VirtualCurrency { get; set;}
+		
 		
 	}
 	
@@ -730,16 +735,6 @@ namespace PlayFab.ServerModels
 	public class SetTitleDataResult
 	{
 		
-		
-		/// <summary>
-		/// key that was set
-		/// </summary>
-		public string Key { get; set;}
-		
-		/// <summary>
-		/// new value set for key
-		/// </summary>
-		public string Value { get; set;}
 		
 		
 	}
