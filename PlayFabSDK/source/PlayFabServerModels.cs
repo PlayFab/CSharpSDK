@@ -405,7 +405,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// user specific data for this title
 		/// </summary>
-		public Dictionary<string,string> Data { get; set;}
+		public Dictionary<string,UserDataRecord> Data { get; set;}
 		
 		
 	}
@@ -816,7 +816,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// time / date account was created
 		/// </summary>
-		public DateTime? Created { get; set;}
+		public DateTime Created { get; set;}
 		
 		/// <summary>
 		/// account name
@@ -847,6 +847,25 @@ namespace PlayFab.ServerModels
 		/// gamecenter information (if linked)
 		/// </summary>
 		public UserGameCenterInfo GameCenterInfo { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserDataRecord
+	{
+		
+		
+		/// <summary>
+		/// The user-supplied data for this user data key
+		/// </summary>
+		public string Value { get; set;}
+		
+		/// <summary>
+		/// The time this data was last updated
+		/// </summary>
+		public DateTime LastUpdated { get; set;}
 		
 		
 	}
@@ -971,7 +990,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// When this object was created. Title specific reporting for user creation time should be done against this rather than the User created field since account creation can differ significantly between title registration.
 		/// </summary>
-		public DateTime? Created { get; set;}
+		public DateTime Created { get; set;}
 		
 		/// <summary>
 		/// Last time the user logged in to this title

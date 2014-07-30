@@ -341,7 +341,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// date and time of the purchase
 		/// </summary>
-		public DateTime? PurchaseDate { get; set;}
+		public DateTime PurchaseDate { get; set;}
 		
 		/// <summary>
 		/// array of items purchased
@@ -771,7 +771,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// user specific data for this title
 		/// </summary>
-		public Dictionary<string,string> Data { get; set;}
+		public Dictionary<string,UserDataRecord> Data { get; set;}
 		
 		
 	}
@@ -1899,7 +1899,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// date and time when the news items was posted
 		/// </summary>
-		public DateTime? Timestamp { get; set;}
+		public DateTime Timestamp { get; set;}
 		
 		/// <summary>
 		/// title of the news item
@@ -2139,7 +2139,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// time / date account was created
 		/// </summary>
-		public DateTime? Created { get; set;}
+		public DateTime Created { get; set;}
 		
 		/// <summary>
 		/// account name
@@ -2170,6 +2170,25 @@ namespace PlayFab.ClientModels
 		/// gamecenter information (if linked)
 		/// </summary>
 		public UserGameCenterInfo GameCenterInfo { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserDataRecord
+	{
+		
+		
+		/// <summary>
+		/// The user-supplied data for this user data key
+		/// </summary>
+		public string Value { get; set;}
+		
+		/// <summary>
+		/// The time this data was last updated
+		/// </summary>
+		public DateTime LastUpdated { get; set;}
 		
 		
 	}
@@ -2294,7 +2313,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// When this object was created. Title specific reporting for user creation time should be done against this rather than the User created field since account creation can differ significantly between title registration.
 		/// </summary>
-		public DateTime? Created { get; set;}
+		public DateTime Created { get; set;}
 		
 		/// <summary>
 		/// Last time the user logged in to this title
@@ -2337,7 +2356,7 @@ namespace PlayFab.ClientModels
 		
 		public string kind { get; set;}
 		
-		public DateTime? purchaseTime { get; set;}
+		public DateTime purchaseTime { get; set;}
 		
 		public int puchaseState { get; set;}
 		
