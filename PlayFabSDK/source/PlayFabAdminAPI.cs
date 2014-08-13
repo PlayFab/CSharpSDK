@@ -212,6 +212,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Completely removes all statistics of the specified user, for this title
+		/// </summary>
+        public static async Task<PlayFabResult<ResetUserStatisticsResult>> ResetUserStatisticsAsync(ResetUserStatisticsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ResetUserStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ResetUserStatisticsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ResetUserStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ResetUserStatisticsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ResetUserStatisticsResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Updates the title-specific custom data for the user which is readable and writable by the client
 		/// </summary>
         public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserDataAsync(UpdateUserDataRequest request)
@@ -302,6 +334,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Adds a new news item to the title's news feed
+		/// </summary>
+        public static async Task<PlayFabResult<AddNewsResult>> AddNewsAsync(AddNewsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/AddNews", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AddNewsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddNewsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			AddNewsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<AddNewsResult>
                 {
                     Result = result
                 };
@@ -462,6 +526,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<ListVirtualCurrencyTypesResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Removes an existing piece of custom title data
+		/// </summary>
+        public static async Task<PlayFabResult<RemoveTitleDataResult>> RemoveTitleDataAsync(RemoveTitleDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/RemoveTitleData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RemoveTitleDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveTitleDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			RemoveTitleDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<RemoveTitleDataResult>
                 {
                     Result = result
                 };
