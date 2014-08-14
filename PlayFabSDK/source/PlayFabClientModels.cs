@@ -618,6 +618,11 @@ namespace PlayFab.ClientModels
 	{
 		
 		
+		/// <summary>
+		/// PlayFabId of the user to load data for. Optional, defaults to yourself if not set.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
 		
 	}
 	
@@ -829,6 +834,11 @@ namespace PlayFab.ClientModels
 		/// specific keys to search for in the custom user data
 		/// </summary>
 		public List<string> Keys { get; set;}
+		
+		/// <summary>
+		/// PlayFabId of the user to load data for. Optional, defaults to yourself if not set.
+		/// </summary>
+		public string PlayFabId { get; set;}
 		
 		
 	}
@@ -2231,6 +2241,12 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
+		/// <summary>
+		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public UserDataPermission? Permission { get; set;}
+		
 		
 	}
 	
@@ -2322,6 +2338,14 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public enum UserDataPermission
+	{
+		Private,
+		Public
+	}
+	
+	
+	
 	public class UserDataRecord
 	{
 		
@@ -2335,6 +2359,12 @@ namespace PlayFab.ClientModels
 		/// timestamp for when this data was last updated
 		/// </summary>
 		public DateTime LastUpdated { get; set;}
+		
+		/// <summary>
+		/// Permissions on this data key
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public UserDataPermission? Permission { get; set;}
 		
 		
 	}

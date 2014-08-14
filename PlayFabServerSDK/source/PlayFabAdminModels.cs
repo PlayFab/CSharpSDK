@@ -1437,6 +1437,12 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
+		/// <summary>
+		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public UserDataPermission? Permission { get; set;}
+		
 		
 	}
 	
@@ -1533,6 +1539,14 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public enum UserDataPermission
+	{
+		Private,
+		Public
+	}
+	
+	
+	
 	public class UserDataRecord
 	{
 		
@@ -1546,6 +1560,12 @@ namespace PlayFab.AdminModels
 		/// timestamp indicating when this data was last updated
 		/// </summary>
 		public DateTime LastUpdated { get; set;}
+		
+		/// <summary>
+		/// Permissions on this data key
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public UserDataPermission? Permission { get; set;}
 		
 		
 	}
