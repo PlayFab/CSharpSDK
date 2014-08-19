@@ -228,7 +228,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// number of times this object can be used, after which it will be removed from the player inventory
 		/// </summary>
-		public uint UsageCount { get; set;}
+		public uint? UsageCount { get; set;}
 		
 		/// <summary>
 		/// duration in seconds for how long the item will remain in the player inventory - once elapsed, the item will be removed
@@ -947,6 +947,25 @@ namespace PlayFab.ServerModels
 	public class UpdateUserDataResult
 	{
 		
+		
+		
+	}
+	
+	
+	
+	public class UpdateUserInternalDataRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose custom data is being updated
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// data to be written to the user's custom data
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
 		
 		
 	}

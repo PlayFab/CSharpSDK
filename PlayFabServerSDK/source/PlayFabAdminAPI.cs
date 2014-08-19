@@ -278,7 +278,7 @@ namespace PlayFab
 		/// <summary>
 		/// Updates the title-specific custom data for the user which cannot be accessed by the client
 		/// </summary>
-        public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserInternalDataAsync(UpdateUserDataRequest request)
+        public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserInternalDataAsync(UpdateUserInternalDataRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -526,38 +526,6 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<ListVirtualCurrencyTypesResult>
-                {
-                    Result = result
-                };
-        }
-		
-		/// <summary>
-		/// Removes an existing piece of custom title data
-		/// </summary>
-        public static async Task<PlayFabResult<RemoveTitleDataResult>> RemoveTitleDataAsync(RemoveTitleDataRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/RemoveTitleData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<RemoveTitleDataResult>
-                {
-                    Error = error,
-                };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveTitleDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-			
-			RemoveTitleDataResult result = resultData.data;
-			
-			
-            return new PlayFabResult<RemoveTitleDataResult>
                 {
                     Result = result
                 };
