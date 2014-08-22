@@ -333,9 +333,9 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// total number of leaderboard entries to retrieve
+		/// maximum number of entries to retrieve
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
@@ -368,9 +368,9 @@ namespace PlayFab.ServerModels
 		public int StartPosition { get; set;}
 		
 		/// <summary>
-		/// total number of leaderboard entries to retrieve
+		/// maximum number of entries to retrieve
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
@@ -676,12 +676,12 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// timestamp for when this instance was purchased
 		/// </summary>
-		public string PurchaseDate { get; set;}
+		public DateTime? PurchaseDate { get; set;}
 		
 		/// <summary>
 		/// timestamp for when this instance will expire
 		/// </summary>
-		public string Expiration { get; set;}
+		public DateTime? Expiration { get; set;}
 		
 		/// <summary>
 		/// total number of remaining uses, if this is a consumable item

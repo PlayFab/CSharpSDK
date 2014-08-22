@@ -468,7 +468,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Increments the specified virtual currency by the stated amount
+		/// Increments  the user's balance of the specified virtual currency by the stated amount
 		/// </summary>
         public static async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> AddUserVirtualCurrencyAsync(AddUserVirtualCurrencyRequest request)
         {
@@ -564,7 +564,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Decrements the specified virtual currency by the stated amount
+		/// Decrements the user's balance of the specified virtual currency by the stated amount
 		/// </summary>
         public static async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> SubtractUserVirtualCurrencyAsync(SubtractUserVirtualCurrencyRequest request)
         {

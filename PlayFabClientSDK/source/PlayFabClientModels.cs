@@ -51,6 +51,25 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class AddUserVirtualCurrencyRequest
+	{
+		
+		
+		/// <summary>
+		/// name of the virtual currency which is to be incremented
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// amount to be added to the user balance of the specified virtual currency
+		/// </summary>
+		public int Amount { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class AndroidDevicePushNotificationRegistrationRequest
 	{
 		
@@ -711,7 +730,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// maximum number of entries to retrieve
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
@@ -749,7 +768,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// maximum number of entries to retrieve
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
@@ -831,7 +850,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// specific keys to search for in the custom user data
+		/// specific keys to search for in the custom user data. Leave null to get all keys.
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
@@ -936,12 +955,12 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// timestamp for when this instance was purchased
 		/// </summary>
-		public string PurchaseDate { get; set;}
+		public DateTime? PurchaseDate { get; set;}
 		
 		/// <summary>
 		/// timestamp for when this instance will expire
 		/// </summary>
-		public string Expiration { get; set;}
+		public DateTime? Expiration { get; set;}
 		
 		/// <summary>
 		/// total number of remaining uses, if this is a consumable item
@@ -1365,6 +1384,25 @@ namespace PlayFab.ClientModels
 		Complete,
 		Waiting,
 		GameNotFound
+	}
+	
+	
+	
+	public class ModifyUserVirtualCurrencyResult
+	{
+		
+		
+		/// <summary>
+		/// name of the virtual currency which was modified
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// balance of the virtual currency after modification
+		/// </summary>
+		public int Balance { get; set;}
+		
+		
 	}
 	
 	
@@ -2032,6 +2070,25 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class SubtractUserVirtualCurrencyRequest
+	{
+		
+		
+		/// <summary>
+		/// name of the virtual currency which is to be decremented
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// amount to be subtracted from the user balance of the specified virtual currency
+		/// </summary>
+		public int Amount { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum TitleActivationStatus
 	{
 		None,
@@ -2253,6 +2310,29 @@ namespace PlayFab.ClientModels
 	
 	
 	public class UpdateUserDataResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class UpdateUserStatisticsRequest
+	{
+		
+		
+		/// <summary>
+		/// statistics to be updated with the provided values
+		/// </summary>
+		public Dictionary<string,int> UserStatistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateUserStatisticsResult
 	{
 		
 		

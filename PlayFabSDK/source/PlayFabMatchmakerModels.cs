@@ -66,12 +66,12 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// timestamp for when this instance was purchased
 		/// </summary>
-		public string PurchaseDate { get; set;}
+		public DateTime? PurchaseDate { get; set;}
 		
 		/// <summary>
 		/// timestamp for when this instance will expire
 		/// </summary>
-		public string Expiration { get; set;}
+		public DateTime? Expiration { get; set;}
 		
 		/// <summary>
 		/// total number of remaining uses, if this is a consumable item
