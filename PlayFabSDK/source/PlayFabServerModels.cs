@@ -174,7 +174,7 @@ namespace PlayFab.ServerModels
 		public CatalogItemConsumableInfo Consumable { get; set;}
 		
 		/// <summary>
-		/// defines the container properties for the item - containers are items which include contain other items, including random drop tables and virtual currencies, and which require a "key" item to open
+		/// defines the container properties for the item - what items it contains, including random drop tables and virtual currencies, and what item (if any) is required to open it via the UnlockContainerItem API
 		/// </summary>
 		public CatalogItemContainerInfo Container { get; set;}
 		
@@ -245,12 +245,15 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	/// <summary>
+	/// Containers are inventory items that can hold other items defined in the catalog, as well as virtual currency, which is added to the player inventory when the container is unlocked, using the UnlockContainerItem API. The items can be anything defined in the catalog, as well as RandomResultTable objects which will be resolved when the container is unlocked. Containers and their keys should be defined as Consumable (having a limited number of uses) in their catalog defintiions, unless the intent is for the player to be able to re-use them infinitely.
+	/// </summary>
 	public class CatalogItemContainerInfo
 	{
 		
 		
 		/// <summary>
-		/// unique ItemId which is required to unlock the container (items in the container will not be added to the player inventory until it is unlocked)
+		/// ItemId for the catalog item used to unlock the container, if any (if not specified, a call to UnlockContainerItem will open the container, adding the contents to the player inventory and currency balances)
 		/// </summary>
 		public string KeyItemId { get; set;}
 		
@@ -335,7 +338,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// maximum number of entries to retrieve
 		/// </summary>
-		public int? MaxResultsCount { get; set;}
+		public int MaxResultsCount { get; set;}
 		
 		
 	}
@@ -346,6 +349,9 @@ namespace PlayFab.ServerModels
 	{
 		
 		
+		/// <summary>
+		/// ordered list of leaderboard entries
+		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
 		
 		
@@ -370,7 +376,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// maximum number of entries to retrieve
 		/// </summary>
-		public int? MaxResultsCount { get; set;}
+		public int MaxResultsCount { get; set;}
 		
 		
 	}
@@ -381,6 +387,9 @@ namespace PlayFab.ServerModels
 	{
 		
 		
+		/// <summary>
+		/// ordered list of leaderboard entries
+		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
 		
 		
@@ -861,7 +870,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name
+		/// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
 		/// </summary>
 		public string Key { get; set;}
 		
@@ -929,7 +938,7 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// data to be written to the user's custom data
+		/// data to be written to the user's custom data. Keys are trimmed of whitespace. Keys may not begin with a '!' character.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
@@ -1211,6 +1220,11 @@ namespace PlayFab.ServerModels
 		/// timestamp indicating when the user first signed into this game (this can differ from the Created timestamp, as other events, such as issuing a beta key to the user, can associate the title to the user)
 		/// </summary>
 		public DateTime? FirstLogin { get; set;}
+		
+		/// <summary>
+		/// boolean indicating whether or not the user is currently banned for a title
+		/// </summary>
+		public bool? isBanned { get; set;}
 		
 		
 	}

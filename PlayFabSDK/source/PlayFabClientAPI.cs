@@ -321,6 +321,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Retrieves all requested data for a user in one unified request. By default, this API returns all  data for the locally signed-in user. The input parameters may be used to limit the data retrieved any any subset of the available data, as well as retrieve the available data for a different user. Note that certain data, including inventory, virtual currency balances, and personally identifying information, may only be retrieved for the locally signed-in user. In the example below, a request is made for the account details, virtual currency balances, and specified user data for the locally signed-in user.
+		/// </summary>
+        public static async Task<PlayFabResult<GetUserCombinedInfoResult>> GetUserCombinedInfoAsync(GetUserCombinedInfoRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserCombinedInfo", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetUserCombinedInfoResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserCombinedInfoResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetUserCombinedInfoResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetUserCombinedInfoResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Links the Facebook account associated with the provided Facebook access token to the user's PlayFab account
 		/// </summary>
         public static async Task<PlayFabResult<LinkFacebookAccountResult>> LinkFacebookAccountAsync(LinkFacebookAccountRequest request)
@@ -483,7 +515,7 @@ namespace PlayFab
 		/// <summary>
 		/// Unlinks the related Steam account from the user's PlayFab account
 		/// </summary>
-        public static async Task<PlayFabResult<UnlinkSteamAccountResult>> UnlinkSteamAccountAsync(LinkSteamAccountRequest request)
+        public static async Task<PlayFabResult<UnlinkSteamAccountResult>> UnlinkSteamAccountAsync(UnlinkSteamAccountRequest request)
         {
             if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
 
@@ -859,6 +891,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<GetCatalogItemsResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the list of catalog items for sale in a particular virutal store, including that store's pricing.
+		/// </summary>
+        public static async Task<PlayFabResult<GetStoreItemsResult>> GetStoreItemsAsync(GetStoreItemsRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetStoreItems", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetStoreItemsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetStoreItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetStoreItemsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetStoreItemsResult>
                 {
                     Result = result
                 };
@@ -1409,7 +1473,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Validates with the iTunes store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item
+		/// Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item
 		/// </summary>
         public static async Task<PlayFabResult<ValidateIOSReceiptResult>> ValidateIOSReceiptAsync(ValidateIOSReceiptRequest request)
         {
@@ -1633,7 +1697,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Validates with the GooglePlay store that the receipt for an in-app purchase is valid and that it matches the purchased catalog item
+		/// Validates a Google Play purchase and gives the corresponding item to the player.
 		/// </summary>
         public static async Task<PlayFabResult<ValidateGooglePlayPurchaseResult>> ValidateGooglePlayPurchaseAsync(ValidateGooglePlayPurchaseRequest request)
         {
@@ -1691,6 +1755,166 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<LogEventResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Adds new members to the group. Only existing group members can add new members
+		/// </summary>
+        public static async Task<PlayFabResult<AddSharedGroupMembersResult>> AddSharedGroupMembersAsync(AddSharedGroupMembersRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddSharedGroupMembers", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AddSharedGroupMembersResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddSharedGroupMembersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			AddSharedGroupMembersResult result = resultData.data;
+			
+			
+            return new PlayFabResult<AddSharedGroupMembersResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Requests the creation of a shared group object. It will be created with the current user as its only member.
+		/// </summary>
+        public static async Task<PlayFabResult<CreateSharedGroupResult>> CreateSharedGroupAsync(CreateSharedGroupRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/CreateSharedGroup", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<CreateSharedGroupResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<CreateSharedGroupResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			CreateSharedGroupResult result = resultData.data;
+			
+			
+            return new PlayFabResult<CreateSharedGroupResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Gets data in a shared group object. You may load data, the member list, or both at once. Non-members of the group may use this to load group data, including membership, but will not get data keys marked as private.
+		/// </summary>
+        public static async Task<PlayFabResult<GetSharedGroupDataResult>> GetSharedGroupDataAsync(GetSharedGroupDataRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetSharedGroupData", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetSharedGroupDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetSharedGroupDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetSharedGroupDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetSharedGroupDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Removes members from the group. Only existing group members can remove members. Removing all members (including yourself) deletes the group completely.
+		/// </summary>
+        public static async Task<PlayFabResult<RemoveSharedGroupMembersResult>> RemoveSharedGroupMembersAsync(RemoveSharedGroupMembersRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RemoveSharedGroupMembers", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RemoveSharedGroupMembersResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveSharedGroupMembersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			RemoveSharedGroupMembersResult result = resultData.data;
+			
+			
+            return new PlayFabResult<RemoveSharedGroupMembersResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Adds or updates data keys to a shared group object. Data written to the group is readable only by members of the group unless marked public. Only group members can update data.
+		/// </summary>
+        public static async Task<PlayFabResult<UpdateSharedGroupDataResult>> UpdateSharedGroupDataAsync(UpdateSharedGroupDataRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateSharedGroupData", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateSharedGroupDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateSharedGroupDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UpdateSharedGroupDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UpdateSharedGroupDataResult>
                 {
                     Result = result
                 };

@@ -198,9 +198,9 @@ namespace PlayFab.MatchmakerModels
 		public uint GameMode { get; set;}
 		
 		/// <summary>
-		/// IP Address of the external service which should receive status updates for the session
+		/// custom command line argument when starting game server process
 		/// </summary>
-		public string Subscriber { get; set;}
+		public string CustomCommandLineData { get; set;}
 		
 		
 	}
