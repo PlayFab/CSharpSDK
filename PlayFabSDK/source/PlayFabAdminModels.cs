@@ -56,11 +56,6 @@ namespace PlayFab.AdminModels
 		public string BuildId { get; set;}
 		
 		/// <summary>
-		/// is this build currently allowed to be used
-		/// </summary>
-		public bool Active { get; set;}
-		
-		/// <summary>
 		/// is this build intended to run on dedicated ("bare metal") servers
 		/// </summary>
 		public bool DedicatedServerEligible { get; set;}
@@ -68,7 +63,8 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// Server host regions in which this build can be used
 		/// </summary>
-		public List<string> ActiveRegions { get; set;}
+		[JsonConverter(typeof(StringEnumConverter))]
+		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -90,14 +86,10 @@ namespace PlayFab.AdminModels
 		public string BuildId { get; set;}
 		
 		/// <summary>
-		/// is this build currently allowed to be used
-		/// </summary>
-		public bool Active { get; set;}
-		
-		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		public List<string> ActiveRegions { get; set;}
+		[JsonConverter(typeof(StringEnumConverter))]
+		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -156,7 +148,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// List of virtual currency names to add as valid virtual currencies for this title
 		/// </summary>
-		public List<string> VirtualCurrencyIds { get; set;}
+		public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
 		
 		
 	}
@@ -602,15 +594,11 @@ namespace PlayFab.AdminModels
 		public string BuildId { get; set;}
 		
 		/// <summary>
-		/// is this build currently allowed to be used
-		/// </summary>
-		public bool Active { get; set;}
-		
-		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
 		[Unordered]
-		public List<string> ActiveRegions { get; set;}
+		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -632,6 +620,11 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public GameBuildStatus? Status { get; set;}
+		
+		/// <summary>
+		/// error message, if any, about this build
+		/// </summary>
+		public string ErrorMessage { get; set;}
 		
 		
 		public int CompareTo(GetServerBuildInfoResult other)
@@ -678,7 +671,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// which store is being requested
+		/// unqiue identifier for the store which is being requested
 		/// </summary>
 		public string StoreId { get; set;}
 		
@@ -1014,7 +1007,7 @@ namespace PlayFab.AdminModels
 		/// List of virtual currency names defined for this title
 		/// </summary>
 		[Unordered]
-		public List<string> VirtualCurrencyIds { get; set;}
+		public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
 		
 		
 	}
@@ -1107,14 +1100,10 @@ namespace PlayFab.AdminModels
 		public DateTime? Timestamp { get; set;}
 		
 		/// <summary>
-		/// is this build currently allowed to be used
-		/// </summary>
-		public bool? Active { get; set;}
-		
-		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		public List<string> ActiveRegions { get; set;}
+		[JsonConverter(typeof(StringEnumConverter))]
+		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -1136,14 +1125,10 @@ namespace PlayFab.AdminModels
 		public string BuildId { get; set;}
 		
 		/// <summary>
-		/// is this build currently allowed to be used
-		/// </summary>
-		public bool Active { get; set;}
-		
-		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		public List<string> ActiveRegions { get; set;}
+		[JsonConverter(typeof(StringEnumConverter))]
+		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -1219,8 +1204,7 @@ namespace PlayFab.AdminModels
 		APNorthEast,
 		SAEast,
 		Australia,
-		China,
-		UberLan
+		China
 	}
 	
 	
@@ -1439,12 +1423,12 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// ItemId of the item for sale in the store
+		/// unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
 		/// </summary>
 		public string ItemId { get; set;}
 		
 		/// <summary>
-		/// Catalog version of the item. Leave null to always use the most recent version.
+		/// catalog version for this item
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
@@ -1561,12 +1545,12 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// which store is being updated
+		/// unqiue identifier for the store which is to be updated
 		/// </summary>
 		public string StoreId { get; set;}
 		
 		/// <summary>
-		/// array of store items to be submitted
+		/// array of store items - references to catalog items, with specific pricing - to be added
 		/// </summary>
 		public List<StoreItem> Store { get; set;}
 		
@@ -1857,7 +1841,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// name of the game, as it is displayed in-game
+		/// name of the user, as it is displayed in-game
 		/// </summary>
 		public string DisplayName { get; set;}
 		
@@ -1886,6 +1870,45 @@ namespace PlayFab.AdminModels
 		/// boolean indicating whether or not the user is currently banned for a title
 		/// </summary>
 		public bool? isBanned { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class VirtualCurrencyData
+	{
+		
+		
+		/// <summary>
+		/// unique id for this currency type
+		/// </summary>
+		public string CurrencyCode { get; set;}
+		
+		/// <summary>
+		/// friendly name to show in the developer portal, reports, etc.
+		/// </summary>
+		public string DisplayName { get; set;}
+		
+		/// <summary>
+		/// Users receive this amount upon first login to the title. Defaults to 0.
+		/// </summary>
+		public int? InitialDeposit { get; set;}
+		
+		/// <summary>
+		/// Maximum amount of this currency the user can have. Defaults to 0.
+		/// </summary>
+		public int? MaxAmount { get; set;}
+		
+		/// <summary>
+		/// Rate at which the currency accumulates over time, in units per day. Defaults to 0.
+		/// </summary>
+		public int? RechargeRate { get; set;}
+		
+		/// <summary>
+		/// Maximum amount the currency will recharge to. Defaults to 0.
+		/// </summary>
+		public int? RechargeMax { get; set;}
 		
 		
 	}

@@ -1196,7 +1196,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// name of the game, as it is displayed in-game
+		/// name of the user, as it is displayed in-game
 		/// </summary>
 		public string DisplayName { get; set;}
 		

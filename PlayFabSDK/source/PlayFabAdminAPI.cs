@@ -468,7 +468,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Gets all items in the specified virtual store
+		/// Retrieves the set of items defined for the specified store, including all prices defined
 		/// </summary>
         public static async Task<PlayFabResult<GetStoreItemsResult>> GetStoreItemsAsync(GetStoreItemsRequest request)
         {
@@ -534,11 +534,11 @@ namespace PlayFab
 		/// <summary>
 		/// Retuns a list of all defined virtual currencies for this title
 		/// </summary>
-        public static async Task<PlayFabResult<ListVirtualCurrencyTypesResult>> ListVirualCurrencyTypesAsync(ListVirtualCurrencyTypesRequest request)
+        public static async Task<PlayFabResult<ListVirtualCurrencyTypesResult>> ListVirtualCurrencyTypesAsync(ListVirtualCurrencyTypesRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ListVirualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ListVirtualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;

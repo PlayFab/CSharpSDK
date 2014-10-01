@@ -897,7 +897,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Retrieves the list of catalog items for sale in a particular virutal store, including that store's pricing.
+		/// Retrieves the set of items defined for the specified store, including all prices defined
 		/// </summary>
         public static async Task<PlayFabResult<GetStoreItemsResult>> GetStoreItemsAsync(GetStoreItemsRequest request)
         {
@@ -1569,38 +1569,6 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Get statistics about game server mode playlists.
-		/// </summary>
-        public static async Task<PlayFabResult<RegionPlaylistsResult>> GetRegionPlaylistsAsync(RegionPlaylistsRequest request)
-        {
-            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetRegionPlaylists", request, "X-Authorization", AuthKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<RegionPlaylistsResult>
-                {
-                    Error = error,
-                };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RegionPlaylistsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-			
-			RegionPlaylistsResult result = resultData.data;
-			
-			
-            return new PlayFabResult<RegionPlaylistsResult>
-                {
-                    Result = result
-                };
-        }
-		
-		/// <summary>
 		/// Assign the current player to an existing or new game server matching the given parameters and return the connection information.
 		/// </summary>
         public static async Task<PlayFabResult<MatchmakeResult>> MatchmakeAsync(MatchmakeRequest request)
@@ -1761,7 +1729,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Adds new members to the group. Only existing group members can add new members
+		/// Adds users to the set of those able to update both the shared data, as well as the set of users in the group. Only users in the group can add new members.
 		/// </summary>
         public static async Task<PlayFabResult<AddSharedGroupMembersResult>> AddSharedGroupMembersAsync(AddSharedGroupMembersRequest request)
         {
@@ -1793,7 +1761,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Requests the creation of a shared group object. It will be created with the current user as its only member.
+		/// Requests the creation of a shared group object, containing key/value pairs which may be updated by all members of the group. Upon creation, the current user will be the only member of the group.
 		/// </summary>
         public static async Task<PlayFabResult<CreateSharedGroupResult>> CreateSharedGroupAsync(CreateSharedGroupRequest request)
         {
@@ -1825,7 +1793,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Gets data in a shared group object. You may load data, the member list, or both at once. Non-members of the group may use this to load group data, including membership, but will not get data keys marked as private.
+		/// Retrieves data stored in a shared group object, as well as the list of members in the group. Non-members of the group may use this to retrieve group data, including membership, but will not get retrieve data for keys marked as private.
 		/// </summary>
         public static async Task<PlayFabResult<GetSharedGroupDataResult>> GetSharedGroupDataAsync(GetSharedGroupDataRequest request)
         {
@@ -1857,7 +1825,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Removes members from the group. Only existing group members can remove members. Removing all members (including yourself) deletes the group completely.
+		/// Removes users from the set of those able to update the shared data and the set of users in the group. Only users in the group can remove members. If as a result of the call, zero users remain with access, the group and its associated data will be deleted.
 		/// </summary>
         public static async Task<PlayFabResult<RemoveSharedGroupMembersResult>> RemoveSharedGroupMembersAsync(RemoveSharedGroupMembersRequest request)
         {
@@ -1889,7 +1857,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Adds or updates data keys to a shared group object. Data written to the group is readable only by members of the group unless marked public. Only group members can update data.
+		/// Adds, updates, and removes data keys for a shared group object. If the permission is set to Public, all fields updated or added in this call will be readable by users not in the group. By default, data permissions are set to Private. Regardless of the permission setting, only members of the group can update the data.
 		/// </summary>
         public static async Task<PlayFabResult<UpdateSharedGroupDataResult>> UpdateSharedGroupDataAsync(UpdateSharedGroupDataRequest request)
         {

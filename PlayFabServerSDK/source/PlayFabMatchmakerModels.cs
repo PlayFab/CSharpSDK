@@ -171,8 +171,7 @@ namespace PlayFab.MatchmakerModels
 		APNorthEast,
 		SAEast,
 		Australia,
-		China,
-		UberLan
+		China
 	}
 	
 	
