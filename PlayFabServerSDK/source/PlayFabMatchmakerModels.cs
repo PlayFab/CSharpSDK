@@ -76,7 +76,7 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// total number of remaining uses, if this is a consumable item
 		/// </summary>
-		public uint? RemainingUses { get; set;}
+		public int? RemainingUses { get; set;}
 		
 		/// <summary>
 		/// game specific comment associated with this instance when it was added to the user inventory
@@ -163,15 +163,13 @@ namespace PlayFab.MatchmakerModels
 	
 	public enum Region
 	{
-		USWest,
 		USCentral,
 		USEast,
 		EUWest,
-		APSouthEast,
-		APNorthEast,
-		SAEast,
-		Australia,
-		China
+		Singapore,
+		Japan,
+		Brazil,
+		Australia
 	}
 	
 	
@@ -194,12 +192,17 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// game mode for this Game Server Instance
 		/// </summary>
-		public uint GameMode { get; set;}
+		public string GameMode { get; set;}
 		
 		/// <summary>
 		/// custom command line argument when starting game server process
 		/// </summary>
 		public string CustomCommandLineData { get; set;}
+		
+		/// <summary>
+		/// http endpoint URL for receiving game status events, if using an external matchmaker. When the game ends, PlayFab will make a POST request to this URL with the X-SecretKey header set to the value of the game's secret and an application/json body of { "EventName": "game_ended", "GameID": "<gameid>" }
+		/// </summary>
+		public string ExternalMatchmakerEventEndpoint { get; set;}
 		
 		
 	}
@@ -213,33 +216,17 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// unique identifier for the lobby in the new Game Server Instance
 		/// </summary>
-		public string LobbyID { get; set;}
-		
-		/// <summary>
-		/// region with which the server is associated
-		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
-		public Region? Region { get; set;}
-		
-		/// <summary>
-		/// game mode for this Game Server Instance
-		/// </summary>
-		public uint GameMode { get; set;}
-		
-		/// <summary>
-		/// unique identifier of the previously uploaded build executable which is being started
-		/// </summary>
-		public string Build { get; set;}
+		public string GameID { get; set;}
 		
 		/// <summary>
 		/// IP address of the new Game Server Instance
 		/// </summary>
-		public string Address { get; set;}
+		public string ServerHostname { get; set;}
 		
 		/// <summary>
 		/// port number for communication with the Game Server Instance
 		/// </summary>
-		public uint Port { get; set;}
+		public uint ServerPort { get; set;}
 		
 		
 	}
@@ -258,7 +245,7 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// minimum catalog version for which data is requested (filters the results to only contain inventory items which have a catalog version of this or higher)
 		/// </summary>
-		public uint MinCatalogVersion { get; set;}
+		public int MinCatalogVersion { get; set;}
 		
 		
 	}

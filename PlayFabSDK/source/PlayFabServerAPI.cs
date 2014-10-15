@@ -52,6 +52,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Sends an iOS/Android push notification to a specific user, if they they have a device that they have setup for push notifications. If a user has linked both Android and iOS devices, both will be notified.
+		/// </summary>
+        public static async Task<PlayFabResult<SendPushNotificationResult>> SendPushNotificationAsync(SendPushNotificationRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/SendPushNotification", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SendPushNotificationResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SendPushNotificationResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			SendPushNotificationResult result = resultData.data;
+			
+			
+            return new PlayFabResult<SendPushNotificationResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard
 		/// </summary>
         public static async Task<PlayFabResult<GetLeaderboardResult>> GetLeaderboardAsync(GetLeaderboardRequest request)

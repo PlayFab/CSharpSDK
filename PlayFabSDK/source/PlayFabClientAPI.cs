@@ -20,6 +20,38 @@ namespace PlayFab
 		
 		
 		/// <summary>
+		/// Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method.
+		/// </summary>
+        public static async Task<PlayFabResult<AddUsernamePasswordResult>> AddUsernamePasswordAsync(AddUsernamePasswordRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddUsernamePassword", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AddUsernamePasswordResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddUsernamePasswordResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			AddUsernamePasswordResult result = resultData.data;
+			
+			
+            return new PlayFabResult<AddUsernamePasswordResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
 		/// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithAndroidDeviceIDAsync(LoginWithAndroidDeviceIDRequest request)
@@ -635,6 +667,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UpdateUserTitleDisplayNameResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves a list of ranked friends of the current player for the given statistic, starting from the indicated point in the leaderboard
+		/// </summary>
+        public static async Task<PlayFabResult<GetLeaderboardResult>> GetFriendLeaderboardAsync(GetFriendLeaderboardRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetFriendLeaderboard", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetLeaderboardResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetLeaderboardResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetLeaderboardResult>
                 {
                     Result = result
                 };
@@ -1569,7 +1633,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Assign the current player to an existing or new game server matching the given parameters and return the connection information.
+		/// Attempts to locate a game session matching the given parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound. Note that EnableQueue is deprecated at this time.
 		/// </summary>
         public static async Task<PlayFabResult<MatchmakeResult>> MatchmakeAsync(MatchmakeRequest request)
         {
@@ -1793,7 +1857,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Retrieves data stored in a shared group object, as well as the list of members in the group. Non-members of the group may use this to retrieve group data, including membership, but will not get retrieve data for keys marked as private.
+		/// Retrieves data stored in a shared group object, as well as the list of members in the group. Non-members of the group may use this to retrieve group data, including membership, but they will not receive data for keys marked as private.
 		/// </summary>
         public static async Task<PlayFabResult<GetSharedGroupDataResult>> GetSharedGroupDataAsync(GetSharedGroupDataRequest request)
         {

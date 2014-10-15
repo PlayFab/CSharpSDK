@@ -695,7 +695,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// total number of remaining uses, if this is a consumable item
 		/// </summary>
-		public uint? RemainingUses { get; set;}
+		public int? RemainingUses { get; set;}
 		
 		/// <summary>
 		/// game specific comment associated with this instance when it was added to the user inventory
@@ -859,6 +859,34 @@ namespace PlayFab.ServerModels
 		/// user account information for the user validated
 		/// </summary>
 		public UserAccountInfo UserInfo { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SendPushNotificationRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFabId of the recipient of the push notification
+		/// </summary>
+		public string Recipient { get; set;}
+		
+		/// <summary>
+		/// Text of message to send
+		/// </summary>
+		public string Message { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SendPushNotificationResult
+	{
+		
 		
 		
 	}
@@ -1141,7 +1169,8 @@ namespace PlayFab.ServerModels
 		Unknown,
 		IOS,
 		LoadTest,
-		Android
+		Android,
+		PSN
 	}
 	
 	

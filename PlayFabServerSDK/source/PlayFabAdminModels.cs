@@ -56,12 +56,12 @@ namespace PlayFab.AdminModels
 		public string BuildId { get; set;}
 		
 		/// <summary>
-		/// is this build intended to run on dedicated ("bare metal") servers
+		/// appended to the end of the command line when starting game servers
 		/// </summary>
-		public bool DedicatedServerEligible { get; set;}
+		public string AdditionalCommandLineArguments { get; set;}
 		
 		/// <summary>
-		/// Server host regions in which this build can be used
+		/// regions in which this build should be running / available
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public List<Region> ActiveRegions { get; set;}
@@ -70,6 +70,11 @@ namespace PlayFab.AdminModels
 		/// developer comment(s) for this build
 		/// </summary>
 		public string Comment { get; set;}
+		
+		/// <summary>
+		/// maximum number of game server instances that can run on a single host machine
+		/// </summary>
+		public int MaxGamesPerHost { get; set;}
 		
 		
 	}
@@ -90,6 +95,16 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public List<Region> ActiveRegions { get; set;}
+		
+		/// <summary>
+		/// maximum number of game server instances that can run on a single host machine
+		/// </summary>
+		public int MaxGamesPerHost { get; set;}
+		
+		/// <summary>
+		/// appended to the end of the command line when starting game servers
+		/// </summary>
+		public string AdditionalCommandLineArguments { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -402,11 +417,6 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public uint MaxPlayerCount { get; set;}
 		
-		/// <summary>
-		/// performance cost of a Game Server Instance on a given server TODO what are the values expected?
-		/// </summary>
-		public float PerfCostPerGame { get; set;}
-		
 		
 	}
 	
@@ -599,6 +609,11 @@ namespace PlayFab.AdminModels
 		[JsonConverter(typeof(StringEnumConverter))]
 		[Unordered]
 		public List<Region> ActiveRegions { get; set;}
+		
+		/// <summary>
+		/// maximum number of game server instances that can run on a single host machine
+		/// </summary>
+		public int MaxGamesPerHost { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -937,7 +952,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// total number of remaining uses, if this is a consumable item
 		/// </summary>
-		public uint? RemainingUses { get; set;}
+		public int? RemainingUses { get; set;}
 		
 		/// <summary>
 		/// game specific comment associated with this instance when it was added to the user inventory
@@ -1106,6 +1121,16 @@ namespace PlayFab.AdminModels
 		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
+		/// maximum number of game server instances that can run on a single host machine
+		/// </summary>
+		public int MaxGamesPerHost { get; set;}
+		
+		/// <summary>
+		/// appended to the end of the command line when starting game servers
+		/// </summary>
+		public string AdditionalCommandLineArguments { get; set;}
+		
+		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
 		public string Comment { get; set;}
@@ -1129,6 +1154,16 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public List<Region> ActiveRegions { get; set;}
+		
+		/// <summary>
+		/// maximum number of game server instances that can run on a single host machine
+		/// </summary>
+		public int MaxGamesPerHost { get; set;}
+		
+		/// <summary>
+		/// appended to the end of the command line when starting game servers
+		/// </summary>
+		public string AdditionalCommandLineArguments { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -1196,15 +1231,13 @@ namespace PlayFab.AdminModels
 	
 	public enum Region
 	{
-		USWest,
 		USCentral,
 		USEast,
 		EUWest,
-		APSouthEast,
-		APNorthEast,
-		SAEast,
-		Australia,
-		China
+		Singapore,
+		Japan,
+		Brazil,
+		Australia
 	}
 	
 	
@@ -1786,7 +1819,8 @@ namespace PlayFab.AdminModels
 		Unknown,
 		IOS,
 		LoadTest,
-		Android
+		Android,
+		PSN
 	}
 	
 	
@@ -1894,11 +1928,6 @@ namespace PlayFab.AdminModels
 		/// Users receive this amount upon first login to the title. Defaults to 0.
 		/// </summary>
 		public int? InitialDeposit { get; set;}
-		
-		/// <summary>
-		/// Maximum amount of this currency the user can have. Defaults to 0.
-		/// </summary>
-		public int? MaxAmount { get; set;}
 		
 		/// <summary>
 		/// Rate at which the currency accumulates over time, in units per day. Defaults to 0.
