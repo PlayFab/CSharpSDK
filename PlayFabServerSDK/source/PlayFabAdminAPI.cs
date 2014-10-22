@@ -372,7 +372,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Adds a list of virtual currencies to this title
+		/// Adds one or more virtual currencies to the set defined for the title
 		/// </summary>
         public static async Task<PlayFabResult<BlankResult>> AddVirtualCurrencyTypesAsync(AddVirtualCurrencyTypesRequest request)
         {
@@ -532,7 +532,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Retuns a list of all defined virtual currencies for this title
+		/// Retuns the list of all defined virtual currencies for the title
 		/// </summary>
         public static async Task<PlayFabResult<ListVirtualCurrencyTypesResult>> ListVirtualCurrencyTypesAsync(ListVirtualCurrencyTypesRequest request)
         {
@@ -1012,7 +1012,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Adds the game server executable specified to the set of those a client is permitted to request in a call to StartGame
+		/// Adds the game server executable specified (previously uploaded - see GetServerBuildUploadUrl) to the set of those a client is permitted to request in a call to StartGame
 		/// </summary>
         public static async Task<PlayFabResult<AddServerBuildResult>> AddServerBuildAsync(AddServerBuildRequest request)
         {
@@ -1076,7 +1076,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Retrieves the pre-authorized URL for uploading the game server package for a new build
+		/// Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for use - see AddServerBuild)
 		/// </summary>
         public static async Task<PlayFabResult<GetServerBuildUploadURLResult>> GetServerBuildUploadUrlAsync(GetServerBuildUploadURLRequest request)
         {
@@ -1172,7 +1172,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Remove the game server executable specified from the set of those a client is permitted to request in a call to StartGame
+		/// Removes the game server executable specified from the set of those a client is permitted to request in a call to StartGame
 		/// </summary>
         public static async Task<PlayFabResult<RemoveServerBuildResult>> RemoveServerBuildAsync(RemoveServerBuildRequest request)
         {

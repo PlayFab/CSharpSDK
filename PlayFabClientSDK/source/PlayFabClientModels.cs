@@ -1460,6 +1460,30 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class LoginWithGameCenterRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		/// <summary>
+		/// unique Game Center player id
+		/// </summary>
+		public string PlayerId { get; set;}
+		
+		/// <summary>
+		/// automatically create a PlayFab account if one is not currently linked to this Game Center id
+		/// </summary>
+		public bool CreateAccount { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class LoginWithGoogleAccountRequest
 	{
 		
@@ -2853,7 +2877,8 @@ namespace PlayFab.ClientModels
 		IOS,
 		LoadTest,
 		Android,
-		PSN
+		PSN,
+		GameCenter
 	}
 	
 	
