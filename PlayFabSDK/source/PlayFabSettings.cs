@@ -17,6 +17,7 @@ namespace PlayFab
         public static bool UseDevelopmentEnvironment = false;
 		public static string DevelopmentEnvironmentURL = ".playfabsandbox.com";
 		public static string ProductionEnvironmentURL = ".playfabapi.com";
+		public static string LogicServerURL = null;
 		public static string TitleId = null;
 		public static ErrorCallback GlobalErrorHandler  { get; set; }
 		public static string DeveloperSecretKey = null;
@@ -27,6 +28,11 @@ namespace PlayFab
 			if(baseUrl.StartsWith("http"))
 				return baseUrl;
 			return "https://"+TitleId+baseUrl;
+		}
+		
+		public static string GetLogicURL()
+		{
+			return LogicServerURL;
 		}
 	}
 }

@@ -261,31 +261,6 @@ namespace PlayFab.ClientModels
 		public Dictionary<string,uint> RealCurrencyPrices { get; set;}
 		
 		/// <summary>
-		/// the date this item becomes available for purchase
-		/// </summary>
-		public DateTime? ReleaseDate { get; set;}
-		
-		/// <summary>
-		/// the date this item will no longer be available for purchase
-		/// </summary>
-		public DateTime? ExpirationDate { get; set;}
-		
-		/// <summary>
-		/// (deprecated)
-		/// </summary>
-		public bool? IsFree { get; set;}
-		
-		/// <summary>
-		/// can this item be purchased (if not, it can still be granted by a server-based operation, such as a loot drop from a monster)
-		/// </summary>
-		public bool? NotForSale { get; set;}
-		
-		/// <summary>
-		/// can an instance of this item be exchanged between players?
-		/// </summary>
-		public bool? NotForTrade { get; set;}
-		
-		/// <summary>
 		/// list of item tags
 		/// </summary>
 		[Unordered]
@@ -474,6 +449,16 @@ namespace PlayFab.ClientModels
 	{
 		
 		
+		/// <summary>
+		/// unique instance identifier of the item with uses consumed
+		/// </summary>
+		public string ItemInstanceId { get; set;}
+		
+		/// <summary>
+		/// number of uses remaining on the item
+		/// </summary>
+		public int RemainingUses { get; set;}
+		
 		
 	}
 	
@@ -564,10 +549,24 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public int GameCount { get; set;}
 		
+		
+	}
+	
+	
+	
+	public class FacebookPlayFabIdPair
+	{
+		
+		
 		/// <summary>
-		/// indicates there are servers for which there was no response
+		/// unique Facebook identifier for a user
 		/// </summary>
-		public bool? IncompleteResult { get; set;}
+		public string FacebookId { get; set;}
+		
+		/// <summary>
+		/// unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Facebook identifier
+		/// </summary>
+		public string PlayFabId { get; set;}
 		
 		
 	}
@@ -651,12 +650,12 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// maximum players this server can support
 		/// </summary>
-		public int MaxPlayers { get; set;}
+		public int? MaxPlayers { get; set;}
 		
 		/// <summary>
 		/// array of strings of current player names on this server (note that these are PlayFab usernames, as opposed to title display names)
 		/// </summary>
-		public List<string> PlayerUsernames { get; set;}
+		public List<string> PlayerUserIds { get; set;}
 		
 		/// <summary>
 		/// duration in seconds this server has been running
@@ -880,6 +879,67 @@ namespace PlayFab.ClientModels
 		/// ordered listing of users and their positions in the requested leaderboard
 		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetLogicServerUrlRequest
+	{
+		
+		
+		/// <summary>
+		/// Server version to use. The most recent production version will be returned if this is left null
+		/// </summary>
+		public int? Version { get; set;}
+		
+		/// <summary>
+		/// If true, run against the latest test revision of server logic. Defaults to false if left null
+		/// </summary>
+		public bool? Testing { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetLogicServerUrlResult
+	{
+		
+		
+		/// <summary>
+		/// Url of the custom server logic server for this title
+		/// </summary>
+		public string Url { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromFacebookIDsRequest
+	{
+		
+		
+		/// <summary>
+		/// array of unique Facebook identifiers for which the title needs to get PlayFab identifiers
+		/// </summary>
+		public List<string> FacebookIDs { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromFacebookIDsResult
+	{
+		
+		
+		/// <summary>
+		/// mapping of Facebook identifiers to PlayFab identifiers
+		/// </summary>
+		public List<FacebookPlayFabIdPair> Data { get; set;}
 		
 		
 	}
@@ -1332,7 +1392,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// unique identifier from Steam for the user
+		/// authentication token for the user, returned as a byte array from Steam, and converted to a string (for example, the byte 0x08 should become "08")
 		/// </summary>
 		public string SteamTicket { get; set;}
 		
@@ -1429,7 +1489,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// automatically create a PlayFab account if one is not currently linked to this iOS device
 		/// </summary>
-		public bool CreateAccount { get; set;}
+		public bool? CreateAccount { get; set;}
 		
 		
 	}
@@ -1453,7 +1513,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// automatically create a PlayFab account if one is not currently linked to this Facebook account
 		/// </summary>
-		public bool CreateAccount { get; set;}
+		public bool? CreateAccount { get; set;}
 		
 		
 	}
@@ -1477,7 +1537,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// automatically create a PlayFab account if one is not currently linked to this Game Center id
 		/// </summary>
-		public bool CreateAccount { get; set;}
+		public bool? CreateAccount { get; set;}
 		
 		
 	}
@@ -1497,6 +1557,11 @@ namespace PlayFab.ClientModels
 		/// unique token from Google Play for the user
 		/// </summary>
 		public string AccessToken { get; set;}
+		
+		/// <summary>
+		/// automatically create a PlayFab account if one is not currently linked to this Google account
+		/// </summary>
+		public bool? CreateAccount { get; set;}
 		
 		
 	}
@@ -1530,7 +1595,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// automatically create a PlayFab account if one is not currently linked to this iOS device
 		/// </summary>
-		public bool CreateAccount { get; set;}
+		public bool? CreateAccount { get; set;}
 		
 		
 	}
@@ -1571,14 +1636,14 @@ namespace PlayFab.ClientModels
 		public string TitleId { get; set;}
 		
 		/// <summary>
-		/// unique identifier from Steam for the user
+		/// authentication token for the user, returned as a byte array from Steam, and converted to a string (for example, the byte 0x08 should become "08")
 		/// </summary>
 		public string SteamTicket { get; set;}
 		
 		/// <summary>
 		/// automatically create a PlayFab account if one is not currently linked to this Steam account
 		/// </summary>
-		public bool CreateAccount { get; set;}
+		public bool? CreateAccount { get; set;}
 		
 		
 	}
@@ -2172,6 +2237,54 @@ namespace PlayFab.ClientModels
 	public class SendAccountRecoveryEmailResult
 	{
 		
+		
+		
+	}
+	
+	
+	
+	public class ServerActionRequest
+	{
+		
+		
+		/// <summary>
+		/// server action to trigger
+		/// </summary>
+		public string ActionId { get; set;}
+		
+		/// <summary>
+		/// parameters to pass into the action (If you use this, don't use ParamsEncoded)
+		/// </summary>
+		public object Params { get; set;}
+		
+		/// <summary>
+		/// json-encoded parameters to pass into the action (If you use this, don't use Params)
+		/// </summary>
+		public string ParamsEncoded { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ServerActionResult
+	{
+		
+		
+		/// <summary>
+		/// return values from the server action as a dynamic object
+		/// </summary>
+		public object Results { get; set;}
+		
+		/// <summary>
+		/// return values from the server action as a json encoded string
+		/// </summary>
+		public string ResultsEncoded { get; set;}
+		
+		/// <summary>
+		/// any log statements generated during the run of this action
+		/// </summary>
+		public string ActionLog { get; set;}
 		
 		
 	}

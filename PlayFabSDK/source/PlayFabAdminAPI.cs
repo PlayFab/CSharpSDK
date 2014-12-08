@@ -52,6 +52,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Resets all title-specific information about a particular account, including user data, virtual currency balances, inventory, purchase history, and statistics
+		/// </summary>
+        public static async Task<PlayFabResult<BlankResult>> ResetUsersAsync(ResetUsersRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ResetUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<BlankResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<BlankResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			BlankResult result = resultData.data;
+			
+			
+            return new PlayFabResult<BlankResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Forces an email to be sent to the registered email address for the specified account, with a link allowing the user to change the password
 		/// </summary>
         public static async Task<PlayFabResult<SendAccountRecoveryEmailResult>> SendAccountRecoveryEmailAsync(SendAccountRecoveryEmailRequest request)
@@ -212,7 +244,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Completely removes all statistics of the specified user, for this title
+		/// Completely removes all statistics for the specified user, for the current game
 		/// </summary>
         public static async Task<PlayFabResult<ResetUserStatisticsResult>> ResetUserStatisticsAsync(ResetUserStatisticsRequest request)
         {

@@ -20,38 +20,6 @@ namespace PlayFab
 		
 		
 		/// <summary>
-		/// Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method.
-		/// </summary>
-        public static async Task<PlayFabResult<AddUsernamePasswordResult>> AddUsernamePasswordAsync(AddUsernamePasswordRequest request)
-        {
-            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddUsernamePassword", request, "X-Authorization", AuthKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<AddUsernamePasswordResult>
-                {
-                    Error = error,
-                };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddUsernamePasswordResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-			
-			AddUsernamePasswordResult result = resultData.data;
-			
-			
-            return new PlayFabResult<AddUsernamePasswordResult>
-                {
-                    Result = result
-                };
-        }
-		
-		/// <summary>
 		/// Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
 		/// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithAndroidDeviceIDAsync(LoginWithAndroidDeviceIDRequest request)
@@ -120,7 +88,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Signs the user in using an iOS GameCenter player Id, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+		/// Signs the user in using an iOS Game Center player identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
 		/// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithGameCenterAsync(LoginWithGameCenterRequest request)
         {
@@ -324,18 +292,19 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to change the password
+		/// Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method.
 		/// </summary>
-        public static async Task<PlayFabResult<SendAccountRecoveryEmailResult>> SendAccountRecoveryEmailAsync(SendAccountRecoveryEmailRequest request)
+        public static async Task<PlayFabResult<AddUsernamePasswordResult>> AddUsernamePasswordAsync(AddUsernamePasswordRequest request)
         {
-            
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/SendAccountRecoveryEmail", request, null, null);
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddUsernamePassword", request, "X-Authorization", AuthKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
                 if (PlayFabSettings.GlobalErrorHandler != null)
                     PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<SendAccountRecoveryEmailResult>
+                return new PlayFabResult<AddUsernamePasswordResult>
                 {
                     Error = error,
                 };
@@ -343,12 +312,12 @@ namespace PlayFab
             string resultRawJson = (string)httpResult;
 
             var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SendAccountRecoveryEmailResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddUsernamePasswordResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 			
-			SendAccountRecoveryEmailResult result = resultData.data;
+			AddUsernamePasswordResult result = resultData.data;
 			
 			
-            return new PlayFabResult<SendAccountRecoveryEmailResult>
+            return new PlayFabResult<AddUsernamePasswordResult>
                 {
                     Result = result
                 };
@@ -381,6 +350,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<GetAccountInfoResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers.
+		/// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromFacebookIDsResult>> GetPlayFabIDsFromFacebookIDsAsync(GetPlayFabIDsFromFacebookIDsRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromFacebookIDs", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromFacebookIDsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromFacebookIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPlayFabIDsFromFacebookIDsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPlayFabIDsFromFacebookIDsResult>
                 {
                     Result = result
                 };
@@ -509,6 +510,37 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<LinkSteamAccountResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to change the password
+		/// </summary>
+        public static async Task<PlayFabResult<SendAccountRecoveryEmailResult>> SendAccountRecoveryEmailAsync(SendAccountRecoveryEmailRequest request)
+        {
+            
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/SendAccountRecoveryEmail", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SendAccountRecoveryEmailResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SendAccountRecoveryEmailResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			SendAccountRecoveryEmailResult result = resultData.data;
+			
+			
+            return new PlayFabResult<SendAccountRecoveryEmailResult>
                 {
                     Result = result
                 };
@@ -1981,6 +2013,71 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UpdateSharedGroupDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Gets the title-specific url for game logic servers. Must be called before making any calls to server-side logic.
+		/// </summary>
+        public static async Task<PlayFabResult<GetLogicServerUrlResult>> GetLogicServerUrlAsync(GetLogicServerUrlRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLogicServerUrl", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetLogicServerUrlResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLogicServerUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetLogicServerUrlResult result = resultData.data;
+			PlayFabSettings.LogicServerURL = result.Url;
+
+			
+            return new PlayFabResult<GetLogicServerUrlResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Triggers a particular server action
+		/// </summary>
+        public static async Task<PlayFabResult<ServerActionResult>> ServerActionAsync(ServerActionRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetLogicURL() + "/Client/ServerAction", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ServerActionResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ServerActionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ServerActionResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ServerActionResult>
                 {
                     Result = result
                 };

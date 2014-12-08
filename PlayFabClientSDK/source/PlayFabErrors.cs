@@ -105,7 +105,15 @@ namespace PlayFab
 		InvalidPSNAuthCode = 1092,
 		InvalidItemId = 1093,
 		PushNotEnabledForAccount = 1094,
-		PushServiceError = 1095
+		PushServiceError = 1095,
+		ReceiptDoesNotContainInAppItems = 1096,
+		ReceiptContainsMultipleInAppItems = 1097,
+		InvalidBundleID = 1098,
+		JavascriptException = 1099,
+		InvalidSessionTicket = 1100,
+		UnableToConnectToDatabase = 1101,
+		InternalServerError = 1110,
+		DatabaseThroughputExceeded = 1111
 	}
 	
 	public class PlayFabError

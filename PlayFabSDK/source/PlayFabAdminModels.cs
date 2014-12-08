@@ -58,7 +58,12 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
 		/// </summary>
-		public string AdditionalCommandLineArguments { get; set;}
+		public string CommandLineTemplate { get; set;}
+		
+		/// <summary>
+		/// path to the game server executable. Defaults to gameserver.exe
+		/// </summary>
+		public string ExecutablePath { get; set;}
 		
 		/// <summary>
 		/// server host regions in which this build should be running and available
@@ -104,7 +109,12 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
 		/// </summary>
-		public string AdditionalCommandLineArguments { get; set;}
+		public string CommandLineTemplate { get; set;}
+		
+		/// <summary>
+		/// path to the game server executable. Defaults to gameserver.exe
+		/// </summary>
+		public string ExecutablePath { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -220,31 +230,6 @@ namespace PlayFab.AdminModels
 		/// override prices for this item for specific currencies
 		/// </summary>
 		public Dictionary<string,uint> RealCurrencyPrices { get; set;}
-		
-		/// <summary>
-		/// the date this item becomes available for purchase
-		/// </summary>
-		public DateTime? ReleaseDate { get; set;}
-		
-		/// <summary>
-		/// the date this item will no longer be available for purchase
-		/// </summary>
-		public DateTime? ExpirationDate { get; set;}
-		
-		/// <summary>
-		/// (deprecated)
-		/// </summary>
-		public bool? IsFree { get; set;}
-		
-		/// <summary>
-		/// can this item be purchased (if not, it can still be granted by a server-based operation, such as a loot drop from a monster)
-		/// </summary>
-		public bool? NotForSale { get; set;}
-		
-		/// <summary>
-		/// can an instance of this item be exchanged between players?
-		/// </summary>
-		public bool? NotForTrade { get; set;}
 		
 		/// <summary>
 		/// list of item tags
@@ -1128,7 +1113,12 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
 		/// </summary>
-		public string AdditionalCommandLineArguments { get; set;}
+		public string CommandLineTemplate { get; set;}
+		
+		/// <summary>
+		/// path to the game server executable. Defaults to gameserver.exe
+		/// </summary>
+		public string ExecutablePath { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -1163,7 +1153,12 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
 		/// </summary>
-		public string AdditionalCommandLineArguments { get; set;}
+		public string CommandLineTemplate { get; set;}
+		
+		/// <summary>
+		/// path to the game server executable. Defaults to gameserver.exe
+		/// </summary>
+		public string ExecutablePath { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -1259,6 +1254,20 @@ namespace PlayFab.AdminModels
 	public class RemoveServerBuildResult
 	{
 		
+		
+		
+	}
+	
+	
+	
+	public class ResetUsersRequest
+	{
+		
+		
+		/// <summary>
+		/// Array of users to reset
+		/// </summary>
+		public List<UserCredentials> Users { get; set;}
 		
 		
 	}
@@ -1405,7 +1414,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// name of the application sending the messsage (application names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, hyphens, and periods, and must be between 1 and 256 characters long)
+		/// name of the application sending the message (application names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, hyphens, and periods, and must be between 1 and 256 characters long)
 		/// </summary>
 		public string Name { get; set;}
 		
@@ -1425,7 +1434,7 @@ namespace PlayFab.AdminModels
 		public string Credential { get; set;}
 		
 		/// <summary>
-		/// replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if notifactions have already setup for this platform.
+		/// replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if notifications have already setup for this platform.
 		/// </summary>
 		public bool OverwriteOldARN { get; set;}
 		
@@ -1736,6 +1745,25 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class UserCredentials
+	{
+		
+		
+		/// <summary>
+		/// Username of user to reset
+		/// </summary>
+		public string Username { get; set;}
+		
+		/// <summary>
+		/// Password of user to reset
+		/// </summary>
+		public string Password { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum UserDataPermission
 	{
 		Private,
@@ -1926,7 +1954,7 @@ namespace PlayFab.AdminModels
 		public string DisplayName { get; set;}
 		
 		/// <summary>
-		/// amount to automaticalyl grant users upon first login to the tilte
+		/// amount to automatically grant users upon first login to the tilte
 		/// </summary>
 		public int? InitialDeposit { get; set;}
 		

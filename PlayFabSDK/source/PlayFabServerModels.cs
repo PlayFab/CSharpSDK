@@ -8,6 +8,34 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class AddSharedGroupMembersRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the shared group
+		/// </summary>
+		public string SharedGroupId { get; set;}
+		
+		/// <summary>
+		/// list of PlayFabId identifiers of users to add as members of the shared group
+		/// </summary>
+		public List<string> PlayFabIds { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class AddSharedGroupMembersResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class AddUserVirtualCurrencyRequest
 	{
 		
@@ -26,6 +54,34 @@ namespace PlayFab.ServerModels
 		/// amount to be added to the user balance of the specified virtual currency
 		/// </summary>
 		public int Amount { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class AuthenticateSessionTicketRequest
+	{
+		
+		
+		/// <summary>
+		/// Session ticket as issued by a PlayFab client login API
+		/// </summary>
+		public string SessionTicket { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class AuthenticateSessionTicketResult
+	{
+		
+		
+		/// <summary>
+		/// account info for the user whose session ticket was supplied
+		/// </summary>
+		public UserAccountInfo UserInfo { get; set;}
 		
 		
 	}
@@ -125,31 +181,6 @@ namespace PlayFab.ServerModels
 		/// override prices for this item for specific currencies
 		/// </summary>
 		public Dictionary<string,uint> RealCurrencyPrices { get; set;}
-		
-		/// <summary>
-		/// the date this item becomes available for purchase
-		/// </summary>
-		public DateTime? ReleaseDate { get; set;}
-		
-		/// <summary>
-		/// the date this item will no longer be available for purchase
-		/// </summary>
-		public DateTime? ExpirationDate { get; set;}
-		
-		/// <summary>
-		/// (deprecated)
-		/// </summary>
-		public bool? IsFree { get; set;}
-		
-		/// <summary>
-		/// can this item be purchased (if not, it can still be granted by a server-based operation, such as a loot drop from a monster)
-		/// </summary>
-		public bool? NotForSale { get; set;}
-		
-		/// <summary>
-		/// can an instance of this item be exchanged between players?
-		/// </summary>
-		public bool? NotForTrade { get; set;}
 		
 		/// <summary>
 		/// list of item tags
@@ -279,6 +310,34 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class CreateSharedGroupRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the shared group (a random identifier will be assigned, if one is not specified)
+		/// </summary>
+		public string SharedGroupId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class CreateSharedGroupResult
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the shared group
+		/// </summary>
+		public string SharedGroupId { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum Currency
 	{
 		USD,
@@ -288,6 +347,29 @@ namespace PlayFab.ServerModels
 		BRL,
 		CIS,
 		CAD
+	}
+	
+	
+	
+	public class DeleteSharedGroupRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the shared group
+		/// </summary>
+		public string SharedGroupId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class EmptyResult
+	{
+		
+		
+		
 	}
 	
 	
@@ -397,6 +479,49 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class GetSharedGroupDataRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the shared group
+		/// </summary>
+		public string SharedGroupId { get; set;}
+		
+		/// <summary>
+		/// specific keys to retrieve from the shared group (if not specified, all keys will be returned, while an empty array indicates that no keys should be returned)
+		/// </summary>
+		public List<string> Keys { get; set;}
+		
+		/// <summary>
+		/// if true, return the list of all members of the shared group
+		/// </summary>
+		public bool? GetMembers { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetSharedGroupDataResult
+	{
+		
+		
+		/// <summary>
+		/// data for the requested keys
+		/// </summary>
+		public Dictionary<string,SharedGroupDataRecord> Data { get; set;}
+		
+		/// <summary>
+		/// list of PlayFabId identifiers for the members of this group, if requested
+		/// </summary>
+		public List<string> Members { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetTitleDataRequest
 	{
 		
@@ -444,7 +569,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose information was requested
+		/// account info for the user whose information was requested
 		/// </summary>
 		public UserAccountInfo UserInfo { get; set;}
 		
@@ -552,6 +677,49 @@ namespace PlayFab.ServerModels
 		/// user statistics for the requested user
 		/// </summary>
 		public Dictionary<string,int> UserStatistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GrantItemsToUserRequest
+	{
+		
+		
+		/// <summary>
+		/// catalog version from which items are to be granted
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user to whom the catalog items are to be granted
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// string detailing any additional information concerning this operation
+		/// </summary>
+		public string Annotation { get; set;}
+		
+		/// <summary>
+		/// array of itemIds to grant to the user
+		/// </summary>
+		public List<string> ItemIds { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GrantItemsToUserResult
+	{
+		
+		
+		/// <summary>
+		/// array of items granted to users
+		/// </summary>
+		public List<ItemGrantResult> ItemGrantResults { get; set;}
 		
 		
 	}
@@ -724,6 +892,49 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class ModifyItemUsesRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose item is being modified
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// unique instance identifier of the item to be modified
+		/// </summary>
+		public string ItemInstanceId { get; set;}
+		
+		/// <summary>
+		/// number of uses to add to the item. Can be negative to remove uses.
+		/// </summary>
+		public int UsesToAdd { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ModifyItemUsesResult
+	{
+		
+		
+		/// <summary>
+		/// unique instance identifier of the item with uses consumed
+		/// </summary>
+		public string ItemInstanceId { get; set;}
+		
+		/// <summary>
+		/// number of uses remaining on the item
+		/// </summary>
+		public int RemainingUses { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class ModifyUserVirtualCurrencyResult
 	{
 		
@@ -748,9 +959,9 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier of the Game Server Instance the user is leaving
+		/// unique identifier of the Game Instance the user is leaving
 		/// </summary>
-		public string ServerId { get; set;}
+		public string LobbyId { get; set;}
 		
 		/// <summary>
 		/// PlayFab unique identifier of the user that is leaving the Game Server Instance
@@ -834,7 +1045,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// unique identifier of the Game Server Instance that is asking for validation of the authorization ticket
 		/// </summary>
-		public string ServerId { get; set;}
+		public string LobbyId { get; set;}
 		
 		
 	}
@@ -859,6 +1070,34 @@ namespace PlayFab.ServerModels
 		/// user account information for the user validated
 		/// </summary>
 		public UserAccountInfo UserInfo { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class RemoveSharedGroupMembersRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the shared group
+		/// </summary>
+		public string SharedGroupId { get; set;}
+		
+		/// <summary>
+		/// list of PlayFabId identifiers of users to remove from the shared group
+		/// </summary>
+		public List<string> PlayFabIds { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class RemoveSharedGroupMembersResult
+	{
+		
 		
 		
 	}
@@ -921,6 +1160,36 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class SharedGroupDataRecord
+	{
+		
+		
+		/// <summary>
+		/// data stored for the specified group data key
+		/// </summary>
+		public string Value { get; set;}
+		
+		/// <summary>
+		/// PlayFabId of the user to last update this value
+		/// </summary>
+		public string LastUpdatedBy { get; set;}
+		
+		/// <summary>
+		/// timestamp for when this data was last updated
+		/// </summary>
+		public DateTime LastUpdated { get; set;}
+		
+		/// <summary>
+		/// indicates whether this data can be read by all users (public) or only members of the group (private)
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public UserDataPermission? Permission { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class SubtractUserVirtualCurrencyRequest
 	{
 		
@@ -952,6 +1221,40 @@ namespace PlayFab.ServerModels
 		PendingSteam,
 		ActivatedSteam,
 		RevokedSteam
+	}
+	
+	
+	
+	public class UpdateSharedGroupDataRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the shared group
+		/// </summary>
+		public string SharedGroupId { get; set;}
+		
+		/// <summary>
+		/// key value pairs to be stored in the shared group - note that keys will be trimmed of whitespace, must not begin with a '!' character, and that null values will result in the removal of the key from the data set
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
+		
+		/// <summary>
+		/// permission to be applied to all user data keys in this request
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public UserDataPermission? Permission { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateSharedGroupDataResult
+	{
+		
+		
+		
 	}
 	
 	
