@@ -520,11 +520,6 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string BuildVersion { get; set;}
 		
-		/// <summary>
-		/// server state to match against (running, ended, waiting for players etc.)
-		/// </summary>
-		public string IncludeState { get; set;}
-		
 		
 	}
 	
@@ -762,6 +757,39 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetCloudScriptUrlRequest
+	{
+		
+		
+		/// <summary>
+		/// Server version to use. The most recent production version will be returned if this is left null
+		/// </summary>
+		public int? Version { get; set;}
+		
+		/// <summary>
+		/// If true, run against the latest test revision of server logic. Defaults to false if left null
+		/// </summary>
+		public bool? Testing { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCloudScriptUrlResult
+	{
+		
+		
+		/// <summary>
+		/// Url of the Cloud Script logic server for this title
+		/// </summary>
+		public string Url { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetFriendLeaderboardRequest
 	{
 		
@@ -879,39 +907,6 @@ namespace PlayFab.ClientModels
 		/// ordered listing of users and their positions in the requested leaderboard
 		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class GetLogicServerUrlRequest
-	{
-		
-		
-		/// <summary>
-		/// Server version to use. The most recent production version will be returned if this is left null
-		/// </summary>
-		public int? Version { get; set;}
-		
-		/// <summary>
-		/// If true, run against the latest test revision of server logic. Defaults to false if left null
-		/// </summary>
-		public bool? Testing { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class GetLogicServerUrlResult
-	{
-		
-		
-		/// <summary>
-		/// Url of the custom server logic server for this title
-		/// </summary>
-		public string Url { get; set;}
 		
 		
 	}
@@ -1705,11 +1700,6 @@ namespace PlayFab.ClientModels
 		public int? ServerPort { get; set;}
 		
 		/// <summary>
-		/// port number to use for http communications with the server
-		/// </summary>
-		public int? WebSocketPort { get; set;}
-		
-		/// <summary>
 		/// server authorization ticket (used by RedeemCoupon to validate user insertion into the game)
 		/// </summary>
 		public string Ticket { get; set;}
@@ -1729,11 +1719,6 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public MatchmakeStatus? Status { get; set;}
-		
-		/// <summary>
-		/// [deprecated]
-		/// </summary>
-		public List<string> Queue { get; set;}
 		
 		
 	}
@@ -2215,35 +2200,7 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class SendAccountRecoveryEmailRequest
-	{
-		
-		
-		/// <summary>
-		/// user email address, used for account password recovery
-		/// </summary>
-		public string Email { get; set;}
-		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
-		public string TitleId { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class SendAccountRecoveryEmailResult
-	{
-		
-		
-		
-	}
-	
-	
-	
-	public class ServerActionRequest
+	public class RunCloudScriptRequest
 	{
 		
 		
@@ -2267,7 +2224,7 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class ServerActionResult
+	public class RunCloudScriptResult
 	{
 		
 		
@@ -2285,6 +2242,34 @@ namespace PlayFab.ClientModels
 		/// any log statements generated during the run of this action
 		/// </summary>
 		public string ActionLog { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SendAccountRecoveryEmailRequest
+	{
+		
+		
+		/// <summary>
+		/// user email address, used for account password recovery
+		/// </summary>
+		public string Email { get; set;}
+		
+		/// <summary>
+		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SendAccountRecoveryEmailResult
+	{
+		
 		
 		
 	}

@@ -436,6 +436,46 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class GetDataReportRequest
+	{
+		
+		
+		/// <summary>
+		/// Report name
+		/// </summary>
+		public string ReportName { get; set;}
+		
+		/// <summary>
+		/// Reporting year (UTC)
+		/// </summary>
+		public int Year { get; set;}
+		
+		/// <summary>
+		/// Reporting month (UTC)
+		/// </summary>
+		public int Month { get; set;}
+		
+		/// <summary>
+		/// Reporting year (UTC)
+		/// </summary>
+		public int Day { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetDataReportResult
+	{
+		
+		
+		public string DownloadUrl { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetMatchmakerGameInfoRequest
 	{
 		

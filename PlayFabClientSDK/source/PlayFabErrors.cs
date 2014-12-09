@@ -113,7 +113,9 @@ namespace PlayFab
 		InvalidSessionTicket = 1100,
 		UnableToConnectToDatabase = 1101,
 		InternalServerError = 1110,
-		DatabaseThroughputExceeded = 1111
+		InvalidReportDate = 1111,
+		ReportNotAvailable = 1112,
+		DatabaseThroughputExceeded = 1113
 	}
 	
 	public class PlayFabError

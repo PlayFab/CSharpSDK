@@ -2019,19 +2019,19 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Gets the title-specific url for game logic servers. Must be called before making any calls to server-side logic.
+		/// Gets the title-specific url for Cloud Script servers. Must be called before making any calls to RunCloudScript.
 		/// </summary>
-        public static async Task<PlayFabResult<GetLogicServerUrlResult>> GetLogicServerUrlAsync(GetLogicServerUrlRequest request)
+        public static async Task<PlayFabResult<GetCloudScriptUrlResult>> GetCloudScriptUrlAsync(GetCloudScriptUrlRequest request)
         {
             if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLogicServerUrl", request, "X-Authorization", AuthKey);
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCloudScriptUrl", request, "X-Authorization", AuthKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
                 if (PlayFabSettings.GlobalErrorHandler != null)
                     PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetLogicServerUrlResult>
+                return new PlayFabResult<GetCloudScriptUrlResult>
                 {
                     Error = error,
                 };
@@ -2039,13 +2039,13 @@ namespace PlayFab
             string resultRawJson = (string)httpResult;
 
             var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLogicServerUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCloudScriptUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 			
-			GetLogicServerUrlResult result = resultData.data;
+			GetCloudScriptUrlResult result = resultData.data;
 			PlayFabSettings.LogicServerURL = result.Url;
 
 			
-            return new PlayFabResult<GetLogicServerUrlResult>
+            return new PlayFabResult<GetCloudScriptUrlResult>
                 {
                     Result = result
                 };
@@ -2054,17 +2054,17 @@ namespace PlayFab
 		/// <summary>
 		/// Triggers a particular server action
 		/// </summary>
-        public static async Task<PlayFabResult<ServerActionResult>> ServerActionAsync(ServerActionRequest request)
+        public static async Task<PlayFabResult<RunCloudScriptResult>> RunCloudScriptAsync(RunCloudScriptRequest request)
         {
             if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetLogicURL() + "/Client/ServerAction", request, "X-Authorization", AuthKey);
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetLogicURL() + "/Client/RunCloudScript", request, "X-Authorization", AuthKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
                 if (PlayFabSettings.GlobalErrorHandler != null)
                     PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ServerActionResult>
+                return new PlayFabResult<RunCloudScriptResult>
                 {
                     Error = error,
                 };
@@ -2072,12 +2072,12 @@ namespace PlayFab
             string resultRawJson = (string)httpResult;
 
             var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ServerActionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RunCloudScriptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 			
-			ServerActionResult result = resultData.data;
+			RunCloudScriptResult result = resultData.data;
 			
 			
-            return new PlayFabResult<ServerActionResult>
+            return new PlayFabResult<RunCloudScriptResult>
                 {
                     Result = result
                 };

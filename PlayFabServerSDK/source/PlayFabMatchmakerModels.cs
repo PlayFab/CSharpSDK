@@ -112,7 +112,7 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// unique identifier of the Game Server Instance the user is joining
 		/// </summary>
-		public string ServerId { get; set;}
+		public string LobbyId { get; set;}
 		
 		/// <summary>
 		/// PlayFab unique identifier for the user joining
@@ -140,7 +140,7 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// unique identifier of the Game Server Instance the user is leaving
 		/// </summary>
-		public string ServerId { get; set;}
+		public string LobbyId { get; set;}
 		
 		/// <summary>
 		/// PlayFab unique identifier for the user leaving
