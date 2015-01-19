@@ -115,7 +115,16 @@ namespace PlayFab
 		InternalServerError = 1110,
 		InvalidReportDate = 1111,
 		ReportNotAvailable = 1112,
-		DatabaseThroughputExceeded = 1113
+		DatabaseThroughputExceeded = 1113,
+		InvalidLobbyId = 1114,
+		InvalidGameTicket = 1115,
+		ExpiredGameTicket = 1116,
+		GameTicketDoesNotMatchLobby = 1117,
+		LinkedDeviceAlreadyClaimed = 1118,
+		DeviceAlreadyLinked = 1119,
+		DeviceNotLinked = 1120,
+		PartialFailure = 1121,
+		PublisherNotSet = 1122
 	}
 	
 	public class PlayFabError

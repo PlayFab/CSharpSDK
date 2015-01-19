@@ -420,6 +420,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Links the Android device identifier to the user's PlayFab account
+		/// </summary>
+        public static async Task<PlayFabResult<LinkAndroidDeviceIDResult>> LinkAndroidDeviceIDAsync(LinkAndroidDeviceIDRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkAndroidDeviceID", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkAndroidDeviceIDResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkAndroidDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			LinkAndroidDeviceIDResult result = resultData.data;
+			
+			
+            return new PlayFabResult<LinkAndroidDeviceIDResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Links the Facebook account associated with the provided Facebook access token to the user's PlayFab account
 		/// </summary>
         public static async Task<PlayFabResult<LinkFacebookAccountResult>> LinkFacebookAccountAsync(LinkFacebookAccountRequest request)
@@ -478,6 +510,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<LinkGameCenterAccountResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Links the vendor-specific iOS device identifier to the user's PlayFab account
+		/// </summary>
+        public static async Task<PlayFabResult<LinkIOSDeviceIDResult>> LinkIOSDeviceIDAsync(LinkIOSDeviceIDRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkIOSDeviceID", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkIOSDeviceIDResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkIOSDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			LinkIOSDeviceIDResult result = resultData.data;
+			
+			
+            return new PlayFabResult<LinkIOSDeviceIDResult>
                 {
                     Result = result
                 };
@@ -547,6 +611,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Unlinks the related Android device identifier from the user's PlayFab account
+		/// </summary>
+        public static async Task<PlayFabResult<UnlinkAndroidDeviceIDResult>> UnlinkAndroidDeviceIDAsync(UnlinkAndroidDeviceIDRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkAndroidDeviceID", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkAndroidDeviceIDResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkAndroidDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UnlinkAndroidDeviceIDResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UnlinkAndroidDeviceIDResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Unlinks the related Facebook account from the user's PlayFab account
 		/// </summary>
         public static async Task<PlayFabResult<UnlinkFacebookAccountResult>> UnlinkFacebookAccountAsync(UnlinkFacebookAccountRequest request)
@@ -605,6 +701,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UnlinkGameCenterAccountResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Unlinks the related iOS device identifier from the user's PlayFab account
+		/// </summary>
+        public static async Task<PlayFabResult<UnlinkIOSDeviceIDResult>> UnlinkIOSDeviceIDAsync(UnlinkIOSDeviceIDRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkIOSDeviceID", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkIOSDeviceIDResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkIOSDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UnlinkIOSDeviceIDResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UnlinkIOSDeviceIDResult>
                 {
                     Result = result
                 };
@@ -867,6 +995,70 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Retrieves the publisher-specific custom data for the user which is readable and writable by the client
+		/// </summary>
+        public static async Task<PlayFabResult<GetUserDataResult>> GetUserPublisherDataAsync(GetUserDataRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserPublisherData", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the publisher-specific custom data for the user which can only be read by the client
+		/// </summary>
+        public static async Task<PlayFabResult<GetUserDataResult>> GetUserPublisherReadOnlyDataAsync(GetUserDataRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserPublisherReadOnlyData", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves the title-specific custom data for the user which can only be read by the client
 		/// </summary>
         public static async Task<PlayFabResult<GetUserDataResult>> GetUserReadOnlyDataAsync(GetUserDataRequest request)
@@ -938,6 +1130,38 @@ namespace PlayFab
             if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
 
             object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateUserData", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UpdateUserDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UpdateUserDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Creates and updates the publisher-specific custom data for the user which is readable and writable by the client
+		/// </summary>
+        public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserPublisherDataAsync(UpdateUserDataRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateUserPublisherData", request, "X-Authorization", AuthKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1347,6 +1571,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Report a player
+		/// </summary>
+        public static async Task<PlayFabResult<ReportPlayerClientResult>> ReportPlayerAsync(ReportPlayerClientRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ReportPlayer", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ReportPlayerClientResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ReportPlayerClientResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ReportPlayerClientResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ReportPlayerClientResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Creates an order for a list of items from the title catalog
 		/// </summary>
         public static async Task<PlayFabResult<StartPurchaseResult>> StartPurchaseAsync(StartPurchaseRequest request)
@@ -1603,6 +1859,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Restores all in-app purchases based on the given refresh receipt.
+		/// </summary>
+        public static async Task<PlayFabResult<RestoreIOSPurchasesResult>> RestoreIOSPurchasesAsync(RestoreIOSPurchasesRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RestoreIOSPurchases", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RestoreIOSPurchasesResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RestoreIOSPurchasesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			RestoreIOSPurchasesResult result = resultData.data;
+			
+			
+            return new PlayFabResult<RestoreIOSPurchasesResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item
 		/// </summary>
         public static async Task<PlayFabResult<ValidateIOSReceiptResult>> ValidateIOSReceiptAsync(ValidateIOSReceiptRequest request)
@@ -1639,9 +1927,8 @@ namespace PlayFab
 		/// </summary>
         public static async Task<PlayFabResult<CurrentGamesResult>> GetCurrentGamesAsync(CurrentGamesRequest request)
         {
-            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCurrentGames", request, "X-Authorization", AuthKey);
+            
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCurrentGames", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1831,9 +2118,8 @@ namespace PlayFab
 		/// </summary>
         public static async Task<PlayFabResult<LogEventResult>> LogEventAsync(LogEventRequest request)
         {
-            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LogEvent", request, "X-Authorization", AuthKey);
+            
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LogEvent", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1917,6 +2203,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<CreateSharedGroupResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the key-value store of custom publisher settings
+		/// </summary>
+        public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPublisherData", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPublisherDataResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPublisherDataResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPublisherDataResult>
                 {
                     Result = result
                 };
@@ -2013,6 +2331,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UpdateSharedGroupDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Uses the supplied OAuth code to refresh the internally cached player PSN auth token
+		/// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RefreshPSNAuthToken", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			EmptyResult result = resultData.data;
+			
+			
+            return new PlayFabResult<EmptyResult>
                 {
                     Result = result
                 };

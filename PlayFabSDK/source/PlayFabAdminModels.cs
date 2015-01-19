@@ -126,9 +126,6 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public DateTime Timestamp { get; set;}
 		
-		/// <summary>
-		/// the unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -579,6 +576,34 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class GetPublisherDataRequest
+	{
+		
+		
+		/// <summary>
+		///  array of keys to get back data from the Publisher data blob, set by the admin tools
+		/// </summary>
+		public List<string> Keys { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPublisherDataResult
+	{
+		
+		
+		/// <summary>
+		/// a dictionary object of key / value pairs
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetRandomResultTablesRequest
 	{
 		
@@ -650,9 +675,6 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public DateTime Timestamp { get; set;}
 		
-		/// <summary>
-		/// the unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -1210,9 +1232,6 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public DateTime Timestamp { get; set;}
 		
-		/// <summary>
-		/// the unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -1402,9 +1421,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// email address to match against existing user accounts
-		/// </summary>
 		public string Email { get; set;}
 		
 		
@@ -1413,6 +1429,34 @@ namespace PlayFab.AdminModels
 	
 	
 	public class SendAccountRecoveryEmailResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class SetPublisherDataRequest
+	{
+		
+		
+		/// <summary>
+		/// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
+		/// </summary>
+		public string Key { get; set;}
+		
+		/// <summary>
+		/// new value to set. Set to null to remove a value
+		/// </summary>
+		public string Value { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SetPublisherDataResult
 	{
 		
 		
@@ -1431,7 +1475,7 @@ namespace PlayFab.AdminModels
 		public string Key { get; set;}
 		
 		/// <summary>
-		/// new value to set
+		/// new value to set. Set to null to remove a value
 		/// </summary>
 		public string Value { get; set;}
 		
@@ -1794,9 +1838,6 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public string Username { get; set;}
 		
-		/// <summary>
-		/// Password of user to reset
-		/// </summary>
 		public string Password { get; set;}
 		
 		

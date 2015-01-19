@@ -92,9 +92,6 @@ namespace PlayFab.ServerModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user who is to be granted the specified Steam achievement
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -412,9 +409,6 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public string StatisticName { get; set;}
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user to be centered in the list of entries
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -473,6 +467,34 @@ namespace PlayFab.ServerModels
 		/// ordered list of leaderboard entries
 		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPublisherDataRequest
+	{
+		
+		
+		/// <summary>
+		///  array of keys to get back data from the Publisher data blob, set by the admin tools
+		/// </summary>
+		public List<string> Keys { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPublisherDataResult
+	{
+		
+		
+		/// <summary>
+		/// a dictionary object of key / value pairs
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
 		
 		
 	}
@@ -554,9 +576,6 @@ namespace PlayFab.ServerModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose information is being requested
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		
@@ -963,9 +982,6 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public string LobbyId { get; set;}
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user that is leaving the Game Server Instance
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		
@@ -1038,11 +1054,6 @@ namespace PlayFab.ServerModels
 		public string Ticket { get; set;}
 		
 		/// <summary>
-		/// IP Address of the Game Server Instance that is asking for validation of the authorization ticket
-		/// </summary>
-		public string IP { get; set;}
-		
-		/// <summary>
 		/// unique identifier of the Game Server Instance that is asking for validation of the authorization ticket
 		/// </summary>
 		public string LobbyId { get; set;}
@@ -1104,6 +1115,48 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class ReportPlayerServerRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFabId of the reporting player
+		/// </summary>
+		public string ReporterId { get; set;}
+		
+		/// <summary>
+		/// PlayFabId of the reported player
+		/// </summary>
+		public string ReporteeId { get; set;}
+		
+		/// <summary>
+		/// title player was reported in, optional if report not for specific title
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		/// <summary>
+		/// Optional additional comment by reporting player
+		/// </summary>
+		public string Comment { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ReportPlayerServerResult
+	{
+		
+		
+		public bool Updated { get; set;}
+		
+		public int SubmissionsRemaining { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class SendPushNotificationRequest
 	{
 		
@@ -1132,6 +1185,34 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class SetPublisherDataRequest
+	{
+		
+		
+		/// <summary>
+		/// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
+		/// </summary>
+		public string Key { get; set;}
+		
+		/// <summary>
+		/// new value to set. Set to null to remove a value
+		/// </summary>
+		public string Value { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SetPublisherDataResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class SetTitleDataRequest
 	{
 		
@@ -1142,7 +1223,7 @@ namespace PlayFab.ServerModels
 		public string Key { get; set;}
 		
 		/// <summary>
-		/// new value to set
+		/// new value to set. Set to null to remove a value
 		/// </summary>
 		public string Value { get; set;}
 		

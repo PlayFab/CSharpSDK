@@ -83,19 +83,10 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab username for the account to be signed in (3-24 characters)
-		/// </summary>
 		public string Username { get; set;}
 		
-		/// <summary>
-		/// user email address, used for account password recovery
-		/// </summary>
 		public string Email { get; set;}
 		
-		/// <summary>
-		/// password for the account to be signed in (6-24 characters)
-		/// </summary>
 		public string Password { get; set;}
 		
 		
@@ -549,6 +540,15 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class EmptyResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class FacebookPlayFabIdPair
 	{
 		
@@ -676,9 +676,6 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string BuildVersion { get; set;}
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		
@@ -762,7 +759,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Server version to use. The most recent production version will be returned if this is left null
+		/// Server version to use. Defaults to 1 if left null
 		/// </summary>
 		public int? Version { get; set;}
 		
@@ -935,6 +932,34 @@ namespace PlayFab.ClientModels
 		/// mapping of Facebook identifiers to PlayFab identifiers
 		/// </summary>
 		public List<FacebookPlayFabIdPair> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPublisherDataRequest
+	{
+		
+		
+		/// <summary>
+		///  array of keys to get back data from the Publisher data blob, set by the admin tools
+		/// </summary>
+		public List<string> Keys { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPublisherDataResult
+	{
+		
+		
+		/// <summary>
+		/// a dictionary object of key / value pairs
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
 		
 		
 	}
@@ -1336,6 +1361,39 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class LinkAndroidDeviceIDRequest
+	{
+		
+		
+		/// <summary>
+		/// Android device identifier for the user's device
+		/// </summary>
+		public string AndroidDeviceId { get; set;}
+		
+		/// <summary>
+		/// specific Operating System version for the user's device
+		/// </summary>
+		public string OS { get; set;}
+		
+		/// <summary>
+		/// specific model of the user's device
+		/// </summary>
+		public string AndroidDevice { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class LinkAndroidDeviceIDResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class LinkFacebookAccountRequest
 	{
 		
@@ -1374,6 +1432,39 @@ namespace PlayFab.ClientModels
 	
 	
 	public class LinkGameCenterAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class LinkIOSDeviceIDRequest
+	{
+		
+		
+		/// <summary>
+		/// vendor-specific iOS identifier for the user's device
+		/// </summary>
+		public string DeviceId { get; set;}
+		
+		/// <summary>
+		/// specific Operating System version for the user's device
+		/// </summary>
+		public string OS { get; set;}
+		
+		/// <summary>
+		/// specific model of the user's device
+		/// </summary>
+		public string DeviceModel { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class LinkIOSDeviceIDResult
 	{
 		
 		
@@ -1461,9 +1552,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -1495,9 +1583,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -1519,9 +1604,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -1543,9 +1625,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -1567,9 +1646,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -1601,19 +1677,10 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
-		/// <summary>
-		/// PlayFab username for the account to be signed in (3-24 characters)
-		/// </summary>
 		public string Username { get; set;}
 		
-		/// <summary>
-		/// password for the account to be signed in (6-24 characters)
-		/// </summary>
 		public string Password { get; set;}
 		
 		
@@ -1625,9 +1692,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
@@ -2015,6 +2079,20 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class RefreshPSNAuthTokenRequest
+	{
+		
+		
+		/// <summary>
+		/// Auth code returned by PSN OAuth system
+		/// </summary>
+		public string AuthCode { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum Region
 	{
 		USCentral,
@@ -2075,7 +2153,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Message to display when confirming push notification.
 		/// </summary>
-		public string ConfirmationMessege { get; set;}
+		public string ConfirmationMessage { get; set;}
 		
 		
 	}
@@ -2095,24 +2173,12 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
-		/// <summary>
-		/// PlayFab username for the account to be signed in (3-24 characters)
-		/// </summary>
 		public string Username { get; set;}
 		
-		/// <summary>
-		/// user email address, used for account password recovery
-		/// </summary>
 		public string Email { get; set;}
 		
-		/// <summary>
-		/// password for the account to be signed in (6-24 characters)
-		/// </summary>
 		public string Password { get; set;}
 		
 		/// <summary>
@@ -2200,6 +2266,66 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class ReportPlayerClientRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFabId of the reported player
+		/// </summary>
+		public string ReporteeId { get; set;}
+		
+		/// <summary>
+		/// title player was reported in, optional if report not for specific title
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		/// <summary>
+		/// Optional additional comment by reporting player
+		/// </summary>
+		public string Comment { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ReportPlayerClientResult
+	{
+		
+		
+		public bool Updated { get; set;}
+		
+		public int SubmissionsRemaining { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class RestoreIOSPurchasesRequest
+	{
+		
+		
+		/// <summary>
+		/// base64 encoded receipt data, passed back by the App Store as a result of a successful purchase
+		/// </summary>
+		public string ReceiptData { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class RestoreIOSPurchasesResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class RunCloudScriptRequest
 	{
 		
@@ -2229,6 +2355,21 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
+		/// id of Cloud Script run
+		/// </summary>
+		public string ActionId { get; set;}
+		
+		/// <summary>
+		/// version of Cloud Script run
+		/// </summary>
+		public int Version { get; set;}
+		
+		/// <summary>
+		/// revision of Cloud Script run
+		/// </summary>
+		public int Revision { get; set;}
+		
+		/// <summary>
 		/// return values from the server action as a dynamic object
 		/// </summary>
 		public object Results { get; set;}
@@ -2243,6 +2384,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string ActionLog { get; set;}
 		
+		/// <summary>
+		/// time this script took to run, in seconds
+		/// </summary>
+		public double ExecutionTime { get; set;}
+		
 		
 	}
 	
@@ -2252,14 +2398,8 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// user email address, used for account password recovery
-		/// </summary>
 		public string Email { get; set;}
 		
-		/// <summary>
-		/// unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
 		public string TitleId { get; set;}
 		
 		
@@ -2580,6 +2720,24 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class UnlinkAndroidDeviceIDRequest
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class UnlinkAndroidDeviceIDResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class UnlinkFacebookAccountRequest
 	{
 		
@@ -2608,6 +2766,24 @@ namespace PlayFab.ClientModels
 	
 	
 	public class UnlinkGameCenterAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class UnlinkIOSDeviceIDRequest
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class UnlinkIOSDeviceIDResult
 	{
 		
 		
@@ -2686,9 +2862,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// user email address, used for account password recovery
-		/// </summary>
 		public string Email { get; set;}
 		
 		
@@ -2709,9 +2882,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		/// <summary>
-		/// password for the account to be signed in (6-24 characters)
-		/// </summary>
 		public string Password { get; set;}
 		
 		
