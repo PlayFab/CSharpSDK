@@ -1522,6 +1522,134 @@ namespace PlayFab
                     Result = result
                 };
         }
+		
+		/// <summary>
+		/// Gets the contents and information of a specific Cloud Script revision.
+		/// </summary>
+        public static async Task<PlayFabResult<GetCloudScriptRevisionResult>> GetCloudScriptRevisionAsync(GetCloudScriptRevisionRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetCloudScriptRevision", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetCloudScriptRevisionResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCloudScriptRevisionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetCloudScriptRevisionResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetCloudScriptRevisionResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Lists all the current cloud script versions. For each version, information about the current published and latest revisions is also listed.
+		/// </summary>
+        public static async Task<PlayFabResult<GetCloudScriptVersionsResult>> GetCloudScriptVersionsAsync(GetCloudScriptVersionsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetCloudScriptVersions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetCloudScriptVersionsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCloudScriptVersionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetCloudScriptVersionsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetCloudScriptVersionsResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Sets the currently published revision of a title Cloud Script
+		/// </summary>
+        public static async Task<PlayFabResult<SetPublishedRevisionResult>> SetPublishedRevisionAsync(SetPublishedRevisionRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SetPublishedRevision", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetPublishedRevisionResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetPublishedRevisionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			SetPublishedRevisionResult result = resultData.data;
+			
+			
+            return new PlayFabResult<SetPublishedRevisionResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Creates a new Cloud Script revision and uploads source code to it.
+		/// </summary>
+        public static async Task<PlayFabResult<UpdateCloudScriptResult>> UpdateCloudScriptAsync(UpdateCloudScriptRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateCloudScript", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateCloudScriptResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateCloudScriptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UpdateCloudScriptResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UpdateCloudScriptResult>
+                {
+                    Result = result
+                };
+        }
 
         
     }

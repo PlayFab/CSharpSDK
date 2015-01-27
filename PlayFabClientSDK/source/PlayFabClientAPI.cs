@@ -803,38 +803,6 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Updates the local user's password in PlayFab
-		/// </summary>
-        public static async Task<PlayFabResult<UpdatePasswordResult>> UpdatePasswordAsync(UpdatePasswordRequest request)
-        {
-            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdatePassword", request, "X-Authorization", AuthKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UpdatePasswordResult>
-                {
-                    Error = error,
-                };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdatePasswordResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-			
-			UpdatePasswordResult result = resultData.data;
-			
-			
-            return new PlayFabResult<UpdatePasswordResult>
-                {
-                    Result = result
-                };
-        }
-		
-		/// <summary>
 		/// Updates the title specific display name for the user
 		/// </summary>
         public static async Task<PlayFabResult<UpdateUserTitleDisplayNameResult>> UpdateUserTitleDisplayNameAsync(UpdateUserTitleDisplayNameRequest request)
@@ -1927,8 +1895,9 @@ namespace PlayFab
 		/// </summary>
         public static async Task<PlayFabResult<CurrentGamesResult>> GetCurrentGamesAsync(CurrentGamesRequest request)
         {
-            
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCurrentGames", request, null, null);
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCurrentGames", request, "X-Authorization", AuthKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2369,7 +2338,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Gets the title-specific url for Cloud Script servers. Must be called before making any calls to RunCloudScript.
+		/// Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript.
 		/// </summary>
         public static async Task<PlayFabResult<GetCloudScriptUrlResult>> GetCloudScriptUrlAsync(GetCloudScriptUrlRequest request)
         {
@@ -2402,7 +2371,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Triggers a particular server action
+		/// Triggers a particular server action, passing the provided inputs to the hosted Cloud Script. An action in this context is a handler in the JavaScript.
 		/// </summary>
         public static async Task<PlayFabResult<RunCloudScriptResult>> RunCloudScriptAsync(RunCloudScriptRequest request)
         {

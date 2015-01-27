@@ -759,12 +759,12 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Server version to use. Defaults to 1 if left null
+		/// the Cloud Script Version to use (defaults to 1)
 		/// </summary>
 		public int? Version { get; set;}
 		
 		/// <summary>
-		/// If true, run against the latest test revision of server logic. Defaults to false if left null
+		/// specifies whether the URL returned should be the one for the most recently uploaded Revision of the Cloud Script (true), or the Revision most recently set to live (false - the default)
 		/// </summary>
 		public bool? Testing { get; set;}
 		
@@ -778,7 +778,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Url of the Cloud Script logic server for this title
+		/// URL of the Cloud Script logic server
 		/// </summary>
 		public string Url { get; set;}
 		
@@ -1679,9 +1679,14 @@ namespace PlayFab.ClientModels
 		
 		public string TitleId { get; set;}
 		
+		/// <summary>
+		/// PlayFab username for the account (3-24 characters)
+		/// </summary>
 		public string Username { get; set;}
 		
 		public string Password { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -2186,6 +2191,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string Origination { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -2375,7 +2382,7 @@ namespace PlayFab.ClientModels
 		public object Results { get; set;}
 		
 		/// <summary>
-		/// return values from the server action as a json encoded string
+		/// return values from the server action as a JSON encoded string
 		/// </summary>
 		public string ResultsEncoded { get; set;}
 		
@@ -2878,26 +2885,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class UpdatePasswordRequest
-	{
-		
-		
-		public string Password { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class UpdatePasswordResult
-	{
-		
-		
-		
-	}
-	
-	
-	
 	public class UpdateSharedGroupDataRequest
 	{
 		
@@ -3102,16 +3089,6 @@ namespace PlayFab.ClientModels
 		/// Facebook identifier
 		/// </summary>
 		public string FacebookId { get; set;}
-		
-		/// <summary>
-		/// Facebook username
-		/// </summary>
-		public string FacebookUsername { get; set;}
-		
-		/// <summary>
-		/// Facebook display name
-		/// </summary>
-		public string FacebookDisplayname { get; set;}
 		
 		
 	}

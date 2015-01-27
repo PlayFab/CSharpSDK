@@ -356,6 +356,49 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class CloudScriptFile
+	{
+		
+		
+		/// <summary>
+		/// Name of the javascript file. These names are not used internally by the server, they are only for developer organizational purposes.
+		/// </summary>
+		public string Filename { get; set;}
+		
+		/// <summary>
+		/// Contents of the Cloud Script javascript. Must be string-escaped javascript.
+		/// </summary>
+		public string FileContents { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class CloudScriptVersionStatus
+	{
+		
+		
+		/// <summary>
+		/// Version number
+		/// </summary>
+		public int Version { get; set;}
+		
+		/// <summary>
+		/// Published code revision for this Cloud Script version
+		/// </summary>
+		public int PublishedRevision { get; set;}
+		
+		/// <summary>
+		/// Most recent revision for this Cloud Script version
+		/// </summary>
+		public int LatestRevision { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum Currency
 	{
 		USD,
@@ -427,6 +470,82 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
 		public List<CatalogItem> Catalog { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCloudScriptRevisionRequest
+	{
+		
+		
+		/// <summary>
+		/// Version number. If left null, defaults to the latest version
+		/// </summary>
+		public int? Version { get; set;}
+		
+		/// <summary>
+		/// Revision number. If left null, defaults to the latest revision
+		/// </summary>
+		public int? Revision { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCloudScriptRevisionResult
+	{
+		
+		
+		/// <summary>
+		/// Version number.
+		/// </summary>
+		public int Version { get; set;}
+		
+		/// <summary>
+		/// Revision number.
+		/// </summary>
+		public int Revision { get; set;}
+		
+		/// <summary>
+		/// Time this revision was created
+		/// </summary>
+		public DateTime CreatedAt { get; set;}
+		
+		/// <summary>
+		/// List of Cloud Script files in this revision.
+		/// </summary>
+		public List<CloudScriptFile> Files { get; set;}
+		
+		/// <summary>
+		/// True if this is the currently published revision
+		/// </summary>
+		public bool IsPublished { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCloudScriptVersionsRequest
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class GetCloudScriptVersionsResult
+	{
+		
+		
+		/// <summary>
+		/// List of versions
+		/// </summary>
+		public List<CloudScriptVersionStatus> Versions { get; set;}
 		
 		
 	}
@@ -1437,6 +1556,34 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class SetPublishedRevisionRequest
+	{
+		
+		
+		/// <summary>
+		/// Version number
+		/// </summary>
+		public int Version { get; set;}
+		
+		/// <summary>
+		/// Revision to make the current published revision
+		/// </summary>
+		public int Revision { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SetPublishedRevisionResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class SetPublisherDataRequest
 	{
 		
@@ -1637,6 +1784,44 @@ namespace PlayFab.AdminModels
 	public class UpdateCatalogItemsResult
 	{
 		
+		
+		
+	}
+	
+	
+	
+	public class UpdateCloudScriptRequest
+	{
+		
+		
+		/// <summary>
+		/// Cloud Script version to update. If null, defaults to most recent version
+		/// </summary>
+		public int? Version { get; set;}
+		
+		/// <summary>
+		/// List of Cloud Script files to upload to create the new revision. Must have at least one file.
+		/// </summary>
+		public List<CloudScriptFile> Files { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateCloudScriptResult
+	{
+		
+		
+		/// <summary>
+		/// Cloud Script version updated
+		/// </summary>
+		public int Version { get; set;}
+		
+		/// <summary>
+		/// New revision number created
+		/// </summary>
+		public int Revision { get; set;}
 		
 		
 	}
@@ -1886,16 +2071,6 @@ namespace PlayFab.AdminModels
 		/// Facebook identifier
 		/// </summary>
 		public string FacebookId { get; set;}
-		
-		/// <summary>
-		/// Facebook username
-		/// </summary>
-		public string FacebookUsername { get; set;}
-		
-		/// <summary>
-		/// Facebook display name
-		/// </summary>
-		public string FacebookDisplayname { get; set;}
 		
 		
 	}

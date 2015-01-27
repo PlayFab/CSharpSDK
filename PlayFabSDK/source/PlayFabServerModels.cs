@@ -1171,6 +1171,11 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public string Message { get; set;}
 		
+		/// <summary>
+		/// subject of message to send (may not be displayed in all platforms
+		/// </summary>
+		public string Subject { get; set;}
+		
 		
 	}
 	
@@ -1511,16 +1516,6 @@ namespace PlayFab.ServerModels
 		/// Facebook identifier
 		/// </summary>
 		public string FacebookId { get; set;}
-		
-		/// <summary>
-		/// Facebook username
-		/// </summary>
-		public string FacebookUsername { get; set;}
-		
-		/// <summary>
-		/// Facebook display name
-		/// </summary>
-		public string FacebookDisplayname { get; set;}
 		
 		
 	}

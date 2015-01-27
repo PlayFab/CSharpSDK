@@ -124,7 +124,12 @@ namespace PlayFab
 		DeviceAlreadyLinked = 1119,
 		DeviceNotLinked = 1120,
 		PartialFailure = 1121,
-		PublisherNotSet = 1122
+		PublisherNotSet = 1122,
+		ServiceUnavailable = 1123,
+		VersionNotFound = 1124,
+		RevisionNotFound = 1125,
+		InvalidPublisherId = 1126,
+		DownstreamServiceUnavailable = 1127
 	}
 	
 	public class PlayFabError
