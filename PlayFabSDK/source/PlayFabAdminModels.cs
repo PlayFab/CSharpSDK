@@ -1199,25 +1199,18 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier to match against existing user accounts
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
-		/// <summary>
-		/// email address to match against existing user accounts
-		/// </summary>
 		public string Email { get; set;}
 		
-		/// <summary>
-		/// PlayFab username to match against existing user accounts
-		/// </summary>
 		public string Username { get; set;}
 		
 		/// <summary>
 		/// title-specific username to match against existing user accounts
 		/// </summary>
 		public string TitleDisplayName { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -1447,6 +1440,8 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public List<UserCredentials> Users { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -1541,6 +1536,8 @@ namespace PlayFab.AdminModels
 		
 		
 		public string Email { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -1699,11 +1696,6 @@ namespace PlayFab.AdminModels
 		/// unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
 		/// </summary>
 		public string ItemId { get; set;}
-		
-		/// <summary>
-		/// catalog version for this item
-		/// </summary>
-		public string CatalogVersion { get; set;}
 		
 		/// <summary>
 		/// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)

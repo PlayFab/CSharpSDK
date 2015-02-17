@@ -32,6 +32,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string FriendTitleDisplayName { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -88,6 +90,8 @@ namespace PlayFab.ClientModels
 		public string Email { get; set;}
 		
 		public string Password { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -919,6 +923,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public List<string> FacebookIDs { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -1370,6 +1376,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string AndroidDeviceId { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		/// <summary>
 		/// specific Operating System version for the user's device
 		/// </summary>
@@ -1403,6 +1411,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string AccessToken { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -1425,6 +1435,8 @@ namespace PlayFab.ClientModels
 		/// Game Center identifier for the player account to be linked
 		/// </summary>
 		public string GameCenterId { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -1459,6 +1471,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string DeviceModel { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -1481,6 +1495,8 @@ namespace PlayFab.ClientModels
 		/// authentication token for the user, returned as a byte array from Steam, and converted to a string (for example, the byte 0x08 should become "08")
 		/// </summary>
 		public string SteamTicket { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -1554,6 +1570,8 @@ namespace PlayFab.ClientModels
 		
 		public string TitleId { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		/// <summary>
 		/// Android device identifier for the user's device
 		/// </summary>
@@ -1579,6 +1597,26 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class LoginWithEmailAddressRequest
+	{
+		
+		
+		public string TitleId { get; set;}
+		
+		/// <summary>
+		/// email address for the account
+		/// </summary>
+		public string Email { get; set;}
+		
+		public string Password { get; set;}
+		
+		public string PublisherId { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class LoginWithFacebookRequest
 	{
 		
@@ -1594,6 +1632,8 @@ namespace PlayFab.ClientModels
 		/// automatically create a PlayFab account if one is not currently linked to this Facebook account
 		/// </summary>
 		public bool? CreateAccount { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -1616,6 +1656,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public bool? CreateAccount { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -1636,6 +1678,8 @@ namespace PlayFab.ClientModels
 		/// automatically create a PlayFab account if one is not currently linked to this Google account
 		/// </summary>
 		public bool? CreateAccount { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -1668,6 +1712,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public bool? CreateAccount { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -1680,7 +1726,7 @@ namespace PlayFab.ClientModels
 		public string TitleId { get; set;}
 		
 		/// <summary>
-		/// PlayFab username for the account (3-24 characters)
+		/// PlayFab username for the account
 		/// </summary>
 		public string Username { get; set;}
 		
@@ -1708,6 +1754,8 @@ namespace PlayFab.ClientModels
 		/// automatically create a PlayFab account if one is not currently linked to this Steam account
 		/// </summary>
 		public bool? CreateAccount { get; set;}
+		
+		public string PublisherId { get; set;}
 		
 		
 	}
@@ -2409,6 +2457,8 @@ namespace PlayFab.ClientModels
 		
 		public string TitleId { get; set;}
 		
+		public string PublisherId { get; set;}
+		
 		
 	}
 	
@@ -2500,11 +2550,6 @@ namespace PlayFab.ClientModels
 		/// the title-defined game mode this server is to be running (defaults to 0 if there is only one mode)
 		/// </summary>
 		public string GameMode { get; set;}
-		
-		/// <summary>
-		/// informs the service that a password is associated with this server
-		/// </summary>
-		public bool PasswordRestricted { get; set;}
 		
 		/// <summary>
 		/// custom command line argument when starting game server process
@@ -2619,11 +2664,6 @@ namespace PlayFab.ClientModels
 		/// unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
 		/// </summary>
 		public string ItemId { get; set;}
-		
-		/// <summary>
-		/// catalog version for this item
-		/// </summary>
-		public string CatalogVersion { get; set;}
 		
 		/// <summary>
 		/// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
@@ -2859,26 +2899,6 @@ namespace PlayFab.ClientModels
 		/// virtual currency granted to the player as a result of unlocking the container
 		/// </summary>
 		public Dictionary<string,uint> VirtualCurrency { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class UpdateEmailAddressRequest
-	{
-		
-		
-		public string Email { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class UpdateEmailAddressResult
-	{
-		
 		
 		
 	}

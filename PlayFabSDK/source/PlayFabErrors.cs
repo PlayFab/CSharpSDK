@@ -129,7 +129,12 @@ namespace PlayFab
 		VersionNotFound = 1124,
 		RevisionNotFound = 1125,
 		InvalidPublisherId = 1126,
-		DownstreamServiceUnavailable = 1127
+		DownstreamServiceUnavailable = 1127,
+		APINotIncludedInTitleUsageTier = 1128,
+		DAULimitExceeded = 1129,
+		APIRequestLimitExceeded = 1130,
+		InvalidAPIEndpoint = 1131,
+		BuildNotAvailable = 1132
 	}
 	
 	public class PlayFabError

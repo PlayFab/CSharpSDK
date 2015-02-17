@@ -54,6 +54,40 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+		/// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithEmailAddressAsync(LoginWithEmailAddressRequest request)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+			if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithEmailAddress", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			LoginResult result = resultData.data;
+			AuthKey = result.SessionTicket ?? AuthKey;
+
+			
+            return new PlayFabResult<LoginResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Signs the user in using a Facebook access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user
 		/// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithFacebookAsync(LoginWithFacebookRequest request)
@@ -765,38 +799,6 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UnlinkSteamAccountResult>
-                {
-                    Result = result
-                };
-        }
-		
-		/// <summary>
-		/// Updates the local user's email address in PlayFab
-		/// </summary>
-        public static async Task<PlayFabResult<UpdateEmailAddressResult>> UpdateEmailAddressAsync(UpdateEmailAddressRequest request)
-        {
-            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateEmailAddress", request, "X-Authorization", AuthKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UpdateEmailAddressResult>
-                {
-                    Error = error,
-                };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateEmailAddressResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-			
-			UpdateEmailAddressResult result = resultData.data;
-			
-			
-            return new PlayFabResult<UpdateEmailAddressResult>
                 {
                     Result = result
                 };
@@ -2087,8 +2089,9 @@ namespace PlayFab
 		/// </summary>
         public static async Task<PlayFabResult<LogEventResult>> LogEventAsync(LogEventRequest request)
         {
-            
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LogEvent", request, null, null);
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LogEvent", request, "X-Authorization", AuthKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
