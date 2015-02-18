@@ -3,14 +3,14 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <title>PlayFab SDK for C# environments other than Unity</title>
+    <title>PlayFab SDK</title>
     <authors>PlayFab Inc.</authors>
     <owners>PlayFab Inc.</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/PlayFab/CSharpSDK</projectUrl>
     <iconUrl>https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/playfab_logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>PlayFab is a backend-as-a-service for games.</description>
+    <description>PlayFab is a backend-as-a-service for games. This package is the full .Net SDK for making web service calls to the PlayFab client, server and admin APIs.</description>
     <copyright>Copyright 2014</copyright>
     <tags>Games Backend PlayFab SDK</tags>
   </metadata>
