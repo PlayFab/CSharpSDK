@@ -6,7 +6,7 @@
     <title>PlayFab SDK</title>
     <authors>PlayFab Inc.</authors>
     <owners>PlayFab Inc.</owners>
-    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <licenseUrl>https://raw.githubusercontent.com/PlayFab/CSharpSDK/master/license.md</licenseUrl>
     <projectUrl>https://github.com/PlayFab/CSharpSDK</projectUrl>
     <iconUrl>https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/playfab_logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
