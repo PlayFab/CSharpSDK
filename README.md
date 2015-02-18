@@ -25,6 +25,10 @@ Done!
 
 Please see http://api.playfab.com/Documentation/ for complete documentation of all PlayFab SDK calls.
 
+#NuGet
+
+https://www.nuget.org/packages/PlayFabAllSDK/
+
 # Builds
 
 Current Status:
