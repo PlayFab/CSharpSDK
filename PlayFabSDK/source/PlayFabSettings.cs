@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace PlayFab
 {
@@ -14,17 +15,18 @@ namespace PlayFab
         };
         public static Formatting JsonFormatting = Formatting.None;
 
-        public static bool UseDevelopmentEnvironment = false;
-		public static string DevelopmentEnvironmentURL = ".playfabsandbox.com";
-		public static string ProductionEnvironmentURL = ".playfabapi.com";
+		const string ProductionEnvironmentURL = ".playfabapi.com";
 		public static string LogicServerURL = null;
-		public static string TitleId = null;
+        public static string TitleId { get; set; }
 		public static ErrorCallback GlobalErrorHandler  { get; set; }
 		public static string DeveloperSecretKey = null;
 		
 		public static string GetURL()
 		{
-			string baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentURL : ProductionEnvironmentURL;
+            if (string.IsNullOrWhiteSpace(TitleId))
+                throw new InvalidOperationException("PlayFabSettings.TitleId must be initialized to the value of your title's ID before making API requests.");
+
+			string baseUrl = ProductionEnvironmentURL;
 			if(baseUrl.StartsWith("http"))
 				return baseUrl;
 			return "https://"+TitleId+baseUrl;
