@@ -3,6 +3,7 @@ CSharpSDK
 
 SDK for C#/.net environments other than Unity, including Microsoft CLR environments, Mono and Xamarin.
 
+
 # SDKs
 
 This package contains three different versions of the PlayFab SDK. 
@@ -23,3 +24,24 @@ Done!
 # API Docs
 
 Please see http://api.playfab.com/Documentation/ for complete documentation of all PlayFab SDK calls.
+
+# Builds
+
+Current Status:
+
+[![Build status](https://ci.appveyor.com/api/projects/status/n3aw3s8jpgx9bhbq?svg=true)](https://ci.appveyor.com/project/MattAugustine/csharpsdk-jrl6i)
+
+Full: 
+
+https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabSDK/bin/Release/PlayFabAllSDK.dll
+https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabSDK/bin/Release/PlayFabAllSDK.pdb
+
+Client:
+
+https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabClientSDK/bin/Release/PlayFabClientSDK.dll
+https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabClientSDK/bin/Release/PlayFabClientSDK.pdb
+
+Server:
+
+https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabServerSDK/bin/Release/PlayFabServerSDK.dll
+https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabServerSDK/bin/Release/PlayFabServerSDK.pdb
