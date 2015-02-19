@@ -12,6 +12,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>PlayFab is a backend-as-a-service for games. This package is the full .Net SDK for making web service calls to the PlayFab client, server and admin APIs.</description>
     <copyright>Copyright 2014</copyright>
-    <tags>Games Backend PlayFab SDK</tags>
+    <tags>video game backend api playfab library sdk receipt validation matchmaking virtual good currency leaderboard storage steam psn xbox unity</tags>
   </metadata>
 </package>
