@@ -2536,9 +2536,9 @@ namespace PlayFab
 		/// </summary>
         public static async Task<PlayFabResult<GrantCharacterToUserResult>> GrantCharacterToUserAsync(GrantCharacterToUserRequest request)
         {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GrantCharacterToUser", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GrantCharacterToUser", request, "X-Authorization", AuthKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
