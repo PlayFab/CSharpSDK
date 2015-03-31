@@ -399,6 +399,30 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class ContentInfo
+	{
+		
+		
+		/// <summary>
+		/// Key of the content
+		/// </summary>
+		public string Key { get; set;}
+		
+		/// <summary>
+		/// Size of the content in bytes
+		/// </summary>
+		public long Size { get; set;}
+		
+		/// <summary>
+		/// Last modified time
+		/// </summary>
+		public DateTime LastModified { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum Currency
 	{
 		USD,
@@ -408,6 +432,20 @@ namespace PlayFab.AdminModels
 		BRL,
 		CIS,
 		CAD
+	}
+	
+	
+	
+	public class DeleteContentRequest
+	{
+		
+		
+		/// <summary>
+		/// Key of the content item to be deleted
+		/// </summary>
+		public string Key { get; set;}
+		
+		
 	}
 	
 	
@@ -546,6 +584,74 @@ namespace PlayFab.AdminModels
 		/// List of versions
 		/// </summary>
 		public List<CloudScriptVersionStatus> Versions { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetContentListRequest
+	{
+		
+		
+		/// <summary>
+		/// Limits the response to keys that begin with the specified prefix. You can use prefixes to list contents under a folder, or for a specified version, etc.
+		/// </summary>
+		public string Prefix { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetContentListResult
+	{
+		
+		
+		/// <summary>
+		/// Number of content items returned. We currently have a maximum of 1000 items limit.
+		/// </summary>
+		public long ItemCount { get; set;}
+		
+		/// <summary>
+		/// The total size of listed contents in bytes
+		/// </summary>
+		public long TotalSize { get; set;}
+		
+		public List<ContentInfo> Contents { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetContentUploadUrlRequest
+	{
+		
+		
+		/// <summary>
+		/// Key of the content item to upload, usually formatted as a path, e.g. images/a.png
+		/// </summary>
+		public string Key { get; set;}
+		
+		/// <summary>
+		/// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content.
+		/// </summary>
+		public string ContentType { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetContentUploadUrlResult
+	{
+		
+		
+		/// <summary>
+		/// URL for uploading content via HTTP PUT method. The URL will expire in 1 hour.
+		/// </summary>
+		public string URL { get; set;}
 		
 		
 	}
@@ -908,9 +1014,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose custom data is being requested
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -1019,9 +1122,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user to whom the catalog item is to be granted
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -1033,6 +1133,8 @@ namespace PlayFab.AdminModels
 		/// string detailing any additional information concerning this operation
 		/// </summary>
 		public string Annotation { get; set;}
+		
+		public string CharacterId { get; set;}
 		
 		
 	}
@@ -1046,9 +1148,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user to whom the catalog item is to be granted
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -1070,6 +1169,8 @@ namespace PlayFab.AdminModels
 		/// result of this operation
 		/// </summary>
 		public bool Result { get; set;}
+		
+		public string CharacterId { get; set;}
 		
 		
 		public int CompareTo(ItemGrantResult other)
@@ -1451,9 +1552,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose statistics are to be reset
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		
@@ -1723,9 +1821,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose virtual currency balance is to be decremented
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -1875,9 +1970,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose custom data is being updated
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -1909,9 +2001,6 @@ namespace PlayFab.AdminModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose custom data is being updated
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>

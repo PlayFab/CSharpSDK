@@ -1619,7 +1619,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Creates a new Cloud Script revision and uploads source code to it.
+		/// Creates a new Cloud Script revision and uploads source code to it. Note that at this time, only one file should be submitted in the revision.
 		/// </summary>
         public static async Task<PlayFabResult<UpdateCloudScriptResult>> UpdateCloudScriptAsync(UpdateCloudScriptRequest request)
         {
@@ -1645,6 +1645,102 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UpdateCloudScriptResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Delete a content file from the title
+		/// </summary>
+        public static async Task<PlayFabResult<BlankResult>> DeleteContentAsync(DeleteContentRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/DeleteContent", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<BlankResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<BlankResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			BlankResult result = resultData.data;
+			
+			
+            return new PlayFabResult<BlankResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// List all contents of the title and get statistics such as size
+		/// </summary>
+        public static async Task<PlayFabResult<GetContentListResult>> GetContentListAsync(GetContentListRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetContentList", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetContentListResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetContentListResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetContentListResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetContentListResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the pre-signed URL for uploading a content file. A subsequent HTTP PUT to the returned URL uploads the content.
+		/// </summary>
+        public static async Task<PlayFabResult<GetContentUploadUrlResult>> GetContentUploadUrlAsync(GetContentUploadUrlRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetContentUploadUrl", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetContentUploadUrlResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetContentUploadUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetContentUploadUrlResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetContentUploadUrlResult>
                 {
                     Result = result
                 };

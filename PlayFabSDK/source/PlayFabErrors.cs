@@ -96,7 +96,6 @@ namespace PlayFab
 		NoPushNotificationARNForTitle = 1083,
 		BuildAlreadyExists = 1084,
 		BuildPackageDoesNotExist = 1085,
-		BuildIsActive = 1086,
 		CustomAnalyticsEventsNotEnabledForTitle = 1087,
 		InvalidSharedGroupId = 1088,
 		NotAuthorized = 1089,
@@ -134,7 +133,16 @@ namespace PlayFab
 		DAULimitExceeded = 1129,
 		APIRequestLimitExceeded = 1130,
 		InvalidAPIEndpoint = 1131,
-		BuildNotAvailable = 1132
+		BuildNotAvailable = 1132,
+		ConcurrentEditError = 1133,
+		ContentNotFound = 1134,
+		CharacterNotFound = 1135,
+		CloudScriptNotFound = 1136,
+		ContentQuotaExceeded = 1137,
+		InvalidCharacterStatistics = 1138,
+		PhotonNotEnabledForTitle = 1139,
+		PhotonApplicationNotFound = 1140,
+		PhotonApplicationNotAssociatedWithTitle = 1141
 	}
 	
 	public class PlayFabError

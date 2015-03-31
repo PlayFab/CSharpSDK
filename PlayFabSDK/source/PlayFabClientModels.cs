@@ -62,9 +62,6 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
-		/// <summary>
-		/// list of PlayFabId identifiers of users to add as members of the shared group
-		/// </summary>
 		public List<string> PlayFabIds { get; set;}
 		
 		
@@ -377,6 +374,50 @@ namespace PlayFab.ClientModels
 		/// virtual currency types and balances which will be added to the player inventory when the container is unlocked
 		/// </summary>
 		public Dictionary<string,uint> VirtualCurrencyContents { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class CharacterLeaderboardEntry
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user for this leaderboard entry
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// PlayFab unique identifier of the character that belongs to the user for this leaderboard entry
+		/// </summary>
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// title-specific display name of the character for this leaderboard entry
+		/// </summary>
+		public string CharacterName { get; set;}
+		
+		/// <summary>
+		/// title-specific display name of the user for this leaderboard entry
+		/// </summary>
+		public string DisplayName { get; set;}
+		
+		/// <summary>
+		/// name of the character class for this entry
+		/// </summary>
+		public string CharacterType { get; set;}
+		
+		/// <summary>
+		/// specific value of the user's statistic
+		/// </summary>
+		public int StatValue { get; set;}
+		
+		/// <summary>
+		/// user's overall position in the leaderboard
+		/// </summary>
+		public int Position { get; set;}
 		
 		
 	}
@@ -758,6 +799,83 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetCharacterDataRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFabId of the user to load data for. Optional, defaults to yourself if not set.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// specific keys to search for in the custom user data
+		/// </summary>
+		public List<string> Keys { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCharacterDataResult
+	{
+		
+		
+		public string CharacterId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCharacterLeaderboardRequest
+	{
+		
+		
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// optional character type on which to filter the leaderboard entries
+		/// </summary>
+		public string CharacterType { get; set;}
+		
+		/// <summary>
+		/// unique identifier for the title-specific statistic for the leaderboard
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// first entry in the leaderboard to be retrieved
+		/// </summary>
+		public int StartPosition { get; set;}
+		
+		/// <summary>
+		/// maximum number of entries to retrieve
+		/// </summary>
+		public int MaxResultsCount { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCharacterLeaderboardResult
+	{
+		
+		
+		/// <summary>
+		/// ordered list of leaderboard entries
+		/// </summary>
+		public List<CharacterLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetCloudScriptUrlRequest
 	{
 		
@@ -785,6 +903,44 @@ namespace PlayFab.ClientModels
 		/// URL of the Cloud Script logic server
 		/// </summary>
 		public string Url { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetContentDownloadUrlRequest
+	{
+		
+		
+		/// <summary>
+		/// Key of the content item to fetch, usually formatted as a path, e.g. images/a.png
+		/// </summary>
+		public string Key { get; set;}
+		
+		/// <summary>
+		/// HTTP method to fetch item - GET or HEAD. Use HEAD when only fetching metadata. Default is GET.
+		/// </summary>
+		public string HttpMethod { get; set;}
+		
+		/// <summary>
+		/// True if download through CDN. CDN provides better download bandwidth and time. However, if you want latest, non-cached version of the content, set this to false. Default is true.
+		/// </summary>
+		public bool? ThruCDN { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetContentDownloadUrlResult
+	{
+		
+		
+		/// <summary>
+		/// URL for downloading content via HTTP GET or HEAD method. The URL will expire in 1 hour.
+		/// </summary>
+		public string URL { get; set;}
 		
 		
 	}
@@ -843,6 +999,46 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetLeaderboardAroundCharacterRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the title-specific statistic for the leaderboard
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// optional character type on which to filter the leaderboard entries
+		/// </summary>
+		public string CharacterType { get; set;}
+		
+		/// <summary>
+		/// maximum number of entries to retrieve
+		/// </summary>
+		public int MaxResultsCount { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetLeaderboardAroundCharacterResult
+	{
+		
+		
+		/// <summary>
+		/// ordered list of leaderboard entries
+		/// </summary>
+		public List<CharacterLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetLeaderboardAroundCurrentUserRequest
 	{
 		
@@ -870,6 +1066,39 @@ namespace PlayFab.ClientModels
 		/// ordered listing of users and their positions in the requested leaderboard
 		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetLeaderboardForUsersCharactersRequest
+	{
+		
+		
+		/// <summary>
+		/// unique identifier for the title-specific statistic for the leaderboard
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// maximum number of entries to retrieve
+		/// </summary>
+		public int MaxResultsCount { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetLeaderboardForUsersCharactersResult
+	{
+		
+		
+		/// <summary>
+		/// ordered list of leaderboard entries
+		/// </summary>
+		public List<CharacterLeaderboardEntry> Leaderboard { get; set;}
 		
 		
 	}
@@ -908,6 +1137,28 @@ namespace PlayFab.ClientModels
 		/// ordered listing of users and their positions in the requested leaderboard
 		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPhotonAuthenticationTokenRequest
+	{
+		
+		
+		public string PhotonApplicationId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPhotonAuthenticationTokenResult
+	{
+		
+		
+		public string PhotonCustomAuthenticationToken { get; set;}
 		
 		
 	}
@@ -1274,6 +1525,53 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GrantCharacterToUserRequest
+	{
+		
+		
+		/// <summary>
+		/// catalog version from which items are to be granted
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// id of the item in the user's inventory that corresponds to the character in the catalog to be created for the user
+		/// </summary>
+		public string ItemId { get; set;}
+		
+		/// <summary>
+		/// the non-unique display name of the character being granted
+		/// </summary>
+		public string CharacterName { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GrantCharacterToUserResult
+	{
+		
+		
+		/// <summary>
+		/// the unique identifier tagged to this character
+		/// </summary>
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// the type of character that was created
+		/// </summary>
+		public string CharacterType { get; set;}
+		
+		public bool Result { get; set;}
+		
+		
+	}
+	
+	
+	
 	/// <summary>
 	/// A unique instance of an item in a user's inventory
 	/// </summary>
@@ -1517,14 +1815,39 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
+		/// PlayFab User Id of the player associated with this event. For non-player associated events, this must be null and EntityId must be set.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// For non player-associated events, a unique ID for the entity associated with this event. For player associated events, this must be null and PlayFabId must be set.
+		/// </summary>
+		public string EntityId { get; set;}
+		
+		/// <summary>
+		/// For non player-associated events, the type of entity associated with this event. For player associated events, this must be null.
+		/// </summary>
+		public string EntityType { get; set;}
+		
+		/// <summary>
+		/// Optional timestamp for this event. If null, the a timestamp is auto-assigned to the event on the server.
+		/// </summary>
+		public DateTime? Timestamp { get; set;}
+		
+		/// <summary>
 		/// A unique event name which will be used as the table name in the Redshift database. The name will be made lower case, and cannot not contain spaces. The use of underscores is recommended, for readability. Events also cannot match reserved terms. The PlayFab reserved terms are 'log_in' and 'purchase', 'create' and 'request', while the Redshift reserved terms can be found here: http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html.
 		/// </summary>
-		public string eventName { get; set;}
+		public string EventName { get; set;}
 		
 		/// <summary>
 		/// Contains all the data for this event. Event Values can be strings, booleans or numerics (float, double, integer, long) and must be consistent on a per-event basis (if the Value for Key 'A' in Event 'Foo' is an integer the first time it is sent, it must be an integer in all subsequent 'Foo' events). As with event names, Keys must also not use reserved words (see above). Finally, the size of the Body for an event must be less than 32KB (UTF-8 format).
 		/// </summary>
 		public Dictionary<string,object> Body { get; set;}
+		
+		/// <summary>
+		/// Flag to set event Body as profile details in the Redshift database as well as a standard event.
+		/// </summary>
+		public bool ProfileSetEvent { get; set;}
 		
 		
 	}
@@ -1630,29 +1953,6 @@ namespace PlayFab.ClientModels
 		
 		/// <summary>
 		/// automatically create a PlayFab account if one is not currently linked to this Facebook account
-		/// </summary>
-		public bool? CreateAccount { get; set;}
-		
-		public string PublisherId { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class LoginWithGameCenterRequest
-	{
-		
-		
-		public string TitleId { get; set;}
-		
-		/// <summary>
-		/// unique Game Center player id
-		/// </summary>
-		public string PlayerId { get; set;}
-		
-		/// <summary>
-		/// automatically create a PlayFab account if one is not currently linked to this Game Center id
 		/// </summary>
 		public bool? CreateAccount { get; set;}
 		
@@ -2302,9 +2602,6 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
-		/// <summary>
-		/// list of PlayFabId identifiers of users to remove from the shared group
-		/// </summary>
 		public List<string> PlayFabIds { get; set;}
 		
 		
@@ -2329,11 +2626,6 @@ namespace PlayFab.ClientModels
 		/// PlayFabId of the reported player
 		/// </summary>
 		public string ReporteeId { get; set;}
-		
-		/// <summary>
-		/// title player was reported in, optional if report not for specific title
-		/// </summary>
-		public string TitleId { get; set;}
 		
 		/// <summary>
 		/// Optional additional comment by reporting player
@@ -2899,6 +3191,37 @@ namespace PlayFab.ClientModels
 		/// virtual currency granted to the player as a result of unlocking the container
 		/// </summary>
 		public Dictionary<string,uint> VirtualCurrency { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateCharacterDataRequest
+	{
+		
+		
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// data to be written to the user's character's custom data. A key with a null value will be removed, rather than being set to null.
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
+		
+		/// <summary>
+		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public UserDataPermission? Permission { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateCharacterDataResult
+	{
+		
 		
 		
 	}
