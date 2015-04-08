@@ -68,7 +68,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// server host regions in which this build should be running and available
 		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
+		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
 		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
@@ -98,7 +98,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
+		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
 		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
@@ -881,7 +881,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
+		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
 		[Unordered]
 		public List<Region> ActiveRegions { get; set;}
 		
@@ -1377,7 +1377,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
+		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
 		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
@@ -1417,7 +1417,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of regions where this build can used, when it is active
 		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
+		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
 		public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
