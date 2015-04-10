@@ -144,7 +144,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose virtual currency balance is to be incremented
+		/// PlayFab unique identifier of the user whose virtual currency balance is to be increased
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -1463,9 +1463,19 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
+		/// user currency was subtracted from
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
 		/// name of the virtual currency which was modified
 		/// </summary>
 		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// amount added or subtracted from the user's virtual currency
+		/// </summary>
+		public int BalanceChange { get; set;}
 		
 		/// <summary>
 		/// balance of the virtual currency after modification
@@ -1821,6 +1831,9 @@ namespace PlayFab.AdminModels
 	{
 		
 		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose virtual currency balance is to be decreased
+		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -2152,6 +2165,11 @@ namespace PlayFab.AdminModels
 		/// Facebook identifier
 		/// </summary>
 		public string FacebookId { get; set;}
+		
+		/// <summary>
+		/// Facebook full name
+		/// </summary>
+		public string FullName { get; set;}
 		
 		
 	}

@@ -1699,7 +1699,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Retrieves the current friend list for the local user, constrained to users who have PlayFab accounts
+		/// Retrieves the current friend list for the local user, constrained to users who have PlayFab accounts. Friends from linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends.
 		/// </summary>
         public static async Task<PlayFabResult<GetFriendsListResult>> GetFriendsListAsync(GetFriendsListRequest request)
         {

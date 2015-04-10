@@ -835,8 +835,6 @@ namespace PlayFab.ClientModels
 	{
 		
 		
-		public string CharacterId { get; set;}
-		
 		/// <summary>
 		/// optional character type on which to filter the leaderboard entries
 		/// </summary>
@@ -976,9 +974,14 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// indicates whether Steam service friends should also be included in the response
+		/// indicates whether Steam service friends should be included in the response. Default is true.
 		/// </summary>
 		public bool? IncludeSteamFriends { get; set;}
+		
+		/// <summary>
+		/// indicates whether Facebook friends should be included in the response. Default is true.
+		/// </summary>
+		public bool? IncludeFacebookFriends { get; set;}
 		
 		
 	}
@@ -1533,8 +1536,6 @@ namespace PlayFab.ClientModels
 		/// catalog version from which items are to be granted
 		/// </summary>
 		public string CatalogVersion { get; set;}
-		
-		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// id of the item in the user's inventory that corresponds to the character in the catalog to be created for the user
@@ -2156,9 +2157,19 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
+		/// user currency was subtracted from
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
 		/// name of the virtual currency which was modified
 		/// </summary>
 		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// amount added or subtracted from the user's virtual currency
+		/// </summary>
+		public int BalanceChange { get; set;}
 		
 		/// <summary>
 		/// balance of the virtual currency after modification
@@ -3432,6 +3443,11 @@ namespace PlayFab.ClientModels
 		/// Facebook identifier
 		/// </summary>
 		public string FacebookId { get; set;}
+		
+		/// <summary>
+		/// Facebook full name
+		/// </summary>
+		public string FullName { get; set;}
 		
 		
 	}
