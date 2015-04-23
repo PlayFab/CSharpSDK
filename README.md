@@ -19,21 +19,12 @@ This package contains three different versions of the PlayFab SDK.
 * PlayFabSDK - Contains all APIs in one SDK
 
 
-4. Installation & Configuration Instructions:
-----
-To integrate the PlayFab SDK into your Cocos2d-x project, follow these steps.
-
-1. Determine which version of the SDK you need for your project. From that version, Add all the .cs files under PlayFabClientSDK/source to your project.
-2. Add a reference to Newtonsoft.Json to your project. In VS, this can be done through NuGet Manager by searching for Json.NET. In Xamarin Studio, you can search for Json.NET in the Component Store.
-
-Done!
-
 #### NuGet
 
 https://www.nuget.org/packages/PlayFabAllSDK/
 
 
-5. Usage Instructions:
+4. Usage Instructions:
 ----
 #### Current Status:
 [![Build status](https://ci.appveyor.com/api/projects/status/n3aw3s8jpgx9bhbq?svg=true)](https://ci.appveyor.com/project/MattAugustine/csharpsdk-jrl6i)
@@ -54,7 +45,7 @@ https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabServerSDK/bi
 https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabServerSDK/bin/Release/PlayFabServerSDK.pdb
 
 
-6. Troubleshooting:
+5. Troubleshooting:
 ----
 For a complete list of available APIs, check out the [online documentation](http://api.playfab.com/Documentation/).
 
@@ -67,7 +58,7 @@ Our Developer Success Team can assist with answering any questions as well as pr
 [Forums, Support and Knowledge Base](https://support.playfab.com/support/home)
 
 
-7. Copyright and Licensing Information:
+6. Copyright and Licensing Information:
 ----
   Apache License -- 
   Version 2.0, January 2004
@@ -76,6 +67,6 @@ Our Developer Success Team can assist with answering any questions as well as pr
   Full details available within the LICENSE file.
 
 
-8. Version History:
+7. Version History:
 ----
 * (v1.2.4)
