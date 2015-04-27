@@ -8,12 +8,38 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class AddCharacterVirtualCurrencyRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose virtual currency balance is to be incremented.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// Name of the virtual currency which is to be incremented.
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// Amount to be added to the user balance of the specified virtual currency.
+		/// </summary>
+		public int Amount { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class AddSharedGroupMembersRequest
 	{
 		
 		
 		/// <summary>
-		/// unique identifier for the shared group
+		/// Unique identifier for the shared group.
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
@@ -38,17 +64,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose virtual currency balance is to be increased
+		/// PlayFab unique identifier of the user whose virtual currency balance is to be increased.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// name of the virtual currency which is to be incremented
+		/// Name of the virtual currency which is to be incremented.
 		/// </summary>
 		public string VirtualCurrency { get; set;}
 		
 		/// <summary>
-		/// amount to be added to the user balance of the specified virtual currency
+		/// Amount to be added to the user balance of the specified virtual currency.
 		/// </summary>
 		public int Amount { get; set;}
 		
@@ -62,7 +88,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// Session ticket as issued by a PlayFab client login API
+		/// Session ticket as issued by a PlayFab client login API.
 		/// </summary>
 		public string SessionTicket { get; set;}
 		
@@ -76,7 +102,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// account info for the user whose session ticket was supplied
+		/// Account info for the user whose session ticket was supplied.
 		/// </summary>
 		public UserAccountInfo UserInfo { get; set;}
 		
@@ -92,12 +118,12 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// unique Steam achievement name
+		/// Unique Steam achievement name.
 		/// </summary>
 		public string AchievementName { get; set;}
 		
 		/// <summary>
-		/// result of the award attempt (only valid on response, not on request)
+		/// Result of the award attempt (only valid on response, not on request).
 		/// </summary>
 		public bool Result { get; set;}
 		
@@ -111,7 +137,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of achievements to grant and the users to whom they are to be granted
+		/// Array of achievements to grant and the users to whom they are to be granted.
 		/// </summary>
 		public List<AwardSteamAchievementItem> Achievements { get; set;}
 		
@@ -125,7 +151,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of achievements granted
+		/// Array of achievements granted.
 		/// </summary>
 		public List<AwardSteamAchievementItem> AchievementResults { get; set;}
 		
@@ -207,6 +233,11 @@ namespace PlayFab.ServerModels
 		/// defines the bundle properties for the item - bundles are items which contain other items, including random drop tables and virtual currencies
 		/// </summary>
 		public CatalogItemBundleInfo Bundle { get; set;}
+		
+		/// <summary>
+		/// if true, then this item instance can be used to grant a character to a user.
+		/// </summary>
+		public bool CanBecomeCharacter { get; set;}
 		
 		
 		public int CompareTo(CatalogItem other)
@@ -309,37 +340,37 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user for this leaderboard entry
+		/// PlayFab unique identifier of the user for this leaderboard entry.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// PlayFab unique identifier of the character that belongs to the user for this leaderboard entry
+		/// PlayFab unique identifier of the character that belongs to the user for this leaderboard entry.
 		/// </summary>
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// title-specific display name of the character for this leaderboard entry
+		/// Title-specific display name of the character for this leaderboard entry.
 		/// </summary>
 		public string CharacterName { get; set;}
 		
 		/// <summary>
-		/// title-specific display name of the user for this leaderboard entry
+		/// Title-specific display name of the user for this leaderboard entry.
 		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
-		/// name of the character class for this entry
+		/// Name of the character class for this entry.
 		/// </summary>
 		public string CharacterType { get; set;}
 		
 		/// <summary>
-		/// specific value of the user's statistic
+		/// Specific value of the user's statistic.
 		/// </summary>
 		public int StatValue { get; set;}
 		
 		/// <summary>
-		/// user's overall position in the leaderboard
+		/// User's overall position in the leaderboard.
 		/// </summary>
 		public int Position { get; set;}
 		
@@ -368,7 +399,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the shared group (a random identifier will be assigned, if one is not specified)
+		/// Unique identifier for the shared group (a random identifier will be assigned, if one is not specified).
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
@@ -382,7 +413,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the shared group
+		/// Unique identifier for the shared group.
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
@@ -413,7 +444,7 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// if true, the character's inventory will be transferred up to the owning user; otherwise, this request will purge those items.
+		/// If true, the character's inventory will be transferred up to the owning user; otherwise, this request will purge those items.
 		/// </summary>
 		public bool SaveCharacterInventory { get; set;}
 		
@@ -436,7 +467,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the shared group
+		/// Unique identifier for the shared group.
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
@@ -492,7 +523,7 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// specific keys to search for in the custom user data
+		/// Specific keys to search for in the custom user data.
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
@@ -508,9 +539,47 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// user specific data for this title
+		/// Character specific data for this title.
 		/// </summary>
 		public Dictionary<string,UserDataRecord> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCharacterInventoryRequest
+	{
+		
+		
+		public string PlayFabId { get; set;}
+		
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// used to limit results to only those from a specific catalog version
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCharacterInventoryResult
+	{
+		
+		
+		/// <summary>
+		/// array of inventory items belonging to the character
+		/// </summary>
+		[Unordered(SortProperty="ItemInstanceId")]
+		public List<ItemInstance> Inventory { get; set;}
+		
+		/// <summary>
+		/// array of virtual currency balance(s) belonging to the character
+		/// </summary>
+		public Dictionary<string,int> VirtualCurrency { get; set;}
 		
 		
 	}
@@ -524,22 +593,22 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// optional character type on which to filter the leaderboard entries
+		/// Optional character type on which to filter the leaderboard entries.
 		/// </summary>
 		public string CharacterType { get; set;}
 		
 		/// <summary>
-		/// unique identifier for the title-specific statistic for the leaderboard
+		/// Unique identifier for the title-specific statistic for the leaderboard.
 		/// </summary>
 		public string StatisticName { get; set;}
 		
 		/// <summary>
-		/// first entry in the leaderboard to be retrieved
+		/// First entry in the leaderboard to be retrieved.
 		/// </summary>
 		public int StartPosition { get; set;}
 		
 		/// <summary>
-		/// maximum number of entries to retrieve
+		/// Maximum number of entries to retrieve.
 		/// </summary>
 		public int MaxResultsCount { get; set;}
 		
@@ -553,7 +622,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// ordered list of leaderboard entries
+		/// Ordered list of leaderboard entries.
 		/// </summary>
 		public List<CharacterLeaderboardEntry> Leaderboard { get; set;}
 		
@@ -580,7 +649,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// character statistics for the requested user
+		/// Character statistics for the requested user.
 		/// </summary>
 		public Dictionary<string,int> CharacterStatistics { get; set;}
 		
@@ -632,7 +701,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the title-specific statistic for the leaderboard
+		/// Unique identifier for the title-specific statistic for the leaderboard.
 		/// </summary>
 		public string StatisticName { get; set;}
 		
@@ -641,12 +710,12 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// optional character type on which to filter the leaderboard entries
+		/// Optional character type on which to filter the leaderboard entries.
 		/// </summary>
 		public string CharacterType { get; set;}
 		
 		/// <summary>
-		/// maximum number of entries to retrieve
+		/// Maximum number of entries to retrieve.
 		/// </summary>
 		public int MaxResultsCount { get; set;}
 		
@@ -660,7 +729,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// ordered list of leaderboard entries
+		/// Ordered list of leaderboard entries.
 		/// </summary>
 		public List<CharacterLeaderboardEntry> Leaderboard { get; set;}
 		
@@ -674,14 +743,14 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the title-specific statistic for the leaderboard
+		/// Unique identifier for the title-specific statistic for the leaderboard.
 		/// </summary>
 		public string StatisticName { get; set;}
 		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// maximum number of entries to retrieve
+		/// Maximum number of entries to retrieve.
 		/// </summary>
 		public int MaxResultsCount { get; set;}
 		
@@ -695,7 +764,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// ordered list of leaderboard entries
+		/// Ordered list of leaderboard entries.
 		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
 		
@@ -709,14 +778,14 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the title-specific statistic for the leaderboard
+		/// Unique identifier for the title-specific statistic for the leaderboard.
 		/// </summary>
 		public string StatisticName { get; set;}
 		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// maximum number of entries to retrieve
+		/// Maximum number of entries to retrieve.
 		/// </summary>
 		public int MaxResultsCount { get; set;}
 		
@@ -730,7 +799,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// ordered list of leaderboard entries
+		/// Ordered list of leaderboard entries.
 		/// </summary>
 		public List<CharacterLeaderboardEntry> Leaderboard { get; set;}
 		
@@ -744,17 +813,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the title-specific statistic for the leaderboard
+		/// Unique identifier for the title-specific statistic for the leaderboard.
 		/// </summary>
 		public string StatisticName { get; set;}
 		
 		/// <summary>
-		/// first entry in the leaderboard to be retrieved
+		/// First entry in the leaderboard to be retrieved.
 		/// </summary>
 		public int StartPosition { get; set;}
 		
 		/// <summary>
-		/// maximum number of entries to retrieve
+		/// Maximum number of entries to retrieve.
 		/// </summary>
 		public int MaxResultsCount { get; set;}
 		
@@ -768,7 +837,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// ordered list of leaderboard entries
+		/// Ordered list of leaderboard entries.
 		/// </summary>
 		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
 		
@@ -810,17 +879,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the shared group
+		/// Unique identifier for the shared group.
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
 		/// <summary>
-		/// specific keys to retrieve from the shared group (if not specified, all keys will be returned, while an empty array indicates that no keys should be returned)
+		/// Specific keys to retrieve from the shared group (if not specified, all keys will be returned, while an empty array indicates that no keys should be returned).
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
 		/// <summary>
-		/// if true, return the list of all members of the shared group
+		/// If true, return the list of all members of the shared group.
 		/// </summary>
 		public bool? GetMembers { get; set;}
 		
@@ -834,12 +903,12 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// data for the requested keys
+		/// Data for the requested keys.
 		/// </summary>
 		public Dictionary<string,SharedGroupDataRecord> Data { get; set;}
 		
 		/// <summary>
-		/// list of PlayFabId identifiers for the members of this group, if requested
+		/// List of PlayFabId identifiers for the members of this group, if requested.
 		/// </summary>
 		public List<string> Members { get; set;}
 		
@@ -892,7 +961,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// account info for the user whose information was requested
+		/// Account info for the user whose information was requested.
 		/// </summary>
 		public UserAccountInfo UserInfo { get; set;}
 		
@@ -908,7 +977,7 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// specific keys to search for in the custom user data
+		/// Specific keys to search for in the custom user data.
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
@@ -922,12 +991,12 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose custom data is being returned
+		/// PlayFab unique identifier of the user whose custom data is being returned.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// user specific data for this title
+		/// User specific data for this title.
 		/// </summary>
 		public Dictionary<string,UserDataRecord> Data { get; set;}
 		
@@ -940,9 +1009,6 @@ namespace PlayFab.ServerModels
 	{
 		
 		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose inventory is being requested
-		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
@@ -970,6 +1036,11 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public Dictionary<string,int> VirtualCurrency { get; set;}
 		
+		/// <summary>
+		/// Array of remaining times and timestamps for virtual currencies.
+		/// </summary>
+		public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes { get; set;}
+		
 		
 	}
 	
@@ -980,7 +1051,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// user for whom statistics are being requested
+		/// User for whom statistics are being requested.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -994,7 +1065,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// user statistics for the requested user
+		/// User statistics for the requested user.
 		/// </summary>
 		public Dictionary<string,int> UserStatistics { get; set;}
 		
@@ -1010,12 +1081,12 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// the non-unique display name of the character being granted
+		/// Non-unique display name of the character being granted.
 		/// </summary>
 		public string CharacterName { get; set;}
 		
 		/// <summary>
-		/// the type of the character being granted; statistics can be sliced based on this value
+		/// Type of the character being granted; statistics can be sliced based on this value.
 		/// </summary>
 		public string CharacterType { get; set;}
 		
@@ -1029,7 +1100,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// the unique identifier tagged to this character
+		/// Unique identifier tagged to this character.
 		/// </summary>
 		public string CharacterId { get; set;}
 		
@@ -1043,7 +1114,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// catalog version from which items are to be granted
+		/// Catalog version from which items are to be granted.
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
@@ -1052,12 +1123,12 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// string detailing any additional information concerning this operation
+		/// String detailing any additional information concerning this operation.
 		/// </summary>
 		public string Annotation { get; set;}
 		
 		/// <summary>
-		/// array of itemIds to grant to the user
+		/// Array of itemIds to grant to the user.
 		/// </summary>
 		public List<string> ItemIds { get; set;}
 		
@@ -1071,7 +1142,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of items granted to users
+		/// Array of items granted to users.
 		/// </summary>
 		public List<ItemGrantResult> ItemGrantResults { get; set;}
 		
@@ -1085,19 +1156,19 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// catalog version from which items are to be granted
+		/// Catalog version from which items are to be granted.
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// string detailing any additional information concerning this operation
+		/// String detailing any additional information concerning this operation.
 		/// </summary>
 		public string Annotation { get; set;}
 		
 		/// <summary>
-		/// array of itemIds to grant to the user
+		/// Array of itemIds to grant to the user.
 		/// </summary>
 		public List<string> ItemIds { get; set;}
 		
@@ -1111,7 +1182,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of items granted to users
+		/// Array of items granted to users.
 		/// </summary>
 		public List<ItemGrantResult> ItemGrantResults { get; set;}
 		
@@ -1125,12 +1196,12 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// catalog version from which items are to be granted
+		/// Catalog version from which items are to be granted.
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
 		/// <summary>
-		/// array of items to grant and the users to whom the items are to be granted
+		/// Array of items to grant and the users to whom the items are to be granted.
 		/// </summary>
 		[Unordered]
 		public List<ItemGrant> ItemGrants { get; set;}
@@ -1145,7 +1216,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of items granted to users
+		/// Array of items granted to users.
 		/// </summary>
 		public List<ItemGrantResult> ItemGrantResults { get; set;}
 		
@@ -1161,12 +1232,12 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// unique identifier of the catalog item to be granted to the user
+		/// Unique identifier of the catalog item to be granted to the user.
 		/// </summary>
 		public string ItemId { get; set;}
 		
 		/// <summary>
-		/// string detailing any additional information concerning this operation
+		/// String detailing any additional information concerning this operation.
 		/// </summary>
 		public string Annotation { get; set;}
 		
@@ -1187,22 +1258,22 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// unique identifier of the catalog item to be granted to the user
+		/// Unique identifier of the catalog item to be granted to the user.
 		/// </summary>
 		public string ItemId { get; set;}
 		
 		/// <summary>
-		/// unique instance Id of the granted item
+		/// Unique instance Id of the granted item.
 		/// </summary>
 		public string ItemInstanceId { get; set;}
 		
 		/// <summary>
-		/// string detailing any additional information concerning this operation
+		/// String detailing any additional information concerning this operation.
 		/// </summary>
 		public string Annotation { get; set;}
 		
 		/// <summary>
-		/// result of this operation
+		/// Result of this operation.
 		/// </summary>
 		public bool Result { get; set;}
 		
@@ -1359,22 +1430,41 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class ModifyCharacterVirtualCurrencyResult
+	{
+		
+		
+		/// <summary>
+		/// Name of the virtual currency which was modified.
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// Balance of the virtual currency after modification.
+		/// </summary>
+		public int Balance { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class ModifyItemUsesRequest
 	{
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose item is being modified
+		/// PlayFab unique identifier of the user whose item is being modified.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// unique instance identifier of the item to be modified
+		/// Unique instance identifier of the item to be modified.
 		/// </summary>
 		public string ItemInstanceId { get; set;}
 		
 		/// <summary>
-		/// number of uses to add to the item. Can be negative to remove uses.
+		/// Number of uses to add to the item. Can be negative to remove uses.
 		/// </summary>
 		public int UsesToAdd { get; set;}
 		
@@ -1388,12 +1478,12 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique instance identifier of the item with uses consumed
+		/// Unique instance identifier of the item with uses consumed.
 		/// </summary>
 		public string ItemInstanceId { get; set;}
 		
 		/// <summary>
-		/// number of uses remaining on the item
+		/// Number of uses remaining on the item.
 		/// </summary>
 		public int RemainingUses { get; set;}
 		
@@ -1407,22 +1497,22 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// user currency was subtracted from
+		/// User currency was subtracted from.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// name of the virtual currency which was modified
+		/// Name of the virtual currency which was modified.
 		/// </summary>
 		public string VirtualCurrency { get; set;}
 		
 		/// <summary>
-		/// amount added or subtracted from the user's virtual currency
+		/// Amount added or subtracted from the user's virtual currency.
 		/// </summary>
 		public int BalanceChange { get; set;}
 		
 		/// <summary>
-		/// balance of the virtual currency after modification
+		/// Balance of the virtual currency after modification.
 		/// </summary>
 		public int Balance { get; set;}
 		
@@ -1438,12 +1528,12 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// the hex ID of the character that currently has the item
+		/// Unique identifier of the character that currently has the item.
 		/// </summary>
 		public string GivingCharacterId { get; set;}
 		
 		/// <summary>
-		/// the hex ID of the character that will be receiving the item
+		/// Unique identifier of the character that will be receiving the item.
 		/// </summary>
 		public string ReceivingCharacterId { get; set;}
 		
@@ -1516,7 +1606,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier of the Game Instance the user is leaving
+		/// Unique identifier of the Game Instance the user is leaving.
 		/// </summary>
 		public string LobbyId { get; set;}
 		
@@ -1532,7 +1622,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// state of user leaving the Game Server Instance
+		/// State of user leaving the Game Server Instance.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public PlayerConnectionState? PlayerState { get; set;}
@@ -1558,22 +1648,22 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user for this leaderboard entry
+		/// PlayFab unique identifier of the user for this leaderboard entry.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// title-specific display name of the user for this leaderboard entry
+		/// Title-specific display name of the user for this leaderboard entry.
 		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
-		/// specific value of the user's statistic
+		/// Specific value of the user's statistic.
 		/// </summary>
 		public int StatValue { get; set;}
 		
 		/// <summary>
-		/// user's overall position in the leaderboard
+		/// User's overall position in the leaderboard.
 		/// </summary>
 		public int Position { get; set;}
 		
@@ -1587,12 +1677,12 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// server authorization ticket passed back from a call to Matchmake or StartGame
+		/// Server authorization ticket passed back from a call to Matchmake or StartGame.
 		/// </summary>
 		public string Ticket { get; set;}
 		
 		/// <summary>
-		/// unique identifier of the Game Server Instance that is asking for validation of the authorization ticket
+		/// Unique identifier of the Game Server Instance that is asking for validation of the authorization ticket.
 		/// </summary>
 		public string LobbyId { get; set;}
 		
@@ -1606,17 +1696,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// boolean indicating whether the ticket was validated by the PlayFab service
+		/// Boolean indicating whether the ticket was validated by the PlayFab service.
 		/// </summary>
 		public bool TicketIsValid { get; set;}
 		
 		/// <summary>
-		/// error value if the ticket was not validated
+		/// Error value if the ticket was not validated.
 		/// </summary>
 		public string Error { get; set;}
 		
 		/// <summary>
-		/// user account information for the user validated
+		/// User account information for the user validated.
 		/// </summary>
 		public UserAccountInfo UserInfo { get; set;}
 		
@@ -1630,7 +1720,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the shared group
+		/// Unique identifier for the shared group.
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
@@ -1655,22 +1745,22 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFabId of the reporting player
+		/// PlayFabId of the reporting player.
 		/// </summary>
 		public string ReporterId { get; set;}
 		
 		/// <summary>
-		/// PlayFabId of the reported player
+		/// PlayFabId of the reported player.
 		/// </summary>
 		public string ReporteeId { get; set;}
 		
 		/// <summary>
-		/// title player was reported in, optional if report not for specific title
+		/// Title player was reported in, optional if report not for specific title.
 		/// </summary>
 		public string TitleId { get; set;}
 		
 		/// <summary>
-		/// Optional additional comment by reporting player
+		/// Optional additional comment by reporting player.
 		/// </summary>
 		public string Comment { get; set;}
 		
@@ -1697,17 +1787,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFabId of the recipient of the push notification
+		/// PlayFabId of the recipient of the push notification.
 		/// </summary>
 		public string Recipient { get; set;}
 		
 		/// <summary>
-		/// text of message to send
+		/// Text of message to send.
 		/// </summary>
 		public string Message { get; set;}
 		
 		/// <summary>
-		/// subject of message to send (may not be displayed in all platforms
+		/// Subject of message to send (may not be displayed in all platforms.
 		/// </summary>
 		public string Subject { get; set;}
 		
@@ -1786,25 +1876,48 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// data stored for the specified group data key
+		/// Data stored for the specified group data key.
 		/// </summary>
 		public string Value { get; set;}
 		
 		/// <summary>
-		/// PlayFabId of the user to last update this value
+		/// PlayFabId of the user to last update this value.
 		/// </summary>
 		public string LastUpdatedBy { get; set;}
 		
 		/// <summary>
-		/// timestamp for when this data was last updated
+		/// Timestamp for when this data was last updated.
 		/// </summary>
 		public DateTime LastUpdated { get; set;}
 		
 		/// <summary>
-		/// indicates whether this data can be read by all users (public) or only members of the group (private)
+		/// Indicates whether this data can be read by all users (public) or only members of the group (private).
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public UserDataPermission? Permission { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SubtractCharacterVirtualCurrencyRequest
+	{
+		
+		
+		public string PlayFabId { get; set;}
+		
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// Name of the virtual currency which is to be decremented.
+		/// </summary>
+		public string VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// Amount to be subtracted from the user balance of the specified virtual currency.
+		/// </summary>
+		public int Amount { get; set;}
 		
 		
 	}
@@ -1816,17 +1929,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose virtual currency balance is to be decreased
+		/// PlayFab unique identifier of the user whose virtual currency balance is to be decreased.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// name of the virtual currency which is to be decremented
+		/// Name of the virtual currency which is to be decremented.
 		/// </summary>
 		public string VirtualCurrency { get; set;}
 		
 		/// <summary>
-		/// amount to be subtracted from the user balance of the specified virtual currency
+		/// Amount to be subtracted from the user balance of the specified virtual currency.
 		/// </summary>
 		public int Amount { get; set;}
 		
@@ -1855,7 +1968,7 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// data to be written to the character's custom data. Keys are trimmed of whitespace. Keys may not begin with a '!' character.
+		/// Data to be written to the user's character's custom data. Note that keys are trimmed of whitespace, are limited to 1024 characters, and may not begin with a '!' character.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
@@ -1888,7 +2001,7 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// statistics to be updated with the provided values
+		/// Statistics to be updated with the provided values.
 		/// </summary>
 		public Dictionary<string,int> CharacterStatistics { get; set;}
 		
@@ -1911,17 +2024,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the shared group
+		/// Unique identifier for the shared group.
 		/// </summary>
 		public string SharedGroupId { get; set;}
 		
 		/// <summary>
-		/// key value pairs to be stored in the shared group - note that keys will be trimmed of whitespace, must not begin with a '!' character, and that null values will result in the removal of the key from the data set
+		/// Key value pairs to be stored in the shared group - note that keys will be trimmed of whitespace, must not begin with a '!' character, and that null values will result in the removal of the key from the data set.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
 		/// <summary>
-		/// permission to be applied to all user data keys in this request
+		/// Permission to be applied to all user data keys in this request.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public UserDataPermission? Permission { get; set;}
@@ -1947,7 +2060,7 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// data to be written to the user's custom data. Keys are trimmed of whitespace. Keys may not begin with a '!' character.
+		/// Data to be written to the user's custom data. Note that keys are trimmed of whitespace, are limited to 1024 characters, and may not begin with a '!' character.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
@@ -1978,7 +2091,7 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// data to be written to the user's custom data
+		/// Data to be written to the user's custom data.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
@@ -1994,7 +2107,7 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// statistics to be updated with the provided values
+		/// Statistics to be updated with the provided values.
 		/// </summary>
 		public Dictionary<string,int> UserStatistics { get; set;}
 		
@@ -2074,17 +2187,17 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// user-supplied data for this user data key
+		/// User-supplied data for this user data key.
 		/// </summary>
 		public string Value { get; set;}
 		
 		/// <summary>
-		/// timestamp indicating when this data was last updated
+		/// Timestamp indicating when this data was last updated.
 		/// </summary>
 		public DateTime LastUpdated { get; set;}
 		
 		/// <summary>
-		/// Permissions on this data key
+		/// Permissions on this data key.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
 		public UserDataPermission? Permission { get; set;}
@@ -2225,6 +2338,25 @@ namespace PlayFab.ServerModels
 		/// boolean indicating whether or not the user is currently banned for a title
 		/// </summary>
 		public bool? isBanned { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class VirtualCurrencyRechargeTime
+	{
+		
+		
+		/// <summary>
+		/// Time remaining (in seconds) before the next recharge increment of the virtual currency.
+		/// </summary>
+		public int SecondsToRecharge { get; set;}
+		
+		/// <summary>
+		/// Server timestamp in UTC indicating the next time the virtual currency will be incremented
+		/// </summary>
+		public DateTime RechargeTime { get; set;}
 		
 		
 	}

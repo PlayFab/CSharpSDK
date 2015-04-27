@@ -1411,6 +1411,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Retrieves the specified character's current inventory of virtual goods
+		/// </summary>
+        public static async Task<PlayFabResult<GetCharacterInventoryResult>> GetCharacterInventoryAsync(GetCharacterInventoryRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCharacterInventory", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetCharacterInventoryResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetCharacterInventoryResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetCharacterInventoryResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves the user's current inventory of virtual goods
 		/// </summary>
         public static async Task<PlayFabResult<GetUserInventoryResult>> GetUserInventoryAsync(GetUserInventoryRequest request)

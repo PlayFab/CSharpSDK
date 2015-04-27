@@ -724,6 +724,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Increments  the character's balance of the specified virtual currency by the stated amount
+		/// </summary>
+        public static async Task<PlayFabResult<ModifyCharacterVirtualCurrencyResult>> AddCharacterVirtualCurrencyAsync(AddCharacterVirtualCurrencyRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/AddCharacterVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ModifyCharacterVirtualCurrencyResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyCharacterVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ModifyCharacterVirtualCurrencyResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ModifyCharacterVirtualCurrencyResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Increments  the user's balance of the specified virtual currency by the stated amount
 		/// </summary>
         public static async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> AddUserVirtualCurrencyAsync(AddUserVirtualCurrencyRequest request)
@@ -750,6 +782,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<ModifyUserVirtualCurrencyResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the specified character's current inventory of virtual goods
+		/// </summary>
+        public static async Task<PlayFabResult<GetCharacterInventoryResult>> GetCharacterInventoryAsync(GetCharacterInventoryRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/GetCharacterInventory", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetCharacterInventoryResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetCharacterInventoryResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetCharacterInventoryResult>
                 {
                     Result = result
                 };
@@ -1038,6 +1102,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<ReportPlayerServerResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Decrements the character's balance of the specified virtual currency by the stated amount
+		/// </summary>
+        public static async Task<PlayFabResult<ModifyCharacterVirtualCurrencyResult>> SubtractCharacterVirtualCurrencyAsync(SubtractCharacterVirtualCurrencyRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/SubtractCharacterVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ModifyCharacterVirtualCurrencyResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyCharacterVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ModifyCharacterVirtualCurrencyResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ModifyCharacterVirtualCurrencyResult>
                 {
                     Result = result
                 };

@@ -144,7 +144,10 @@ namespace PlayFab
 		PhotonApplicationNotFound = 1140,
 		PhotonApplicationNotAssociatedWithTitle = 1141,
 		InvalidEmailOrPassword = 1142,
-		FacebookAPIError = 1143
+		FacebookAPIError = 1143,
+		InvalidContentType = 1144,
+		KeyLengthExceeded = 1145,
+		DataLengthExceeded = 1146
 	}
 	
 	public class PlayFabError
