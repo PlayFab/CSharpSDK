@@ -289,6 +289,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public bool CanBecomeCharacter { get; set;}
 		
+		/// <summary>
+		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead
+		/// </summary>
+		public bool IsStackable { get; set;}
+		
 		
 		public int CompareTo(CatalogItem other)
         {
@@ -1683,6 +1688,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// a set of custom key-value pairs on the inventory item
+		/// </summary>
+		public Dictionary<string,string> CustomData { get; set;}
+		
 		
 		public int CompareTo(ItemInstance other)
         {
@@ -1801,6 +1811,31 @@ namespace PlayFab.ClientModels
 	
 	
 	public class LinkGameCenterAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class LinkGoogleAccountRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique token from Google Play for the user.
+		/// </summary>
+		public string AccessToken { get; set;}
+		
+		public string PublisherId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class LinkGoogleAccountResult
 	{
 		
 		
@@ -2145,16 +2180,6 @@ namespace PlayFab.ClientModels
 		/// lobby identifier to match make against (used to select a specific server)
 		/// </summary>
 		public string LobbyId { get; set;}
-		
-		/// <summary>
-		/// player statistic to use in finding a match. May be null for no stat-based matching
-		/// </summary>
-		public string StatisticName { get; set;}
-		
-		/// <summary>
-		/// character to use for stats based matching. Leave null to use account stats
-		/// </summary>
-		public string CharacterId { get; set;}
 		
 		/// <summary>
 		/// [deprecated]
@@ -2923,16 +2948,6 @@ namespace PlayFab.ClientModels
 		public string GameMode { get; set;}
 		
 		/// <summary>
-		/// player statistic for others to use in finding this game. May be null for no stat-based matching
-		/// </summary>
-		public string StatisticName { get; set;}
-		
-		/// <summary>
-		/// character to use for stats based matching. Leave null to use account stats
-		/// </summary>
-		public string CharacterId { get; set;}
-		
-		/// <summary>
 		/// custom command line argument when starting game server process
 		/// </summary>
 		public string CustomCommandLineData { get; set;}
@@ -3142,6 +3157,8 @@ namespace PlayFab.ClientModels
 		Revoked,
 		TradePending,
 		Upgraded,
+		StackPending,
+		Stacked,
 		Other,
 		Failed
 	}
@@ -3194,6 +3211,24 @@ namespace PlayFab.ClientModels
 	
 	
 	public class UnlinkGameCenterAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class UnlinkGoogleAccountRequest
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class UnlinkGoogleAccountResult
 	{
 		
 		

@@ -548,6 +548,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Links the currently signed-in user account to the Google account specified by the Google account access token
+		/// </summary>
+        public static async Task<PlayFabResult<LinkGoogleAccountResult>> LinkGoogleAccountAsync(LinkGoogleAccountRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkGoogleAccount", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkGoogleAccountResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkGoogleAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			LinkGoogleAccountResult result = resultData.data;
+			
+			
+            return new PlayFabResult<LinkGoogleAccountResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Links the vendor-specific iOS device identifier to the user's PlayFab account
 		/// </summary>
         public static async Task<PlayFabResult<LinkIOSDeviceIDResult>> LinkIOSDeviceIDAsync(LinkIOSDeviceIDRequest request)
@@ -733,6 +765,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UnlinkGameCenterAccountResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Unlinks the related Google account from the user's PlayFab account
+		/// </summary>
+        public static async Task<PlayFabResult<UnlinkGoogleAccountResult>> UnlinkGoogleAccountAsync(UnlinkGoogleAccountRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkGoogleAccount", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkGoogleAccountResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkGoogleAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UnlinkGoogleAccountResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UnlinkGoogleAccountResult>
                 {
                     Result = result
                 };

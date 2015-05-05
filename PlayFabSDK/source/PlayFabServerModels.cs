@@ -239,6 +239,11 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public bool CanBecomeCharacter { get; set;}
 		
+		/// <summary>
+		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead
+		/// </summary>
+		public bool IsStackable { get; set;}
+		
 		
 		public int CompareTo(CatalogItem other)
         {
@@ -1343,6 +1348,11 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// a set of custom key-value pairs on the inventory item
+		/// </summary>
+		public Dictionary<string,string> CustomData { get; set;}
+		
 		
 		public int CompareTo(ItemInstance other)
         {
@@ -2094,6 +2104,33 @@ namespace PlayFab.ServerModels
 		/// Data to be written to the user's custom data.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateUserInventoryItemDataRequest
+	{
+		
+		
+		public string PlayFabId { get; set;}
+		
+		public string ItemInstanceId { get; set;}
+		
+		/// <summary>
+		/// Data to be written to the item's custom data. Note that keys are trimmed of whitespace.
+		/// </summary>
+		public Dictionary<string,string> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateUserInventoryItemDataResult
+	{
+		
 		
 		
 	}

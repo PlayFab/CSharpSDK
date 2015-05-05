@@ -93,6 +93,11 @@ namespace PlayFab.MatchmakerModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// a set of custom key-value pairs on the inventory item
+		/// </summary>
+		public Dictionary<string,string> CustomData { get; set;}
+		
 		
 		public int CompareTo(ItemInstance other)
         {

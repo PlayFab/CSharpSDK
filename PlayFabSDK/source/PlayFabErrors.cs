@@ -147,7 +147,8 @@ namespace PlayFab
 		FacebookAPIError = 1143,
 		InvalidContentType = 1144,
 		KeyLengthExceeded = 1145,
-		DataLengthExceeded = 1146
+		DataLengthExceeded = 1146,
+		TooManyKeys = 1147
 	}
 	
 	public class PlayFabError

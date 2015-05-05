@@ -265,6 +265,11 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public bool CanBecomeCharacter { get; set;}
 		
+		/// <summary>
+		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead
+		/// </summary>
+		public bool IsStackable { get; set;}
+		
 		
 		public int CompareTo(CatalogItem other)
         {
@@ -1242,6 +1247,11 @@ namespace PlayFab.AdminModels
 		/// unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container
 		/// </summary>
 		public string BundleParent { get; set;}
+		
+		/// <summary>
+		/// a set of custom key-value pairs on the inventory item
+		/// </summary>
+		public Dictionary<string,string> CustomData { get; set;}
 		
 		
 		public int CompareTo(ItemInstance other)
