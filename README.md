@@ -9,6 +9,10 @@ SDK for C#/.net environments other than Unity, including Microsoft CLR environme
 ----
 * Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/getting-started).
 
+To connect to the PlayFab service, your machine must be running TLS v1.1 or better.
+* For Windows, this means Windows 7 and above
+* [Official Microsoft Documentation](https://msdn.microsoft.com/en-us/library/windows/desktop/aa380516%28v=vs.85%29.aspx)
+* [Support for SSL/TLS protocols on Windows](http://blogs.msdn.com/b/kaushal/archive/2011/10/02/support-for-ssl-tls-protocols-on-windows.aspx)
 
 3. Source Code & Key Repository Components:
 ----
