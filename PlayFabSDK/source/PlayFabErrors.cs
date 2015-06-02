@@ -148,7 +148,8 @@ namespace PlayFab
 		InvalidContentType = 1144,
 		KeyLengthExceeded = 1145,
 		DataLengthExceeded = 1146,
-		TooManyKeys = 1147
+		TooManyKeys = 1147,
+		FreeTierCannotHaveVirtualCurrency = 1148
 	}
 	
 	public class PlayFabError

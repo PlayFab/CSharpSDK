@@ -495,7 +495,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// which catalog is being requested
+		/// Which catalog is being requested.
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
@@ -509,7 +509,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of items which can be purchased
+		/// Array of items which can be purchased.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
 		public List<CatalogItem> Catalog { get; set;}
@@ -562,7 +562,7 @@ namespace PlayFab.ServerModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// used to limit results to only those from a specific catalog version
+		/// Used to limit results to only those from a specific catalog version.
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
@@ -576,13 +576,13 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of inventory items belonging to the character
+		/// Array of inventory items belonging to the character.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
 		public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
-		/// array of virtual currency balance(s) belonging to the character
+		/// Array of virtual currency balance(s) belonging to the character.
 		/// </summary>
 		public Dictionary<string,int> VirtualCurrency { get; set;}
 		
@@ -1017,7 +1017,7 @@ namespace PlayFab.ServerModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// used to limit results to only those from a specific catalog version
+		/// Used to limit results to only those from a specific catalog version.
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
@@ -1031,13 +1031,13 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// array of inventory items belonging to the user
+		/// Array of inventory items belonging to the user.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
 		public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
-		/// array of virtual currency balance(s) belonging to the user
+		/// Array of virtual currency balance(s) belonging to the user.
 		/// </summary>
 		public Dictionary<string,int> VirtualCurrency { get; set;}
 		
@@ -1304,52 +1304,52 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// unique identifier for the inventory item, as defined in the catalog
+		/// Unique identifier for the inventory item, as defined in the catalog.
 		/// </summary>
 		public string ItemId { get; set;}
 		
 		/// <summary>
-		/// unique item identifier for this specific instance of the item
+		/// Unique item identifier for this specific instance of the item.
 		/// </summary>
 		public string ItemInstanceId { get; set;}
 		
 		/// <summary>
-		/// class name for the inventory item, as defined in the catalog
+		/// Class name for the inventory item, as defined in the catalog.
 		/// </summary>
 		public string ItemClass { get; set;}
 		
 		/// <summary>
-		/// timestamp for when this instance was purchased
+		/// Timestamp for when this instance was purchased.
 		/// </summary>
 		public DateTime? PurchaseDate { get; set;}
 		
 		/// <summary>
-		/// timestamp for when this instance will expire
+		/// Timestamp for when this instance will expire.
 		/// </summary>
 		public DateTime? Expiration { get; set;}
 		
 		/// <summary>
-		/// total number of remaining uses, if this is a consumable item
+		/// Total number of remaining uses, if this is a consumable item.
 		/// </summary>
 		public int? RemainingUses { get; set;}
 		
 		/// <summary>
-		/// game specific comment associated with this instance when it was added to the user inventory
+		/// Game specific comment associated with this instance when it was added to the user inventory.
 		/// </summary>
 		public string Annotation { get; set;}
 		
 		/// <summary>
-		/// catalog version for the inventory item, when this instance was created
+		/// Catalog version for the inventory item, when this instance was created.
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
 		/// <summary>
-		/// unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container
+		/// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
 		/// </summary>
 		public string BundleParent { get; set;}
 		
 		/// <summary>
-		/// a set of custom key-value pairs on the inventory item
+		/// A set of custom key-value pairs on the inventory item.
 		/// </summary>
 		public Dictionary<string,string> CustomData { get; set;}
 		
@@ -2114,6 +2114,8 @@ namespace PlayFab.ServerModels
 	{
 		
 		
+		public string CharacterId { get; set;}
+		
 		public string PlayFabId { get; set;}
 		
 		public string ItemInstanceId { get; set;}
@@ -2391,9 +2393,14 @@ namespace PlayFab.ServerModels
 		public int SecondsToRecharge { get; set;}
 		
 		/// <summary>
-		/// Server timestamp in UTC indicating the next time the virtual currency will be incremented
+		/// Server timestamp in UTC indicating the next time the virtual currency will be incremented.
 		/// </summary>
 		public DateTime RechargeTime { get; set;}
+		
+		/// <summary>
+		/// Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen below this value.
+		/// </summary>
+		public int RechargeMax { get; set;}
 		
 		
 	}
