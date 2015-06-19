@@ -420,6 +420,102 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Retrieves the unique PlayFab identifiers for the given set of Game Center identifiers (referenced in the Game Center Programming Guide as the Player Identifier).
+		/// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromGameCenterIDsResult>> GetPlayFabIDsFromGameCenterIDsAsync(GetPlayFabIDsFromGameCenterIDsRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromGameCenterIDs", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromGameCenterIDsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromGameCenterIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPlayFabIDsFromGameCenterIDsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPlayFabIDsFromGameCenterIDsResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the unique PlayFab identifiers for the given set of Google identifiers. The Google identifiers are the IDs for the user accounts, available as "id" in the Google+ People API calls.
+		/// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromGoogleIDsResult>> GetPlayFabIDsFromGoogleIDsAsync(GetPlayFabIDsFromGoogleIDsRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromGoogleIDs", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromGoogleIDsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromGoogleIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPlayFabIDsFromGoogleIDsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPlayFabIDsFromGoogleIDsResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
+		/// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromSteamIDsResult>> GetPlayFabIDsFromSteamIDsAsync(GetPlayFabIDsFromSteamIDsRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromSteamIDs", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromSteamIDsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromSteamIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPlayFabIDsFromSteamIDsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPlayFabIDsFromSteamIDsResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves all requested data for a user in one unified request. By default, this API returns all  data for the locally signed-in user. The input parameters may be used to limit the data retrieved any any subset of the available data, as well as retrieve the available data for a different user. Note that certain data, including inventory, virtual currency balances, and personally identifying information, may only be retrieved for the locally signed-in user. In the example below, a request is made for the account details, virtual currency balances, and specified user data for the locally signed-in user.
 		/// </summary>
         public static async Task<PlayFabResult<GetUserCombinedInfoResult>> GetUserCombinedInfoAsync(GetUserCombinedInfoRequest request)
@@ -2397,38 +2493,6 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UpdateSharedGroupDataResult>
-                {
-                    Result = result
-                };
-        }
-		
-		/// <summary>
-		/// Uses the supplied OAuth code to refresh the internally cached player PSN auth token
-		/// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request)
-        {
-            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RefreshPSNAuthToken", request, "X-Authorization", AuthKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<EmptyResult>
-                {
-                    Error = error,
-                };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-			
-			EmptyResult result = resultData.data;
-			
-			
-            return new PlayFabResult<EmptyResult>
                 {
                     Result = result
                 };

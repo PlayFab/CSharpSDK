@@ -843,6 +843,11 @@ namespace PlayFab.AdminModels
 	{
 		
 		
+		/// <summary>
+		/// catalog version to fetch tables from. Use default catalog version if null
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
 		
 	}
 	
@@ -855,7 +860,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of random result tables currently available
 		/// </summary>
-		public Dictionary<string,RandomResultTable> Tables { get; set;}
+		public Dictionary<string,RandomResultTableListing> Tables { get; set;}
 		
 		
 	}
@@ -968,6 +973,11 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
+		/// catalog version to store items from. Use default catalog version if null
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		/// <summary>
 		/// Unqiue identifier for the store which is being requested.
 		/// </summary>
 		public string StoreId { get; set;}
@@ -1031,6 +1041,11 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
+		/// <summary>
+		/// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
+		/// </summary>
+		public int? IfChangedFromDataVersion { get; set;}
+		
 		
 	}
 	
@@ -1044,6 +1059,11 @@ namespace PlayFab.AdminModels
 		/// PlayFab unique identifier of the user whose custom data is being returned.
 		/// </summary>
 		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+		/// </summary>
+		public uint DataVersion { get; set;}
 		
 		/// <summary>
 		/// User specific data for this title.
@@ -1521,6 +1541,20 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class RandomResultTableListing
+	{
+		
+		
+		/// <summary>
+		/// Catalog version this table is associated with
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum Region
 	{
 		USCentral,
@@ -1944,6 +1978,11 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
+		/// which catalog is being updated. If null, update the current default catalog version
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		/// <summary>
 		/// array of random result tables to make available (Note: specifying an existing TableId will result in overwriting that table, while any others will be added to the available set)
 		/// </summary>
 		public List<RandomResultTable> Tables { get; set;}
@@ -1965,6 +2004,11 @@ namespace PlayFab.AdminModels
 	public class UpdateStoreItemsRequest
 	{
 		
+		
+		/// <summary>
+		/// catalog version of the store to update. Use default catalog version if null
+		/// </summary>
+		public string CatalogVersion { get; set;}
 		
 		/// <summary>
 		/// unqiue identifier for the store which is to be updated
@@ -2015,6 +2059,11 @@ namespace PlayFab.AdminModels
 	public class UpdateUserDataResult
 	{
 		
+		
+		/// <summary>
+		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+		/// </summary>
+		public uint DataVersion { get; set;}
 		
 		
 	}

@@ -678,6 +678,25 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GameCenterPlayFabIdPair
+	{
+		
+		
+		/// <summary>
+		/// Unique Game Center identifier for a user.
+		/// </summary>
+		public string GameCenterId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Game Center identifier.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GameInfo
 	{
 		
@@ -851,6 +870,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
+		/// <summary>
+		/// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
+		/// </summary>
+		public int? IfChangedFromDataVersion { get; set;}
+		
 		
 	}
 	
@@ -863,9 +887,11 @@ namespace PlayFab.ClientModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// Character specific data for this title.
+		/// User specific data for this title.
 		/// </summary>
 		public Dictionary<string,UserDataRecord> Data { get; set;}
+		
+		public uint DataVersion { get; set;}
 		
 		
 	}
@@ -1042,6 +1068,16 @@ namespace PlayFab.ClientModels
 		/// Maximum number of entries to retrieve.
 		/// </summary>
 		public int MaxResultsCount { get; set;}
+		
+		/// <summary>
+		/// Indicates whether Steam service friends should be included in the response. Default is true.
+		/// </summary>
+		public bool? IncludeSteamFriends { get; set;}
+		
+		/// <summary>
+		/// Indicates whether Facebook friends should be included in the response. Default is true.
+		/// </summary>
+		public bool? IncludeFacebookFriends { get; set;}
 		
 		
 	}
@@ -1275,6 +1311,123 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetPlayFabIDsFromGameCenterIDsRequest
+	{
+		
+		
+		/// <summary>
+		/// Array of unique Game Center identifiers (the Player Identifier) for which the title needs to get PlayFab identifiers.
+		/// </summary>
+		public List<string> GameCenterIDs { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromGameCenterIDsResult
+	{
+		
+		
+		/// <summary>
+		/// Mapping of Game Center identifiers to PlayFab identifiers.
+		/// </summary>
+		public List<GameCenterPlayFabIdPair> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromGoogleIDsRequest
+	{
+		
+		
+		/// <summary>
+		/// Array of unique Google identifiers (Google+ user IDs) for which the title needs to get PlayFab identifiers.
+		/// </summary>
+		public List<string> GoogleIDs { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromGoogleIDsResult
+	{
+		
+		
+		/// <summary>
+		/// Mapping of Google identifiers to PlayFab identifiers.
+		/// </summary>
+		public List<GooglePlayFabIdPair> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromPSNAccountIDsRequest
+	{
+		
+		
+		/// <summary>
+		/// Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers.
+		/// </summary>
+		public List<string> PSNAccountIDs { get; set;}
+		
+		/// <summary>
+		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
+		/// </summary>
+		public int? IssuerId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromPSNAccountIDsResult
+	{
+		
+		
+		/// <summary>
+		/// Mapping of PlayStation Network identifiers to PlayFab identifiers.
+		/// </summary>
+		public List<PSNAccountPlayFabIdPair> Data { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromSteamIDsRequest
+	{
+		
+		
+		/// <summary>
+		/// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
+		/// </summary>
+		public List<ulong> SteamIDs { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromSteamIDsResult
+	{
+		
+		
+		/// <summary>
+		/// Mapping of Steam identifiers to PlayFab identifiers.
+		/// </summary>
+		public List<SteamPlayFabIdPair> Data { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetPublisherDataRequest
 	{
 		
@@ -1354,6 +1507,11 @@ namespace PlayFab.ClientModels
 		/// Unqiue identifier for the store which is being requested.
 		/// </summary>
 		public string StoreId { get; set;}
+		
+		/// <summary>
+		/// Catalog version for the requested store items. If null, defaults to most recent catalog.
+		/// </summary>
+		public string CatalogVersion { get; set;}
 		
 		
 	}
@@ -1531,9 +1689,19 @@ namespace PlayFab.ClientModels
 		public Dictionary<string,UserDataRecord> Data { get; set;}
 		
 		/// <summary>
+		/// The version of the UserData that was returned.
+		/// </summary>
+		public uint DataVersion { get; set;}
+		
+		/// <summary>
 		/// User specific read-only data.
 		/// </summary>
 		public Dictionary<string,UserDataRecord> ReadOnlyData { get; set;}
+		
+		/// <summary>
+		/// The version of the Read-Only UserData that was returned.
+		/// </summary>
+		public uint ReadOnlyDataVersion { get; set;}
 		
 		
 	}
@@ -1554,6 +1722,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
+		/// <summary>
+		/// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
+		/// </summary>
+		public int? IfChangedFromDataVersion { get; set;}
+		
 		
 	}
 	
@@ -1567,6 +1740,8 @@ namespace PlayFab.ClientModels
 		/// User specific data for this title.
 		/// </summary>
 		public Dictionary<string,UserDataRecord> Data { get; set;}
+		
+		public uint DataVersion { get; set;}
 		
 		
 	}
@@ -1624,6 +1799,25 @@ namespace PlayFab.ClientModels
 		/// User statistics for the active title.
 		/// </summary>
 		public Dictionary<string,int> UserStatistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GooglePlayFabIdPair
+	{
+		
+		
+		/// <summary>
+		/// Unique Google identifier for a user.
+		/// </summary>
+		public string GoogleId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Google identifier.
+		/// </summary>
+		public string PlayFabId { get; set;}
 		
 		
 	}
@@ -2421,6 +2615,25 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class PSNAccountPlayFabIdPair
+	{
+		
+		
+		/// <summary>
+		/// Unique PlayStation Network identifier for a user.
+		/// </summary>
+		public string PSNAccountId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation Network identifier.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class PurchasedItem
 	{
 		
@@ -2554,6 +2767,16 @@ namespace PlayFab.ClientModels
 		/// Auth code returned by PSN OAuth system.
 		/// </summary>
 		public string AuthCode { get; set;}
+		
+		/// <summary>
+		/// Redirect URI supplied to PSN when requesting an auth code
+		/// </summary>
+		public string RedirectUri { get; set;}
+		
+		/// <summary>
+		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
+		/// </summary>
+		public int? IssuerId { get; set;}
 		
 		
 	}
@@ -3067,6 +3290,25 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class SteamPlayFabIdPair
+	{
+		
+		
+		/// <summary>
+		/// Unique Steam identifier for a user.
+		/// </summary>
+		public ulong SteamId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Steam identifier.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		
+	}
+	
+	
+	
 	/// <summary>
 	/// A store entry that list a catalog item at a particular price
 	/// </summary>
@@ -3375,6 +3617,11 @@ namespace PlayFab.ClientModels
 	{
 		
 		
+		/// <summary>
+		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+		/// </summary>
+		public uint DataVersion { get; set;}
+		
 		
 	}
 	
@@ -3437,6 +3684,11 @@ namespace PlayFab.ClientModels
 	public class UpdateUserDataResult
 	{
 		
+		
+		/// <summary>
+		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+		/// </summary>
+		public uint DataVersion { get; set;}
 		
 		
 	}
@@ -3707,6 +3959,49 @@ namespace PlayFab.ClientModels
 		/// boolean indicating whether or not the user is currently banned for a title
 		/// </summary>
 		public bool? isBanned { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ValidateAmazonReceiptRequest
+	{
+		
+		
+		/// <summary>
+		/// ReceiptId returned by the Amazon App Store in-app purchase API
+		/// </summary>
+		public string ReceiptId { get; set;}
+		
+		/// <summary>
+		/// AmazonId of the user making the purchase as returned by the Amazon App Store in-app purchase API
+		/// </summary>
+		public string UserId { get; set;}
+		
+		/// <summary>
+		/// Catalog version to use when granting receipt item. If null, defaults to primary catalog.
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		/// <summary>
+		/// Currency used for the purchase.
+		/// </summary>
+		public string CurrencyCode { get; set;}
+		
+		/// <summary>
+		/// Amount of the stated currency paid for the object.
+		/// </summary>
+		public int PurchasePrice { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ValidateAmazonReceiptResult
+	{
+		
 		
 		
 	}
