@@ -20,7 +20,7 @@ namespace PlayFab
 		
 		
 		/// <summary>
-		/// Gets a Photon custom authentication token that can be used to securely join the player into a Photon room.
+		/// Gets a Photon custom authentication token that can be used to securely join the player into a Photon room. See https://playfab.com/using-photon-playfab for more details.
 		/// </summary>
         public static async Task<PlayFabResult<GetPhotonAuthenticationTokenResult>> GetPhotonAuthenticationTokenAsync(GetPhotonAuthenticationTokenRequest request)
         {
@@ -1699,7 +1699,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Adds the virtual goods associated with the coupon to the user's inventory
+		/// Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Promotions->Coupons tab in the PlayFab Game Manager. See this post for more information on coupons:  https://playfab.com/blog/2015/06/18/using-stores-and-coupons-game-manager
 		/// </summary>
         public static async Task<PlayFabResult<RedeemCouponResult>> RedeemCouponAsync(RedeemCouponRequest request)
         {
@@ -2564,7 +2564,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Retrieves the pre-authorized URL for accessing a content file for the title. A subsequent HTTP GET to the returned URL downloads the content; or a HEAD query to the returned URL retrieves the metadata of the content. This API only generates a pre-signed URL to access the content. A success result does not guarantee the existence of the content.
+		/// This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent  HTTP GET to the returned URL will attempt to download the content. A HEAD query to the returned URL will attempt to  retrieve the metadata of the content. Note that a successful result does not guarantee the existence of this content -  if it has not been uploaded, the query to retrieve the data will fail. See this post for more information:  https://support.playfab.com/support/discussions/topics/1000059929
 		/// </summary>
         public static async Task<PlayFabResult<GetContentDownloadUrlResult>> GetContentDownloadUrlAsync(GetContentDownloadUrlRequest request)
         {
@@ -2814,6 +2814,166 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UpdateCharacterDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Accepts an open trade. If the call is successful, the offered and accepted items will be swapped between the two players' inventories.
+		/// </summary>
+        public static async Task<PlayFabResult<AcceptTradeResponse>> AcceptTradeAsync(AcceptTradeRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AcceptTrade", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AcceptTradeResponse>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<AcceptTradeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			AcceptTradeResponse result = resultData.data;
+			
+			
+            return new PlayFabResult<AcceptTradeResponse>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Cancels an open trade.
+		/// </summary>
+        public static async Task<PlayFabResult<CancelTradeResponse>> CancelTradeAsync(CancelTradeRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/CancelTrade", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<CancelTradeResponse>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<CancelTradeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			CancelTradeResponse result = resultData.data;
+			
+			
+            return new PlayFabResult<CancelTradeResponse>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Gets all trades the player has either opened or accepted, optionally filtered by trade status.
+		/// </summary>
+        public static async Task<PlayFabResult<GetPlayerTradesResponse>> GetPlayerTradesAsync(GetPlayerTradesRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayerTrades", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerTradesResponse>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerTradesResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPlayerTradesResponse result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPlayerTradesResponse>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Gets the current status of an existing trade.
+		/// </summary>
+        public static async Task<PlayFabResult<GetTradeStatusResponse>> GetTradeStatusAsync(GetTradeStatusRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetTradeStatus", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetTradeStatusResponse>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetTradeStatusResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetTradeStatusResponse result = resultData.data;
+			
+			
+            return new PlayFabResult<GetTradeStatusResponse>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Opens a new outstanding trade.
+		/// </summary>
+        public static async Task<PlayFabResult<OpenTradeResponse>> OpenTradeAsync(OpenTradeRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/OpenTrade", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<OpenTradeResponse>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<OpenTradeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			OpenTradeResponse result = resultData.data;
+			
+			
+            return new PlayFabResult<OpenTradeResponse>
                 {
                     Result = result
                 };
