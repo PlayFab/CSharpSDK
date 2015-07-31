@@ -1,3 +1,6 @@
-**/bin/*
-**/obj/*
-PlayFabServerSDK/PlayFabSDK.v12.suo
+bin/
+
+obj/
+
+*.suo
+*.user

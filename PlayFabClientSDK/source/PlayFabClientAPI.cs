@@ -2980,7 +2980,7 @@ namespace PlayFab
         }
 
         
-		private static string AuthKey = null;
+		public static string AuthKey = null;
 		
     }
 }
