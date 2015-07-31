@@ -2980,7 +2980,11 @@ namespace PlayFab
         }
 
         
-		public static string AuthKey = null;
-		
+		private static string AuthKey = null;
+        // Determine if the AuthKey is set, without actually making it public
+        public static bool IsClientLoggedIn()
+        {
+            return !string.IsNullOrEmpty(AuthKey);
+        }
     }
 }
