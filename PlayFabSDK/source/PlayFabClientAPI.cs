@@ -2986,5 +2986,6 @@ namespace PlayFab
         {
             return !string.IsNullOrEmpty(AuthKey);
         }
+		
     }
 }
