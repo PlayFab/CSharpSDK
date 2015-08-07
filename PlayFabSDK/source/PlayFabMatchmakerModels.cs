@@ -79,6 +79,11 @@ namespace PlayFab.MatchmakerModels
 		public int? RemainingUses { get; set;}
 		
 		/// <summary>
+		/// The number of uses that were added or removed to this item in this call.
+		/// </summary>
+		public int? UsesIncrementedBy { get; set;}
+		
+		/// <summary>
 		/// Game specific comment associated with this instance when it was added to the user inventory.
 		/// </summary>
 		public string Annotation { get; set;}
@@ -92,6 +97,23 @@ namespace PlayFab.MatchmakerModels
 		/// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
 		/// </summary>
 		public string BundleParent { get; set;}
+		
+		public string DisplayName { get; set;}
+		
+		/// <summary>
+		/// Currency type for the cost of the catalog item.
+		/// </summary>
+		public string UnitCurrency { get; set;}
+		
+		/// <summary>
+		/// Cost of the catalog item in the given currency.
+		/// </summary>
+		public uint UnitPrice { get; set;}
+		
+		/// <summary>
+		/// Array of unique items that were awarded when this catalog item was purchased.
+		/// </summary>
+		public List<string> BundleContents { get; set;}
 		
 		/// <summary>
 		/// A set of custom key-value pairs on the inventory item.
