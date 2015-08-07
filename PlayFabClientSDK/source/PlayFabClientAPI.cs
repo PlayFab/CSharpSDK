@@ -222,6 +222,40 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Signs the user in using a Kongregate player account.
+		/// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithKongregateAsync(LoginWithKongregateRequest request)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+			if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithKongregate", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			LoginResult result = resultData.data;
+			AuthKey = result.SessionTicket ?? AuthKey;
+
+			
+            return new PlayFabResult<LoginResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user
 		/// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithPlayFabAsync(LoginWithPlayFabRequest request)
@@ -708,6 +742,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Links the Kongregate identifier to the user's PlayFab account
+		/// </summary>
+        public static async Task<PlayFabResult<LinkKongregateAccountResult>> LinkKongregateAsync(LinkKongregateAccountRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkKongregate", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkKongregateAccountResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkKongregateAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			LinkKongregateAccountResult result = resultData.data;
+			
+			
+            return new PlayFabResult<LinkKongregateAccountResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account
 		/// </summary>
         public static async Task<PlayFabResult<LinkSteamAccountResult>> LinkSteamAccountAsync(LinkSteamAccountRequest request)
@@ -925,6 +991,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<UnlinkIOSDeviceIDResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Unlinks the related Kongregate identifier from the user's PlayFab account
+		/// </summary>
+        public static async Task<PlayFabResult<UnlinkKongregateAccountResult>> UnlinkKongregateAsync(UnlinkKongregateAccountRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkKongregate", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkKongregateAccountResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkKongregateAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			UnlinkKongregateAccountResult result = resultData.data;
+			
+			
+            return new PlayFabResult<UnlinkKongregateAccountResult>
                 {
                     Result = result
                 };
@@ -1603,6 +1701,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Retrieves a completed purchase along with its current PlayFab status.
+		/// </summary>
+        public static async Task<PlayFabResult<GetPurchaseResult>> GetPurchaseAsync(GetPurchaseRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPurchase", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPurchaseResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPurchaseResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPurchaseResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPurchaseResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves the user's current inventory of virtual goods
 		/// </summary>
         public static async Task<PlayFabResult<GetUserInventoryResult>> GetUserInventoryAsync(GetUserInventoryRequest request)
@@ -1859,7 +1989,7 @@ namespace PlayFab
         }
 		
 		/// <summary>
-		/// Adds the PlayFab user, based upon a match against a supplied unique identifier, to the friend list of the local user
+		/// Adds the PlayFab user, based upon a match against a supplied unique identifier, to the friend list of the local user. At least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized.
 		/// </summary>
         public static async Task<PlayFabResult<AddFriendResult>> AddFriendAsync(AddFriendRequest request)
         {
