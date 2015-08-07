@@ -1777,6 +1777,38 @@ namespace PlayFab
                     Result = result
                 };
         }
+		
+		/// <summary>
+		/// Completely removes all statistics for the specified character, for the current game
+		/// </summary>
+        public static async Task<PlayFabResult<ResetCharacterStatisticsResult>> ResetCharacterStatisticsAsync(ResetCharacterStatisticsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ResetCharacterStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ResetCharacterStatisticsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ResetCharacterStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			ResetCharacterStatisticsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<ResetCharacterStatisticsResult>
+                {
+                    Result = result
+                };
+        }
 
         
     }
