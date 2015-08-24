@@ -263,7 +263,7 @@ namespace PlayFab.AdminModels
 		public bool CanBecomeCharacter { get; set;}
 		
 		/// <summary>
-		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead
+		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead. RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
 		/// </summary>
 		public bool IsStackable { get; set;}
 		
@@ -830,7 +830,7 @@ namespace PlayFab.AdminModels
 		public string Key { get; set;}
 		
 		/// <summary>
-		/// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content.
+		/// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content. If not specified, the MIME type is 'binary/octet-stream' by default.
 		/// </summary>
 		public string ContentType { get; set;}
 		
@@ -1195,7 +1195,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		///  array of keys to get back data from the TitleData data blob, set by the admin tools
+		/// Specific keys to search for in the title data (leave null to get all keys)
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
@@ -1283,6 +1283,11 @@ namespace PlayFab.AdminModels
 	public class GetUserInventoryResult
 	{
 		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose inventory is being returned.
+		/// </summary>
+		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// Array of inventory items belonging to the user.
