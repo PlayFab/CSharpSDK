@@ -277,7 +277,7 @@ namespace PlayFab.ServerModels
 		public bool CanBecomeCharacter { get; set;}
 		
 		/// <summary>
-		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead
+		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead. RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
 		/// </summary>
 		public bool IsStackable { get; set;}
 		
@@ -858,6 +858,16 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
+		/// PlayFab unique identifier of the user whose character inventory is being returned.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Unique identifier of the character for this inventory.
+		/// </summary>
+		public string CharacterId { get; set;}
+		
+		/// <summary>
 		/// Array of inventory items belonging to the character.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
@@ -943,6 +953,16 @@ namespace PlayFab.ServerModels
 	public class GetCharacterStatisticsResult
 	{
 		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose character statistics are being returned.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Unique identifier of the character for the statistics.
+		/// </summary>
+		public string CharacterId { get; set;}
 		
 		/// <summary>
 		/// Character statistics for the requested user.
@@ -1307,7 +1327,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		///  array of keys to get back data from the TitleData data blob, set by the admin tools
+		/// Specific keys to search for in the title data (leave null to get all keys)
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
@@ -1425,6 +1445,11 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
+		/// PlayFab unique identifier of the user whose inventory is being returned.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
 		/// Array of inventory items belonging to the user.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
@@ -1462,6 +1487,11 @@ namespace PlayFab.ServerModels
 	public class GetUserStatisticsResult
 	{
 		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose statistics are being returned.
+		/// </summary>
+		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// User statistics for the requested user.
