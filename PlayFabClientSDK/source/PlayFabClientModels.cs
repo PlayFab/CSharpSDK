@@ -501,6 +501,21 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class CharacterResult
+	{
+		
+		
+		public string CharacterId { get; set;}
+		
+		public string CharacterName { get; set;}
+		
+		public string CharacterType { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class ConfirmPurchaseRequest
 	{
 		
@@ -552,6 +567,11 @@ namespace PlayFab.ClientModels
 		/// Number of uses to consume from the item.
 		/// </summary>
 		public int ConsumeCount { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// </summary>
+		public string CharacterId { get; set;}
 		
 		
 	}
@@ -2636,6 +2656,31 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class ListUsersCharactersRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ListUsersCharactersResult
+	{
+		
+		
+		public List<CharacterResult> Characters { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class LogEventRequest
 	{
 		
@@ -3327,6 +3372,11 @@ namespace PlayFab.ClientModels
 		/// Store to buy this item through. If not set, prices default to those in the catalog.
 		/// </summary>
 		public string StoreId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// </summary>
+		public string CharacterId { get; set;}
 		
 		
 	}
@@ -4318,6 +4368,11 @@ namespace PlayFab.ClientModels
 		/// Catalog version of the container.
 		/// </summary>
 		public string CatalogVersion { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// </summary>
+		public string CharacterId { get; set;}
 		
 		
 	}
