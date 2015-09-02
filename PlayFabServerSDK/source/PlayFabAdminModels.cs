@@ -263,7 +263,7 @@ namespace PlayFab.AdminModels
 		public bool CanBecomeCharacter { get; set;}
 		
 		/// <summary>
-		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead
+		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead. RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
 		/// </summary>
 		public bool IsStackable { get; set;}
 		
@@ -437,13 +437,168 @@ namespace PlayFab.AdminModels
 	
 	public enum Currency
 	{
-		USD,
-		GBP,
-		EUR,
-		RUB,
+		AED,
+		AFN,
+		ALL,
+		AMD,
+		ANG,
+		AOA,
+		ARS,
+		AUD,
+		AWG,
+		AZN,
+		BAM,
+		BBD,
+		BDT,
+		BGN,
+		BHD,
+		BIF,
+		BMD,
+		BND,
+		BOB,
 		BRL,
-		CIS,
-		CAD
+		BSD,
+		BTN,
+		BWP,
+		BYR,
+		BZD,
+		CAD,
+		CDF,
+		CHF,
+		CLP,
+		CNY,
+		COP,
+		CRC,
+		CUC,
+		CUP,
+		CVE,
+		CZK,
+		DJF,
+		DKK,
+		DOP,
+		DZD,
+		EGP,
+		ERN,
+		ETB,
+		EUR,
+		FJD,
+		FKP,
+		GBP,
+		GEL,
+		GGP,
+		GHS,
+		GIP,
+		GMD,
+		GNF,
+		GTQ,
+		GYD,
+		HKD,
+		HNL,
+		HRK,
+		HTG,
+		HUF,
+		IDR,
+		ILS,
+		IMP,
+		INR,
+		IQD,
+		IRR,
+		ISK,
+		JEP,
+		JMD,
+		JOD,
+		JPY,
+		KES,
+		KGS,
+		KHR,
+		KMF,
+		KPW,
+		KRW,
+		KWD,
+		KYD,
+		KZT,
+		LAK,
+		LBP,
+		LKR,
+		LRD,
+		LSL,
+		LYD,
+		MAD,
+		MDL,
+		MGA,
+		MKD,
+		MMK,
+		MNT,
+		MOP,
+		MRO,
+		MUR,
+		MVR,
+		MWK,
+		MXN,
+		MYR,
+		MZN,
+		NAD,
+		NGN,
+		NIO,
+		NOK,
+		NPR,
+		NZD,
+		OMR,
+		PAB,
+		PEN,
+		PGK,
+		PHP,
+		PKR,
+		PLN,
+		PYG,
+		QAR,
+		RON,
+		RSD,
+		RUB,
+		RWF,
+		SAR,
+		SBD,
+		SCR,
+		SDG,
+		SEK,
+		SGD,
+		SHP,
+		SLL,
+		SOS,
+		SPL,
+		SRD,
+		STD,
+		SVC,
+		SYP,
+		SZL,
+		THB,
+		TJS,
+		TMT,
+		TND,
+		TOP,
+		TRY,
+		TTD,
+		TVD,
+		TWD,
+		TZS,
+		UAH,
+		UGX,
+		USD,
+		UYU,
+		UZS,
+		VEF,
+		VND,
+		VUV,
+		WST,
+		XAF,
+		XCD,
+		XDR,
+		XOF,
+		XPF,
+		YER,
+		ZAR,
+		ZMW,
+		ZWD
 	}
 	
 	
@@ -456,6 +611,34 @@ namespace PlayFab.AdminModels
 		/// Key of the content item to be deleted
 		/// </summary>
 		public string Key { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class DeleteUsersRequest
+	{
+		
+		
+		/// <summary>
+		/// An array of unique PlayFab assigned ID of the user on whom the operation will be performed.
+		/// </summary>
+		public List<string> PlayFabIds { get; set;}
+		
+		/// <summary>
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class DeleteUsersResult
+	{
+		
 		
 		
 	}
@@ -647,7 +830,7 @@ namespace PlayFab.AdminModels
 		public string Key { get; set;}
 		
 		/// <summary>
-		/// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content.
+		/// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content. If not specified, the MIME type is 'binary/octet-stream' by default.
 		/// </summary>
 		public string ContentType { get; set;}
 		
@@ -1012,7 +1195,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		///  array of keys to get back data from the TitleData data blob, set by the admin tools
+		/// Specific keys to search for in the title data (leave null to get all keys)
 		/// </summary>
 		public List<string> Keys { get; set;}
 		
@@ -1100,6 +1283,11 @@ namespace PlayFab.AdminModels
 	public class GetUserInventoryResult
 	{
 		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user whose inventory is being returned.
+		/// </summary>
+		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// Array of inventory items belonging to the user.
@@ -1674,6 +1862,44 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class RefundPurchaseRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Unique order ID for the purchase in question.
+		/// </summary>
+		public string OrderId { get; set;}
+		
+		/// <summary>
+		/// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See: https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
+		/// </summary>
+		public string Reason { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class RefundPurchaseResponse
+	{
+		
+		
+		/// <summary>
+		/// The order's updated purchase status.
+		/// </summary>
+		public string PurchaseStatus { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum Region
 	{
 		USCentral,
@@ -1769,6 +1995,59 @@ namespace PlayFab.AdminModels
 	public class ResetUserStatisticsResult
 	{
 		
+		
+		
+	}
+	
+	
+	
+	public enum ResolutionOutcome
+	{
+		Revoke,
+		Reinstate,
+		Manual
+	}
+	
+	
+	
+	public class ResolvePurchaseDisputeRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Unique order ID for the purchase in question.
+		/// </summary>
+		public string OrderId { get; set;}
+		
+		/// <summary>
+		/// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See: https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
+		/// </summary>
+		public string Reason { get; set;}
+		
+		/// <summary>
+		/// Enum for the desired purchase result state after notifying the payment provider. Valid values are Revoke, Reinstate and Manual. Manual will cause no change to the order state.
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+		public ResolutionOutcome Outcome { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class ResolvePurchaseDisputeResponse
+	{
+		
+		
+		/// <summary>
+		/// The order's updated purchase status.
+		/// </summary>
+		public string PurchaseStatus { get; set;}
 		
 		
 	}
@@ -2426,7 +2705,8 @@ namespace PlayFab.AdminModels
 		LoadTest,
 		Android,
 		PSN,
-		GameCenter
+		GameCenter,
+		CustomId
 	}
 	
 	
