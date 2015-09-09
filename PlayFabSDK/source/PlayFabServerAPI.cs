@@ -52,6 +52,38 @@ namespace PlayFab
         }
 		
 		/// <summary>
+		/// Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers.
+		/// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromFacebookIDsResult>> GetPlayFabIDsFromFacebookIDsAsync(GetPlayFabIDsFromFacebookIDsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/GetPlayFabIDsFromFacebookIDs", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromFacebookIDsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromFacebookIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetPlayFabIDsFromFacebookIDsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetPlayFabIDsFromFacebookIDsResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
 		/// Retrieves the relevant details for a specified user
 		/// </summary>
         public static async Task<PlayFabResult<GetUserAccountInfoResult>> GetUserAccountInfoAsync(GetUserAccountInfoRequest request)
@@ -718,6 +750,38 @@ namespace PlayFab
 			
 			
             return new PlayFabResult<GetTitleDataResult>
+                {
+                    Result = result
+                };
+        }
+		
+		/// <summary>
+		/// Retrieves the title news feed, as configured in the developer portal
+		/// </summary>
+        public static async Task<PlayFabResult<GetTitleNewsResult>> GetTitleNewsAsync(GetTitleNewsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/GetTitleNews", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetTitleNewsResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetTitleNewsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			GetTitleNewsResult result = resultData.data;
+			
+			
+            return new PlayFabResult<GetTitleNewsResult>
                 {
                     Result = result
                 };
