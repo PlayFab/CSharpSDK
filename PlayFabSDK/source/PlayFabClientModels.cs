@@ -296,7 +296,7 @@ namespace PlayFab.ClientModels
 		public string ItemClass { get; set;}
 		
 		/// <summary>
-		/// catalog item for this item
+		/// catalog version for this item
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
@@ -360,6 +360,11 @@ namespace PlayFab.ClientModels
 		/// if true, then an item instance of this type can be traded between players using the trading APIs
 		/// </summary>
 		public bool IsTradable { get; set;}
+		
+		/// <summary>
+		/// URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP URL.
+		/// </summary>
+		public string ItemImageUrl { get; set;}
 		
 		
 		public int CompareTo(CatalogItem other)
@@ -1238,6 +1243,11 @@ namespace PlayFab.ClientModels
 		/// Array of virtual currency balance(s) belonging to the character.
 		/// </summary>
 		public Dictionary<string,int> VirtualCurrency { get; set;}
+		
+		/// <summary>
+		/// Array of remaining times and timestamps for virtual currencies.
+		/// </summary>
+		public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes { get; set;}
 		
 		
 	}
@@ -2479,6 +2489,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string AccessToken { get; set;}
 		
+		/// <summary>
+		/// If this Facebook account is already linked to a Playfab account, this will unlink the old account before linking the new one. Be careful when using this call, as it may orphan the old account. Defaults to false.
+		/// </summary>
+		public bool? ForceLink { get; set;}
+		
 		
 	}
 	
@@ -2579,7 +2594,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Numeric user ID assigned by Kongregate
 		/// </summary>
-		public ulong KongregateId { get; set;}
+		public string KongregateId { get; set;}
 		
 		/// <summary>
 		/// Valid session auth ticket issued by Kongregate
@@ -2921,7 +2936,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Unique identifier from Kongregate for the user.
 		/// </summary>
-		public ulong KongregateId { get; set;}
+		public string KongregateId { get; set;}
 		
 		/// <summary>
 		/// Token issued by Kongregate's client API for the user.
