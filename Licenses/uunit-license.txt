@@ -1,0 +1,19 @@
+Unity has a custom license and subscription, linked to their editor.
+https://unity3d.com/get-unity
+
+We are not distributing the Unity-editor, or any Unity source.
+
+Uunit Download location
+http://wiki.unity3d.com/index.php?title=UUnit
+
+License
+http://creativecommons.org/licenses/by-sa/3.0/
+
+/*
+ * UUnit system from UnityCommunity
+ * Heavily modified
+ * Stripped of all unity-related code
+ * 0.4 release by pboechat
+ * http://wiki.unity3d.com/index.php?title=UUnit
+ * http://creativecommons.org/licenses/by-sa/3.0/
+*/
