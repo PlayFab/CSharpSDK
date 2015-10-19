@@ -7,7 +7,7 @@ SDK for C#/.net environments other than Unity, including Microsoft CLR environme
 
 2. Prerequisites:
 ----
-* Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/getting-started).
+* Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/docs/getting-started-guide/).
 
 To connect to the PlayFab service, your machine must be running TLS v1.2 or better.
 * For Windows, this means Windows 7 and above
@@ -60,7 +60,7 @@ Do you have ideas on how we can make our products and services better?
 
 Our Developer Success Team can assist with answering any questions as well as process any feedback you have about PlayFab services.
 
-[Forums, Support and Knowledge Base](https://support.playfab.com/support/home)
+[Forums, Support and Knowledge Base](https://community.playfab.com/hc/en-us)
 
 
 6. Copyright and Licensing Information:
