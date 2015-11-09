@@ -2491,6 +2491,11 @@ namespace PlayFab.AdminModels
 		public Dictionary<string,string> Data { get; set;}
 		
 		/// <summary>
+		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+		public List<string> KeysToRemove { get; set;}
+		
+		/// <summary>
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
@@ -2528,6 +2533,11 @@ namespace PlayFab.AdminModels
 		/// Data to be written to the user's custom data.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
+		
+		/// <summary>
+		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+		public List<string> KeysToRemove { get; set;}
 		
 		
 	}

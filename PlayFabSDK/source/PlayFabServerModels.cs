@@ -2324,6 +2324,44 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class RedeemCouponRequest
+	{
+		
+		
+		/// <summary>
+		/// Generated coupon code to redeem.
+		/// </summary>
+		public string CouponCode { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Catalog version of the coupon.
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class RedeemCouponResult
+	{
+		
+		
+		/// <summary>
+		/// Items granted to the player as a result of redeeming the coupon.
+		/// </summary>
+		public List<ItemInstance> GrantedItems { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class RedeemMatchmakerTicketRequest
 	{
 		
@@ -2377,7 +2415,7 @@ namespace PlayFab.ServerModels
 		public string FriendPlayFabId { get; set;}
 		
 		/// <summary>
-		/// The PlayFab identifier of the player to lose a friend
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -2688,6 +2726,11 @@ namespace PlayFab.ServerModels
 		public Dictionary<string,string> Data { get; set;}
 		
 		/// <summary>
+		/// Optional list of Data-keys to remove from CharacterData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+		public List<string> KeysToRemove { get; set;}
+		
+		/// <summary>
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
@@ -2760,6 +2803,11 @@ namespace PlayFab.ServerModels
 		public Dictionary<string,string> Data { get; set;}
 		
 		/// <summary>
+		/// Optional list of Data-keys to remove from GroupData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+		public List<string> KeysToRemove { get; set;}
+		
+		/// <summary>
 		/// Permission to be applied to all user data keys in this request.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
@@ -2792,6 +2840,11 @@ namespace PlayFab.ServerModels
 		/// Data to be written to the user's custom data. Note that keys are trimmed of whitespace, are limited to 1024 characters, and may not begin with a '!' character.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
+		
+		/// <summary>
+		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+		public List<string> KeysToRemove { get; set;}
 		
 		/// <summary>
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
@@ -2832,6 +2885,11 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
+		/// <summary>
+		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+		public List<string> KeysToRemove { get; set;}
+		
 		
 	}
 	
@@ -2860,6 +2918,11 @@ namespace PlayFab.ServerModels
 		/// Data to be written to the item's custom data. Note that keys are trimmed of whitespace.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
+		
+		/// <summary>
+		/// Optional list of Data-keys to remove from ItemData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+		public List<string> KeysToRemove { get; set;}
 		
 		
 	}
