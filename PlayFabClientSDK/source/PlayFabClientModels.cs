@@ -2240,6 +2240,31 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetXboxEntitlementsRequest
+	{
+		
+		
+		/// <summary>
+		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+		/// </summary>
+		public string XboxToken { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetXboxEntitlementsResult
+	{
+		
+		
+		public string Entitlements { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GooglePlayFabIdPair
 	{
 		
