@@ -2486,7 +2486,7 @@ namespace PlayFab.AdminModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// Data to be written to the user's custom data. Note that keys are trimmed of whitespace, are limited to 1024 characters, and may not begin with a '!' character.
+		/// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
@@ -2530,7 +2530,7 @@ namespace PlayFab.AdminModels
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// Data to be written to the user's custom data.
+		/// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
 		/// </summary>
 		public Dictionary<string,string> Data { get; set;}
 		
@@ -2726,7 +2726,8 @@ namespace PlayFab.AdminModels
 		Android,
 		PSN,
 		GameCenter,
-		CustomId
+		CustomId,
+		XboxLive
 	}
 	
 	
