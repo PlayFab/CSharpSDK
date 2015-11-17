@@ -152,6 +152,7 @@ namespace PlayFab.UUnit
 
             ClientModels.UserDataRecord testCounter;
             int testCounterValueExpected, testCounterValueActual;
+            DateTime timeInitial, timeUpdated;
 
             var getRequest = new ClientModels.GetUserDataRequest();
             var getDataTask1 = PlayFabClientAPI.GetUserDataAsync(getRequest);
@@ -165,6 +166,7 @@ namespace PlayFab.UUnit
                 testCounter.Value = "0";
             }
             int.TryParse(testCounter.Value, out testCounterValueExpected);
+            timeInitial = testCounter.LastUpdated;
             testCounterValueExpected = (testCounterValueExpected + 1) % 100; // This test is about the expected value changing - but not testing more complicated issues like bounds
 
             var updateRequest = new ClientModels.UpdateUserDataRequest();
@@ -184,12 +186,9 @@ namespace PlayFab.UUnit
             getDataTask2.Result.Result.Data.TryGetValue(TEST_KEY, out testCounter);
             UUnitAssert.NotNull(testCounter, "The updated UserData was not found in the Api results");
             int.TryParse(testCounter.Value, out testCounterValueActual);
+            timeUpdated = testCounter.LastUpdated;
             UUnitAssert.Equals(testCounterValueExpected, testCounterValueActual);
-
-            var timeUpdated = testCounter.LastUpdated;
-            var testMin = DateTime.UtcNow - TimeSpan.FromMinutes(5);
-            var testMax = testMin + TimeSpan.FromMinutes(10);
-            UUnitAssert.True(testMin <= timeUpdated && timeUpdated <= testMax);
+            UUnitAssert.True(timeUpdated > timeInitial);
         }
 
         /// <summary>
