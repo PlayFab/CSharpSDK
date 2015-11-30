@@ -2753,7 +2753,10 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public bool NewlyCreated { get; set;}
 		
-		public UserSettings UserSettings { get; set;}
+		/// <summary>
+		/// Settings specific to this user.
+		/// </summary>
+		public UserSettings SettingsForUser { get; set;}
 		
 		
 	}
@@ -3610,7 +3613,10 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public string Username { get; set;}
 		
-		public UserSettings UserSettings { get; set;}
+		/// <summary>
+		/// Settings specific to this user.
+		/// </summary>
+		public UserSettings SettingsForUser { get; set;}
 		
 		
 	}
