@@ -2753,6 +2753,8 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public bool NewlyCreated { get; set;}
 		
+		public UserSettings UserSettings { get; set;}
+		
 		
 	}
 	
@@ -3607,6 +3609,8 @@ namespace PlayFab.ClientModels
 		/// PlayFab unique user name.
 		/// </summary>
 		public string Username { get; set;}
+		
+		public UserSettings UserSettings { get; set;}
 		
 		
 	}
@@ -4741,6 +4745,17 @@ namespace PlayFab.ClientModels
 		/// user email address
 		/// </summary>
 		public string Email { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserSettings
+	{
+		
+		
+		public bool NeedsAttribution { get; set;}
 		
 		
 	}
