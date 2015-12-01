@@ -191,7 +191,9 @@ namespace PlayFab
 		DeleteKeyConflict = 1187,
 		InvalidXboxLiveToken = 1188,
 		ExpiredXboxLiveToken = 1189,
-		ResettableStatisticVersionRequired = 1190
+		ResettableStatisticVersionRequired = 1190,
+		NotAuthorizedByTitle = 1191,
+		NoPartnerEnabled = 1192
 	}
 	
 	public class PlayFabError
