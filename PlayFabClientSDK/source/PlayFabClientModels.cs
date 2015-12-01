@@ -1368,6 +1368,49 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetFriendLeaderboardAroundCurrentUserRequest
+	{
+		
+		
+		/// <summary>
+		/// Statistic used to rank players for this leaderboard.
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// Maximum number of entries to retrieve.
+		/// </summary>
+		public int MaxResultsCount { get; set;}
+		
+		/// <summary>
+		/// Indicates whether Steam service friends should be included in the response. Default is true.
+		/// </summary>
+		public bool? IncludeSteamFriends { get; set;}
+		
+		/// <summary>
+		/// Indicates whether Facebook friends should be included in the response. Default is true.
+		/// </summary>
+		public bool? IncludeFacebookFriends { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetFriendLeaderboardAroundCurrentUserResult
+	{
+		
+		
+		/// <summary>
+		/// Ordered listing of users and their positions in the requested leaderboard.
+		/// </summary>
+		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetFriendLeaderboardRequest
 	{
 		
@@ -2861,6 +2904,30 @@ namespace PlayFab.ClientModels
 		
 		/// <summary>
 		/// Automatically create a PlayFab account if one is not currently linked to this Facebook account.
+		/// </summary>
+		public bool? CreateAccount { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class LoginWithGameCenterRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		/// <summary>
+		/// Unique Game Center player id.
+		/// </summary>
+		public string PlayerId { get; set;}
+		
+		/// <summary>
+		/// Automatically create a PlayFab account if one is not currently linked to this Game Center id.
 		/// </summary>
 		public bool? CreateAccount { get; set;}
 		
