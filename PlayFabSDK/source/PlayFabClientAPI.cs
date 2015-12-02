@@ -3304,6 +3304,38 @@ namespace PlayFab
                     Result = result
                 };
         }
+		
+		/// <summary>
+		/// Attributes an install for advertisment.
+		/// </summary>
+        public static async Task<PlayFabResult<AttributeInstallResult>> AttributeInstallAsync(AttributeInstallRequest request)
+        {
+            if (AuthKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AttributeInstall", request, "X-Authorization", AuthKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AttributeInstallResult>
+                {
+                    Error = error,
+                };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<AttributeInstallResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+			
+			AttributeInstallResult result = resultData.data;
+			
+			
+            return new PlayFabResult<AttributeInstallResult>
+                {
+                    Result = result
+                };
+        }
 
         
 		private static string AuthKey = null;
