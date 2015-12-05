@@ -69,7 +69,7 @@ namespace PlayFab.AdminModels
 		/// server host regions in which this build should be running and available
 		/// </summary>
 		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-		public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// developer comment(s) for this build
@@ -99,7 +99,7 @@ namespace PlayFab.AdminModels
 		/// array of regions where this build can used, when it is active
 		/// </summary>
 		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-		public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// maximum number of game server instances that can run on a single host machine
@@ -135,7 +135,7 @@ namespace PlayFab.AdminModels
 		/// the current status of the build validation and processing steps
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public GameBuildStatus? Status { get; set;}
+        public GameBuildStatus? Status { get; set;}
 		
 		
 	}
@@ -235,7 +235,7 @@ namespace PlayFab.AdminModels
 		/// list of item tags
 		/// </summary>
 		[Unordered]
-		public List<string> Tags { get; set;}
+        public List<string> Tags { get; set;}
 		
 		/// <summary>
 		/// game specific custom data
@@ -297,13 +297,13 @@ namespace PlayFab.AdminModels
 		/// unique ItemId values for all items which will be added to the player inventory when the bundle is added
 		/// </summary>
 		[Unordered]
-		public List<string> BundledItems { get; set;}
+        public List<string> BundledItems { get; set;}
 		
 		/// <summary>
 		/// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and add the relevant items to the player inventory when the bundle is added)
 		/// </summary>
 		[Unordered]
-		public List<string> BundledResultTables { get; set;}
+        public List<string> BundledResultTables { get; set;}
 		
 		/// <summary>
 		/// virtual currency types and balances which will be added to the player inventory when the bundle is added
@@ -355,13 +355,13 @@ namespace PlayFab.AdminModels
 		/// unique ItemId values for all items which will be added to the player inventory, once the container has been unlocked
 		/// </summary>
 		[Unordered]
-		public List<string> ItemContents { get; set;}
+        public List<string> ItemContents { get; set;}
 		
 		/// <summary>
 		/// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables will be resolved and add the relevant items to the player inventory)
 		/// </summary>
 		[Unordered]
-		public List<string> ResultTableContents { get; set;}
+        public List<string> ResultTableContents { get; set;}
 		
 		/// <summary>
 		/// virtual currency types and balances which will be added to the player inventory when the container is unlocked
@@ -707,7 +707,7 @@ namespace PlayFab.AdminModels
 		/// Array of items which can be purchased.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
-		public List<CatalogItem> Catalog { get; set;}
+        public List<CatalogItem> Catalog { get; set;}
 		
 		
 	}
@@ -950,13 +950,13 @@ namespace PlayFab.AdminModels
 		/// region in which the Game Server Instance is running
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Region? Region { get; set;}
+        public Region? Region { get; set;}
 		
 		/// <summary>
 		/// array of unique PlayFab identifiers for users currently connected to this Game Server Instance
 		/// </summary>
 		[Unordered]
-		public List<string> Players { get; set;}
+        public List<string> Players { get; set;}
 		
 		/// <summary>
 		/// IP address for this Game Server Instance
@@ -1087,8 +1087,8 @@ namespace PlayFab.AdminModels
 		/// array of regions where this build can used, when it is active
 		/// </summary>
 		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-		[Unordered]
-		public List<Region> ActiveRegions { get; set;}
+        [Unordered]
+        public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// maximum number of game server instances that can run on a single host machine
@@ -1114,7 +1114,7 @@ namespace PlayFab.AdminModels
 		/// the current status of the build validation and processing steps
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public GameBuildStatus? Status { get; set;}
+        public GameBuildStatus? Status { get; set;}
 		
 		/// <summary>
 		/// error message, if any, about this build
@@ -1188,7 +1188,7 @@ namespace PlayFab.AdminModels
 		/// Array of items which can be purchased from this store.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
-		public List<StoreItem> Store { get; set;}
+        public List<StoreItem> Store { get; set;}
 		
 		
 	}
@@ -1298,7 +1298,7 @@ namespace PlayFab.AdminModels
 		/// Array of inventory items belonging to the user.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
 		/// Array of virtual currency balance(s) belonging to the user.
@@ -1434,7 +1434,7 @@ namespace PlayFab.AdminModels
 		/// Array of items to grant and the users to whom the items are to be granted.
 		/// </summary>
 		[Unordered]
-		public List<ItemGrant> ItemGrants { get; set;}
+        public List<ItemGrant> ItemGrants { get; set;}
 		
 		
 	}
@@ -1592,7 +1592,7 @@ namespace PlayFab.AdminModels
 		/// array of uploaded game server builds
 		/// </summary>
 		[Unordered(SortProperty="BuildId")]
-		public List<GetServerBuildInfoResult> Builds { get; set;}
+        public List<GetServerBuildInfoResult> Builds { get; set;}
 		
 		
 	}
@@ -1616,7 +1616,7 @@ namespace PlayFab.AdminModels
 		/// List of virtual currency names defined for this title
 		/// </summary>
 		[Unordered]
-		public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
+        public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
 		
 		
 	}
@@ -1712,7 +1712,7 @@ namespace PlayFab.AdminModels
 		/// array of regions where this build can used, when it is active
 		/// </summary>
 		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-		public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// maximum number of game server instances that can run on a single host machine
@@ -1752,7 +1752,7 @@ namespace PlayFab.AdminModels
 		/// array of regions where this build can used, when it is active
 		/// </summary>
 		[JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-		public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions { get; set;}
 		
 		/// <summary>
 		/// maximum number of game server instances that can run on a single host machine
@@ -1788,7 +1788,7 @@ namespace PlayFab.AdminModels
 		/// the current status of the build validation and processing steps
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public GameBuildStatus? Status { get; set;}
+        public GameBuildStatus? Status { get; set;}
 		
 		
 	}
@@ -2038,7 +2038,7 @@ namespace PlayFab.AdminModels
 		/// Enum for the desired purchase result state after notifying the payment provider. Valid values are Revoke, Reinstate and Manual. Manual will cause no change to the order state.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public ResolutionOutcome Outcome { get; set;}
+        public ResolutionOutcome Outcome { get; set;}
 		
 		
 	}
@@ -2067,7 +2067,7 @@ namespace PlayFab.AdminModels
 		/// Whether this entry in the table is an item or a link to another table
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public ResultTableNodeType ResultItemType { get; set;}
+        public ResultTableNodeType ResultItemType { get; set;}
 		
 		/// <summary>
 		/// Either an ItemId, or the TableId of another random result table
@@ -2499,7 +2499,7 @@ namespace PlayFab.AdminModels
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -2671,7 +2671,7 @@ namespace PlayFab.AdminModels
 		/// Permissions on this data key.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -2764,13 +2764,13 @@ namespace PlayFab.AdminModels
 		/// currency type set in the user Steam account
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Currency? SteamCurrency { get; set;}
+        public Currency? SteamCurrency { get; set;}
 		
 		/// <summary>
 		/// what stage of game ownership the user is listed as being in, from Steam
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public TitleActivationStatus? SteamActivationStatus { get; set;}
+        public TitleActivationStatus? SteamActivationStatus { get; set;}
 		
 		
 	}
@@ -2790,7 +2790,7 @@ namespace PlayFab.AdminModels
 		/// source by which the user first joined the game, if known
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserOrigination? Origination { get; set;}
+        public UserOrigination? Origination { get; set;}
 		
 		/// <summary>
 		/// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user first registered with PlayFab)

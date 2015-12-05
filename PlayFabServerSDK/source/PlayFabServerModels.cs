@@ -249,7 +249,7 @@ namespace PlayFab.ServerModels
 		/// list of item tags
 		/// </summary>
 		[Unordered]
-		public List<string> Tags { get; set;}
+        public List<string> Tags { get; set;}
 		
 		/// <summary>
 		/// game specific custom data
@@ -311,13 +311,13 @@ namespace PlayFab.ServerModels
 		/// unique ItemId values for all items which will be added to the player inventory when the bundle is added
 		/// </summary>
 		[Unordered]
-		public List<string> BundledItems { get; set;}
+        public List<string> BundledItems { get; set;}
 		
 		/// <summary>
 		/// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and add the relevant items to the player inventory when the bundle is added)
 		/// </summary>
 		[Unordered]
-		public List<string> BundledResultTables { get; set;}
+        public List<string> BundledResultTables { get; set;}
 		
 		/// <summary>
 		/// virtual currency types and balances which will be added to the player inventory when the bundle is added
@@ -369,13 +369,13 @@ namespace PlayFab.ServerModels
 		/// unique ItemId values for all items which will be added to the player inventory, once the container has been unlocked
 		/// </summary>
 		[Unordered]
-		public List<string> ItemContents { get; set;}
+        public List<string> ItemContents { get; set;}
 		
 		/// <summary>
 		/// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables will be resolved and add the relevant items to the player inventory)
 		/// </summary>
 		[Unordered]
-		public List<string> ResultTableContents { get; set;}
+        public List<string> ResultTableContents { get; set;}
 		
 		/// <summary>
 		/// virtual currency types and balances which will be added to the player inventory when the container is unlocked
@@ -816,7 +816,7 @@ namespace PlayFab.ServerModels
 		/// Array of items which can be purchased.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
-		public List<CatalogItem> Catalog { get; set;}
+        public List<CatalogItem> Catalog { get; set;}
 		
 		
 	}
@@ -923,7 +923,7 @@ namespace PlayFab.ServerModels
 		/// Array of inventory items belonging to the character.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
 		/// Array of virtual currency balance(s) belonging to the character.
@@ -1566,7 +1566,7 @@ namespace PlayFab.ServerModels
 		/// Array of inventory items belonging to the user.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
 		/// Array of virtual currency balance(s) belonging to the user.
@@ -1864,7 +1864,7 @@ namespace PlayFab.ServerModels
 		/// Array of items to grant and the users to whom the items are to be granted.
 		/// </summary>
 		[Unordered]
-		public List<ItemGrant> ItemGrants { get; set;}
+        public List<ItemGrant> ItemGrants { get; set;}
 		
 		
 	}
@@ -2305,7 +2305,7 @@ namespace PlayFab.ServerModels
 		/// State of user leaving the Game Server Instance.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public PlayerConnectionState? PlayerState { get; set;}
+        public PlayerConnectionState? PlayerState { get; set;}
 		
 		
 	}
@@ -2634,7 +2634,7 @@ namespace PlayFab.ServerModels
 		/// Indicates whether this data can be read by all users (public) or only members of the group (private).
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -2762,7 +2762,7 @@ namespace PlayFab.ServerModels
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -2839,7 +2839,7 @@ namespace PlayFab.ServerModels
 		/// Permission to be applied to all user data keys in this request.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -2878,7 +2878,7 @@ namespace PlayFab.ServerModels
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -3069,7 +3069,7 @@ namespace PlayFab.ServerModels
 		/// Permissions on this data key.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -3162,13 +3162,13 @@ namespace PlayFab.ServerModels
 		/// currency type set in the user Steam account
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Currency? SteamCurrency { get; set;}
+        public Currency? SteamCurrency { get; set;}
 		
 		/// <summary>
 		/// what stage of game ownership the user is listed as being in, from Steam
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public TitleActivationStatus? SteamActivationStatus { get; set;}
+        public TitleActivationStatus? SteamActivationStatus { get; set;}
 		
 		
 	}
@@ -3188,7 +3188,7 @@ namespace PlayFab.ServerModels
 		/// source by which the user first joined the game, if known
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserOrigination? Origination { get; set;}
+        public UserOrigination? Origination { get; set;}
 		
 		/// <summary>
 		/// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user first registered with PlayFab)
