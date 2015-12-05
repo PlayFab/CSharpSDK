@@ -689,6 +689,34 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class DeleteUsersRequest
+	{
+		
+		
+		/// <summary>
+		/// An array of unique PlayFab assigned ID of the user on whom the operation will be performed.
+		/// </summary>
+		public List<string> PlayFabIds { get; set;}
+		
+		/// <summary>
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class DeleteUsersResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class EmptyResult
 	{
 		
