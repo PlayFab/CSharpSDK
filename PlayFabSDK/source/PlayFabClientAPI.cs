@@ -61,7 +61,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -89,7 +89,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -117,7 +117,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -145,7 +145,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -173,7 +173,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -201,7 +201,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -229,7 +229,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -257,7 +257,7 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -285,7 +285,35 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithPSNAsync(LoginWithPSNRequest request)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithPSN", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LoginResult result = resultData.data;
+            _authKey = result.SessionTicket ?? _authKey;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -313,7 +341,35 @@ namespace PlayFab
 
             LoginResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithXboxAsync(LoginWithXboxRequest request)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithXbox", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LoginResult result = resultData.data;
+            _authKey = result.SessionTicket ?? _authKey;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result };
         }
@@ -341,7 +397,7 @@ namespace PlayFab
 
             RegisterPlayFabUserResult result = resultData.data;
             _authKey = result.SessionTicket ?? _authKey;
-            MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<RegisterPlayFabUserResult> { Result = result };
         }
@@ -469,6 +525,31 @@ namespace PlayFab
             GetPlayFabIDsFromGoogleIDsResult result = resultData.data;
 
             return new PlayFabResult<GetPlayFabIDsFromGoogleIDsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromPSNAccountIDs", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromPSNAccountIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayFabIDsFromPSNAccountIDsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Result = result };
         }
 
         /// <summary>
@@ -697,6 +778,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkPSNAccountResult>> LinkPSNAccountAsync(LinkPSNAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkPSNAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkPSNAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkPSNAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LinkPSNAccountResult result = resultData.data;
+
+            return new PlayFabResult<LinkPSNAccountResult> { Result = result };
+        }
+
+        /// <summary>
         /// Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<LinkSteamAccountResult>> LinkSteamAccountAsync(LinkSteamAccountRequest request)
@@ -719,6 +825,31 @@ namespace PlayFab
             LinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<LinkSteamAccountResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkXboxAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkXboxAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkXboxAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LinkXboxAccountResult result = resultData.data;
+
+            return new PlayFabResult<LinkXboxAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -921,6 +1052,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks the related PSN account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkPSNAccountResult>> UnlinkPSNAccountAsync(UnlinkPSNAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkPSNAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkPSNAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkPSNAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UnlinkPSNAccountResult result = resultData.data;
+
+            return new PlayFabResult<UnlinkPSNAccountResult> { Result = result };
+        }
+
+        /// <summary>
         /// Unlinks the related Steam account from the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<UnlinkSteamAccountResult>> UnlinkSteamAccountAsync(UnlinkSteamAccountRequest request)
@@ -943,6 +1099,31 @@ namespace PlayFab
             UnlinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<UnlinkSteamAccountResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Unlinks the related Xbox Live account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkXboxAccountResult>> UnlinkXboxAccountAsync(UnlinkXboxAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkXboxAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkXboxAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkXboxAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UnlinkXboxAccountResult result = resultData.data;
+
+            return new PlayFabResult<UnlinkXboxAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -2196,6 +2377,56 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items
+        /// </summary>
+        public static async Task<PlayFabResult<ConsumePSNEntitlementsResult>> ConsumePSNEntitlementsAsync(ConsumePSNEntitlementsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ConsumePSNEntitlements", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ConsumePSNEntitlementsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ConsumePSNEntitlementsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ConsumePSNEntitlementsResult result = resultData.data;
+
+            return new PlayFabResult<ConsumePSNEntitlementsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Uses the supplied OAuth code to refresh the internally cached player PSN auth token
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RefreshPSNAuthToken", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            EmptyResult result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript.
         /// </summary>
         public static async Task<PlayFabResult<GetCloudScriptUrlResult>> GetCloudScriptUrlAsync(GetCloudScriptUrlRequest request)
@@ -2472,6 +2703,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item
+        /// </summary>
+        public static async Task<PlayFabResult<ValidateAmazonReceiptResult>> ValidateAmazonIAPReceiptAsync(ValidateAmazonReceiptRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ValidateAmazonIAPReceipt", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ValidateAmazonReceiptResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ValidateAmazonReceiptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ValidateAmazonReceiptResult result = resultData.data;
+
+            return new PlayFabResult<ValidateAmazonReceiptResult> { Result = result };
+        }
+
+        /// <summary>
         /// Accepts an open trade. If the call is successful, the offered and accepted items will be swapped between the two players' inventories.
         /// </summary>
         public static async Task<PlayFabResult<AcceptTradeResponse>> AcceptTradeAsync(AcceptTradeRequest request)
@@ -2617,6 +2873,7 @@ namespace PlayFab
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AttributeInstallResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AttributeInstallResult result = resultData.data;
+            PlayFabSettings.AdvertisingIdType += "_Successful";
 
             return new PlayFabResult<AttributeInstallResult> { Result = result };
         }
@@ -2629,7 +2886,7 @@ namespace PlayFab
             return !string.IsNullOrEmpty(_authKey);
         }
 
-        private static void MultiStepClientLogin(bool needsAttribution)
+        private static async Task<PlayFabResult<AttributeInstallResult>> MultiStepClientLogin(bool needsAttribution)
         {
             if (needsAttribution && !PlayFabSettings.DisableAdvertising && !string.IsNullOrEmpty(PlayFabSettings.AdvertisingIdType) && !string.IsNullOrEmpty(PlayFabSettings.AdvertisingIdValue))
             {
@@ -2639,10 +2896,11 @@ namespace PlayFab
                 else if (PlayFabSettings.AdvertisingIdType == PlayFabSettings.AD_TYPE_ANDROID_ID)
                     request.Android_Id = PlayFabSettings.AdvertisingIdValue;
                 else
-                    return;
-                var task = AttributeInstallAsync(request);
-                task.Start();
+                    return null;
+                var output = await AttributeInstallAsync(request);
+                return output;
             }
+            return null;
         }
     }
 }

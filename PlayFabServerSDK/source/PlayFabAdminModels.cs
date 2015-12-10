@@ -440,6 +440,40 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class CreatePlayerStatisticDefinitionRequest
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string Name { get; set;}
+		
+		/// <summary>
+		/// interval at which the values of the statistic for all players are reset. Resets begin at the next interval boundary
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public Interval? VersionChangeInterval { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class CreatePlayerStatisticDefinitionResult
+	{
+		
+		
+		/// <summary>
+		/// created statistic definition
+		/// </summary>
+		public PlayerStatisticDefinition Statistic { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum Currency
 	{
 		AED,
@@ -1001,6 +1035,57 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class GetPlayerStatisticDefinitionsRequest
+	{
+		
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticDefinitionsResult
+	{
+		
+		
+		/// <summary>
+		/// definitions of all statistics for the title
+		/// </summary>
+		public List<PlayerStatisticDefinition> Statistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticVersionsRequest
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticVersionsResult
+	{
+		
+		
+		/// <summary>
+		/// version change history of the statistic
+		/// </summary>
+		public List<PlayerStatisticVersion> StatisticVersions { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetPublisherDataRequest
 	{
 		
@@ -1455,6 +1540,44 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class IncrementPlayerStatisticVersionRequest
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class IncrementPlayerStatisticVersionResult
+	{
+		
+		
+		/// <summary>
+		/// version change history of the statistic
+		/// </summary>
+		public PlayerStatisticVersion StatisticVersion { get; set;}
+		
+		
+	}
+	
+	
+	
+	public enum Interval
+	{
+		Hour,
+		Day,
+		Week,
+		Month
+	}
+	
+	
+	
 	public class ItemGrant
 	{
 		
@@ -1818,6 +1941,72 @@ namespace PlayFab.AdminModels
 		/// Balance of the virtual currency after modification.
 		/// </summary>
 		public int Balance { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class PlayerStatisticDefinition
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// current active version of the statistic, incremented each time the statistic resets
+		/// </summary>
+		public string CurrentVersion { get; set;}
+		
+		/// <summary>
+		/// interval at which the values of the statistic for all players are reset
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public Interval? VersionChangeInterval { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class PlayerStatisticVersion
+	{
+		
+		
+		/// <summary>
+		/// name of the statistic when the version became active
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// version of the statistic
+		/// </summary>
+		public string Version { get; set;}
+		
+		/// <summary>
+		/// time for which the statistic version was scheduled to become active, based on the configured ResetInterval
+		/// </summary>
+		public DateTime? ScheduledVersionChangeIntervalTime { get; set;}
+		
+		/// <summary>
+		/// time when the statistic version became active
+		/// </summary>
+		public DateTime CreatedTime { get; set;}
+		
+		/// <summary>
+		/// status of the process of saving player statistic values of the previous version to a downloadable archive, if configured
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public StatisticVersionArchivalStatus? ArchivalStatus { get; set;}
+		
+		/// <summary>
+		/// reset interval that triggered the version to become active, if configured
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public Interval? ResetInterval { get; set;}
 		
 		
 	}
@@ -2280,6 +2469,17 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public enum StatisticVersionArchivalStatus
+	{
+		NotScheduled,
+		Scheduled,
+		InProgress,
+		Failed,
+		Complete
+	}
+	
+	
+	
 	/// <summary>
 	/// A store entry that list a catalog item at a particular price
 	/// </summary>
@@ -2409,6 +2609,40 @@ namespace PlayFab.AdminModels
 		/// New revision number created
 		/// </summary>
 		public int Revision { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdatePlayerStatisticDefinitionRequest
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// interval at which the values of the statistic for all players are reset. Changes are effective at the next interval boundary
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public Interval? VersionChangeInterval { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdatePlayerStatisticDefinitionResult
+	{
+		
+		
+		/// <summary>
+		/// updated statistic definition
+		/// </summary>
+		public PlayerStatisticDefinition Statistic { get; set;}
 		
 		
 	}

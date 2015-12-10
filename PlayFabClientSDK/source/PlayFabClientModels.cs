@@ -1675,6 +1675,34 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetPlayerStatisticsRequest
+	{
+		
+		
+		/// <summary>
+		/// statistics to return
+		/// </summary>
+		public List<string> StatisticNames { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticsResult
+	{
+		
+		
+		/// <summary>
+		/// User statistics for the requested user.
+		/// </summary>
+		public List<StatisticValue> Statistics { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetPlayerTradesRequest
 	{
 		
@@ -2742,6 +2770,29 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class LinkXboxAccountRequest
+	{
+		
+		
+		/// <summary>
+		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+		/// </summary>
+		public string XboxToken { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class LinkXboxAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class ListUsersCharactersRequest
 	{
 		
@@ -3127,6 +3178,30 @@ namespace PlayFab.ClientModels
 		
 		/// <summary>
 		/// Automatically create a PlayFab account if one is not currently linked to this Steam account.
+		/// </summary>
+		public bool? CreateAccount { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class LoginWithXboxRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		/// <summary>
+		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+		/// </summary>
+		public string XboxToken { get; set;}
+		
+		/// <summary>
+		/// Automatically create a PlayFab account if one is not currently linked to this Xbox Live account.
 		/// </summary>
 		public bool? CreateAccount { get; set;}
 		
@@ -4112,6 +4187,54 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class StatisticUpdate
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// for updates to an existing statistic value for a player, the version of the statistic when it was loaded. Null when setting the statistic value for the first time.
+		/// </summary>
+		public string Version { get; set;}
+		
+		/// <summary>
+		/// statistic value for the player
+		/// </summary>
+		public int Value { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class StatisticValue
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// statistic value for the player
+		/// </summary>
+		public int Value { get; set;}
+		
+		/// <summary>
+		/// for updates to an existing statistic value for a player, the version of the statistic when it was loaded
+		/// </summary>
+		public string Version { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class SteamPlayFabIdPair
 	{
 		
@@ -4476,6 +4599,29 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class UnlinkXboxAccountRequest
+	{
+		
+		
+		/// <summary>
+		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+		/// </summary>
+		public string XboxToken { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UnlinkXboxAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class UnlockContainerItemRequest
 	{
 		
@@ -4567,6 +4713,29 @@ namespace PlayFab.ClientModels
 		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
 		/// </summary>
 		public uint DataVersion { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdatePlayerStatisticsRequest
+	{
+		
+		
+		/// <summary>
+		/// Statistics to be updated with the provided values
+		/// </summary>
+		public List<StatisticUpdate> Statistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdatePlayerStatisticsResult
+	{
+		
 		
 		
 	}
