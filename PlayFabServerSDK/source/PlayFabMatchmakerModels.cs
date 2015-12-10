@@ -214,7 +214,7 @@ namespace PlayFab.MatchmakerModels
 		/// Region with which to associate the server, for filtering.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Region Region { get; set;}
+        public Region Region { get; set;}
 		
 		/// <summary>
 		/// Game mode for this Game Server Instance.
@@ -302,7 +302,7 @@ namespace PlayFab.MatchmakerModels
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
 		/// Array of virtual currency balance(s) belonging to the user.

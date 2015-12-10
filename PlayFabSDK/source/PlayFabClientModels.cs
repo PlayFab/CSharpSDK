@@ -204,6 +204,34 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class AttributeInstallRequest
+	{
+		
+		
+		/// <summary>
+		/// The IdentifierForAdvertisers for iOS Devices.
+		/// </summary>
+		public string Idfa { get; set;}
+		
+		/// <summary>
+		/// The Android Id for this Android device.
+		/// </summary>
+		public string Android_Id { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class AttributeInstallResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class CancelTradeRequest
 	{
 		
@@ -324,7 +352,7 @@ namespace PlayFab.ClientModels
 		/// list of item tags
 		/// </summary>
 		[Unordered]
-		public List<string> Tags { get; set;}
+        public List<string> Tags { get; set;}
 		
 		/// <summary>
 		/// game specific custom data
@@ -386,13 +414,13 @@ namespace PlayFab.ClientModels
 		/// unique ItemId values for all items which will be added to the player inventory when the bundle is added
 		/// </summary>
 		[Unordered]
-		public List<string> BundledItems { get; set;}
+        public List<string> BundledItems { get; set;}
 		
 		/// <summary>
 		/// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and add the relevant items to the player inventory when the bundle is added)
 		/// </summary>
 		[Unordered]
-		public List<string> BundledResultTables { get; set;}
+        public List<string> BundledResultTables { get; set;}
 		
 		/// <summary>
 		/// virtual currency types and balances which will be added to the player inventory when the bundle is added
@@ -444,13 +472,13 @@ namespace PlayFab.ClientModels
 		/// unique ItemId values for all items which will be added to the player inventory, once the container has been unlocked
 		/// </summary>
 		[Unordered]
-		public List<string> ItemContents { get; set;}
+        public List<string> ItemContents { get; set;}
 		
 		/// <summary>
 		/// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables will be resolved and add the relevant items to the player inventory)
 		/// </summary>
 		[Unordered]
-		public List<string> ResultTableContents { get; set;}
+        public List<string> ResultTableContents { get; set;}
 		
 		/// <summary>
 		/// virtual currency types and balances which will be added to the player inventory when the container is unlocked
@@ -629,7 +657,7 @@ namespace PlayFab.ClientModels
 		/// Array of items granted to the player as a result of consuming entitlements.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> ItemsGranted { get; set;}
+        public List<ItemInstance> ItemsGranted { get; set;}
 		
 		
 	}
@@ -840,7 +868,7 @@ namespace PlayFab.ClientModels
 		/// region to check for game instances
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Region? Region { get; set;}
+        public Region? Region { get; set;}
 		
 		/// <summary>
 		/// version of build to match against
@@ -990,7 +1018,7 @@ namespace PlayFab.ClientModels
 		/// region to which this server is associated
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Region? Region { get; set;}
+        public Region? Region { get; set;}
 		
 		/// <summary>
 		/// unique lobby identifier for this game server
@@ -1135,7 +1163,7 @@ namespace PlayFab.ClientModels
 		/// Array of inventory objects.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
-		public List<CatalogItem> Catalog { get; set;}
+        public List<CatalogItem> Catalog { get; set;}
 		
 		
 	}
@@ -1237,7 +1265,7 @@ namespace PlayFab.ClientModels
 		/// Array of inventory items belonging to the character.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
 		/// Array of virtual currency balance(s) belonging to the character.
@@ -1647,6 +1675,34 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetPlayerStatisticsRequest
+	{
+		
+		
+		/// <summary>
+		/// statistics to return
+		/// </summary>
+		public List<string> StatisticNames { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticsResult
+	{
+		
+		
+		/// <summary>
+		/// User statistics for the requested user.
+		/// </summary>
+		public List<StatisticValue> Statistics { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetPlayerTradesRequest
 	{
 		
@@ -1655,7 +1711,7 @@ namespace PlayFab.ClientModels
 		/// Returns only trades with the given status. If null, returns all trades.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public TradeStatus? StatusFilter { get; set;}
+        public TradeStatus? StatusFilter { get; set;}
 		
 		
 	}
@@ -1971,7 +2027,7 @@ namespace PlayFab.ClientModels
 		/// Array of store items.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
-		public List<StoreItem> Store { get; set;}
+        public List<StoreItem> Store { get; set;}
 		
 		
 	}
@@ -2146,7 +2202,7 @@ namespace PlayFab.ClientModels
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
 		/// Array of virtual currency balance(s) belonging to the user.
@@ -2243,7 +2299,7 @@ namespace PlayFab.ClientModels
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
-		public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
 		/// Array of virtual currency balance(s) belonging to the user.
@@ -2714,6 +2770,29 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class LinkXboxAccountRequest
+	{
+		
+		
+		/// <summary>
+		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+		/// </summary>
+		public string XboxToken { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class LinkXboxAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class ListUsersCharactersRequest
 	{
 		
@@ -3107,6 +3186,30 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class LoginWithXboxRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// </summary>
+		public string TitleId { get; set;}
+		
+		/// <summary>
+		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+		/// </summary>
+		public string XboxToken { get; set;}
+		
+		/// <summary>
+		/// Automatically create a PlayFab account if one is not currently linked to this Xbox Live account.
+		/// </summary>
+		public bool? CreateAccount { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class MatchmakeRequest
 	{
 		
@@ -3120,7 +3223,7 @@ namespace PlayFab.ClientModels
 		/// region to match make against
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Region? Region { get; set;}
+        public Region? Region { get; set;}
 		
 		/// <summary>
 		/// game mode to match make against
@@ -3190,7 +3293,7 @@ namespace PlayFab.ClientModels
 		/// result of match making process
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public MatchmakeStatus? Status { get; set;}
+        public MatchmakeStatus? Status { get; set;}
 		
 		
 	}
@@ -3312,7 +3415,7 @@ namespace PlayFab.ClientModels
 		/// Status of the transaction.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public TransactionStatus? Status { get; set;}
+        public TransactionStatus? Status { get; set;}
 		
 		/// <summary>
 		/// Virtual currency cost of the transaction.
@@ -3562,7 +3665,7 @@ namespace PlayFab.ClientModels
 		/// unique identifier for the region
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Region? Region { get; set;}
+        public Region? Region { get; set;}
 		
 		/// <summary>
 		/// name of the region
@@ -3945,7 +4048,7 @@ namespace PlayFab.ClientModels
 		/// Indicates whether this data can be read by all users (public) or only members of the group (private).
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -3965,7 +4068,7 @@ namespace PlayFab.ClientModels
 		/// the region to associate this server with for match filtering
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Region Region { get; set;}
+        public Region Region { get; set;}
 		
 		/// <summary>
 		/// the title-defined game mode this server is to be running (defaults to 0 if there is only one mode)
@@ -4078,6 +4181,54 @@ namespace PlayFab.ClientModels
 		/// Current virtual currency totals for the user.
 		/// </summary>
 		public Dictionary<string,int> VirtualCurrencyBalances { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class StatisticUpdate
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// for updates to an existing statistic value for a player, the version of the statistic when it was loaded. Null when setting the statistic value for the first time.
+		/// </summary>
+		public string Version { get; set;}
+		
+		/// <summary>
+		/// statistic value for the player
+		/// </summary>
+		public int Value { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class StatisticValue
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// statistic value for the player
+		/// </summary>
+		public int Value { get; set;}
+		
+		/// <summary>
+		/// for updates to an existing statistic value for a player, the version of the statistic when it was loaded
+		/// </summary>
+		public string Version { get; set;}
 		
 		
 	}
@@ -4201,7 +4352,7 @@ namespace PlayFab.ClientModels
 		
 		
 		[JsonConverter(typeof(StringEnumConverter))]
-		public TradeStatus? Status { get; set;}
+        public TradeStatus? Status { get; set;}
 		
 		public string TradeId { get; set;}
 		
@@ -4448,6 +4599,29 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class UnlinkXboxAccountRequest
+	{
+		
+		
+		/// <summary>
+		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+		/// </summary>
+		public string XboxToken { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UnlinkXboxAccountResult
+	{
+		
+		
+		
+	}
+	
+	
+	
 	public class UnlockContainerItemRequest
 	{
 		
@@ -4524,7 +4698,7 @@ namespace PlayFab.ClientModels
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -4539,6 +4713,29 @@ namespace PlayFab.ClientModels
 		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
 		/// </summary>
 		public uint DataVersion { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdatePlayerStatisticsRequest
+	{
+		
+		
+		/// <summary>
+		/// Statistics to be updated with the provided values
+		/// </summary>
+		public List<StatisticUpdate> Statistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdatePlayerStatisticsResult
+	{
+		
 		
 		
 	}
@@ -4568,7 +4765,7 @@ namespace PlayFab.ClientModels
 		/// Permission to be applied to all user data keys in this request.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -4602,7 +4799,7 @@ namespace PlayFab.ClientModels
 		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -4749,7 +4946,7 @@ namespace PlayFab.ClientModels
 		/// Indicates whether this data can be read by all users (public) or only the user (private).
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission { get; set;}
 		
 		
 	}
@@ -4828,6 +5025,9 @@ namespace PlayFab.ClientModels
 	{
 		
 		
+		/// <summary>
+		/// Boolean for whether this player is eligible for ad tracking.
+		/// </summary>
 		public bool NeedsAttribution { get; set;}
 		
 		
@@ -4853,13 +5053,13 @@ namespace PlayFab.ClientModels
 		/// currency type set in the user Steam account
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public Currency? SteamCurrency { get; set;}
+        public Currency? SteamCurrency { get; set;}
 		
 		/// <summary>
 		/// what stage of game ownership the user is listed as being in, from Steam
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public TitleActivationStatus? SteamActivationStatus { get; set;}
+        public TitleActivationStatus? SteamActivationStatus { get; set;}
 		
 		
 	}
@@ -4879,7 +5079,7 @@ namespace PlayFab.ClientModels
 		/// source by which the user first joined the game, if known
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-		public UserOrigination? Origination { get; set;}
+        public UserOrigination? Origination { get; set;}
 		
 		/// <summary>
 		/// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user first registered with PlayFab)
