@@ -2873,6 +2873,7 @@ namespace PlayFab
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AttributeInstallResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AttributeInstallResult result = resultData.data;
+            // Modify AdvertisingIdType:  Prevents us from sending the id multiple times, and allows automated tests to determine id was sent successfully
             PlayFabSettings.AdvertisingIdType += "_Successful";
 
             return new PlayFabResult<AttributeInstallResult> { Result = result };

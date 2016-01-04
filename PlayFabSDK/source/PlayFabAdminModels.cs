@@ -848,10 +848,13 @@ namespace PlayFab.AdminModels
 		public long ItemCount { get; set;}
 		
 		/// <summary>
-		/// The total size of listed contents in bytes
+		/// The total size of listed contents in bytes.
 		/// </summary>
 		public long TotalSize { get; set;}
 		
+		/// <summary>
+		/// List of content items.
+		/// </summary>
 		public List<ContentInfo> Contents { get; set;}
 		
 		
@@ -925,6 +928,9 @@ namespace PlayFab.AdminModels
 	{
 		
 		
+		/// <summary>
+		/// The URL where the requested report can be downloaded.
+		/// </summary>
 		public string DownloadUrl { get; set;}
 		
 		
@@ -1472,6 +1478,9 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// CatalogItem.DisplayName at the time this item was purchased.
+		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
@@ -1664,6 +1673,9 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// CatalogItem.DisplayName at the time this item was purchased.
+		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
