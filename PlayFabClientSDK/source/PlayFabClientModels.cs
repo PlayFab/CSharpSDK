@@ -3265,7 +3265,7 @@ namespace PlayFab.ClientModels
 		/// region to match make against
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-        public Region? Region { get; set;}
+        public Region Region { get; set;}
 		
 		/// <summary>
 		/// game mode to match make against
