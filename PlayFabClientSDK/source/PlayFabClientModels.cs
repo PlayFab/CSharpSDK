@@ -3343,18 +3343,18 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// build version to match against
+		/// build version to match against [Note: Required if LobbyId is not specified]
 		/// </summary>
 		public string BuildVersion { get; set;}
 		
 		/// <summary>
-		/// region to match make against
+		/// region to match make against [Note: Required if LobbyId is not specified]
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
-        public Region Region { get; set;}
+        public Region? Region { get; set;}
 		
 		/// <summary>
-		/// game mode to match make against
+		/// game mode to match make against [Note: Required if LobbyId is not specified]
 		/// </summary>
 		public string GameMode { get; set;}
 		
