@@ -1317,9 +1317,9 @@ namespace PlayFab.ClientModels
 		public int StartPosition { get; set;}
 		
 		/// <summary>
-		/// Maximum number of entries to retrieve.
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
@@ -1421,9 +1421,9 @@ namespace PlayFab.ClientModels
 		public string StatisticName { get; set;}
 		
 		/// <summary>
-		/// Maximum number of entries to retrieve.
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		/// <summary>
 		/// Indicates whether Steam service friends should be included in the response. Default is true.
@@ -1454,6 +1454,54 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetFriendLeaderboardAroundPlayerRequest
+	{
+		
+		
+		/// <summary>
+		/// Statistic used to rank players for this leaderboard.
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
+		/// </summary>
+		public int? MaxResultsCount { get; set;}
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user to center the leaderboard around. If null will center on the logged in user.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Indicates whether Steam service friends should be included in the response. Default is true.
+		/// </summary>
+		public bool? IncludeSteamFriends { get; set;}
+		
+		/// <summary>
+		/// Indicates whether Facebook friends should be included in the response. Default is true.
+		/// </summary>
+		public bool? IncludeFacebookFriends { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetFriendLeaderboardAroundPlayerResult
+	{
+		
+		
+		/// <summary>
+		/// Ordered listing of users and their positions in the requested leaderboard.
+		/// </summary>
+		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetFriendLeaderboardRequest
 	{
 		
@@ -1469,9 +1517,9 @@ namespace PlayFab.ClientModels
 		public int StartPosition { get; set;}
 		
 		/// <summary>
-		/// Maximum number of entries to retrieve.
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		/// <summary>
 		/// Indicates whether Steam service friends should be included in the response. Default is true.
@@ -1531,7 +1579,7 @@ namespace PlayFab.ClientModels
 		public string StatisticName { get; set;}
 		
 		/// <summary>
-		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// Unique PlayFab assigned ID for a specific character on which to center the leaderboard.
 		/// </summary>
 		public string CharacterId { get; set;}
 		
@@ -1541,9 +1589,9 @@ namespace PlayFab.ClientModels
 		public string CharacterType { get; set;}
 		
 		/// <summary>
-		/// Maximum number of entries to retrieve.
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
@@ -1574,9 +1622,9 @@ namespace PlayFab.ClientModels
 		public string StatisticName { get; set;}
 		
 		/// <summary>
-		/// Maximum number of entries to retrieve.
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
@@ -1584,6 +1632,44 @@ namespace PlayFab.ClientModels
 	
 	
 	public class GetLeaderboardAroundCurrentUserResult
+	{
+		
+		
+		/// <summary>
+		/// Ordered listing of users and their positions in the requested leaderboard.
+		/// </summary>
+		public List<PlayerLeaderboardEntry> Leaderboard { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetLeaderboardAroundPlayerRequest
+	{
+		
+		
+		/// <summary>
+		/// PlayFab unique identifier of the user to center the leaderboard around. If null will center on the logged in user.
+		/// </summary>
+		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Statistic used to rank players for this leaderboard.
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
+		/// </summary>
+		public int? MaxResultsCount { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetLeaderboardAroundPlayerResult
 	{
 		
 		
@@ -1645,9 +1731,9 @@ namespace PlayFab.ClientModels
 		public int StartPosition { get; set;}
 		
 		/// <summary>
-		/// Maximum number of entries to retrieve.
+		/// Maximum number of entries to retrieve. Default 10, maximum 100.
 		/// </summary>
-		public int MaxResultsCount { get; set;}
+		public int? MaxResultsCount { get; set;}
 		
 		
 	}
