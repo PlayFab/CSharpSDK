@@ -1202,6 +1202,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab user. If PlayFabId is empty or null will return currently logged in user.
+        /// </summary>
+        public static async Task<PlayFabResult<GetFriendLeaderboardAroundPlayerResult>> GetFriendLeaderboardAroundPlayerAsync(GetFriendLeaderboardAroundPlayerRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetFriendLeaderboardAroundPlayer", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetFriendLeaderboardAroundPlayerResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetFriendLeaderboardAroundPlayerResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetFriendLeaderboardAroundPlayerResult result = resultData.data;
+
+            return new PlayFabResult<GetFriendLeaderboardAroundPlayerResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard
         /// </summary>
         public static async Task<PlayFabResult<GetLeaderboardResult>> GetLeaderboardAsync(GetLeaderboardRequest request)
@@ -1249,6 +1274,31 @@ namespace PlayFab
             GetLeaderboardAroundCurrentUserResult result = resultData.data;
 
             return new PlayFabResult<GetLeaderboardAroundCurrentUserResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves a list of ranked users for the given statistic, centered on the requested player. If PlayFabId is empty or null will return currently logged in user.
+        /// </summary>
+        public static async Task<PlayFabResult<GetLeaderboardAroundPlayerResult>> GetLeaderboardAroundPlayerAsync(GetLeaderboardAroundPlayerRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLeaderboardAroundPlayer", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetLeaderboardAroundPlayerResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardAroundPlayerResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetLeaderboardAroundPlayerResult result = resultData.data;
+
+            return new PlayFabResult<GetLeaderboardAroundPlayerResult> { Result = result };
         }
 
         /// <summary>
@@ -2102,7 +2152,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Attempts to locate a game session matching the given parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound. Note that EnableQueue is deprecated at this time.
+        /// Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound. Note that EnableQueue is deprecated at this time.
         /// </summary>
         public static async Task<PlayFabResult<MatchmakeResult>> MatchmakeAsync(MatchmakeRequest request)
         {
@@ -2553,7 +2603,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a list of ranked characters for the given statistic, centered on the currently signed-in user
+        /// Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID
         /// </summary>
         public static async Task<PlayFabResult<GetLeaderboardAroundCharacterResult>> GetLeaderboardAroundCharacterAsync(GetLeaderboardAroundCharacterRequest request)
         {
@@ -2873,6 +2923,7 @@ namespace PlayFab
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AttributeInstallResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AttributeInstallResult result = resultData.data;
+            // Modify AdvertisingIdType:  Prevents us from sending the id multiple times, and allows automated tests to determine id was sent successfully
             PlayFabSettings.AdvertisingIdType += "_Successful";
 
             return new PlayFabResult<AttributeInstallResult> { Result = result };

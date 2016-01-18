@@ -435,10 +435,19 @@ namespace PlayFab.ServerModels
 	{
 		
 		
+		/// <summary>
+		/// The id for this character on this player.
+		/// </summary>
 		public string CharacterId { get; set;}
 		
+		/// <summary>
+		/// The name of this character.
+		/// </summary>
 		public string CharacterName { get; set;}
 		
+		/// <summary>
+		/// The type-string that was given to this character on creation.
+		/// </summary>
 		public string CharacterType { get; set;}
 		
 		
@@ -1764,6 +1773,9 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// CatalogItem.DisplayName at the time this item was purchased.
+		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
@@ -2009,6 +2021,9 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// CatalogItem.DisplayName at the time this item was purchased.
+		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
@@ -2061,6 +2076,9 @@ namespace PlayFab.ServerModels
 	{
 		
 		
+		/// <summary>
+		/// The requested list of characters.
+		/// </summary>
 		public List<CharacterResult> Characters { get; set;}
 		
 		
@@ -2551,8 +2569,14 @@ namespace PlayFab.ServerModels
 	{
 		
 		
+		/// <summary>
+		/// Indicates whether this action completed successfully.
+		/// </summary>
 		public bool Updated { get; set;}
 		
+		/// <summary>
+		/// The number of remaining reports which may be filed today by this reporting player.
+		/// </summary>
 		public int SubmissionsRemaining { get; set;}
 		
 		
@@ -2691,7 +2715,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// for updates to an existing statistic value for a player, the version of the statistic when it was loaded. Null when setting the statistic value for the first time.
 		/// </summary>
-		public string Version { get; set;}
+		public uint? Version { get; set;}
 		
 		/// <summary>
 		/// statistic value for the player

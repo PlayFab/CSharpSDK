@@ -848,10 +848,13 @@ namespace PlayFab.AdminModels
 		public long ItemCount { get; set;}
 		
 		/// <summary>
-		/// The total size of listed contents in bytes
+		/// The total size of listed contents in bytes.
 		/// </summary>
 		public long TotalSize { get; set;}
 		
+		/// <summary>
+		/// List of content items.
+		/// </summary>
 		public List<ContentInfo> Contents { get; set;}
 		
 		
@@ -925,6 +928,9 @@ namespace PlayFab.AdminModels
 	{
 		
 		
+		/// <summary>
+		/// The URL where the requested report can be downloaded.
+		/// </summary>
 		public string DownloadUrl { get; set;}
 		
 		
@@ -1472,6 +1478,9 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// CatalogItem.DisplayName at the time this item was purchased.
+		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
@@ -1664,6 +1673,9 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public string BundleParent { get; set;}
 		
+		/// <summary>
+		/// CatalogItem.DisplayName at the time this item was purchased.
+		/// </summary>
 		public string DisplayName { get; set;}
 		
 		/// <summary>
@@ -1959,7 +1971,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// current active version of the statistic, incremented each time the statistic resets
 		/// </summary>
-		public string CurrentVersion { get; set;}
+		public uint CurrentVersion { get; set;}
 		
 		/// <summary>
 		/// interval at which the values of the statistic for all players are reset
@@ -1984,29 +1996,38 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// version of the statistic
 		/// </summary>
-		public string Version { get; set;}
+		public uint Version { get; set;}
 		
 		/// <summary>
-		/// time for which the statistic version was scheduled to become active, based on the configured ResetInterval
+		/// time at which the statistic version was scheduled to become active, based on the configured ResetInterval
 		/// </summary>
-		public DateTime? ScheduledVersionChangeIntervalTime { get; set;}
+		public DateTime? ScheduledActivationTime { get; set;}
 		
 		/// <summary>
 		/// time when the statistic version became active
 		/// </summary>
-		public DateTime CreatedTime { get; set;}
+		public DateTime ActivationTime { get; set;}
 		
 		/// <summary>
-		/// status of the process of saving player statistic values of the previous version to a downloadable archive, if configured
+		/// time at which the statistic version was scheduled to become inactive, based on the configured ResetInterval
+		/// </summary>
+		public DateTime? ScheduledDeactivationTime { get; set;}
+		
+		/// <summary>
+		/// time when the statistic version became inactive due to statistic version incrementing
+		/// </summary>
+		public DateTime? DeactivationTime { get; set;}
+		
+		/// <summary>
+		/// status of the process of saving player statistic values of the previous version to a downloadable archive
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
         public StatisticVersionArchivalStatus? ArchivalStatus { get; set;}
 		
 		/// <summary>
-		/// reset interval that triggered the version to become active, if configured
+		/// URL for the downloadable archive of player statistic values, if available
 		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
-        public Interval? ResetInterval { get; set;}
+		public string ArchiveDownloadUrl { get; set;}
 		
 		
 	}
@@ -2473,8 +2494,8 @@ namespace PlayFab.AdminModels
 	{
 		NotScheduled,
 		Scheduled,
+		Queued,
 		InProgress,
-		Failed,
 		Complete
 	}
 	
@@ -2554,12 +2575,12 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// which catalog is being updated
+		/// Which catalog is being updated
 		/// </summary>
 		public string CatalogVersion { get; set;}
 		
 		/// <summary>
-		/// array of catalog items to be submitted
+		/// Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call.
 		/// </summary>
 		public List<CatalogItem> Catalog { get; set;}
 		
