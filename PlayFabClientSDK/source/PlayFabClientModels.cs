@@ -3005,6 +3005,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
 		public UserSettings SettingsForUser { get; set;}
 		
+		/// <summary>
+		/// The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue
+		/// </summary>
+		public DateTime? LastLoginTime { get; set;}
+		
 		
 	}
 	
