@@ -81,6 +81,11 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public int MaxGamesPerHost { get; set;}
 		
+		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
+		
 		
 	}
 	
@@ -105,6 +110,11 @@ namespace PlayFab.AdminModels
 		/// maximum number of game server instances that can run on a single host machine
 		/// </summary>
 		public int MaxGamesPerHost { get; set;}
+		
+		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
 		
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
@@ -1187,6 +1197,11 @@ namespace PlayFab.AdminModels
 		public int MaxGamesPerHost { get; set;}
 		
 		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
+		
+		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
 		public string Comment { get; set;}
@@ -1855,6 +1870,11 @@ namespace PlayFab.AdminModels
 		public int MaxGamesPerHost { get; set;}
 		
 		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
+		
+		/// <summary>
 		/// appended to the end of the command line when starting game servers
 		/// </summary>
 		public string CommandLineTemplate { get; set;}
@@ -1893,6 +1913,11 @@ namespace PlayFab.AdminModels
 		/// maximum number of game server instances that can run on a single host machine
 		/// </summary>
 		public int MaxGamesPerHost { get; set;}
+		
+		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
 		
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
