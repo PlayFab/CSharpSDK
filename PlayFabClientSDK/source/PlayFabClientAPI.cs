@@ -2603,6 +2603,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the details of all title-specific statistics for the user
+        /// </summary>
+        public static async Task<PlayFabResult<GetCharacterStatisticsResult>> GetCharacterStatisticsAsync(GetCharacterStatisticsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCharacterStatistics", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetCharacterStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetCharacterStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<GetCharacterStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID
         /// </summary>
         public static async Task<PlayFabResult<GetLeaderboardAroundCharacterResult>> GetLeaderboardAroundCharacterAsync(GetLeaderboardAroundCharacterRequest request)
@@ -2675,6 +2700,30 @@ namespace PlayFab
             GrantCharacterToUserResult result = resultData.data;
 
             return new PlayFabResult<GrantCharacterToUserResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the values of the specified title-specific statistics for the specific character
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateCharacterStatisticsResult>> UpdateCharacterStatisticsAsync(UpdateCharacterStatisticsRequest request)
+        {
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateCharacterStatistics", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateCharacterStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateCharacterStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateCharacterStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<UpdateCharacterStatisticsResult> { Result = result };
         }
 
         /// <summary>

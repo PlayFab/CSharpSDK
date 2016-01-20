@@ -1340,6 +1340,34 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class GetCharacterStatisticsRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// </summary>
+		public string CharacterId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetCharacterStatisticsResult
+	{
+		
+		
+		/// <summary>
+		/// The requested character statistics.
+		/// </summary>
+		public Dictionary<string,int> CharacterStatistics { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetCloudScriptUrlRequest
 	{
 		
@@ -4897,6 +4925,34 @@ namespace PlayFab.ClientModels
 		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
 		/// </summary>
 		public uint DataVersion { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateCharacterStatisticsRequest
+	{
+		
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// </summary>
+		public string CharacterId { get; set;}
+		
+		/// <summary>
+		/// Statistics to be updated with the provided values.
+		/// </summary>
+		public Dictionary<string,int> CharacterStatistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UpdateCharacterStatisticsResult
+	{
+		
 		
 		
 	}
