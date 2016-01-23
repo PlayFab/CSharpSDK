@@ -528,6 +528,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of Kongregate identifiers. The Kongregate identifiers are the IDs for the user accounts, available as "user_id" from the Kongregate API methods(ex: http://developers.kongregate.com/docs/client/getUserId).
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromKongregateIDsResult>> GetPlayFabIDsFromKongregateIDsAsync(GetPlayFabIDsFromKongregateIDsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromKongregateIDs", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromKongregateIDsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromKongregateIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayFabIDsFromKongregateIDsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromKongregateIDsResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request)
