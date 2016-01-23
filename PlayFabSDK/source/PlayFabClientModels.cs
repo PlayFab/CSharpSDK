@@ -2644,7 +2644,7 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class ItemPuchaseRequest
+	public class ItemPurchaseRequest
 	{
 		
 		
@@ -4324,7 +4324,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of items to purchase.
 		/// </summary>
-		public List<ItemPuchaseRequest> Items { get; set;}
+		public List<ItemPurchaseRequest> Items { get; set;}
 		
 		
 	}
