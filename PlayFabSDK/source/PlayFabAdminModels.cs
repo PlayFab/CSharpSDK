@@ -81,6 +81,11 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		public int MaxGamesPerHost { get; set;}
 		
+		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
+		
 		
 	}
 	
@@ -105,6 +110,11 @@ namespace PlayFab.AdminModels
 		/// maximum number of game server instances that can run on a single host machine
 		/// </summary>
 		public int MaxGamesPerHost { get; set;}
+		
+		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
 		
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
@@ -1187,6 +1197,11 @@ namespace PlayFab.AdminModels
 		public int MaxGamesPerHost { get; set;}
 		
 		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
+		
+		/// <summary>
 		/// developer comment(s) for this build
 		/// </summary>
 		public string Comment { get; set;}
@@ -1855,6 +1870,11 @@ namespace PlayFab.AdminModels
 		public int MaxGamesPerHost { get; set;}
 		
 		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
+		
+		/// <summary>
 		/// appended to the end of the command line when starting game servers
 		/// </summary>
 		public string CommandLineTemplate { get; set;}
@@ -1893,6 +1913,11 @@ namespace PlayFab.AdminModels
 		/// maximum number of game server instances that can run on a single host machine
 		/// </summary>
 		public int MaxGamesPerHost { get; set;}
+		
+		/// <summary>
+		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+		/// </summary>
+		public int MinFreeGameSlots { get; set;}
 		
 		/// <summary>
 		/// appended to the end of the command line when starting game servers
@@ -2307,7 +2332,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// unique PlayFab identifier for the user account which is to have the specified item removed
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -2317,7 +2342,7 @@ namespace PlayFab.AdminModels
 		public string CharacterId { get; set;}
 		
 		/// <summary>
-		/// unique PlayFab identifier for the item instance to be removed
+		/// Unique PlayFab assigned instance identifier of the item
 		/// </summary>
 		public string ItemInstanceId { get; set;}
 		
@@ -2837,44 +2862,93 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// unique identifier for the user account
+		/// Unique identifier for the user account
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
 		/// <summary>
-		/// timestamp indicating when the user account was created
+		/// Timestamp indicating when the user account was created
 		/// </summary>
 		public DateTime Created { get; set;}
 		
 		/// <summary>
-		/// user account name in the PlayFab service
+		/// User account name in the PlayFab service
 		/// </summary>
 		public string Username { get; set;}
 		
 		/// <summary>
-		/// title-specific information for the user account
+		/// Title-specific information for the user account
 		/// </summary>
 		public UserTitleInfo TitleInfo { get; set;}
 		
 		/// <summary>
-		/// personal information for the user which is considered more sensitive
+		/// Personal information for the user which is considered more sensitive
 		/// </summary>
 		public UserPrivateAccountInfo PrivateInfo { get; set;}
 		
 		/// <summary>
-		/// user Facebook information, if a Facebook account has been linked
+		/// User Facebook information, if a Facebook account has been linked
 		/// </summary>
 		public UserFacebookInfo FacebookInfo { get; set;}
 		
 		/// <summary>
-		/// user Steam information, if a Steam account has been linked
+		/// User Steam information, if a Steam account has been linked
 		/// </summary>
 		public UserSteamInfo SteamInfo { get; set;}
 		
 		/// <summary>
-		/// user Gamecenter information, if a Gamecenter account has been linked
+		/// User Gamecenter information, if a Gamecenter account has been linked
 		/// </summary>
 		public UserGameCenterInfo GameCenterInfo { get; set;}
+		
+		/// <summary>
+		/// User iOS device information, if an iOS device has been linked
+		/// </summary>
+		public UserIosDeviceInfo IosDeviceInfo { get; set;}
+		
+		/// <summary>
+		/// User Android device information, if an Android device has been linked
+		/// </summary>
+		public UserAndroidDeviceInfo AndroidDeviceInfo { get; set;}
+		
+		/// <summary>
+		/// User Kongregate account information, if a Kongregate account has been linked
+		/// </summary>
+		public UserKongregateInfo KongregateInfo { get; set;}
+		
+		/// <summary>
+		/// User PSN account information, if a PSN account has been linked
+		/// </summary>
+		public UserPsnInfo PsnInfo { get; set;}
+		
+		/// <summary>
+		/// User Google account information, if a Google account has been linked
+		/// </summary>
+		public UserGoogleInfo GoogleInfo { get; set;}
+		
+		/// <summary>
+		/// User XBox account information, if a XBox account has been linked
+		/// </summary>
+		public UserXboxInfo XboxInfo { get; set;}
+		
+		/// <summary>
+		/// Custom ID information, if a custom ID has been assigned
+		/// </summary>
+		public UserCustomIdInfo CustomIdInfo { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserAndroidDeviceInfo
+	{
+		
+		
+		/// <summary>
+		/// Android device ID
+		/// </summary>
+		public string AndroidDeviceId { get; set;}
 		
 		
 	}
@@ -2894,6 +2968,20 @@ namespace PlayFab.AdminModels
 		/// Password for the PlayFab account (6-30 characters)
 		/// </summary>
 		public string Password { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserCustomIdInfo
+	{
+		
+		
+		/// <summary>
+		/// Custom ID
+		/// </summary>
+		public string CustomId { get; set;}
 		
 		
 	}
@@ -2966,6 +3054,68 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public class UserGoogleInfo
+	{
+		
+		
+		/// <summary>
+		/// Google ID
+		/// </summary>
+		public string GoogleId { get; set;}
+		
+		/// <summary>
+		/// Email address of the Google account
+		/// </summary>
+		public string GoogleEmail { get; set;}
+		
+		/// <summary>
+		/// Locale of the Google account
+		/// </summary>
+		public string GoogleLocale { get; set;}
+		
+		/// <summary>
+		/// Gender information of the Google account
+		/// </summary>
+		public string GoogleGender { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserIosDeviceInfo
+	{
+		
+		
+		/// <summary>
+		/// iOS device ID
+		/// </summary>
+		public string IosDeviceId { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserKongregateInfo
+	{
+		
+		
+		/// <summary>
+		/// Kongregate ID
+		/// </summary>
+		public string KongregateId { get; set;}
+		
+		/// <summary>
+		/// Kongregate Username
+		/// </summary>
+		public string KongregateName { get; set;}
+		
+		
+	}
+	
+	
+	
 	public enum UserOrigination
 	{
 		Organic,
@@ -2995,6 +3145,25 @@ namespace PlayFab.AdminModels
 		/// user email address
 		/// </summary>
 		public string Email { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserPsnInfo
+	{
+		
+		
+		/// <summary>
+		/// PSN account ID
+		/// </summary>
+		public string PsnAccountId { get; set;}
+		
+		/// <summary>
+		/// PSN online ID
+		/// </summary>
+		public string PsnOnlineId { get; set;}
 		
 		
 	}
@@ -3066,6 +3235,20 @@ namespace PlayFab.AdminModels
 		/// boolean indicating whether or not the user is currently banned for a title
 		/// </summary>
 		public bool? isBanned { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class UserXboxInfo
+	{
+		
+		
+		/// <summary>
+		/// XBox user ID
+		/// </summary>
+		public string XboxUserId { get; set;}
 		
 		
 	}
