@@ -3561,7 +3561,8 @@ namespace PlayFab.ServerModels
 		PSN,
 		GameCenter,
 		CustomId,
-		XboxLive
+		XboxLive,
+		Parse
 	}
 	
 	
