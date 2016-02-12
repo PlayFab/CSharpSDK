@@ -1327,6 +1327,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the current version and values for the indicated statistics, for the local player.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayerStatisticsResult>> GetPlayerStatisticsAsync(GetPlayerStatisticsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayerStatistics", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayerStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayerStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the title-specific custom data for the user which is readable and writable by the client
         /// </summary>
         public static async Task<PlayFabResult<GetUserDataResult>> GetUserDataAsync(GetUserDataRequest request)
@@ -1449,6 +1474,31 @@ namespace PlayFab
             GetUserStatisticsResult result = resultData.data;
 
             return new PlayFabResult<GetUserStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the values of the specified title-specific statistics for the user
+        /// </summary>
+        public static async Task<PlayFabResult<UpdatePlayerStatisticsResult>> UpdatePlayerStatisticsAsync(UpdatePlayerStatisticsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdatePlayerStatistics", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdatePlayerStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdatePlayerStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdatePlayerStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<UpdatePlayerStatisticsResult> { Result = result };
         }
 
         /// <summary>

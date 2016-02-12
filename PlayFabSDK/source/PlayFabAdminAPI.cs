@@ -114,6 +114,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval.
+        /// </summary>
+        public static async Task<PlayFabResult<CreatePlayerStatisticDefinitionResult>> CreatePlayerStatisticDefinitionAsync(CreatePlayerStatisticDefinitionRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/CreatePlayerStatisticDefinition", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<CreatePlayerStatisticDefinitionResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<CreatePlayerStatisticDefinitionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            CreatePlayerStatisticDefinitionResult result = resultData.data;
+
+            return new PlayFabResult<CreatePlayerStatisticDefinitionResult> { Result = result };
+        }
+
+        /// <summary>
         /// Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics.
         /// </summary>
         public static async Task<PlayFabResult<DeleteUsersResult>> DeleteUsersAsync(DeleteUsersRequest request)
@@ -161,6 +186,56 @@ namespace PlayFab
             GetDataReportResult result = resultData.data;
 
             return new PlayFabResult<GetDataReportResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have a reset interval.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayerStatisticDefinitionsResult>> GetPlayerStatisticDefinitionsAsync(GetPlayerStatisticDefinitionsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetPlayerStatisticDefinitions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerStatisticDefinitionsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticDefinitionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayerStatisticDefinitionsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayerStatisticDefinitionsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the information on the available versions of the specified statistic.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayerStatisticVersionsResult>> GetPlayerStatisticVersionsAsync(GetPlayerStatisticVersionsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetPlayerStatisticVersions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerStatisticVersionsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticVersionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayerStatisticVersionsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayerStatisticVersionsResult> { Result = result };
         }
 
         /// <summary>
@@ -314,6 +389,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Resets the indicated statistic, removing all player entries for it and backing up the old values.
+        /// </summary>
+        public static async Task<PlayFabResult<IncrementPlayerStatisticVersionResult>> IncrementPlayerStatisticVersionAsync(IncrementPlayerStatisticVersionRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/IncrementPlayerStatisticVersion", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<IncrementPlayerStatisticVersionResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<IncrementPlayerStatisticVersionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            IncrementPlayerStatisticVersionResult result = resultData.data;
+
+            return new PlayFabResult<IncrementPlayerStatisticVersionResult> { Result = result };
+        }
+
+        /// <summary>
         /// Completely removes all statistics for the specified user, for the current game
         /// </summary>
         public static async Task<PlayFabResult<ResetUserStatisticsResult>> ResetUserStatisticsAsync(ResetUserStatisticsRequest request)
@@ -336,6 +436,31 @@ namespace PlayFab
             ResetUserStatisticsResult result = resultData.data;
 
             return new PlayFabResult<ResetUserStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates a player statistic configuration for the title, optionally allowing the developer to specify a reset interval.
+        /// </summary>
+        public static async Task<PlayFabResult<UpdatePlayerStatisticDefinitionResult>> UpdatePlayerStatisticDefinitionAsync(UpdatePlayerStatisticDefinitionRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdatePlayerStatisticDefinition", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdatePlayerStatisticDefinitionResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdatePlayerStatisticDefinitionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdatePlayerStatisticDefinitionResult result = resultData.data;
+
+            return new PlayFabResult<UpdatePlayerStatisticDefinitionResult> { Result = result };
         }
 
         /// <summary>
