@@ -2022,9 +2022,14 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
+		/// Deprecated: Please use SteamStringIDs
 		/// </summary>
 		public List<ulong> SteamIDs { get; set;}
+		
+		/// <summary>
+		/// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
+		/// </summary>
+		public List<string> SteamStringIDs { get; set;}
 		
 		
 	}
@@ -3293,7 +3298,7 @@ namespace PlayFab.ClientModels
 		public string TitleId { get; set;}
 		
 		/// <summary>
-		/// Unique identifier from Kongregate for the user.
+		/// Numeric user ID assigned by Kongregate
 		/// </summary>
 		public string KongregateId { get; set;}
 		
@@ -4460,9 +4465,14 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Unique Steam identifier for a user.
+		/// Deprecated: Please use SteamStringId
 		/// </summary>
 		public ulong SteamId { get; set;}
+		
+		/// <summary>
+		/// Unique Steam identifier for a user.
+		/// </summary>
+		public string SteamStringId { get; set;}
 		
 		/// <summary>
 		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Steam identifier.
@@ -5443,7 +5453,8 @@ namespace PlayFab.ClientModels
 		PSN,
 		GameCenter,
 		CustomId,
-		XboxLive
+		XboxLive,
+		Parse
 	}
 	
 	
