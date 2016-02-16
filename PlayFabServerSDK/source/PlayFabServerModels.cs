@@ -1431,6 +1431,39 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class GetPlayFabIDsFromSteamIDsRequest
+	{
+		
+		
+		/// <summary>
+		/// Deprecated: Please use SteamStringIDs
+		/// </summary>
+		public List<ulong> SteamIDs { get; set;}
+		
+		/// <summary>
+		/// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
+		/// </summary>
+		public List<string> SteamStringIDs { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayFabIDsFromSteamIDsResult
+	{
+		
+		
+		/// <summary>
+		/// Mapping of Steam identifiers to PlayFab identifiers.
+		/// </summary>
+		public List<SteamPlayFabIdPair> Data { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class GetPublisherDataRequest
 	{
 		
@@ -2826,6 +2859,30 @@ namespace PlayFab.ServerModels
 		/// for updates to an existing statistic value for a player, the version of the statistic when it was loaded
 		/// </summary>
 		public string Version { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class SteamPlayFabIdPair
+	{
+		
+		
+		/// <summary>
+		/// Deprecated: Please use SteamStringId
+		/// </summary>
+		public ulong SteamId { get; set;}
+		
+		/// <summary>
+		/// Unique Steam identifier for a user.
+		/// </summary>
+		public string SteamStringId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Steam identifier.
+		/// </summary>
+		public string PlayFabId { get; set;}
 		
 		
 	}

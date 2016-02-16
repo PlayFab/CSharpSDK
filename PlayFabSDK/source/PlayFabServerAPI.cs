@@ -64,6 +64,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromSteamIDsResult>> GetPlayFabIDsFromSteamIDsAsync(GetPlayFabIDsFromSteamIDsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/GetPlayFabIDsFromSteamIDs", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromSteamIDsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromSteamIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayFabIDsFromSteamIDsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromSteamIDsResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the relevant details for a specified user
         /// </summary>
         public static async Task<PlayFabResult<GetUserAccountInfoResult>> GetUserAccountInfoAsync(GetUserAccountInfoRequest request)
