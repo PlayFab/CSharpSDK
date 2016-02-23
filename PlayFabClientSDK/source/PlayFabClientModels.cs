@@ -671,7 +671,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of items granted to the player as a result of consuming entitlements.
 		/// </summary>
-		[Unordered(SortProperty="ItemInstanceId")]
+		[Unordered]
         public List<ItemInstance> ItemsGranted { get; set;}
 		
 		
@@ -1177,7 +1177,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory objects.
 		/// </summary>
-		[Unordered(SortProperty="ItemId")]
+		[Unordered]
         public List<CatalogItem> Catalog { get; set;}
 		
 		
@@ -1279,7 +1279,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory items belonging to the character.
 		/// </summary>
-		[Unordered(SortProperty="ItemInstanceId")]
+		[Unordered]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
@@ -2200,7 +2200,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of store items.
 		/// </summary>
-		[Unordered(SortProperty="ItemId")]
+		[Unordered]
         public List<StoreItem> Store { get; set;}
 		
 		
@@ -2378,7 +2378,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
-		[Unordered(SortProperty="ItemInstanceId")]
+		[Unordered]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
@@ -2475,7 +2475,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
-		[Unordered(SortProperty="ItemInstanceId")]
+		[Unordered]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>

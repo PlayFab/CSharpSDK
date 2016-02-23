@@ -872,7 +872,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// Array of items which can be purchased.
 		/// </summary>
-		[Unordered(SortProperty="ItemId")]
+		[Unordered]
         public List<CatalogItem> Catalog { get; set;}
 		
 		
@@ -979,7 +979,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// Array of inventory items belonging to the character.
 		/// </summary>
-		[Unordered(SortProperty="ItemInstanceId")]
+		[Unordered]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
@@ -1726,7 +1726,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// Array of inventory items belonging to the user.
 		/// </summary>
-		[Unordered(SortProperty="ItemInstanceId")]
+		[Unordered]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
