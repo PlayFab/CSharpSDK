@@ -645,40 +645,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class ConsumePSNEntitlementsRequest
-	{
-		
-		
-		/// <summary>
-		/// Which catalog to match granted entitlements against. If null, defaults to title default catalog
-		/// </summary>
-		public string CatalogVersion { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN service label to consume entitlements from
-		/// </summary>
-		public int ServiceLabel { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class ConsumePSNEntitlementsResult
-	{
-		
-		
-		/// <summary>
-		/// Array of items granted to the player as a result of consuming entitlements.
-		/// </summary>
-		[Unordered]
-        public List<ItemInstance> ItemsGranted { get; set;}
-		
-		
-	}
-	
-	
-	
 	public class CreateSharedGroupRequest
 	{
 		
@@ -1984,39 +1950,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class GetPlayFabIDsFromPSNAccountIDsRequest
-	{
-		
-		
-		/// <summary>
-		/// Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers.
-		/// </summary>
-		public List<string> PSNAccountIDs { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class GetPlayFabIDsFromPSNAccountIDsResult
-	{
-		
-		
-		/// <summary>
-		/// Mapping of PlayStation Network identifiers to PlayFab identifiers.
-		/// </summary>
-		public List<PSNAccountPlayFabIdPair> Data { get; set;}
-		
-		
-	}
-	
-	
-	
 	public class GetPlayFabIDsFromSteamIDsRequest
 	{
 		
@@ -2916,39 +2849,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class LinkPSNAccountRequest
-	{
-		
-		
-		/// <summary>
-		/// Authentication code provided by the PlayStation Network.
-		/// </summary>
-		public string AuthCode { get; set;}
-		
-		/// <summary>
-		/// Redirect URI supplied to PSN when requesting an auth code
-		/// </summary>
-		public string RedirectUri { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class LinkPSNAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
 	public class LinkSteamAccountRequest
 	{
 		
@@ -2964,29 +2864,6 @@ namespace PlayFab.ClientModels
 	
 	
 	public class LinkSteamAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
-	public class LinkXboxAccountRequest
-	{
-		
-		
-		/// <summary>
-		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
-		/// </summary>
-		public string XboxToken { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class LinkXboxAccountResult
 	{
 		
 		
@@ -3341,40 +3218,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class LoginWithPSNRequest
-	{
-		
-		
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
-		public string TitleId { get; set;}
-		
-		/// <summary>
-		/// Auth code provided by the PSN OAuth provider.
-		/// </summary>
-		public string AuthCode { get; set;}
-		
-		/// <summary>
-		/// Redirect URI supplied to PSN when requesting an auth code
-		/// </summary>
-		public string RedirectUri { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
-		
-		/// <summary>
-		/// Automatically create a PlayFab account if one is not currently linked to this PSN account.
-		/// </summary>
-		public bool? CreateAccount { get; set;}
-		
-		
-	}
-	
-	
-	
 	public class LoginWithSteamRequest
 	{
 		
@@ -3391,30 +3234,6 @@ namespace PlayFab.ClientModels
 		
 		/// <summary>
 		/// Automatically create a PlayFab account if one is not currently linked to this Steam account.
-		/// </summary>
-		public bool? CreateAccount { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class LoginWithXboxRequest
-	{
-		
-		
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
-		public string TitleId { get; set;}
-		
-		/// <summary>
-		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
-		/// </summary>
-		public string XboxToken { get; set;}
-		
-		/// <summary>
-		/// Automatically create a PlayFab account if one is not currently linked to this Xbox Live account.
 		/// </summary>
 		public bool? CreateAccount { get; set;}
 		
@@ -3731,25 +3550,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class PSNAccountPlayFabIdPair
-	{
-		
-		
-		/// <summary>
-		/// Unique PlayStation Network identifier for a user.
-		/// </summary>
-		public string PSNAccountId { get; set;}
-		
-		/// <summary>
-		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation Network identifier.
-		/// </summary>
-		public string PlayFabId { get; set;}
-		
-		
-	}
-	
-	
-	
 	public class PurchaseItemRequest
 	{
 		
@@ -3830,30 +3630,6 @@ namespace PlayFab.ClientModels
 		/// Items granted to the player as a result of redeeming the coupon.
 		/// </summary>
 		public List<ItemInstance> GrantedItems { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class RefreshPSNAuthTokenRequest
-	{
-		
-		
-		/// <summary>
-		/// Auth code returned by PSN OAuth system.
-		/// </summary>
-		public string AuthCode { get; set;}
-		
-		/// <summary>
-		/// Redirect URI supplied to PSN when requesting an auth code
-		/// </summary>
-		public string RedirectUri { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
 		
 		
 	}
@@ -4832,24 +4608,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class UnlinkPSNAccountRequest
-	{
-		
-		
-		
-	}
-	
-	
-	
-	public class UnlinkPSNAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
 	public class UnlinkSteamAccountRequest
 	{
 		
@@ -4860,29 +4618,6 @@ namespace PlayFab.ClientModels
 	
 	
 	public class UnlinkSteamAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
-	public class UnlinkXboxAccountRequest
-	{
-		
-		
-		/// <summary>
-		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
-		/// </summary>
-		public string XboxToken { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class UnlinkXboxAccountResult
 	{
 		
 		
