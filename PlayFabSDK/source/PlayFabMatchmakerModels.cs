@@ -304,7 +304,7 @@ namespace PlayFab.MatchmakerModels
 		/// <summary>
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemInstanceId")]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>

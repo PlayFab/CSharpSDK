@@ -1143,7 +1143,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory objects.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemId")]
         public List<CatalogItem> Catalog { get; set;}
 		
 		
@@ -1245,7 +1245,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory items belonging to the character.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemInstanceId")]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
@@ -2133,7 +2133,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of store items.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemId")]
         public List<StoreItem> Store { get; set;}
 		
 		
@@ -2311,7 +2311,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemInstanceId")]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
@@ -2408,7 +2408,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// Array of inventory items in the user's current inventory.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemInstanceId")]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>

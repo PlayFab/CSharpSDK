@@ -750,7 +750,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// Array of items which can be purchased.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemId")]
         public List<CatalogItem> Catalog { get; set;}
 		
 		
@@ -1293,7 +1293,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// Array of items which can be purchased from this store.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemId")]
         public List<StoreItem> Store { get; set;}
 		
 		
@@ -1403,7 +1403,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// Array of inventory items belonging to the user.
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="ItemInstanceId")]
         public List<ItemInstance> Inventory { get; set;}
 		
 		/// <summary>
@@ -1731,7 +1731,7 @@ namespace PlayFab.AdminModels
 		/// <summary>
 		/// array of uploaded game server builds
 		/// </summary>
-		[Unordered]
+		[Unordered(SortProperty="BuildId")]
         public List<GetServerBuildInfoResult> Builds { get; set;}
 		
 		
