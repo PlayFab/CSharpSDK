@@ -1301,6 +1301,11 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		public List<string> StatisticNames { get; set;}
 		
+		/// <summary>
+		/// statistics to return, if StatisticNames is not set (only statistics which have a version matching that provided will be returned)
+		/// </summary>
+		public List<StatisticNameVersion> StatisticNameVersions { get; set;}
+		
 		
 	}
 	
@@ -1319,6 +1324,34 @@ namespace PlayFab.ServerModels
 		/// User statistics for the requested user.
 		/// </summary>
 		public List<StatisticValue> Statistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticVersionsRequest
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticVersionsResult
+	{
+		
+		
+		/// <summary>
+		/// version change history of the statistic
+		/// </summary>
+		public List<PlayerStatisticVersion> StatisticVersions { get; set;}
 		
 		
 	}
@@ -2411,6 +2444,45 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class PlayerStatisticVersion
+	{
+		
+		
+		/// <summary>
+		/// name of the statistic when the version became active
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// version of the statistic
+		/// </summary>
+		public uint Version { get; set;}
+		
+		/// <summary>
+		/// time at which the statistic version was scheduled to become active, based on the configured ResetInterval
+		/// </summary>
+		public DateTime? ScheduledActivationTime { get; set;}
+		
+		/// <summary>
+		/// time when the statistic version became active
+		/// </summary>
+		public DateTime ActivationTime { get; set;}
+		
+		/// <summary>
+		/// time at which the statistic version was scheduled to become inactive, based on the configured ResetInterval
+		/// </summary>
+		public DateTime? ScheduledDeactivationTime { get; set;}
+		
+		/// <summary>
+		/// time when the statistic version became inactive due to statistic version incrementing
+		/// </summary>
+		public DateTime? DeactivationTime { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class RedeemCouponRequest
 	{
 		
@@ -2758,6 +2830,25 @@ namespace PlayFab.ServerModels
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class StatisticNameVersion
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// the version of the statistic to be returned
+		/// </summary>
+		public uint Version { get; set;}
 		
 		
 	}
