@@ -239,31 +239,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the information on the available versions of the specified statistic.
-        /// </summary>
-        public static async Task<PlayFabResult<GetPlayerStatisticVersionsResult>> GetPlayerStatisticVersionsAsync(GetPlayerStatisticVersionsRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/GetPlayerStatisticVersions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetPlayerStatisticVersionsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticVersionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetPlayerStatisticVersionsResult result = resultData.data;
-
-            return new PlayFabResult<GetPlayerStatisticVersionsResult> { Result = result };
-        }
-
-        /// <summary>
         /// Retrieves the title-specific custom data for the user which is readable and writable by the client
         /// </summary>
         public static async Task<PlayFabResult<GetUserDataResult>> GetUserDataAsync(GetUserDataRequest request)
