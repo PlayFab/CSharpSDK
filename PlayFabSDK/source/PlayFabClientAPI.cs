@@ -1146,7 +1146,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the current version and values for the indicated statistics, for the local player.
+        /// Retrieves the indicated statistics (current version and values for all statistics, if none are specified), for the local player.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayerStatisticsResult>> GetPlayerStatisticsAsync(GetPlayerStatisticsRequest request)
         {
@@ -1168,6 +1168,31 @@ namespace PlayFab
             GetPlayerStatisticsResult result = resultData.data;
 
             return new PlayFabResult<GetPlayerStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the information on the available versions of the specified statistic.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayerStatisticVersionsResult>> GetPlayerStatisticVersionsAsync(GetPlayerStatisticVersionsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayerStatisticVersions", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerStatisticVersionsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticVersionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayerStatisticVersionsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayerStatisticVersionsResult> { Result = result };
         }
 
         /// <summary>
