@@ -645,40 +645,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class ConsumePSNEntitlementsRequest
-	{
-		
-		
-		/// <summary>
-		/// Which catalog to match granted entitlements against. If null, defaults to title default catalog
-		/// </summary>
-		public string CatalogVersion { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN service label to consume entitlements from
-		/// </summary>
-		public int ServiceLabel { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class ConsumePSNEntitlementsResult
-	{
-		
-		
-		/// <summary>
-		/// Array of items granted to the player as a result of consuming entitlements.
-		/// </summary>
-		[Unordered(SortProperty="ItemInstanceId")]
-        public List<ItemInstance> ItemsGranted { get; set;}
-		
-		
-	}
-	
-	
-	
 	public class CreateSharedGroupRequest
 	{
 		
@@ -1815,9 +1781,14 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// statistics to return
+		/// statistics to return (current version will be returned for each)
 		/// </summary>
 		public List<string> StatisticNames { get; set;}
+		
+		/// <summary>
+		/// statistics to return, if StatisticNames is not set (only statistics which have a version matching that provided will be returned)
+		/// </summary>
+		public List<StatisticNameVersion> StatisticNameVersions { get; set;}
 		
 		
 	}
@@ -1832,6 +1803,34 @@ namespace PlayFab.ClientModels
 		/// User statistics for the requested user.
 		/// </summary>
 		public List<StatisticValue> Statistics { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticVersionsRequest
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		
+	}
+	
+	
+	
+	public class GetPlayerStatisticVersionsResult
+	{
+		
+		
+		/// <summary>
+		/// version change history of the statistic
+		/// </summary>
+		public List<PlayerStatisticVersion> StatisticVersions { get; set;}
 		
 		
 	}
@@ -1978,39 +1977,6 @@ namespace PlayFab.ClientModels
 		/// Mapping of Kongregate identifiers to PlayFab identifiers.
 		/// </summary>
 		public List<KongregatePlayFabIdPair> Data { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class GetPlayFabIDsFromPSNAccountIDsRequest
-	{
-		
-		
-		/// <summary>
-		/// Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers.
-		/// </summary>
-		public List<string> PSNAccountIDs { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class GetPlayFabIDsFromPSNAccountIDsResult
-	{
-		
-		
-		/// <summary>
-		/// Mapping of PlayStation Network identifiers to PlayFab identifiers.
-		/// </summary>
-		public List<PSNAccountPlayFabIdPair> Data { get; set;}
 		
 		
 	}
@@ -2916,39 +2882,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class LinkPSNAccountRequest
-	{
-		
-		
-		/// <summary>
-		/// Authentication code provided by the PlayStation Network.
-		/// </summary>
-		public string AuthCode { get; set;}
-		
-		/// <summary>
-		/// Redirect URI supplied to PSN when requesting an auth code
-		/// </summary>
-		public string RedirectUri { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class LinkPSNAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
 	public class LinkSteamAccountRequest
 	{
 		
@@ -2964,29 +2897,6 @@ namespace PlayFab.ClientModels
 	
 	
 	public class LinkSteamAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
-	public class LinkXboxAccountRequest
-	{
-		
-		
-		/// <summary>
-		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
-		/// </summary>
-		public string XboxToken { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class LinkXboxAccountResult
 	{
 		
 		
@@ -3341,40 +3251,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class LoginWithPSNRequest
-	{
-		
-		
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
-		public string TitleId { get; set;}
-		
-		/// <summary>
-		/// Auth code provided by the PSN OAuth provider.
-		/// </summary>
-		public string AuthCode { get; set;}
-		
-		/// <summary>
-		/// Redirect URI supplied to PSN when requesting an auth code
-		/// </summary>
-		public string RedirectUri { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
-		
-		/// <summary>
-		/// Automatically create a PlayFab account if one is not currently linked to this PSN account.
-		/// </summary>
-		public bool? CreateAccount { get; set;}
-		
-		
-	}
-	
-	
-	
 	public class LoginWithSteamRequest
 	{
 		
@@ -3391,30 +3267,6 @@ namespace PlayFab.ClientModels
 		
 		/// <summary>
 		/// Automatically create a PlayFab account if one is not currently linked to this Steam account.
-		/// </summary>
-		public bool? CreateAccount { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class LoginWithXboxRequest
-	{
-		
-		
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
-		/// </summary>
-		public string TitleId { get; set;}
-		
-		/// <summary>
-		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
-		/// </summary>
-		public string XboxToken { get; set;}
-		
-		/// <summary>
-		/// Automatically create a PlayFab account if one is not currently linked to this Xbox Live account.
 		/// </summary>
 		public bool? CreateAccount { get; set;}
 		
@@ -3731,19 +3583,39 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class PSNAccountPlayFabIdPair
+	public class PlayerStatisticVersion
 	{
 		
 		
 		/// <summary>
-		/// Unique PlayStation Network identifier for a user.
+		/// name of the statistic when the version became active
 		/// </summary>
-		public string PSNAccountId { get; set;}
+		public string StatisticName { get; set;}
 		
 		/// <summary>
-		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation Network identifier.
+		/// version of the statistic
 		/// </summary>
-		public string PlayFabId { get; set;}
+		public uint Version { get; set;}
+		
+		/// <summary>
+		/// time at which the statistic version was scheduled to become active, based on the configured ResetInterval
+		/// </summary>
+		public DateTime? ScheduledActivationTime { get; set;}
+		
+		/// <summary>
+		/// time when the statistic version became active
+		/// </summary>
+		public DateTime ActivationTime { get; set;}
+		
+		/// <summary>
+		/// time at which the statistic version was scheduled to become inactive, based on the configured ResetInterval
+		/// </summary>
+		public DateTime? ScheduledDeactivationTime { get; set;}
+		
+		/// <summary>
+		/// time when the statistic version became inactive due to statistic version incrementing
+		/// </summary>
+		public DateTime? DeactivationTime { get; set;}
 		
 		
 	}
@@ -3830,30 +3702,6 @@ namespace PlayFab.ClientModels
 		/// Items granted to the player as a result of redeeming the coupon.
 		/// </summary>
 		public List<ItemInstance> GrantedItems { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class RefreshPSNAuthTokenRequest
-	{
-		
-		
-		/// <summary>
-		/// Auth code returned by PSN OAuth system.
-		/// </summary>
-		public string AuthCode { get; set;}
-		
-		/// <summary>
-		/// Redirect URI supplied to PSN when requesting an auth code
-		/// </summary>
-		public string RedirectUri { get; set;}
-		
-		/// <summary>
-		/// Id of the PSN issuer environment. If null, defaults to 256 (production)
-		/// </summary>
-		public int? IssuerId { get; set;}
 		
 		
 	}
@@ -4412,6 +4260,25 @@ namespace PlayFab.ClientModels
 	
 	
 	
+	public class StatisticNameVersion
+	{
+		
+		
+		/// <summary>
+		/// unique name of the statistic
+		/// </summary>
+		public string StatisticName { get; set;}
+		
+		/// <summary>
+		/// the version of the statistic to be returned
+		/// </summary>
+		public uint Version { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class StatisticUpdate
 	{
 		
@@ -4453,7 +4320,7 @@ namespace PlayFab.ClientModels
 		/// <summary>
 		/// for updates to an existing statistic value for a player, the version of the statistic when it was loaded
 		/// </summary>
-		public string Version { get; set;}
+		public uint Version { get; set;}
 		
 		
 	}
@@ -4832,24 +4699,6 @@ namespace PlayFab.ClientModels
 	
 	
 	
-	public class UnlinkPSNAccountRequest
-	{
-		
-		
-		
-	}
-	
-	
-	
-	public class UnlinkPSNAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
 	public class UnlinkSteamAccountRequest
 	{
 		
@@ -4860,29 +4709,6 @@ namespace PlayFab.ClientModels
 	
 	
 	public class UnlinkSteamAccountResult
-	{
-		
-		
-		
-	}
-	
-	
-	
-	public class UnlinkXboxAccountRequest
-	{
-		
-		
-		/// <summary>
-		/// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
-		/// </summary>
-		public string XboxToken { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class UnlinkXboxAccountResult
 	{
 		
 		
