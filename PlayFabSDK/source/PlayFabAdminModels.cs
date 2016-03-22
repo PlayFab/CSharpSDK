@@ -465,6 +465,12 @@ namespace PlayFab.AdminModels
 		[JsonConverter(typeof(StringEnumConverter))]
         public StatisticResetIntervalOption? VersionChangeInterval { get; set;}
 		
+		/// <summary>
+		/// the aggregation method to use in updating the statistic (defaults to last)
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public StatisticAggregationMethod? AggregationMethod { get; set;}
+		
 		
 	}
 	
@@ -1994,6 +2000,12 @@ namespace PlayFab.AdminModels
 		[JsonConverter(typeof(StringEnumConverter))]
         public StatisticResetIntervalOption? VersionChangeInterval { get; set;}
 		
+		/// <summary>
+		/// the aggregation method to use in updating the statistic (defaults to last)
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public StatisticAggregationMethod? AggregationMethod { get; set;}
+		
 		
 	}
 	
@@ -2414,6 +2426,16 @@ namespace PlayFab.AdminModels
 	
 	
 	
+	public enum StatisticAggregationMethod
+	{
+		Last,
+		Min,
+		Max,
+		Sum
+	}
+	
+	
+	
 	public enum StatisticResetIntervalOption
 	{
 		Never,
@@ -2538,7 +2560,7 @@ namespace PlayFab.AdminModels
 		
 		
 		/// <summary>
-		/// Cloud Script version to update. If null, defaults to most recent version
+		/// Deprecated - unused
 		/// </summary>
 		public int? Version { get; set;}
 		
@@ -2546,6 +2568,11 @@ namespace PlayFab.AdminModels
 		/// List of Cloud Script files to upload to create the new revision. Must have at least one file.
 		/// </summary>
 		public List<CloudScriptFile> Files { get; set;}
+		
+		/// <summary>
+		/// Immediately publish the new revision
+		/// </summary>
+		public bool Publish { get; set;}
 		
 		
 	}
@@ -2585,6 +2612,12 @@ namespace PlayFab.AdminModels
 		/// </summary>
 		[JsonConverter(typeof(StringEnumConverter))]
         public StatisticResetIntervalOption? VersionChangeInterval { get; set;}
+		
+		/// <summary>
+		/// the aggregation method to use in updating the statistic (defaults to last)
+		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
+        public StatisticAggregationMethod? AggregationMethod { get; set;}
 		
 		
 	}

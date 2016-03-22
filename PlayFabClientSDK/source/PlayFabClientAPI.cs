@@ -2371,6 +2371,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Executes a CloudScript function, with the 'currentPlayerId' set to the PlayFab ID of the authenticated player.
+        /// </summary>
+        public static async Task<PlayFabResult<ExecuteCloudScriptResult>> ExecuteCloudScriptAsync(ExecuteCloudScriptRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ExecuteCloudScript", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ExecuteCloudScriptResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ExecuteCloudScriptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ExecuteCloudScriptResult result = resultData.data;
+
+            return new PlayFabResult<ExecuteCloudScriptResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript.
         /// </summary>
         public static async Task<PlayFabResult<GetCloudScriptUrlResult>> GetCloudScriptUrlAsync(GetCloudScriptUrlRequest request)
