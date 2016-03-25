@@ -13,7 +13,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Player who opened trade.
+		/// Player who opened the trade.
 		/// </summary>
 		public string OfferingPlayerId { get; set;}
 		
@@ -23,7 +23,7 @@ namespace PlayFab.ClientModels
 		public string TradeId { get; set;}
 		
 		/// <summary>
-		/// Items from the accepting player's inventory in exchange for the offered items in the trade. In the case of a gift, this will be null.
+		/// Items from the accepting player's or guild's inventory in exchange for the offered items in the trade. In the case of a gift, this will be null.
 		/// </summary>
 		public List<string> AcceptedInventoryInstanceIds { get; set;}
 		
@@ -1233,7 +1233,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Array of inventory objects.
+		/// Array of items which can be purchased.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
         public List<CatalogItem> Catalog { get; set;}
@@ -1301,11 +1301,6 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-		public string PlayFabId { get; set;}
-		
-		/// <summary>
 		/// Unique PlayFab assigned ID for a specific character owned by a user
 		/// </summary>
 		public string CharacterId { get; set;}
@@ -1323,11 +1318,6 @@ namespace PlayFab.ClientModels
 	public class GetCharacterInventoryResult
 	{
 		
-		
-		/// <summary>
-		/// PlayFab unique identifier of the user whose character inventory is being returned.
-		/// </summary>
-		public string PlayFabId { get; set;}
 		
 		/// <summary>
 		/// Unique identifier of the character for this inventory.
@@ -2237,14 +2227,14 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
+		/// catalog version to store items from. Use default catalog version if null
+		/// </summary>
+		public string CatalogVersion { get; set;}
+		
+		/// <summary>
 		/// Unqiue identifier for the store which is being requested.
 		/// </summary>
 		public string StoreId { get; set;}
-		
-		/// <summary>
-		/// Catalog version for the requested store items. If null, defaults to most recent catalog.
-		/// </summary>
-		public string CatalogVersion { get; set;}
 		
 		
 	}
@@ -2256,7 +2246,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Array of store items.
+		/// Array of items which can be purchased from this store.
 		/// </summary>
 		[Unordered(SortProperty="ItemId")]
         public List<StoreItem> Store { get; set;}
@@ -2531,7 +2521,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Array of inventory items in the user's current inventory.
+		/// Array of inventory items belonging to the user.
 		/// </summary>
 		[Unordered(SortProperty="ItemInstanceId")]
         public List<ItemInstance> Inventory { get; set;}
@@ -3531,7 +3521,7 @@ namespace PlayFab.ClientModels
 		public List<string> RequestedCatalogItemIds { get; set;}
 		
 		/// <summary>
-		/// Players who are allowed to accept the trade. If null, the trade may be accepted by any player.
+		/// Players who are allowed to accept the trade. If null, the trade may be accepted by any player. If empty, the trade may not be accepted by any player.
 		/// </summary>
 		public List<string> AllowedPlayerIds { get; set;}
 		

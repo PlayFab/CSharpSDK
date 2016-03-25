@@ -933,7 +933,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose character inventory is being returned.
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -1641,7 +1641,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose inventory is being returned.
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -3370,14 +3370,14 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// Unique PlayFab assigned ID for a specific character owned by a user
-		/// </summary>
-		public string CharacterId { get; set;}
-		
-		/// <summary>
 		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// </summary>
+		public string CharacterId { get; set;}
 		
 		/// <summary>
 		/// Unique PlayFab assigned instance identifier of the item
@@ -3393,15 +3393,6 @@ namespace PlayFab.ServerModels
 		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
 		/// </summary>
 		public List<string> KeysToRemove { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class UpdateUserInventoryItemDataResult
-	{
-		
 		
 		
 	}

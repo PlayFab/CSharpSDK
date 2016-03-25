@@ -1266,7 +1266,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the key-value pair data tagged to the specified item, which is read-only from the client.
         /// </summary>
-        public static async Task<PlayFabResult<UpdateUserInventoryItemDataResult>> UpdateUserInventoryItemCustomDataAsync(UpdateUserInventoryItemDataRequest request)
+        public static async Task<PlayFabResult<EmptyResult>> UpdateUserInventoryItemCustomDataAsync(UpdateUserInventoryItemDataRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -1276,16 +1276,16 @@ namespace PlayFab
                 PlayFabError error = (PlayFabError)httpResult;
                 if (PlayFabSettings.GlobalErrorHandler != null)
                     PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UpdateUserInventoryItemDataResult> { Error = error, };
+                return new PlayFabResult<EmptyResult> { Error = error, };
             }
             string resultRawJson = (string)httpResult;
 
             var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserInventoryItemDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
-            UpdateUserInventoryItemDataResult result = resultData.data;
+            EmptyResult result = resultData.data;
 
-            return new PlayFabResult<UpdateUserInventoryItemDataResult> { Result = result };
+            return new PlayFabResult<EmptyResult> { Result = result };
         }
 
         /// <summary>
