@@ -933,7 +933,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose character inventory is being returned.
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -1641,7 +1641,7 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// PlayFab unique identifier of the user whose inventory is being returned.
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
 		
@@ -2483,6 +2483,30 @@ namespace PlayFab.ServerModels
 	
 	
 	
+	public class PlayStreamEventHistory
+	{
+		
+		
+		/// <summary>
+		/// The ID of the trigger that caused this event to be created.
+		/// </summary>
+		public string ParentTriggerId { get; set;}
+		
+		/// <summary>
+		/// The ID of the previous event that caused this event to be created by hitting a trigger.
+		/// </summary>
+		public string ParentEventId { get; set;}
+		
+		/// <summary>
+		/// If true, then this event was allowed to trigger subsequent events in a trigger.
+		/// </summary>
+		public bool TriggeredEvents { get; set;}
+		
+		
+	}
+	
+	
+	
 	public class RedeemCouponRequest
 	{
 		
@@ -2832,6 +2856,18 @@ namespace PlayFab.ServerModels
         public UserDataPermission? Permission { get; set;}
 		
 		
+	}
+	
+	
+	
+	public enum SourceType
+	{
+		Admin,
+		BackEnd,
+		GameClient,
+		GameServer,
+		Partner,
+		Stream
 	}
 	
 	
@@ -3334,14 +3370,14 @@ namespace PlayFab.ServerModels
 		
 		
 		/// <summary>
-		/// Unique PlayFab assigned ID for a specific character owned by a user
-		/// </summary>
-		public string CharacterId { get; set;}
-		
-		/// <summary>
 		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
 		/// </summary>
 		public string PlayFabId { get; set;}
+		
+		/// <summary>
+		/// Unique PlayFab assigned ID for a specific character owned by a user
+		/// </summary>
+		public string CharacterId { get; set;}
 		
 		/// <summary>
 		/// Unique PlayFab assigned instance identifier of the item
@@ -3357,15 +3393,6 @@ namespace PlayFab.ServerModels
 		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
 		/// </summary>
 		public List<string> KeysToRemove { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class UpdateUserInventoryItemDataResult
-	{
-		
 		
 		
 	}
