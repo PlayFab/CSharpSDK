@@ -614,7 +614,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates the values of the specified title-specific statistics for the user
+        /// Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
         /// </summary>
         public static async Task<PlayFabResult<UpdateUserStatisticsResult>> UpdateUserStatisticsAsync(UpdateUserStatisticsRequest request)
         {
@@ -661,6 +661,31 @@ namespace PlayFab
             GetCatalogItemsResult result = resultData.data;
 
             return new PlayFabResult<GetCatalogItemsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the key-value store of custom publisher settings
+        /// </summary>
+        public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/GetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPublisherDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPublisherDataResult result = resultData.data;
+
+            return new PlayFabResult<GetPublisherDataResult> { Result = result };
         }
 
         /// <summary>
@@ -736,6 +761,31 @@ namespace PlayFab
             GetTitleNewsResult result = resultData.data;
 
             return new PlayFabResult<GetTitleNewsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the key-value store of custom publisher settings
+        /// </summary>
+        public static async Task<PlayFabResult<SetPublisherDataResult>> SetPublisherDataAsync(SetPublisherDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/SetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetPublisherDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            SetPublisherDataResult result = resultData.data;
+
+            return new PlayFabResult<SetPublisherDataResult> { Result = result };
         }
 
         /// <summary>
@@ -1464,31 +1514,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the key-value store of custom publisher settings
-        /// </summary>
-        public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/GetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetPublisherDataResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetPublisherDataResult result = resultData.data;
-
-            return new PlayFabResult<GetPublisherDataResult> { Result = result };
-        }
-
-        /// <summary>
         /// Retrieves data stored in a shared group object, as well as the list of members in the group. The server can access all public and private group data.
         /// </summary>
         public static async Task<PlayFabResult<GetSharedGroupDataResult>> GetSharedGroupDataAsync(GetSharedGroupDataRequest request)
@@ -1536,31 +1561,6 @@ namespace PlayFab
             RemoveSharedGroupMembersResult result = resultData.data;
 
             return new PlayFabResult<RemoveSharedGroupMembersResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Updates the key-value store of custom publisher settings
-        /// </summary>
-        public static async Task<PlayFabResult<SetPublisherDataResult>> SetPublisherDataAsync(SetPublisherDataRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Server/SetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<SetPublisherDataResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            SetPublisherDataResult result = resultData.data;
-
-            return new PlayFabResult<SetPublisherDataResult> { Result = result };
         }
 
         /// <summary>
@@ -1664,7 +1664,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Lists all of the characters that belong to a specific user.
+        /// Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness.
         /// </summary>
         public static async Task<PlayFabResult<ListUsersCharactersResult>> GetAllUsersCharactersAsync(ListUsersCharactersRequest request)
         {
@@ -1789,7 +1789,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Grants the specified character type to the user.
+        /// Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness.
         /// </summary>
         public static async Task<PlayFabResult<GrantCharacterToUserResult>> GrantCharacterToUserAsync(GrantCharacterToUserRequest request)
         {

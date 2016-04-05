@@ -5140,7 +5140,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Statistics to be updated with the provided values.
+		/// Statistics to be updated with the provided values. UserStatistics object must follow the Key(string), Value(int) pattern.
 		/// </summary>
 		public Dictionary<string,int> UserStatistics { get; set;}
 		
