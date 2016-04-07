@@ -164,7 +164,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a download URL for the requested report. Currently available reports: Daily / Monthly API Usage, Daily / Monthly Overview, Monthly Real Money Purchase History, Monthly Top Items, Monthly Top Spenders, Monthly VC Purcahse History, Sevan Day Retention
+        /// Retrieves a download URL for the requested report
         /// </summary>
         public static async Task<PlayFabResult<GetDataReportResult>> GetDataReportAsync(GetDataReportRequest request)
         {

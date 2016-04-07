@@ -2885,7 +2885,7 @@ namespace PlayFab.ClientModels
 		
 		
 		/// <summary>
-		/// Unique token from Google Play for the user.
+		/// Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user.
 		/// </summary>
 		public string AccessToken { get; set;}
 		
@@ -3227,7 +3227,7 @@ namespace PlayFab.ClientModels
 		public string TitleId { get; set;}
 		
 		/// <summary>
-		/// Unique token from Google Play for the user.
+		/// Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user.
 		/// </summary>
 		public string AccessToken { get; set;}
 		
@@ -3719,30 +3719,6 @@ namespace PlayFab.ClientModels
 		/// time when the statistic version became inactive due to statistic version incrementing
 		/// </summary>
 		public DateTime? DeactivationTime { get; set;}
-		
-		
-	}
-	
-	
-	
-	public class PlayStreamEventHistory
-	{
-		
-		
-		/// <summary>
-		/// The ID of the trigger that caused this event to be created.
-		/// </summary>
-		public string ParentTriggerId { get; set;}
-		
-		/// <summary>
-		/// The ID of the previous event that caused this event to be created by hitting a trigger.
-		/// </summary>
-		public string ParentEventId { get; set;}
-		
-		/// <summary>
-		/// If true, then this event was allowed to trigger subsequent events in a trigger.
-		/// </summary>
-		public bool TriggeredEvents { get; set;}
 		
 		
 	}
@@ -4275,18 +4251,6 @@ namespace PlayFab.ClientModels
         public UserDataPermission? Permission { get; set;}
 		
 		
-	}
-	
-	
-	
-	public enum SourceType
-	{
-		Admin,
-		BackEnd,
-		GameClient,
-		GameServer,
-		Partner,
-		Stream
 	}
 	
 	

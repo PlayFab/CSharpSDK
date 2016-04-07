@@ -179,7 +179,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using a Google account access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user in using a Google account access token(https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods), returning a session identifier that can subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithGoogleAccountAsync(LoginWithGoogleAccountRequest request)
         {
@@ -647,7 +647,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Links the currently signed-in user account to the Google account specified by the Google account access token
+        /// Links the currently signed-in user account to the Google account specified by the Google account access token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods).
         /// </summary>
         public static async Task<PlayFabResult<LinkGoogleAccountResult>> LinkGoogleAccountAsync(LinkGoogleAccountRequest request)
         {
@@ -896,7 +896,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Unlinks the related Google account from the user's PlayFab account
+        /// Unlinks the related Google account from the user's PlayFab account (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods).
         /// </summary>
         public static async Task<PlayFabResult<UnlinkGoogleAccountResult>> UnlinkGoogleAccountAsync(UnlinkGoogleAccountRequest request)
         {
