@@ -689,6 +689,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the key-value store of custom publisher settings
+        /// </summary>
+        public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPublisherDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPublisherDataResult result = resultData.data;
+
+            return new PlayFabResult<GetPublisherDataResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the random drop table configuration for the title
         /// </summary>
         public static async Task<PlayFabResult<GetRandomResultTablesResult>> GetRandomResultTablesAsync(GetRandomResultTablesRequest request)
@@ -1311,31 +1336,6 @@ namespace PlayFab
             RemoveServerBuildResult result = resultData.data;
 
             return new PlayFabResult<RemoveServerBuildResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves the key-value store of custom publisher settings
-        /// </summary>
-        public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetPublisherDataResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetPublisherDataResult result = resultData.data;
-
-            return new PlayFabResult<GetPublisherDataResult> { Result = result };
         }
 
         /// <summary>
