@@ -20,7 +20,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Matchmaker/AuthUser", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Matchmaker/AuthUser", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -45,7 +45,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Matchmaker/PlayerJoined", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Matchmaker/PlayerJoined", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -70,7 +70,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Matchmaker/PlayerLeft", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Matchmaker/PlayerLeft", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -95,7 +95,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Matchmaker/StartGame", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Matchmaker/StartGame", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -120,7 +120,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Matchmaker/UserInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Matchmaker/UserInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;

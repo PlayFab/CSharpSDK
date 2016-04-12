@@ -20,7 +20,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPhotonAuthenticationToken", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPhotonAuthenticationToken", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -46,7 +46,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithAndroidDeviceID", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithAndroidDeviceID", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -74,7 +74,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithCustomID", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithCustomID", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -102,7 +102,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithEmailAddress", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithEmailAddress", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -130,7 +130,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithFacebook", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithFacebook", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -158,7 +158,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithGameCenter", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithGameCenter", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -186,7 +186,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithGoogleAccount", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithGoogleAccount", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -214,7 +214,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithIOSDeviceID", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithIOSDeviceID", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -242,7 +242,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithKongregate", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithKongregate", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -270,7 +270,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithPlayFab", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithPlayFab", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -298,7 +298,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LoginWithSteam", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithSteam", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -326,7 +326,7 @@ namespace PlayFab
             request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RegisterPlayFabUser", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RegisterPlayFabUser", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -353,7 +353,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddUsernamePassword", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/AddUsernamePassword", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -378,7 +378,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetAccountInfo", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetAccountInfo", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -403,7 +403,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromFacebookIDs", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromFacebookIDs", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -428,7 +428,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromGameCenterIDs", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromGameCenterIDs", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -453,7 +453,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromGoogleIDs", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromGoogleIDs", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -478,7 +478,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromKongregateIDs", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromKongregateIDs", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -503,7 +503,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayFabIDsFromSteamIDs", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromSteamIDs", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -528,7 +528,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserCombinedInfo", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetUserCombinedInfo", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -553,7 +553,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkAndroidDeviceID", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkAndroidDeviceID", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -578,7 +578,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkCustomID", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkCustomID", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -603,7 +603,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkFacebookAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkFacebookAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -628,7 +628,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkGameCenterAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkGameCenterAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -653,7 +653,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkGoogleAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkGoogleAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -678,7 +678,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkIOSDeviceID", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkIOSDeviceID", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -703,7 +703,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkKongregate", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkKongregate", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -728,7 +728,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LinkSteamAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkSteamAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -753,7 +753,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ReportPlayer", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ReportPlayer", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -777,7 +777,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<SendAccountRecoveryEmailResult>> SendAccountRecoveryEmailAsync(SendAccountRecoveryEmailRequest request)
         {
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/SendAccountRecoveryEmail", request, null, null);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/SendAccountRecoveryEmail", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -802,7 +802,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkAndroidDeviceID", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkAndroidDeviceID", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -827,7 +827,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkCustomID", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkCustomID", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -852,7 +852,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkFacebookAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkFacebookAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -877,7 +877,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkGameCenterAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkGameCenterAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -902,7 +902,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkGoogleAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkGoogleAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -927,7 +927,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkIOSDeviceID", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkIOSDeviceID", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -952,7 +952,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkKongregate", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkKongregate", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -977,7 +977,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlinkSteamAccount", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkSteamAccount", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1002,7 +1002,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateUserTitleDisplayName", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateUserTitleDisplayName", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1027,7 +1027,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetFriendLeaderboard", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetFriendLeaderboard", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1052,7 +1052,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetFriendLeaderboardAroundCurrentUser", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetFriendLeaderboardAroundCurrentUser", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1077,7 +1077,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetFriendLeaderboardAroundPlayer", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetFriendLeaderboardAroundPlayer", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1102,7 +1102,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLeaderboard", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetLeaderboard", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1127,7 +1127,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLeaderboardAroundCurrentUser", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetLeaderboardAroundCurrentUser", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1152,7 +1152,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLeaderboardAroundPlayer", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetLeaderboardAroundPlayer", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1177,7 +1177,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayerStatistics", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayerStatistics", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1202,7 +1202,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayerStatisticVersions", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayerStatisticVersions", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1227,7 +1227,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetUserData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1252,7 +1252,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserPublisherData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetUserPublisherData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1277,7 +1277,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserPublisherReadOnlyData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetUserPublisherReadOnlyData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1302,7 +1302,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserReadOnlyData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetUserReadOnlyData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1327,7 +1327,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserStatistics", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetUserStatistics", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1352,7 +1352,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdatePlayerStatistics", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdatePlayerStatistics", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1377,7 +1377,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateUserData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateUserData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1402,7 +1402,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateUserPublisherData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateUserPublisherData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1427,7 +1427,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateUserStatistics", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateUserStatistics", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1452,7 +1452,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCatalogItems", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCatalogItems", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1477,7 +1477,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPublisherData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPublisherData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1502,7 +1502,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetStoreItems", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetStoreItems", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1527,7 +1527,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetTitleData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetTitleData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1552,7 +1552,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetTitleNews", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetTitleNews", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1577,7 +1577,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddUserVirtualCurrency", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/AddUserVirtualCurrency", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1602,7 +1602,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ConfirmPurchase", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ConfirmPurchase", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1627,7 +1627,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ConsumeItem", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ConsumeItem", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1652,7 +1652,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCharacterInventory", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCharacterInventory", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1677,7 +1677,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPurchase", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPurchase", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1702,7 +1702,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetUserInventory", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetUserInventory", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1727,7 +1727,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/PayForPurchase", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/PayForPurchase", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1752,7 +1752,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/PurchaseItem", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/PurchaseItem", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1777,7 +1777,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RedeemCoupon", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RedeemCoupon", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1802,7 +1802,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/StartPurchase", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/StartPurchase", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1827,7 +1827,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/SubtractUserVirtualCurrency", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/SubtractUserVirtualCurrency", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1852,7 +1852,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlockContainerInstance", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlockContainerInstance", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1877,7 +1877,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UnlockContainerItem", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlockContainerItem", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1902,7 +1902,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddFriend", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/AddFriend", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1927,7 +1927,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetFriendsList", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetFriendsList", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1952,7 +1952,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RemoveFriend", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RemoveFriend", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1977,7 +1977,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/SetFriendTags", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/SetFriendTags", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2002,7 +2002,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RegisterForIOSPushNotification", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RegisterForIOSPushNotification", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2027,7 +2027,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RestoreIOSPurchases", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RestoreIOSPurchases", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2052,7 +2052,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ValidateIOSReceipt", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ValidateIOSReceipt", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2077,7 +2077,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCurrentGames", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCurrentGames", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2102,7 +2102,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetGameServerRegions", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGameServerRegions", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2127,7 +2127,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/Matchmake", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/Matchmake", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2152,7 +2152,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/StartGame", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/StartGame", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2177,7 +2177,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AndroidDevicePushNotificationRegistration", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/AndroidDevicePushNotificationRegistration", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2202,7 +2202,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ValidateGooglePlayPurchase", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ValidateGooglePlayPurchase", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2227,7 +2227,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/LogEvent", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LogEvent", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2252,7 +2252,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AddSharedGroupMembers", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/AddSharedGroupMembers", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2277,7 +2277,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/CreateSharedGroup", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/CreateSharedGroup", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2302,7 +2302,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetSharedGroupData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetSharedGroupData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2327,7 +2327,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/RemoveSharedGroupMembers", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RemoveSharedGroupMembers", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2352,7 +2352,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateSharedGroupData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateSharedGroupData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2377,7 +2377,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ExecuteCloudScript", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ExecuteCloudScript", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2402,7 +2402,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCloudScriptUrl", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCloudScriptUrl", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2416,7 +2416,7 @@ namespace PlayFab
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCloudScriptUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCloudScriptUrlResult result = resultData.data;
-            PlayFabSettings.LogicServerURL = result.Url;
+            PlayFabSettings.LogicServerUrl = result.Url;
 
             return new PlayFabResult<GetCloudScriptUrlResult> { Result = result };
         }
@@ -2428,7 +2428,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetLogicURL() + "/Client/RunCloudScript", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RunCloudScript", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2453,7 +2453,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetContentDownloadUrl", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetContentDownloadUrl", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2478,7 +2478,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetAllUsersCharacters", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetAllUsersCharacters", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2503,7 +2503,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCharacterLeaderboard", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCharacterLeaderboard", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2528,7 +2528,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCharacterStatistics", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCharacterStatistics", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2553,7 +2553,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLeaderboardAroundCharacter", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetLeaderboardAroundCharacter", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2578,7 +2578,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetLeaderboardForUserCharacters", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetLeaderboardForUserCharacters", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2603,7 +2603,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GrantCharacterToUser", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GrantCharacterToUser", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2628,7 +2628,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateCharacterStatistics", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateCharacterStatistics", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2653,7 +2653,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCharacterData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCharacterData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2678,7 +2678,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetCharacterReadOnlyData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetCharacterReadOnlyData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2703,7 +2703,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/UpdateCharacterData", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateCharacterData", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2728,7 +2728,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/ValidateAmazonIAPReceipt", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ValidateAmazonIAPReceipt", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2753,7 +2753,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AcceptTrade", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/AcceptTrade", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2778,7 +2778,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/CancelTrade", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/CancelTrade", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2803,7 +2803,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetPlayerTrades", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayerTrades", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2828,7 +2828,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/GetTradeStatus", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetTradeStatus", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2853,7 +2853,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/OpenTrade", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/OpenTrade", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -2878,7 +2878,7 @@ namespace PlayFab
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Client/AttributeInstall", request, "X-Authorization", _authKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Client/AttributeInstall", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;

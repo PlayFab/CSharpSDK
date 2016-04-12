@@ -12,13 +12,16 @@ namespace PlayFab
         };
         public static Formatting JsonFormatting = Formatting.None;
 
+        public static string SdkVersion = "0.22.160411";
+        public static string SdkVersionString = "CSharpSDK-0.22.160411";
+
         public static bool UseDevelopmentEnvironment = false;
-        public static string DevelopmentEnvironmentURL = ".playfabsandbox.com";
-        public static string ProductionEnvironmentURL = ".playfabapi.com";
+        public static string DevelopmentEnvironmentUrl = ".playfabsandbox.com";
+        public static string ProductionEnvironmentUrl = ".playfabapi.com";
         public static string TitleId; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         public static ErrorCallback GlobalErrorHandler;
         public static string DeveloperSecretKey = null; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
-        internal static string LogicServerURL = null; // Assigned by GetCloudScriptUrl, used by RunCloudScript
+        internal static string LogicServerUrl = null; // Assigned by GetCloudScriptUrl, used by RunCloudScript
         public static string AdvertisingIdType = null; // Set this to the appropriate AD_TYPE_X constant below
         public static string AdvertisingIdValue = null; // Set this to corresponding device value
 
@@ -28,17 +31,24 @@ namespace PlayFab
         public static readonly string AD_TYPE_IDFA = "Idfa";
         public static readonly string AD_TYPE_ANDROID_ID = "Android_Id";
 
-        public static string GetLogicURL()
+        public static string GetLogicUrl(string apiCall)
         {
-            return LogicServerURL;
+            return LogicServerUrl + apiCall;
         }
 
-        public static string GetURL()
+        public static string GetFullUrl(string apiCall)
         {
-            string baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentURL : ProductionEnvironmentURL;
-            if (baseUrl.StartsWith("http"))
-                return baseUrl;
-            return "https://" + TitleId + baseUrl;
+            if (apiCall == "/Client/RunCloudScript")
+            {
+                return GetLogicUrl(apiCall);
+            }
+            else
+            {
+                string baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentUrl : ProductionEnvironmentUrl;
+                if (baseUrl.StartsWith("http"))
+                    return baseUrl;
+                return "https://" + TitleId + baseUrl + apiCall;
+            }
         }
     }
 }
