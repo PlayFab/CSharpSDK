@@ -2246,6 +2246,81 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Writes a character-based event into PlayStream.
+        /// </summary>
+        public static async Task<PlayFabResult<WriteEventResponse>> WriteCharacterEventAsync(WriteClientCharacterEventRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/WriteCharacterEvent", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<WriteEventResponse> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<WriteEventResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            WriteEventResponse result = resultData.data;
+
+            return new PlayFabResult<WriteEventResponse> { Result = result };
+        }
+
+        /// <summary>
+        /// Writes a player-based event into PlayStream.
+        /// </summary>
+        public static async Task<PlayFabResult<WriteEventResponse>> WritePlayerEventAsync(WriteClientPlayerEventRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/WritePlayerEvent", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<WriteEventResponse> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<WriteEventResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            WriteEventResponse result = resultData.data;
+
+            return new PlayFabResult<WriteEventResponse> { Result = result };
+        }
+
+        /// <summary>
+        /// Writes a title-based event into PlayStream.
+        /// </summary>
+        public static async Task<PlayFabResult<WriteEventResponse>> WriteTitleEventAsync(WriteTitleEventRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/WriteTitleEvent", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<WriteEventResponse> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<WriteEventResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            WriteEventResponse result = resultData.data;
+
+            return new PlayFabResult<WriteEventResponse> { Result = result };
+        }
+
+        /// <summary>
         /// Adds users to the set of those able to update both the shared data, as well as the set of users in the group. Only users in the group can add new members.
         /// </summary>
         public static async Task<PlayFabResult<AddSharedGroupMembersResult>> AddSharedGroupMembersAsync(AddSharedGroupMembersRequest request)
