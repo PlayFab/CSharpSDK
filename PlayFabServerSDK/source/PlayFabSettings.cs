@@ -12,8 +12,8 @@ namespace PlayFab
         };
         public static Formatting JsonFormatting = Formatting.None;
 
-        public static string SdkVersion = "0.22.160411";
-        public static string SdkVersionString = "CSharpSDK-0.22.160411";
+        public static string SdkVersion = "0.23.160414";
+        public static string SdkVersionString = "CSharpSDK-0.23.160414";
 
         public static bool UseDevelopmentEnvironment = false;
         public static string DevelopmentEnvironmentUrl = ".playfabsandbox.com";
