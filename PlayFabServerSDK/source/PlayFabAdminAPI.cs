@@ -20,7 +20,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserAccountInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserAccountInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -45,7 +45,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ResetUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ResetUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -70,7 +70,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SendAccountRecoveryEmail", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SendAccountRecoveryEmail", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -95,7 +95,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserTitleDisplayName", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateUserTitleDisplayName", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -120,7 +120,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/CreatePlayerStatisticDefinition", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/CreatePlayerStatisticDefinition", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -145,7 +145,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/DeleteUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/DeleteUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -170,7 +170,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetDataReport", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetDataReport", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -195,7 +195,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetPlayerStatisticDefinitions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetPlayerStatisticDefinitions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -220,7 +220,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetPlayerStatisticVersions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetPlayerStatisticVersions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -245,7 +245,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -270,7 +270,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -295,7 +295,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -320,7 +320,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserPublisherInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserPublisherInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -345,7 +345,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserPublisherReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserPublisherReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -370,7 +370,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -395,7 +395,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/IncrementPlayerStatisticVersion", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/IncrementPlayerStatisticVersion", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -420,7 +420,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ResetUserStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ResetUserStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -445,7 +445,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdatePlayerStatisticDefinition", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdatePlayerStatisticDefinition", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -470,7 +470,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateUserData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -495,7 +495,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateUserInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -520,7 +520,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateUserPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -545,7 +545,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserPublisherInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateUserPublisherInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -570,7 +570,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserPublisherReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateUserPublisherReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -595,7 +595,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -620,7 +620,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/AddNews", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/AddNews", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -645,7 +645,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/AddVirtualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/AddVirtualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -670,7 +670,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetCatalogItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetCatalogItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -695,7 +695,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -720,7 +720,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetRandomResultTables", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetRandomResultTables", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -745,7 +745,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetStoreItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetStoreItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -770,7 +770,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetTitleData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetTitleData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -795,7 +795,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ListVirtualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ListVirtualCurrencyTypes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -820,7 +820,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SetCatalogItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetCatalogItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -845,7 +845,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SetStoreItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetStoreItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -870,7 +870,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SetTitleData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetTitleData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -895,7 +895,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SetupPushNotification", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetupPushNotification", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -920,7 +920,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateCatalogItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateCatalogItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -945,7 +945,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateRandomResultTables", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateRandomResultTables", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -970,7 +970,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateStoreItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateStoreItems", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -995,7 +995,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/AddUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/AddUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1020,7 +1020,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetUserInventory", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetUserInventory", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1045,7 +1045,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GrantItemsToUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GrantItemsToUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1070,7 +1070,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/RevokeInventoryItem", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/RevokeInventoryItem", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1095,7 +1095,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SubtractUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SubtractUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1120,7 +1120,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetMatchmakerGameInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetMatchmakerGameInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1145,7 +1145,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetMatchmakerGameModes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetMatchmakerGameModes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1170,7 +1170,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ModifyMatchmakerGameModes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ModifyMatchmakerGameModes", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1195,7 +1195,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/AddServerBuild", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/AddServerBuild", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1220,7 +1220,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetServerBuildInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetServerBuildInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1245,7 +1245,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetServerBuildUploadUrl", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetServerBuildUploadUrl", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1270,7 +1270,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ListServerBuilds", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ListServerBuilds", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1295,7 +1295,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ModifyServerBuild", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ModifyServerBuild", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1320,7 +1320,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/RemoveServerBuild", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/RemoveServerBuild", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1345,7 +1345,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetPublisherData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1370,7 +1370,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetCloudScriptRevision", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetCloudScriptRevision", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1395,7 +1395,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetCloudScriptVersions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetCloudScriptVersions", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1420,7 +1420,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/SetPublishedRevision", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetPublishedRevision", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1445,7 +1445,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/UpdateCloudScript", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/UpdateCloudScript", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1470,7 +1470,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/DeleteContent", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/DeleteContent", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1495,7 +1495,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetContentList", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetContentList", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1520,7 +1520,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/GetContentUploadUrl", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetContentUploadUrl", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -1545,7 +1545,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            object httpResult = await PlayFabHTTP.DoPost(PlayFabSettings.GetURL() + "/Admin/ResetCharacterStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ResetCharacterStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;

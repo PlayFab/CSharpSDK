@@ -1,3 +1,4 @@
+using PlayFab.Internal;
 using System.Collections.Generic;
 
 namespace PlayFab
@@ -217,8 +218,9 @@ namespace PlayFab
 		GuildNotFound = 1213,
 		OverLimit = 1214,
 		EventNotFound = 1215,
-		InvalidEventEntity = 1216,
-		InvalidEventName = 1217
+		InvalidEventField = 1216,
+		InvalidEventName = 1217,
+		CatalogNotConfigured = 1218
 	}
 	
 	public class PlayFabError
@@ -230,10 +232,10 @@ namespace PlayFab
 		public Dictionary<string, string[] > ErrorDetails;
     };
 
-    public class PlayFabResult<ResultT>
+    public class PlayFabResult<TResult> where TResult : PlayFabResultCommon
     {
         public PlayFabError Error;
-        public ResultT Result;
+        public TResult Result;
     }
 	
 	public delegate void ErrorCallback(PlayFabError error);
