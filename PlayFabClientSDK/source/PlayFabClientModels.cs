@@ -4410,7 +4410,7 @@ namespace PlayFab.ClientModels
         public string CharacterId { get; set;}
 
 		/// <summary>
-		/// The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title.
+		/// The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in).
 		/// </summary>
         public string EventName { get; set;}
 
@@ -4419,12 +4419,17 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public DateTime? Timestamp { get; set;}
 
+		/// <summary>
+		/// Arbitrary json values that represent the custom body of this event.
+		/// </summary>
+        public Dictionary<string,object> Body { get; set;}
+
 	}
 
 	public class WriteClientPlayerEventRequest
 	{
 		/// <summary>
-		/// The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title.
+		/// The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in).
 		/// </summary>
         public string EventName { get; set;}
 
@@ -4432,6 +4437,11 @@ namespace PlayFab.ClientModels
 		/// The time (in UTC) associated with this event. If omitted, a timestamp of 'now' in UTC will be applied.
 		/// </summary>
         public DateTime? Timestamp { get; set;}
+
+		/// <summary>
+		/// Arbitrary json values that represent the custom body of this event.
+		/// </summary>
+        public Dictionary<string,object> Body { get; set;}
 
 	}
 
@@ -4447,7 +4457,7 @@ namespace PlayFab.ClientModels
 	public class WriteTitleEventRequest
 	{
 		/// <summary>
-		/// The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title.
+		/// The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in).
 		/// </summary>
         public string EventName { get; set;}
 
@@ -4455,6 +4465,11 @@ namespace PlayFab.ClientModels
 		/// The time (in UTC) associated with this event. If omitted, a timestamp of now in UTC will be applied.
 		/// </summary>
         public DateTime? Timestamp { get; set;}
+
+		/// <summary>
+		/// Arbitrary json values that represent the custom body of this event.
+		/// </summary>
+        public Dictionary<string,object> Body { get; set;}
 
 	}
 }
