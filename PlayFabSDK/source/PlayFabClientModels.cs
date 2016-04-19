@@ -144,6 +144,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public string ConfirmationMessege { get; set;}
 
+		/// <summary>
+		/// Message to display when confirming push notification.
+		/// </summary>
+        public string ConfirmationMessage { get; set;}
+
 	}
 
 	public class AndroidDevicePushNotificationRegistrationResult : PlayFabResultCommon
