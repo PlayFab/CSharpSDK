@@ -114,7 +114,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval.
+        /// Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval and an aggregation method.
         /// </summary>
         public static async Task<PlayFabResult<CreatePlayerStatisticDefinitionResult>> CreatePlayerStatisticDefinitionAsync(CreatePlayerStatisticDefinitionRequest request)
         {
