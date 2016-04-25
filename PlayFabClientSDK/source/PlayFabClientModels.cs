@@ -144,6 +144,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public string ConfirmationMessege { get; set;}
 
+		/// <summary>
+		/// Message to display when confirming push notification.
+		/// </summary>
+        public string ConfirmationMessage { get; set;}
+
 	}
 
 	public class AndroidDevicePushNotificationRegistrationResult : PlayFabResultCommon
@@ -765,7 +770,7 @@ namespace PlayFab.ClientModels
         public object FunctionParameter { get; set;}
 
 		/// <summary>
-		/// Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision.
+		/// Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. The default value is 'Specific', if the SpeificRevision parameter is specified, otherwise it is 'Live'.
 		/// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public CloudScriptRevisionOption? RevisionSelection { get; set;}

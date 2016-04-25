@@ -220,7 +220,8 @@ namespace PlayFab
 		EventNotFound = 1215,
 		InvalidEventField = 1216,
 		InvalidEventName = 1217,
-		CatalogNotConfigured = 1218
+		CatalogNotConfigured = 1218,
+		OperationNotSupportedForPlatform = 1219
 	}
 	
 	public class PlayFabError
