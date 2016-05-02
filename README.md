@@ -23,31 +23,10 @@ This package contains three different versions of the PlayFab SDK.
 * PlayFabSDK - Contains all APIs in one SDK, as well as a unit-test project
 
 
-#### NuGet
-
-https://www.nuget.org/packages/PlayFabAllSDK/
-
-
 4. Usage Instructions:
 ----
-#### Current Status:
-[![Build status](https://ci.appveyor.com/api/projects/status/n3aw3s8jpgx9bhbq?svg=true)](https://ci.appveyor.com/project/MattAugustine/csharpsdk-jrl6i)
-
-
-Full:
-
-https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabSDK/bin/Release/PlayFabAllSDK.dll
-https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabSDK/bin/Release/PlayFabAllSDK.pdb
-
-Client:
-
-https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabClientSDK/bin/Release/PlayFabClientSDK.dll
-https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabClientSDK/bin/Release/PlayFabClientSDK.pdb
-
-Server:
-
-https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabServerSDK/bin/Release/PlayFabServerSDK.dll
-https://playfab-csharp-sdk-builds.s3-us-west-2.amazonaws.com/PlayFabServerSDK/bin/Release/PlayFabServerSDK.pdb
+1) All users will want to download the latest SDK: https://github.com/PlayFab/CSharpSDK/releases
+2) For beginners or quick evaluation, please start with the included example project, and add your own logic and api calls.  For advanced users, or users with an existing project, please copy the source from one of the SDK folders into your project.
 
 
 5. Troubleshooting:
