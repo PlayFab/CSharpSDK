@@ -864,31 +864,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Sets up a store to be used in an AB test using segments
-        /// </summary>
-        public static async Task<PlayFabResult<SetStoreSegemntOverridesResult>> SetStoreSegmentOverridesAsync(SetStoreSegmentOverridesRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetStoreSegmentOverrides", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<SetStoreSegemntOverridesResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetStoreSegemntOverridesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            SetStoreSegemntOverridesResult result = resultData.data;
-
-            return new PlayFabResult<SetStoreSegemntOverridesResult> { Result = result };
-        }
-
-        /// <summary>
         /// Creates and updates the key-value store of custom title settings
         /// </summary>
         public static async Task<PlayFabResult<SetTitleDataResult>> SetTitleDataAsync(SetTitleDataRequest request)
