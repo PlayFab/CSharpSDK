@@ -1414,6 +1414,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Sets the state of the indicated Game Server Instance
+        /// </summary>
+        public static async Task<PlayFabResult<SetGameServerInstanceStateResult>> SetGameServerInstanceStateAsync(SetGameServerInstanceStateRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/SetGameServerInstanceState", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetGameServerInstanceStateResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetGameServerInstanceStateResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            SetGameServerInstanceStateResult result = resultData.data;
+
+            return new PlayFabResult<SetGameServerInstanceStateResult> { Result = result };
+        }
+
+        /// <summary>
         /// Awards the specified users the specified Steam achievements
         /// </summary>
         public static async Task<PlayFabResult<AwardSteamAchievementResult>> AwardSteamAchievementAsync(AwardSteamAchievementRequest request)
