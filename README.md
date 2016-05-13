@@ -29,7 +29,27 @@ This package contains three different versions of the PlayFab SDK.
 2) For beginners or quick evaluation, please start with the included example project, and add your own logic and api calls.  For advanced users, or users with an existing project, please copy the source from one of the SDK folders into your project.
 
 
-5. Troubleshooting:
+5. A testTitleData.json file required for example UnitTestRunner project
+----
+
+This is an example project that comes with the SDK, and is used by PlayFab to verify sdk features are fully functional.  This file provides your secret title information to the unit-test project, so it can execute tests in your own PlayFab title
+
+The format is as follows:
+
+    {
+    	"titleId": "your Game Title ID, found in the settings/credentials section of your dashboard on the website",
+    	"developerSecretKey": "your PlayFab API Secret Key, found in the settings/credentials section of your dashboard on the website - NEVER SHARE THIS KEY WITH PLAYERS",
+    	"titleCanUpdateSettings": "false",  // "true" or "false", based on your Allow Client to Post Player Statistics option, found in the settings/general section of your dashboard on the website
+    	"userName": "testUser", // Arbitrary username, you can change this to any valid username
+    	"userEmail": "your@email.com", // This email address will be bound to the username above
+    	"userPassword": "testPassword", // This must be the correct password for the testUser above (if that user does not exist yet, this will be the new password)
+    	"characterName": "testCharacter" // Arbitrary characterName, you can change this to any valid characterName
+    }
+
+When running the UnitTestRunner example/testing project, provide the command line inputs " -testInputsFile <file-path>".  This will read the json file at that location, and attempt to interpret it as the testTitleData.json format.
+
+
+6. Troubleshooting:
 ----
 For a complete list of available APIs, check out the [online documentation](http://api.playfab.com/Documentation/).
 
@@ -42,7 +62,7 @@ Our Developer Success Team can assist with answering any questions as well as pr
 [Forums, Support and Knowledge Base](https://community.playfab.com/hc/en-us)
 
 
-6. Copyright and Licensing Information:
+7. Copyright and Licensing Information:
 ----
   Apache License --
   Version 2.0, January 2004
