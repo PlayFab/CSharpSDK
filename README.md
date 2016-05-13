@@ -32,7 +32,7 @@ This package contains three different versions of the PlayFab SDK.
 5. A testTitleData.json file required for example UnitTestRunner project
 ----
 
-This is an example project that comes with the SDK, and is used by PlayFab to verify sdk features are fully functional.  This file provides your secret title information to the unit-test project, so it can execute tests in your own PlayFab title
+This sdk includes an optional example project that is used by PlayFab to verify sdk features are fully functional.  The testTitleData.json file provides your secret title information to the unit-test project, so it can execute tests in your own PlayFab title.
 
 The format is as follows:
 
