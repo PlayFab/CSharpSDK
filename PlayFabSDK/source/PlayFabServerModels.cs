@@ -786,6 +786,12 @@ namespace PlayFab.ServerModels
 
 	}
 
+	
+	public enum GameInstanceState
+	{
+		Open,
+		Closed
+	}
 	public class GetCatalogItemsRequest
 	{
 		/// <summary>
@@ -825,7 +831,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
 		/// </summary>
-        public int? IfChangedFromDataVersion { get; set;}
+        public uint? IfChangedFromDataVersion { get; set;}
 
 	}
 
@@ -1335,7 +1341,7 @@ namespace PlayFab.ServerModels
 		/// <summary>
 		/// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
 		/// </summary>
-        public int? IfChangedFromDataVersion { get; set;}
+        public uint? IfChangedFromDataVersion { get; set;}
 
 	}
 
@@ -2247,6 +2253,25 @@ namespace PlayFab.ServerModels
 	}
 
 	public class SendPushNotificationResult : PlayFabResultCommon
+	{
+	}
+
+	public class SetGameServerInstanceStateRequest
+	{
+		/// <summary>
+		/// Unique identifier of the Game Instance to be updated.
+		/// </summary>
+        public string LobbyId { get; set;}
+
+		/// <summary>
+		/// State to set for the specified game server instance.
+		/// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public GameInstanceState State { get; set;}
+
+	}
+
+	public class SetGameServerInstanceStateResult : PlayFabResultCommon
 	{
 	}
 
