@@ -164,6 +164,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves a list of ranked friends of the given player for the given statistic, starting from the indicated point in the leaderboard
+        /// </summary>
+        public static async Task<PlayFabResult<GetLeaderboardResult>> GetFriendLeaderboardAsync(GetFriendLeaderboardRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetFriendLeaderboard", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetLeaderboardResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetLeaderboardResult result = resultData.data;
+
+            return new PlayFabResult<GetLeaderboardResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard
         /// </summary>
         public static async Task<PlayFabResult<GetLeaderboardResult>> GetLeaderboardAsync(GetLeaderboardRequest request)
@@ -1364,6 +1389,81 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Adds the Friend user to the friendlist of the user with PlayFabId. At least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> AddFriendAsync(AddFriendRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/AddFriend", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            EmptyResult result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the current friends for the user with PlayFabId, constrained to users who have PlayFab accounts. Friends from linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends.
+        /// </summary>
+        public static async Task<PlayFabResult<GetFriendsListResult>> GetFriendsListAsync(GetFriendsListRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetFriendsList", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetFriendsListResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetFriendsListResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetFriendsListResult result = resultData.data;
+
+            return new PlayFabResult<GetFriendsListResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Removes the specified friend from the the user's friend list
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> RemoveFriendAsync(RemoveFriendRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/RemoveFriend", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            EmptyResult result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result };
+        }
+
+        /// <summary>
         /// Informs the PlayFab match-making service that the user specified has left the Game Server Instance
         /// </summary>
         public static async Task<PlayFabResult<NotifyMatchmakerPlayerLeftResult>> NotifyMatchmakerPlayerLeftAsync(NotifyMatchmakerPlayerLeftRequest request)
@@ -2111,6 +2211,281 @@ namespace PlayFab
             UpdateCharacterDataResult result = resultData.data;
 
             return new PlayFabResult<UpdateCharacterDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Increments  the Guild's balance of the specified virtual currency by the stated amount
+        /// </summary>
+        public static async Task<PlayFabResult<ModifyGuildVirtualCurrencyResult>> AddGuildVirtualCurrencyAsync(AddGuildVirtualCurrencyRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/AddGuildVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ModifyGuildVirtualCurrencyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyGuildVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ModifyGuildVirtualCurrencyResult result = resultData.data;
+
+            return new PlayFabResult<ModifyGuildVirtualCurrencyResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the title-specific custom data for the guild which is readable and writable by the client
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildDataResult>> GetGuildDataAsync(GetGuildDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetGuildData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the title-specific custom data for the guild which cannot be accessed by the client
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildDataResult>> GetGuildInternalDataAsync(GetGuildDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetGuildInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the title-specific custom data for the guild which can only be read by the client
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildDataResult>> GetGuildReadOnlyDataAsync(GetGuildDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetGuildReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the current version and values for the indicated statistics.
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildStatisticsResult>> GetGuildStatisticsAsync(GetGuildStatisticsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetGuildStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Adds the specified items to the specified guild's inventory
+        /// </summary>
+        public static async Task<PlayFabResult<GrantItemsToGuildResult>> GrantItemsToGuildAsync(GrantItemsToGuildRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GrantItemsToGuild", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GrantItemsToGuildResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GrantItemsToGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GrantItemsToGuildResult result = resultData.data;
+
+            return new PlayFabResult<GrantItemsToGuildResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Decrements the Guild's balance of the specified virtual currency by the stated amount
+        /// </summary>
+        public static async Task<PlayFabResult<ModifyGuildVirtualCurrencyResult>> SubtractGuildVirtualCurrencyAsync(SubtractGuildVirtualCurrencyRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/SubtractGuildVirtualCurrency", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ModifyGuildVirtualCurrencyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyGuildVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ModifyGuildVirtualCurrencyResult result = resultData.data;
+
+            return new PlayFabResult<ModifyGuildVirtualCurrencyResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the title-specific custom data for the guild which is readable and writable by the client
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateGuildDataResult>> UpdateGuildDataAsync(UpdateGuildDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/UpdateGuildData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<UpdateGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the title-specific custom data for the guild which cannot be accessed by the client
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateGuildDataResult>> UpdateGuildInternalDataAsync(UpdateGuildDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/UpdateGuildInternalData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<UpdateGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the title-specific custom data for the guild which can only be read by the client
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateGuildDataResult>> UpdateGuildReadOnlyDataAsync(UpdateGuildDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/UpdateGuildReadOnlyData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<UpdateGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the values of the specified title-specific statistics.
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateGuildStatisticsResult>> UpdateGuildStatisticsAsync(UpdateGuildStatisticsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/UpdateGuildStatistics", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateGuildStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateGuildStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<UpdateGuildStatisticsResult> { Result = result };
         }
 
     }

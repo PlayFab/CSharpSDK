@@ -414,6 +414,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Attempts to process an order refund through the original real money payment provider.
+        /// </summary>
+        public static async Task<PlayFabResult<RefundPurchaseResponse>> RefundPurchaseAsync(RefundPurchaseRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/RefundPurchase", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RefundPurchaseResponse> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RefundPurchaseResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RefundPurchaseResponse result = resultData.data;
+
+            return new PlayFabResult<RefundPurchaseResponse> { Result = result };
+        }
+
+        /// <summary>
         /// Completely removes all statistics for the specified user, for the current game
         /// </summary>
         public static async Task<PlayFabResult<ResetUserStatisticsResult>> ResetUserStatisticsAsync(ResetUserStatisticsRequest request)
@@ -436,6 +461,31 @@ namespace PlayFab
             ResetUserStatisticsResult result = resultData.data;
 
             return new PlayFabResult<ResetUserStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Attempts to resolve a dispute with the original order's payment provider.
+        /// </summary>
+        public static async Task<PlayFabResult<ResolvePurchaseDisputeResponse>> ResolvePurchaseDisputeAsync(ResolvePurchaseDisputeRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/ResolvePurchaseDispute", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ResolvePurchaseDisputeResponse> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ResolvePurchaseDisputeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ResolvePurchaseDisputeResponse result = resultData.data;
+
+            return new PlayFabResult<ResolvePurchaseDisputeResponse> { Result = result };
         }
 
         /// <summary>
@@ -861,6 +911,31 @@ namespace PlayFab
             UpdateStoreItemsResult result = resultData.data;
 
             return new PlayFabResult<UpdateStoreItemsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Sets up a store to be used in an AB test using segments
+        /// </summary>
+        public static async Task<PlayFabResult<SetStoreSegemntOverridesResult>> SetStoreSegmentOverridesAsync(SetStoreSegmentOverridesRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetStoreSegmentOverrides", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetStoreSegemntOverridesResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetStoreSegemntOverridesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            SetStoreSegemntOverridesResult result = resultData.data;
+
+            return new PlayFabResult<SetStoreSegemntOverridesResult> { Result = result };
         }
 
         /// <summary>

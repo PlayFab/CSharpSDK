@@ -291,6 +291,34 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithPSNAsync(LoginWithPSNRequest request)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithPSN", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LoginResult result = resultData.data;
+            _authKey = result.SessionTicket ?? _authKey;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result };
+        }
+
+        /// <summary>
         /// Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithSteamAsync(LoginWithSteamRequest request)
@@ -299,6 +327,34 @@ namespace PlayFab
             if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
 
             object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithSteam", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LoginResult result = resultData.data;
+            _authKey = result.SessionTicket ?? _authKey;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithXboxAsync(LoginWithXboxRequest request)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithXbox", request, null, null);
             if(httpResult is PlayFabError)
             {
                 PlayFabError error = (PlayFabError)httpResult;
@@ -494,6 +550,31 @@ namespace PlayFab
             GetPlayFabIDsFromKongregateIDsResult result = resultData.data;
 
             return new PlayFabResult<GetPlayFabIDsFromKongregateIDsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromPSNAccountIDs", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromPSNAccountIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayFabIDsFromPSNAccountIDsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Result = result };
         }
 
         /// <summary>
@@ -722,6 +803,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkPSNAccountResult>> LinkPSNAccountAsync(LinkPSNAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkPSNAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkPSNAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkPSNAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LinkPSNAccountResult result = resultData.data;
+
+            return new PlayFabResult<LinkPSNAccountResult> { Result = result };
+        }
+
+        /// <summary>
         /// Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<LinkSteamAccountResult>> LinkSteamAccountAsync(LinkSteamAccountRequest request)
@@ -744,6 +850,31 @@ namespace PlayFab
             LinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<LinkSteamAccountResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkXboxAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkXboxAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkXboxAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LinkXboxAccountResult result = resultData.data;
+
+            return new PlayFabResult<LinkXboxAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -971,6 +1102,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks the related PSN account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkPSNAccountResult>> UnlinkPSNAccountAsync(UnlinkPSNAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkPSNAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkPSNAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkPSNAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UnlinkPSNAccountResult result = resultData.data;
+
+            return new PlayFabResult<UnlinkPSNAccountResult> { Result = result };
+        }
+
+        /// <summary>
         /// Unlinks the related Steam account from the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<UnlinkSteamAccountResult>> UnlinkSteamAccountAsync(UnlinkSteamAccountRequest request)
@@ -993,6 +1149,31 @@ namespace PlayFab
             UnlinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<UnlinkSteamAccountResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Unlinks the related Xbox Live account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkXboxAccountResult>> UnlinkXboxAccountAsync(UnlinkXboxAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkXboxAccount", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkXboxAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkXboxAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UnlinkXboxAccountResult result = resultData.data;
+
+            return new PlayFabResult<UnlinkXboxAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -2446,6 +2627,56 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items
+        /// </summary>
+        public static async Task<PlayFabResult<ConsumePSNEntitlementsResult>> ConsumePSNEntitlementsAsync(ConsumePSNEntitlementsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ConsumePSNEntitlements", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ConsumePSNEntitlementsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ConsumePSNEntitlementsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ConsumePSNEntitlementsResult result = resultData.data;
+
+            return new PlayFabResult<ConsumePSNEntitlementsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Uses the supplied OAuth code to refresh the internally cached player PSN auth token
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RefreshPSNAuthToken", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            EmptyResult result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result };
+        }
+
+        /// <summary>
         /// Executes a CloudScript function, with the 'currentPlayerId' set to the PlayFab ID of the authenticated player.
         /// </summary>
         public static async Task<PlayFabResult<ExecuteCloudScriptResult>> ExecuteCloudScriptAsync(ExecuteCloudScriptRequest request)
@@ -2971,6 +3202,531 @@ namespace PlayFab
             PlayFabSettings.AdvertisingIdType += "_Successful";
 
             return new PlayFabResult<AttributeInstallResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Adds the player to the guild membership, if not already a member, and updates their role.
+        /// </summary>
+        public static async Task<PlayFabResult<ApproveGuildRoleChangeResult>> ApproveGuildRoleChangeAsync(ApproveGuildRoleChangeRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ApproveGuildRoleChange", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ApproveGuildRoleChangeResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ApproveGuildRoleChangeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ApproveGuildRoleChangeResult result = resultData.data;
+
+            return new PlayFabResult<ApproveGuildRoleChangeResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Directly changes the member's role, without a change request.
+        /// </summary>
+        public static async Task<PlayFabResult<ChangeGuildMemberRoleResult>> ChangeGuildMemberRoleAsync(ChangeGuildMemberRoleRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ChangeGuildMemberRole", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ChangeGuildMemberRoleResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ChangeGuildMemberRoleResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ChangeGuildMemberRoleResult result = resultData.data;
+
+            return new PlayFabResult<ChangeGuildMemberRoleResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Creates a new guild with the current player as the owner
+        /// </summary>
+        public static async Task<PlayFabResult<CreateGuildResult>> CreateGuildAsync(CreateGuildRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/CreateGuild", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<CreateGuildResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<CreateGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            CreateGuildResult result = resultData.data;
+
+            return new PlayFabResult<CreateGuildResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Deletes a guild
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteGuildResult>> DeleteGuildAsync(DeleteGuildRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/DeleteGuild", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<DeleteGuildResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<DeleteGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            DeleteGuildResult result = resultData.data;
+
+            return new PlayFabResult<DeleteGuildResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Denies the role change request from a player
+        /// </summary>
+        public static async Task<PlayFabResult<DenyGuildRoleChangeResult>> DenyGuildRoleChangeAsync(DenyGuildRoleChangeRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/DenyGuildRoleChange", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<DenyGuildRoleChangeResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<DenyGuildRoleChangeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            DenyGuildRoleChangeResult result = resultData.data;
+
+            return new PlayFabResult<DenyGuildRoleChangeResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the title-specific custom data for the guild which is readable and writable by the client
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildDataResult>> GetGuildDataAsync(GetGuildDataRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildData", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the guild's current inventory of virtual goods
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildInventoryResult>> GetGuildInventoryAsync(GetGuildInventoryRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildInventory", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildInventoryResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildInventoryResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildInventoryResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves a list of ranked players who are members of the given guild for the given statistic, starting from the indicated point in the leaderboard
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildMembershipLeaderboardResult>> GetGuildMembershipLeaderboardAsync(GetGuildMembershipLeaderboardRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildMembershipLeaderboard", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildMembershipLeaderboardResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildMembershipLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildMembershipLeaderboardResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildMembershipLeaderboardResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the title-specific custom data for the guild which can only be read by the client
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildDataResult>> GetGuildReadOnlyDataAsync(GetGuildDataRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildReadOnlyData", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves a list of ranked guilds for the given statistic, starting from the indicated point in the leaderboard
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildsLeaderboardResult>> GetGuildsLeaderboardAsync(GetGuildsLeaderboardRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildsLeaderboard", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildsLeaderboardResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildsLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildsLeaderboardResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildsLeaderboardResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves a list of ranked guilds for the given statistic, centered on the requested guild ID
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildsLeaderboardAroundGuildResult>> GetGuildsLeaderboardAroundGuildAsync(GetGuildsLeaderboardAroundGuildRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildsLeaderboardAroundGuild", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildsLeaderboardAroundGuildResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildsLeaderboardAroundGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildsLeaderboardAroundGuildResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildsLeaderboardAroundGuildResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the indicated statistics (current version and values for all statistics, if none are specified)
+        /// </summary>
+        public static async Task<PlayFabResult<GetGuildStatisticsResult>> GetGuildStatisticsAsync(GetGuildStatisticsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildStatistics", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetGuildStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetGuildStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<GetGuildStatisticsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves a ranked list of all of the player's guilds for the given statistic.
+        /// </summary>
+        public static async Task<PlayFabResult<GetLeaderboardOfPlayersGuildsResult>> GetLeaderboardOfPlayersGuildsAsync(GetLeaderboardOfPlayersGuildsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetLeaderboardOfPlayersGuilds", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetLeaderboardOfPlayersGuildsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardOfPlayersGuildsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetLeaderboardOfPlayersGuildsResult result = resultData.data;
+
+            return new PlayFabResult<GetLeaderboardOfPlayersGuildsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Removes the current player from the guild
+        /// </summary>
+        public static async Task<PlayFabResult<LeaveGuildResult>> LeaveGuildAsync(LeaveGuildRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LeaveGuild", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LeaveGuildResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LeaveGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LeaveGuildResult result = resultData.data;
+
+            return new PlayFabResult<LeaveGuildResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Returns the list of members of the guild
+        /// </summary>
+        public static async Task<PlayFabResult<ListGuildMembersResult>> ListGuildMembersAsync(ListGuildMembersRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ListGuildMembers", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ListGuildMembersResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListGuildMembersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ListGuildMembersResult result = resultData.data;
+
+            return new PlayFabResult<ListGuildMembersResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Returns role change requests that haven't yet been approved or denied
+        /// </summary>
+        public static async Task<PlayFabResult<ListPendingGuildRoleChangeRequestsResult>> ListPendingGuildRoleChangeRequestsAsync(ListPendingGuildRoleChangeRequestsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ListPendingGuildRoleChangeRequests", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ListPendingGuildRoleChangeRequestsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListPendingGuildRoleChangeRequestsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ListPendingGuildRoleChangeRequestsResult result = resultData.data;
+
+            return new PlayFabResult<ListPendingGuildRoleChangeRequestsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Returns list of guilds of which the current player is a member
+        /// </summary>
+        public static async Task<PlayFabResult<ListPlayerGuildMembershipsResult>> ListPlayerGuildMembershipsAsync(ListPlayerGuildMembershipsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/ListPlayerGuildMemberships", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ListPlayerGuildMembershipsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListPlayerGuildMembershipsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            ListPlayerGuildMembershipsResult result = resultData.data;
+
+            return new PlayFabResult<ListPlayerGuildMembershipsResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Removes a member from the guild
+        /// </summary>
+        public static async Task<PlayFabResult<RemoveGuildMemberResult>> RemoveGuildMemberAsync(RemoveGuildMemberRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RemoveGuildMember", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RemoveGuildMemberResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveGuildMemberResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RemoveGuildMemberResult result = resultData.data;
+
+            return new PlayFabResult<RemoveGuildMemberResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Requests that the current player be assigned the given role in the guild
+        /// </summary>
+        public static async Task<PlayFabResult<RequestGuildRoleChangeResult>> RequestGuildRoleChangeAsync(RequestGuildRoleChangeRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/RequestGuildRoleChange", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RequestGuildRoleChangeResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RequestGuildRoleChangeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RequestGuildRoleChangeResult result = resultData.data;
+
+            return new PlayFabResult<RequestGuildRoleChangeResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Creates and updates the title-specific custom data for the guild which is readable  and writable by the client
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateGuildDataResult>> UpdateGuildDataAsync(UpdateGuildDataRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateGuildData", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateGuildDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateGuildDataResult result = resultData.data;
+
+            return new PlayFabResult<UpdateGuildDataResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates the values of the specified guild statistics. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateGuildStatisticsResult>> UpdateGuildStatisticsAsync(UpdateGuildStatisticsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateGuildStatistics", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateGuildStatisticsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateGuildStatisticsResult result = resultData.data;
+
+            return new PlayFabResult<UpdateGuildStatisticsResult> { Result = result };
         }
 
         private static string _authKey = null;
