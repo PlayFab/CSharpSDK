@@ -30,7 +30,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPhotonAuthenticationTokenResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPhotonAuthenticationTokenResult result = resultData.data;
@@ -56,7 +56,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -84,7 +84,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -112,7 +112,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -140,7 +140,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -168,7 +168,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -196,7 +196,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -224,7 +224,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -252,7 +252,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -280,35 +280,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            LoginResult result = resultData.data;
-            _authKey = result.SessionTicket ?? _authKey;
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
-
-            return new PlayFabResult<LoginResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently be used for API calls which require an authenticated user
-        /// </summary>
-        public static async Task<PlayFabResult<LoginResult>> LoginWithPSNAsync(LoginWithPSNRequest request)
-        {
-            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
-            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithPSN", request, null, null);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<LoginResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -336,35 +308,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            LoginResult result = resultData.data;
-            _authKey = result.SessionTicket ?? _authKey;
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
-
-            return new PlayFabResult<LoginResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls which require an authenticated user
-        /// </summary>
-        public static async Task<PlayFabResult<LoginResult>> LoginWithXboxAsync(LoginWithXboxRequest request)
-        {
-            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
-            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithXbox", request, null, null);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<LoginResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LoginResult result = resultData.data;
@@ -392,7 +336,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RegisterPlayFabUserResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RegisterPlayFabUserResult result = resultData.data;
@@ -419,7 +363,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddUsernamePasswordResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AddUsernamePasswordResult result = resultData.data;
@@ -444,7 +388,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetAccountInfoResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetAccountInfoResult result = resultData.data;
@@ -469,7 +413,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromFacebookIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayFabIDsFromFacebookIDsResult result = resultData.data;
@@ -494,7 +438,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromGameCenterIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayFabIDsFromGameCenterIDsResult result = resultData.data;
@@ -519,7 +463,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromGoogleIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayFabIDsFromGoogleIDsResult result = resultData.data;
@@ -544,37 +488,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromKongregateIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayFabIDsFromKongregateIDsResult result = resultData.data;
 
             return new PlayFabResult<GetPlayFabIDsFromKongregateIDsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
-        /// </summary>
-        public static async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromPSNAccountIDs", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromPSNAccountIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetPlayFabIDsFromPSNAccountIDsResult result = resultData.data;
-
-            return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Result = result };
         }
 
         /// <summary>
@@ -594,7 +513,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromSteamIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayFabIDsFromSteamIDsResult result = resultData.data;
@@ -619,7 +538,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserCombinedInfoResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserCombinedInfoResult result = resultData.data;
@@ -644,7 +563,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkAndroidDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkAndroidDeviceIDResult result = resultData.data;
@@ -669,7 +588,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkCustomIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkCustomIDResult result = resultData.data;
@@ -694,7 +613,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkFacebookAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkFacebookAccountResult result = resultData.data;
@@ -719,7 +638,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkGameCenterAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkGameCenterAccountResult result = resultData.data;
@@ -744,7 +663,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkGoogleAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkGoogleAccountResult result = resultData.data;
@@ -769,7 +688,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkIOSDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkIOSDeviceIDResult result = resultData.data;
@@ -794,37 +713,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkKongregateAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkKongregateAccountResult result = resultData.data;
 
             return new PlayFabResult<LinkKongregateAccountResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
-        /// </summary>
-        public static async Task<PlayFabResult<LinkPSNAccountResult>> LinkPSNAccountAsync(LinkPSNAccountRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkPSNAccount", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<LinkPSNAccountResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkPSNAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            LinkPSNAccountResult result = resultData.data;
-
-            return new PlayFabResult<LinkPSNAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -844,37 +738,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkSteamAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<LinkSteamAccountResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
-        /// </summary>
-        public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkXboxAccount", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<LinkXboxAccountResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkXboxAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            LinkXboxAccountResult result = resultData.data;
-
-            return new PlayFabResult<LinkXboxAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -894,7 +763,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ReportPlayerClientResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ReportPlayerClientResult result = resultData.data;
@@ -918,7 +787,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<SendAccountRecoveryEmailResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             SendAccountRecoveryEmailResult result = resultData.data;
@@ -943,7 +812,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkAndroidDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkAndroidDeviceIDResult result = resultData.data;
@@ -968,7 +837,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkCustomIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkCustomIDResult result = resultData.data;
@@ -993,7 +862,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkFacebookAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkFacebookAccountResult result = resultData.data;
@@ -1018,7 +887,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkGameCenterAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkGameCenterAccountResult result = resultData.data;
@@ -1043,7 +912,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkGoogleAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkGoogleAccountResult result = resultData.data;
@@ -1068,7 +937,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkIOSDeviceIDResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkIOSDeviceIDResult result = resultData.data;
@@ -1093,37 +962,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkKongregateAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkKongregateAccountResult result = resultData.data;
 
             return new PlayFabResult<UnlinkKongregateAccountResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Unlinks the related PSN account from the user's PlayFab account
-        /// </summary>
-        public static async Task<PlayFabResult<UnlinkPSNAccountResult>> UnlinkPSNAccountAsync(UnlinkPSNAccountRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkPSNAccount", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UnlinkPSNAccountResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkPSNAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            UnlinkPSNAccountResult result = resultData.data;
-
-            return new PlayFabResult<UnlinkPSNAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -1143,37 +987,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkSteamAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<UnlinkSteamAccountResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Unlinks the related Xbox Live account from the user's PlayFab account
-        /// </summary>
-        public static async Task<PlayFabResult<UnlinkXboxAccountResult>> UnlinkXboxAccountAsync(UnlinkXboxAccountRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkXboxAccount", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UnlinkXboxAccountResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkXboxAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            UnlinkXboxAccountResult result = resultData.data;
-
-            return new PlayFabResult<UnlinkXboxAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -1193,7 +1012,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserTitleDisplayNameResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserTitleDisplayNameResult result = resultData.data;
@@ -1218,7 +1037,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetLeaderboardResult result = resultData.data;
@@ -1243,7 +1062,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetFriendLeaderboardAroundCurrentUserResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetFriendLeaderboardAroundCurrentUserResult result = resultData.data;
@@ -1268,7 +1087,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetFriendLeaderboardAroundPlayerResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetFriendLeaderboardAroundPlayerResult result = resultData.data;
@@ -1293,7 +1112,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetLeaderboardResult result = resultData.data;
@@ -1318,7 +1137,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardAroundCurrentUserResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetLeaderboardAroundCurrentUserResult result = resultData.data;
@@ -1343,7 +1162,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardAroundPlayerResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetLeaderboardAroundPlayerResult result = resultData.data;
@@ -1368,7 +1187,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayerStatisticsResult result = resultData.data;
@@ -1393,7 +1212,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticVersionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayerStatisticVersionsResult result = resultData.data;
@@ -1418,7 +1237,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -1443,7 +1262,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -1468,7 +1287,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -1493,7 +1312,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -1518,7 +1337,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserStatisticsResult result = resultData.data;
@@ -1543,7 +1362,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdatePlayerStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdatePlayerStatisticsResult result = resultData.data;
@@ -1568,7 +1387,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -1593,7 +1412,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -1618,7 +1437,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserStatisticsResult result = resultData.data;
@@ -1643,7 +1462,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCatalogItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCatalogItemsResult result = resultData.data;
@@ -1668,7 +1487,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPublisherDataResult result = resultData.data;
@@ -1693,7 +1512,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetStoreItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetStoreItemsResult result = resultData.data;
@@ -1718,7 +1537,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetTitleDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetTitleDataResult result = resultData.data;
@@ -1743,7 +1562,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetTitleNewsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetTitleNewsResult result = resultData.data;
@@ -1768,7 +1587,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ModifyUserVirtualCurrencyResult result = resultData.data;
@@ -1793,7 +1612,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ConfirmPurchaseResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ConfirmPurchaseResult result = resultData.data;
@@ -1818,7 +1637,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ConsumeItemResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ConsumeItemResult result = resultData.data;
@@ -1843,7 +1662,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCharacterInventoryResult result = resultData.data;
@@ -1868,7 +1687,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPurchaseResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPurchaseResult result = resultData.data;
@@ -1893,7 +1712,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserInventoryResult result = resultData.data;
@@ -1918,7 +1737,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<PayForPurchaseResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             PayForPurchaseResult result = resultData.data;
@@ -1943,7 +1762,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<PurchaseItemResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             PurchaseItemResult result = resultData.data;
@@ -1968,7 +1787,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RedeemCouponResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RedeemCouponResult result = resultData.data;
@@ -1993,7 +1812,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<StartPurchaseResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             StartPurchaseResult result = resultData.data;
@@ -2018,7 +1837,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ModifyUserVirtualCurrencyResult result = resultData.data;
@@ -2043,7 +1862,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlockContainerItemResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlockContainerItemResult result = resultData.data;
@@ -2068,7 +1887,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlockContainerItemResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UnlockContainerItemResult result = resultData.data;
@@ -2093,7 +1912,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddFriendResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AddFriendResult result = resultData.data;
@@ -2118,7 +1937,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetFriendsListResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetFriendsListResult result = resultData.data;
@@ -2143,7 +1962,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveFriendResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RemoveFriendResult result = resultData.data;
@@ -2168,7 +1987,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetFriendTagsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             SetFriendTagsResult result = resultData.data;
@@ -2193,7 +2012,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RegisterForIOSPushNotificationResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RegisterForIOSPushNotificationResult result = resultData.data;
@@ -2218,7 +2037,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RestoreIOSPurchasesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RestoreIOSPurchasesResult result = resultData.data;
@@ -2243,7 +2062,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ValidateIOSReceiptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ValidateIOSReceiptResult result = resultData.data;
@@ -2268,7 +2087,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<CurrentGamesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             CurrentGamesResult result = resultData.data;
@@ -2293,7 +2112,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GameServerRegionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GameServerRegionsResult result = resultData.data;
@@ -2318,7 +2137,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<MatchmakeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             MatchmakeResult result = resultData.data;
@@ -2343,7 +2162,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<StartGameResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             StartGameResult result = resultData.data;
@@ -2368,7 +2187,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AndroidDevicePushNotificationRegistrationResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AndroidDevicePushNotificationRegistrationResult result = resultData.data;
@@ -2393,7 +2212,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ValidateGooglePlayPurchaseResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ValidateGooglePlayPurchaseResult result = resultData.data;
@@ -2418,7 +2237,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LogEventResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LogEventResult result = resultData.data;
@@ -2443,7 +2262,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<WriteEventResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             WriteEventResponse result = resultData.data;
@@ -2468,7 +2287,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<WriteEventResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             WriteEventResponse result = resultData.data;
@@ -2493,7 +2312,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<WriteEventResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             WriteEventResponse result = resultData.data;
@@ -2518,7 +2337,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddSharedGroupMembersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AddSharedGroupMembersResult result = resultData.data;
@@ -2543,7 +2362,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<CreateSharedGroupResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             CreateSharedGroupResult result = resultData.data;
@@ -2568,7 +2387,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetSharedGroupDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetSharedGroupDataResult result = resultData.data;
@@ -2593,7 +2412,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveSharedGroupMembersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RemoveSharedGroupMembersResult result = resultData.data;
@@ -2618,62 +2437,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateSharedGroupDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateSharedGroupDataResult result = resultData.data;
 
             return new PlayFabResult<UpdateSharedGroupDataResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items
-        /// </summary>
-        public static async Task<PlayFabResult<ConsumePSNEntitlementsResult>> ConsumePSNEntitlementsAsync(ConsumePSNEntitlementsRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/ConsumePSNEntitlements", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ConsumePSNEntitlementsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ConsumePSNEntitlementsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            ConsumePSNEntitlementsResult result = resultData.data;
-
-            return new PlayFabResult<ConsumePSNEntitlementsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Uses the supplied OAuth code to refresh the internally cached player PSN auth token
-        /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/RefreshPSNAuthToken", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<EmptyResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            EmptyResult result = resultData.data;
-
-            return new PlayFabResult<EmptyResult> { Result = result };
         }
 
         /// <summary>
@@ -2693,7 +2462,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ExecuteCloudScriptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ExecuteCloudScriptResult result = resultData.data;
@@ -2718,7 +2487,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCloudScriptUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCloudScriptUrlResult result = resultData.data;
@@ -2744,7 +2513,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RunCloudScriptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RunCloudScriptResult result = resultData.data;
@@ -2769,7 +2538,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetContentDownloadUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetContentDownloadUrlResult result = resultData.data;
@@ -2794,7 +2563,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListUsersCharactersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ListUsersCharactersResult result = resultData.data;
@@ -2819,7 +2588,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCharacterLeaderboardResult result = resultData.data;
@@ -2844,7 +2613,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCharacterStatisticsResult result = resultData.data;
@@ -2869,7 +2638,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardAroundCharacterResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetLeaderboardAroundCharacterResult result = resultData.data;
@@ -2894,7 +2663,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardForUsersCharactersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetLeaderboardForUsersCharactersResult result = resultData.data;
@@ -2919,7 +2688,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GrantCharacterToUserResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GrantCharacterToUserResult result = resultData.data;
@@ -2944,7 +2713,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateCharacterStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateCharacterStatisticsResult result = resultData.data;
@@ -2969,7 +2738,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCharacterDataResult result = resultData.data;
@@ -2994,7 +2763,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCharacterDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCharacterDataResult result = resultData.data;
@@ -3019,7 +2788,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateCharacterDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateCharacterDataResult result = resultData.data;
@@ -3044,7 +2813,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ValidateAmazonReceiptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ValidateAmazonReceiptResult result = resultData.data;
@@ -3069,7 +2838,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AcceptTradeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AcceptTradeResponse result = resultData.data;
@@ -3094,7 +2863,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<CancelTradeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             CancelTradeResponse result = resultData.data;
@@ -3119,7 +2888,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerTradesResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayerTradesResponse result = resultData.data;
@@ -3144,7 +2913,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetTradeStatusResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetTradeStatusResponse result = resultData.data;
@@ -3169,7 +2938,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<OpenTradeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             OpenTradeResponse result = resultData.data;
@@ -3194,7 +2963,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AttributeInstallResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AttributeInstallResult result = resultData.data;
@@ -3202,531 +2971,6 @@ namespace PlayFab
             PlayFabSettings.AdvertisingIdType += "_Successful";
 
             return new PlayFabResult<AttributeInstallResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Adds the player to the guild membership, if not already a member, and updates their role.
-        /// </summary>
-        public static async Task<PlayFabResult<ApproveGuildRoleChangeResult>> ApproveGuildRoleChangeAsync(ApproveGuildRoleChangeRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/ApproveGuildRoleChange", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ApproveGuildRoleChangeResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ApproveGuildRoleChangeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            ApproveGuildRoleChangeResult result = resultData.data;
-
-            return new PlayFabResult<ApproveGuildRoleChangeResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Directly changes the member's role, without a change request.
-        /// </summary>
-        public static async Task<PlayFabResult<ChangeGuildMemberRoleResult>> ChangeGuildMemberRoleAsync(ChangeGuildMemberRoleRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/ChangeGuildMemberRole", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ChangeGuildMemberRoleResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ChangeGuildMemberRoleResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            ChangeGuildMemberRoleResult result = resultData.data;
-
-            return new PlayFabResult<ChangeGuildMemberRoleResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Creates a new guild with the current player as the owner
-        /// </summary>
-        public static async Task<PlayFabResult<CreateGuildResult>> CreateGuildAsync(CreateGuildRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/CreateGuild", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<CreateGuildResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<CreateGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            CreateGuildResult result = resultData.data;
-
-            return new PlayFabResult<CreateGuildResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Deletes a guild
-        /// </summary>
-        public static async Task<PlayFabResult<DeleteGuildResult>> DeleteGuildAsync(DeleteGuildRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/DeleteGuild", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<DeleteGuildResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<DeleteGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            DeleteGuildResult result = resultData.data;
-
-            return new PlayFabResult<DeleteGuildResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Denies the role change request from a player
-        /// </summary>
-        public static async Task<PlayFabResult<DenyGuildRoleChangeResult>> DenyGuildRoleChangeAsync(DenyGuildRoleChangeRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/DenyGuildRoleChange", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<DenyGuildRoleChangeResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<DenyGuildRoleChangeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            DenyGuildRoleChangeResult result = resultData.data;
-
-            return new PlayFabResult<DenyGuildRoleChangeResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves the title-specific custom data for the guild which is readable and writable by the client
-        /// </summary>
-        public static async Task<PlayFabResult<GetGuildDataResult>> GetGuildDataAsync(GetGuildDataRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildData", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetGuildDataResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetGuildDataResult result = resultData.data;
-
-            return new PlayFabResult<GetGuildDataResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves the guild's current inventory of virtual goods
-        /// </summary>
-        public static async Task<PlayFabResult<GetGuildInventoryResult>> GetGuildInventoryAsync(GetGuildInventoryRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildInventory", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetGuildInventoryResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetGuildInventoryResult result = resultData.data;
-
-            return new PlayFabResult<GetGuildInventoryResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves a list of ranked players who are members of the given guild for the given statistic, starting from the indicated point in the leaderboard
-        /// </summary>
-        public static async Task<PlayFabResult<GetGuildMembershipLeaderboardResult>> GetGuildMembershipLeaderboardAsync(GetGuildMembershipLeaderboardRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildMembershipLeaderboard", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetGuildMembershipLeaderboardResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildMembershipLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetGuildMembershipLeaderboardResult result = resultData.data;
-
-            return new PlayFabResult<GetGuildMembershipLeaderboardResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves the title-specific custom data for the guild which can only be read by the client
-        /// </summary>
-        public static async Task<PlayFabResult<GetGuildDataResult>> GetGuildReadOnlyDataAsync(GetGuildDataRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildReadOnlyData", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetGuildDataResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetGuildDataResult result = resultData.data;
-
-            return new PlayFabResult<GetGuildDataResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves a list of ranked guilds for the given statistic, starting from the indicated point in the leaderboard
-        /// </summary>
-        public static async Task<PlayFabResult<GetGuildsLeaderboardResult>> GetGuildsLeaderboardAsync(GetGuildsLeaderboardRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildsLeaderboard", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetGuildsLeaderboardResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildsLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetGuildsLeaderboardResult result = resultData.data;
-
-            return new PlayFabResult<GetGuildsLeaderboardResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves a list of ranked guilds for the given statistic, centered on the requested guild ID
-        /// </summary>
-        public static async Task<PlayFabResult<GetGuildsLeaderboardAroundGuildResult>> GetGuildsLeaderboardAroundGuildAsync(GetGuildsLeaderboardAroundGuildRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildsLeaderboardAroundGuild", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetGuildsLeaderboardAroundGuildResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildsLeaderboardAroundGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetGuildsLeaderboardAroundGuildResult result = resultData.data;
-
-            return new PlayFabResult<GetGuildsLeaderboardAroundGuildResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves the indicated statistics (current version and values for all statistics, if none are specified)
-        /// </summary>
-        public static async Task<PlayFabResult<GetGuildStatisticsResult>> GetGuildStatisticsAsync(GetGuildStatisticsRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetGuildStatistics", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetGuildStatisticsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetGuildStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetGuildStatisticsResult result = resultData.data;
-
-            return new PlayFabResult<GetGuildStatisticsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Retrieves a ranked list of all of the player's guilds for the given statistic.
-        /// </summary>
-        public static async Task<PlayFabResult<GetLeaderboardOfPlayersGuildsResult>> GetLeaderboardOfPlayersGuildsAsync(GetLeaderboardOfPlayersGuildsRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/GetLeaderboardOfPlayersGuilds", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetLeaderboardOfPlayersGuildsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardOfPlayersGuildsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            GetLeaderboardOfPlayersGuildsResult result = resultData.data;
-
-            return new PlayFabResult<GetLeaderboardOfPlayersGuildsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Removes the current player from the guild
-        /// </summary>
-        public static async Task<PlayFabResult<LeaveGuildResult>> LeaveGuildAsync(LeaveGuildRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/LeaveGuild", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<LeaveGuildResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LeaveGuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            LeaveGuildResult result = resultData.data;
-
-            return new PlayFabResult<LeaveGuildResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Returns the list of members of the guild
-        /// </summary>
-        public static async Task<PlayFabResult<ListGuildMembersResult>> ListGuildMembersAsync(ListGuildMembersRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/ListGuildMembers", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ListGuildMembersResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListGuildMembersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            ListGuildMembersResult result = resultData.data;
-
-            return new PlayFabResult<ListGuildMembersResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Returns role change requests that haven't yet been approved or denied
-        /// </summary>
-        public static async Task<PlayFabResult<ListPendingGuildRoleChangeRequestsResult>> ListPendingGuildRoleChangeRequestsAsync(ListPendingGuildRoleChangeRequestsRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/ListPendingGuildRoleChangeRequests", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ListPendingGuildRoleChangeRequestsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListPendingGuildRoleChangeRequestsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            ListPendingGuildRoleChangeRequestsResult result = resultData.data;
-
-            return new PlayFabResult<ListPendingGuildRoleChangeRequestsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Returns list of guilds of which the current player is a member
-        /// </summary>
-        public static async Task<PlayFabResult<ListPlayerGuildMembershipsResult>> ListPlayerGuildMembershipsAsync(ListPlayerGuildMembershipsRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/ListPlayerGuildMemberships", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ListPlayerGuildMembershipsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListPlayerGuildMembershipsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            ListPlayerGuildMembershipsResult result = resultData.data;
-
-            return new PlayFabResult<ListPlayerGuildMembershipsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Removes a member from the guild
-        /// </summary>
-        public static async Task<PlayFabResult<RemoveGuildMemberResult>> RemoveGuildMemberAsync(RemoveGuildMemberRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/RemoveGuildMember", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<RemoveGuildMemberResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveGuildMemberResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            RemoveGuildMemberResult result = resultData.data;
-
-            return new PlayFabResult<RemoveGuildMemberResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Requests that the current player be assigned the given role in the guild
-        /// </summary>
-        public static async Task<PlayFabResult<RequestGuildRoleChangeResult>> RequestGuildRoleChangeAsync(RequestGuildRoleChangeRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/RequestGuildRoleChange", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<RequestGuildRoleChangeResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RequestGuildRoleChangeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            RequestGuildRoleChangeResult result = resultData.data;
-
-            return new PlayFabResult<RequestGuildRoleChangeResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Creates and updates the title-specific custom data for the guild which is readable  and writable by the client
-        /// </summary>
-        public static async Task<PlayFabResult<UpdateGuildDataResult>> UpdateGuildDataAsync(UpdateGuildDataRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateGuildData", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UpdateGuildDataResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            UpdateGuildDataResult result = resultData.data;
-
-            return new PlayFabResult<UpdateGuildDataResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Updates the values of the specified guild statistics. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
-        /// </summary>
-        public static async Task<PlayFabResult<UpdateGuildStatisticsResult>> UpdateGuildStatisticsAsync(UpdateGuildStatisticsRequest request)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Client/UpdateGuildStatistics", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UpdateGuildStatisticsResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateGuildStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            UpdateGuildStatisticsResult result = resultData.data;
-
-            return new PlayFabResult<UpdateGuildStatisticsResult> { Result = result };
         }
 
         private static string _authKey = null;

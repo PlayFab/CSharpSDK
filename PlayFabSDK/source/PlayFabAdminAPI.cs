@@ -30,7 +30,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<LookupUserAccountInfoResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             LookupUserAccountInfoResult result = resultData.data;
@@ -55,7 +55,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<BlankResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             BlankResult result = resultData.data;
@@ -80,7 +80,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<SendAccountRecoveryEmailResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             SendAccountRecoveryEmailResult result = resultData.data;
@@ -105,7 +105,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserTitleDisplayNameResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserTitleDisplayNameResult result = resultData.data;
@@ -130,7 +130,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<CreatePlayerStatisticDefinitionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             CreatePlayerStatisticDefinitionResult result = resultData.data;
@@ -155,7 +155,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<DeleteUsersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             DeleteUsersResult result = resultData.data;
@@ -180,7 +180,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetDataReportResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetDataReportResult result = resultData.data;
@@ -205,7 +205,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticDefinitionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayerStatisticDefinitionsResult result = resultData.data;
@@ -230,7 +230,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerStatisticVersionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPlayerStatisticVersionsResult result = resultData.data;
@@ -255,7 +255,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -280,7 +280,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -305,7 +305,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -330,7 +330,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -355,7 +355,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -380,7 +380,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserDataResult result = resultData.data;
@@ -405,37 +405,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<IncrementPlayerStatisticVersionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             IncrementPlayerStatisticVersionResult result = resultData.data;
 
             return new PlayFabResult<IncrementPlayerStatisticVersionResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Attempts to process an order refund through the original real money payment provider.
-        /// </summary>
-        public static async Task<PlayFabResult<RefundPurchaseResponse>> RefundPurchaseAsync(RefundPurchaseRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Admin/RefundPurchase", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<RefundPurchaseResponse> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RefundPurchaseResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            RefundPurchaseResponse result = resultData.data;
-
-            return new PlayFabResult<RefundPurchaseResponse> { Result = result };
         }
 
         /// <summary>
@@ -455,37 +430,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ResetUserStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ResetUserStatisticsResult result = resultData.data;
 
             return new PlayFabResult<ResetUserStatisticsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Attempts to resolve a dispute with the original order's payment provider.
-        /// </summary>
-        public static async Task<PlayFabResult<ResolvePurchaseDisputeResponse>> ResolvePurchaseDisputeAsync(ResolvePurchaseDisputeRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Admin/ResolvePurchaseDispute", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ResolvePurchaseDisputeResponse> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<ResolvePurchaseDisputeResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            ResolvePurchaseDisputeResponse result = resultData.data;
-
-            return new PlayFabResult<ResolvePurchaseDisputeResponse> { Result = result };
         }
 
         /// <summary>
@@ -505,7 +455,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdatePlayerStatisticDefinitionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdatePlayerStatisticDefinitionResult result = resultData.data;
@@ -530,7 +480,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -555,7 +505,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -580,7 +530,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -605,7 +555,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -630,7 +580,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -655,7 +605,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateUserDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateUserDataResult result = resultData.data;
@@ -680,7 +630,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddNewsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AddNewsResult result = resultData.data;
@@ -705,7 +655,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<BlankResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             BlankResult result = resultData.data;
@@ -730,7 +680,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCatalogItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCatalogItemsResult result = resultData.data;
@@ -755,7 +705,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetPublisherDataResult result = resultData.data;
@@ -780,7 +730,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetRandomResultTablesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetRandomResultTablesResult result = resultData.data;
@@ -805,7 +755,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetStoreItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetStoreItemsResult result = resultData.data;
@@ -830,7 +780,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetTitleDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetTitleDataResult result = resultData.data;
@@ -855,7 +805,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListVirtualCurrencyTypesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ListVirtualCurrencyTypesResult result = resultData.data;
@@ -880,7 +830,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateCatalogItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateCatalogItemsResult result = resultData.data;
@@ -905,37 +855,12 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateStoreItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateStoreItemsResult result = resultData.data;
 
             return new PlayFabResult<UpdateStoreItemsResult> { Result = result };
-        }
-
-        /// <summary>
-        /// Sets up a store to be used in an AB test using segments
-        /// </summary>
-        public static async Task<PlayFabResult<SetStoreSegemntOverridesResult>> SetStoreSegmentOverridesAsync(SetStoreSegmentOverridesRequest request)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            object httpResult = await PlayFabHTTP.DoPost("/Admin/SetStoreSegmentOverrides", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
-            if(httpResult is PlayFabError)
-            {
-                PlayFabError error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<SetStoreSegemntOverridesResult> { Error = error, };
-            }
-            string resultRawJson = (string)httpResult;
-
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
-            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetStoreSegemntOverridesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
-
-            SetStoreSegemntOverridesResult result = resultData.data;
-
-            return new PlayFabResult<SetStoreSegemntOverridesResult> { Result = result };
         }
 
         /// <summary>
@@ -955,7 +880,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetTitleDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             SetTitleDataResult result = resultData.data;
@@ -980,7 +905,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetupPushNotificationResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             SetupPushNotificationResult result = resultData.data;
@@ -1005,7 +930,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateCatalogItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateCatalogItemsResult result = resultData.data;
@@ -1030,7 +955,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateRandomResultTablesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateRandomResultTablesResult result = resultData.data;
@@ -1055,7 +980,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateStoreItemsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateStoreItemsResult result = resultData.data;
@@ -1080,7 +1005,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ModifyUserVirtualCurrencyResult result = resultData.data;
@@ -1105,7 +1030,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetUserInventoryResult result = resultData.data;
@@ -1130,7 +1055,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GrantItemsToUsersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GrantItemsToUsersResult result = resultData.data;
@@ -1155,7 +1080,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RevokeInventoryResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RevokeInventoryResult result = resultData.data;
@@ -1180,7 +1105,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ModifyUserVirtualCurrencyResult result = resultData.data;
@@ -1205,7 +1130,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetMatchmakerGameInfoResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetMatchmakerGameInfoResult result = resultData.data;
@@ -1230,7 +1155,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetMatchmakerGameModesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetMatchmakerGameModesResult result = resultData.data;
@@ -1255,7 +1180,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyMatchmakerGameModesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ModifyMatchmakerGameModesResult result = resultData.data;
@@ -1280,7 +1205,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AddServerBuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AddServerBuildResult result = resultData.data;
@@ -1305,7 +1230,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetServerBuildInfoResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetServerBuildInfoResult result = resultData.data;
@@ -1330,7 +1255,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetServerBuildUploadURLResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetServerBuildUploadURLResult result = resultData.data;
@@ -1355,7 +1280,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ListBuildsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ListBuildsResult result = resultData.data;
@@ -1380,7 +1305,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ModifyServerBuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ModifyServerBuildResult result = resultData.data;
@@ -1405,7 +1330,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<RemoveServerBuildResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             RemoveServerBuildResult result = resultData.data;
@@ -1430,7 +1355,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetPublisherDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             SetPublisherDataResult result = resultData.data;
@@ -1455,7 +1380,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCloudScriptRevisionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCloudScriptRevisionResult result = resultData.data;
@@ -1480,7 +1405,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetCloudScriptVersionsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetCloudScriptVersionsResult result = resultData.data;
@@ -1505,7 +1430,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetPublishedRevisionResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             SetPublishedRevisionResult result = resultData.data;
@@ -1530,7 +1455,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateCloudScriptResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UpdateCloudScriptResult result = resultData.data;
@@ -1555,7 +1480,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<BlankResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             BlankResult result = resultData.data;
@@ -1580,7 +1505,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetContentListResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetContentListResult result = resultData.data;
@@ -1605,7 +1530,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetContentUploadUrlResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             GetContentUploadUrlResult result = resultData.data;
@@ -1630,7 +1555,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<ResetCharacterStatisticsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             ResetCharacterStatisticsResult result = resultData.data;

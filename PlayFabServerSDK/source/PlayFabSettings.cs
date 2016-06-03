@@ -5,14 +5,8 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public static JsonSerializerSettings JsonSettings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            Converters = { new IsoDateTimeConverter() { DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFF'Z'" } },
-        };
-        public static Formatting JsonFormatting = Formatting.None;
-
         public static string SdkVersion = "0.26.160523";
+        public static string BuildIdentifier = "jbuild_csharpsdk_1176";
         public static string SdkVersionString = "CSharpSDK-0.26.160523";
 
         public static bool UseDevelopmentEnvironment = false;
