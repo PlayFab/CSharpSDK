@@ -6,7 +6,7 @@ namespace PlayFab
     public class PlayFabSettings
     {
         public static string SdkVersion = "0.26.160523";
-        public static string BuildIdentifier = "jbuild_csharpsdk_1179";
+        public static string BuildIdentifier = "jbuild_csharpsdk_1180";
         public static string SdkVersionString = "CSharpSDK-0.26.160523";
 
         public static bool UseDevelopmentEnvironment = false;
