@@ -30,7 +30,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<AuthUserResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             AuthUserResponse result = resultData.data;
@@ -55,7 +55,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<PlayerJoinedResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             PlayerJoinedResponse result = resultData.data;
@@ -80,7 +80,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<PlayerLeftResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             PlayerLeftResponse result = resultData.data;
@@ -105,7 +105,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<StartGameResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             StartGameResponse result = resultData.data;
@@ -130,7 +130,7 @@ namespace PlayFab
             }
             string resultRawJson = (string)httpResult;
 
-            var serializer = JsonSerializer.Create(PlayFabSettings.JsonSettings);
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
             var resultData = serializer.Deserialize<PlayFabJsonSuccess<UserInfoResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
 
             UserInfoResponse result = resultData.data;
