@@ -5,22 +5,23 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public static JsonSerializerSettings JsonSettings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            Converters = { new IsoDateTimeConverter() { DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFF'Z'" } },
-        };
-        public static Formatting JsonFormatting = Formatting.None;
+        public const string SdkVersion = "0.27.160606";
+        public const string BuildIdentifier = "jbuild_csharpsdk_1190";
+        public const string SdkVersionString = "CSharpSDK-0.27.160606";
 
-        public static string SdkVersion = "0.26.160523";
-        public static string SdkVersionString = "CSharpSDK-0.26.160523";
-
+        /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
         public static bool UseDevelopmentEnvironment = false;
+        /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
         public static string DevelopmentEnvironmentUrl = ".playfabsandbox.com";
+        /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string ProductionEnvironmentUrl = ".playfabapi.com";
-        public static string TitleId; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
+        /// <summary> You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website) </summary>
+        public static string DeveloperSecretKey = null;
+
+
+        /// <summary> You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website) </summary>
+        public static string TitleId;
         public static ErrorCallback GlobalErrorHandler;
-        public static string DeveloperSecretKey = null; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
 
         public static string GetFullUrl(string apiCall)
         {
