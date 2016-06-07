@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using PlayFab.ClientModels;
+using PlayFab.ServerModels;
 
 namespace PlayFab
 {
