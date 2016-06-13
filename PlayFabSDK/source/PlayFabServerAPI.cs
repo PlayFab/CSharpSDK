@@ -1414,6 +1414,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Sets the custom data of the indicated Game Server Instance
+        /// </summary>
+        public static async Task<PlayFabResult<SetGameServerInstanceDataResult>> SetGameServerInstanceDataAsync(SetGameServerInstanceDataRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/SetGameServerInstanceData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetGameServerInstanceDataResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetGameServerInstanceDataResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            SetGameServerInstanceDataResult result = resultData.data;
+
+            return new PlayFabResult<SetGameServerInstanceDataResult> { Result = result };
+        }
+
+        /// <summary>
         /// Sets the state of the indicated Game Server Instance
         /// </summary>
         public static async Task<PlayFabResult<SetGameServerInstanceStateResult>> SetGameServerInstanceStateAsync(SetGameServerInstanceStateRequest request)
