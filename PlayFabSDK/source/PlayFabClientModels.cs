@@ -394,6 +394,20 @@ namespace PlayFab.ClientModels
 
 	}
 
+	public class CharacterInventory
+	{
+		/// <summary>
+		/// The id of this character.
+		/// </summary>
+        public string CharacterId { get; set;}
+
+		/// <summary>
+		/// The inventory of this character.
+		/// </summary>
+        public List<ItemInstance> Inventory { get; set;}
+
+	}
+
 	public class CharacterLeaderboardEntry
 	{
 		/// <summary>
@@ -1494,6 +1508,168 @@ namespace PlayFab.ClientModels
 
 	}
 
+	public class GetPlayerCombinedInfoRequest
+	{
+		/// <summary>
+		/// PlayFabId of the user whose data will be returned. If not filled included, we return the data for the calling player. 
+		/// </summary>
+        public string PlayFabId { get; set;}
+
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
+
+	}
+
+	public class GetPlayerCombinedInfoRequestParams
+	{
+		/// <summary>
+		/// Whether to get the player's account Info. Defaults to false
+		/// </summary>
+        public bool GetUserAccountInfo { get; set;}
+
+		/// <summary>
+		/// Whether to get the player's inventory. Defaults to false
+		/// </summary>
+        public bool GetUserInventory { get; set;}
+
+		/// <summary>
+		/// Whether to get the player's virtual currency balances. Defaults to false
+		/// </summary>
+        public bool GetUserVirtualCurrency { get; set;}
+
+		/// <summary>
+		/// Whether to get the player's custom data. Defaults to false
+		/// </summary>
+        public bool GetUserData { get; set;}
+
+		/// <summary>
+		/// Specific keys to search for in the custom data. Leave null to get all keys. Has no effect if UserDataKeys is false
+		/// </summary>
+        public List<string> UserDataKeys { get; set;}
+
+		/// <summary>
+		/// Whether to get the player's read only data. Defaults to false
+		/// </summary>
+        public bool GetUserReadOnlyData { get; set;}
+
+		/// <summary>
+		/// Specific keys to search for in the custom data. Leave null to get all keys. Has no effect if GetUserReadOnlyData is false
+		/// </summary>
+        public List<string> UserReadOnlyDataKeys { get; set;}
+
+		/// <summary>
+		/// Whether to get character inventories. Defaults to false.
+		/// </summary>
+        public bool GetCharacterInventories { get; set;}
+
+		/// <summary>
+		/// Whether to get the list of characters. Defaults to false.
+		/// </summary>
+        public bool GetCharacterList { get; set;}
+
+		/// <summary>
+		/// Whether to get title data. Defaults to false.
+		/// </summary>
+        public bool GetTitleData { get; set;}
+
+		/// <summary>
+		/// Specific keys to search for in the custom data. Leave null to get all keys. Has no effect if GetTitleData is false
+		/// </summary>
+        public List<string> TitleDataKeys { get; set;}
+
+		/// <summary>
+		/// Whether to get player statistics. Defaults to false.
+		/// </summary>
+        public bool GetPlayerStatistics { get; set;}
+
+		/// <summary>
+		/// Specific statistics to retrieve. Leave null to get all keys. Has no effect if GetPlayerStatistics is false
+		/// </summary>
+        public List<string> PlayerStatisticNames { get; set;}
+
+	}
+
+	public class GetPlayerCombinedInfoResult : PlayFabResultCommon
+	{
+		/// <summary>
+		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+		/// </summary>
+        public string PlayFabId { get; set;}
+
+		/// <summary>
+		/// Results for requested info.
+		/// </summary>
+        public GetPlayerCombinedInfoResultPayload InfoResultPayload { get; set;}
+
+	}
+
+	public class GetPlayerCombinedInfoResultPayload : PlayFabResultCommon
+	{
+		/// <summary>
+		/// Account information for the user. This is always retrieved.
+		/// </summary>
+        public UserAccountInfo AccountInfo { get; set;}
+
+		/// <summary>
+		/// Array of inventory items in the user's current inventory.
+		/// </summary>
+        [Unordered(SortProperty="ItemInstanceId")]
+        public List<ItemInstance> UserInventory { get; set;}
+
+		/// <summary>
+		/// Dictionary of virtual currency balance(s) belonging to the user.
+		/// </summary>
+        public Dictionary<string,int> UserVirtualCurrency { get; set;}
+
+		/// <summary>
+		/// Dictionary of remaining times and timestamps for virtual currencies.
+		/// </summary>
+        public Dictionary<string,VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes { get; set;}
+
+		/// <summary>
+		/// User specific custom data.
+		/// </summary>
+        public Dictionary<string,UserDataRecord> UserData { get; set;}
+
+		/// <summary>
+		/// The version of the UserData that was returned.
+		/// </summary>
+        public uint UserDataVersion { get; set;}
+
+		/// <summary>
+		/// User specific read-only data.
+		/// </summary>
+        public Dictionary<string,UserDataRecord> UserReadOnlyData { get; set;}
+
+		/// <summary>
+		/// The version of the Read-Only UserData that was returned.
+		/// </summary>
+        public uint UserReadOnlyDataVersion { get; set;}
+
+		/// <summary>
+		/// List of characters for the user.
+		/// </summary>
+        public List<CharacterResult> CharacterList { get; set;}
+
+		/// <summary>
+		/// Inventories for each character for the user.
+		/// </summary>
+        public List<CharacterInventory> CharacterInventories { get; set;}
+
+		/// <summary>
+		/// Title data for this title.
+		/// </summary>
+        public Dictionary<string,string> TitleData { get; set;}
+
+		/// <summary>
+		/// List of statistics for this player.
+		/// </summary>
+        public List<StatisticValue> PlayerStatistics { get; set;}
+
+	}
+
 	public class GetPlayerStatisticsRequest
 	{
 		/// <summary>
@@ -1948,7 +2124,7 @@ namespace PlayFab.ClientModels
         public List<string> Keys { get; set;}
 
 		/// <summary>
-		/// Unique PlayFab identifier of the user to load data for. Optional, defaults to yourself if not set.
+		/// Unique PlayFab identifier of the user to load data for. Optional, defaults to yourself if not set. When specified to a PlayFab id of another player, then this will only return public keys for that account.
 		/// </summary>
         public string PlayFabId { get; set;}
 
@@ -2391,6 +2567,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public DateTime? LastLoginTime { get; set;}
 
+		/// <summary>
+		/// Results for requested info.
+		/// </summary>
+        public GetPlayerCombinedInfoResultPayload InfoResultPayload { get; set;}
+
 	}
 
 	public class LoginWithAndroidDeviceIDRequest
@@ -2420,6 +2601,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public bool? CreateAccount { get; set;}
 
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
+
 	}
 
 	public class LoginWithCustomIDRequest
@@ -2438,6 +2624,11 @@ namespace PlayFab.ClientModels
 		/// Automatically create a PlayFab account if one is not currently linked to this Custom ID.
 		/// </summary>
         public bool? CreateAccount { get; set;}
+
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
 
 	}
 
@@ -2458,6 +2649,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public string Password { get; set;}
 
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
+
 	}
 
 	public class LoginWithFacebookRequest
@@ -2477,6 +2673,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public bool? CreateAccount { get; set;}
 
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
+
 	}
 
 	public class LoginWithGameCenterRequest
@@ -2495,6 +2696,11 @@ namespace PlayFab.ClientModels
 		/// Automatically create a PlayFab account if one is not currently linked to this Game Center id.
 		/// </summary>
         public bool? CreateAccount { get; set;}
+
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
 
 	}
 
@@ -2520,6 +2726,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public string PublisherId { get; set;}
 
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
+
 	}
 
 	public class LoginWithIOSDeviceIDRequest
@@ -2543,6 +2754,11 @@ namespace PlayFab.ClientModels
 		/// Specific model of the user's device.
 		/// </summary>
         public string DeviceModel { get; set;}
+
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
 
 		/// <summary>
 		/// Automatically create a PlayFab account if one is not currently linked to this iOS device.
@@ -2573,6 +2789,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public bool? CreateAccount { get; set;}
 
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
+
 	}
 
 	public class LoginWithPlayFabRequest
@@ -2592,6 +2813,11 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public string Password { get; set;}
 
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
+
 	}
 
 	public class LoginWithSteamRequest
@@ -2610,6 +2836,11 @@ namespace PlayFab.ClientModels
 		/// Automatically create a PlayFab account if one is not currently linked to this Steam account.
 		/// </summary>
         public bool? CreateAccount { get; set;}
+
+		/// <summary>
+		/// Flags for which pieces of info to return for the user.
+		/// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
 
 	}
 
@@ -3951,7 +4182,7 @@ namespace PlayFab.ClientModels
         public List<string> KeysToRemove { get; set;}
 
 		/// <summary>
-		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
+		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. This is used for requests by one player for information about another player; those requests will only return Public keys.
 		/// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission { get; set;}
@@ -4096,6 +4327,9 @@ namespace PlayFab.ClientModels
 	}
 
 	
+	/// <summary>
+	/// Indicates whether a given data key is private (readable only by the player) or public (readable by all players). When a player makes a GetUserData request about another player, only keys marked Public will be returned.
+	/// </summary>
 	public enum UserDataPermission
 	{
 		Private,
@@ -4114,7 +4348,7 @@ namespace PlayFab.ClientModels
         public DateTime LastUpdated { get; set;}
 
 		/// <summary>
-		/// Indicates whether this data can be read by all users (public) or only the user (private).
+		/// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData requests being made by one player about another player.
 		/// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission { get; set;}
