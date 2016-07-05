@@ -144,11 +144,6 @@ namespace PlayFab.ClientModels
 		/// </summary>
         public string ConfirmationMessage { get; set;}
 
-		/// <summary>
-		/// Flags for which pieces of info to return for the user.
-		/// </summary>
-        public GetPlayerCombinedInfoRequestParams InfoRequestParameters { get; set;}
-
 	}
 
 	public class AndroidDevicePushNotificationRegistrationResult : PlayFabResultCommon
@@ -1516,7 +1511,7 @@ namespace PlayFab.ClientModels
 	public class GetPlayerCombinedInfoRequest
 	{
 		/// <summary>
-		/// PlayFabId of the user whose data will be returned. If not filled included, we return the dat
+		/// PlayFabId of the user whose data will be returned. If not filled included, we return the data for the calling player. 
 		/// </summary>
         public string PlayFabId { get; set;}
 
@@ -1529,6 +1524,11 @@ namespace PlayFab.ClientModels
 
 	public class GetPlayerCombinedInfoRequestParams
 	{
+		/// <summary>
+		/// Whether to get the player's account Info. Defaults to false
+		/// </summary>
+        public bool GetUserAccountInfo { get; set;}
+
 		/// <summary>
 		/// Whether to get the player's inventory. Defaults to false
 		/// </summary>
