@@ -2329,6 +2329,9 @@ namespace PlayFab.AdminModels
 	}
 
 	
+	/// <summary>
+	/// Indicates whether a given data key is private (readable only by the player) or public (readable by all players). When a player makes a GetUserData request about another player, only keys marked Public will be returned.
+	/// </summary>
 	public enum UserDataPermission
 	{
 		Private,
