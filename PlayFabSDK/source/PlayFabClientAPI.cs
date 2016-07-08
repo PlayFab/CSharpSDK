@@ -319,6 +319,34 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Signs the user in using a Twitch access token.
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithTwitchAsync(LoginWithTwitchRequest request)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LoginWithTwitch", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LoginResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LoginResult result = resultData.data;
+            _authKey = result.SessionTicket ?? _authKey;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result };
+        }
+
+        /// <summary>
         /// Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. You must supply either a username or an email address.
         /// </summary>
         public static async Task<PlayFabResult<RegisterPlayFabUserResult>> RegisterPlayFabUserAsync(RegisterPlayFabUserRequest request)
@@ -547,6 +575,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods(ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>> GetPlayFabIDsFromTwitchIDsAsync(GetPlayFabIDsFromTwitchIDsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayFabIDsFromTwitchIDs", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayFabIDsFromTwitchIDsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayFabIDsFromTwitchIDsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromTwitchIDsResult> { Result = result };
+        }
+
+        /// <summary>
         /// NOTE: This call will be deprecated soon. For fetching the data for a given user  use GetPlayerCombinedInfo. For looking up users from the client api, we are in the process of adding a new api call. Once that call is ready, this one will be deprecated.  Retrieves all requested data for a user in one unified request. By default, this API returns all  data for the locally signed-in user. The input parameters may be used to limit the data retrieved to any subset of the available data, as well as retrieve the available data for a different user. Note that certain data, including inventory, virtual currency balances, and personally identifying information, may only be retrieved for the locally signed-in user. In the example below, a request is made for the account details, virtual currency balances, and specified user data for the locally signed-in user.
         /// </summary>
         public static async Task<PlayFabResult<GetUserCombinedInfoResult>> GetUserCombinedInfoAsync(GetUserCombinedInfoRequest request)
@@ -769,6 +822,31 @@ namespace PlayFab
             LinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<LinkSteamAccountResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Links the Twitch account associated with the token to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkTwitchAccountResult>> LinkTwitchAsync(LinkTwitchAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/LinkTwitch", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkTwitchAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<LinkTwitchAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            LinkTwitchAccountResult result = resultData.data;
+
+            return new PlayFabResult<LinkTwitchAccountResult> { Result = result };
         }
 
         /// <summary>
@@ -1018,6 +1096,31 @@ namespace PlayFab
             UnlinkSteamAccountResult result = resultData.data;
 
             return new PlayFabResult<UnlinkSteamAccountResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Unlinks the related Twitch account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkTwitchAccountResult>> UnlinkTwitchAsync(UnlinkTwitchAccountRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/UnlinkTwitch", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkTwitchAccountResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UnlinkTwitchAccountResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UnlinkTwitchAccountResult result = resultData.data;
+
+            return new PlayFabResult<UnlinkTwitchAccountResult> { Result = result };
         }
 
         /// <summary>
