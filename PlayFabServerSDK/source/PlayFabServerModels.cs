@@ -3001,7 +3001,8 @@ namespace PlayFab.ServerModels
 		GameCenter,
 		CustomId,
 		XboxLive,
-		Parse
+		Parse,
+		Twitch
 	}
 	public class UserPrivateAccountInfo
 	{
