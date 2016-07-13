@@ -118,7 +118,7 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 
@@ -591,7 +591,7 @@ namespace PlayFab.AdminModels
         public List<string> PlayFabIds { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 
@@ -990,7 +990,7 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 
@@ -1583,7 +1583,7 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 
