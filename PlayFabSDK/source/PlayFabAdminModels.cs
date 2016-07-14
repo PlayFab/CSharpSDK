@@ -118,7 +118,7 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 
@@ -591,7 +591,7 @@ namespace PlayFab.AdminModels
         public List<string> PlayFabIds { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 
@@ -990,7 +990,7 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 
@@ -1314,6 +1314,16 @@ namespace PlayFab.AdminModels
 		/// </summary>
         public string CharacterId { get; set;}
 
+		/// <summary>
+		/// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
+		/// </summary>
+        public Dictionary<string,string> Data { get; set;}
+
+		/// <summary>
+		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+		/// </summary>
+        public List<string> KeysToRemove { get; set;}
+
 	}
 
 	/// <summary>
@@ -1573,7 +1583,7 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp { get; set;}
 
 		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected
+		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
 		/// </summary>
         public string TitleId { get; set;}
 

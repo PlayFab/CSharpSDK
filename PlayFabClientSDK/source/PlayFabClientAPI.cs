@@ -575,7 +575,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods(ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
+        /// Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods (ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>> GetPlayFabIDsFromTwitchIDsAsync(GetPlayFabIDsFromTwitchIDsRequest request)
         {
@@ -825,7 +825,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Links the Twitch account associated with the token to the user's PlayFab account
+        /// Links the Twitch account associated with the token to the user's PlayFab account.
         /// </summary>
         public static async Task<PlayFabResult<LinkTwitchAccountResult>> LinkTwitchAsync(LinkTwitchAccountRequest request)
         {
@@ -1099,7 +1099,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Unlinks the related Twitch account from the user's PlayFab account
+        /// Unlinks the related Twitch account from the user's PlayFab account.
         /// </summary>
         public static async Task<PlayFabResult<UnlinkTwitchAccountResult>> UnlinkTwitchAsync(UnlinkTwitchAccountRequest request)
         {
