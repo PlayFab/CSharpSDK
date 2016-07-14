@@ -2573,7 +2573,7 @@ namespace PlayFab.AdminModels
 	public class VirtualCurrencyData
 	{
 		/// <summary>
-		/// unique two-character identifier for this currency type (e.g.: "CC", "GC")
+		/// unique one- or two-character identifier for this currency type (e.g.: "CC", "G")
 		/// </summary>
         public string CurrencyCode { get; set;}
 
