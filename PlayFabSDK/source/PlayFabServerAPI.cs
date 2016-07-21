@@ -1439,7 +1439,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Sets the state of the indicated Game Server Instance
+        /// Set the state of the indicated Game Server Instance.
         /// </summary>
         public static async Task<PlayFabResult<SetGameServerInstanceStateResult>> SetGameServerInstanceStateAsync(SetGameServerInstanceStateRequest request)
         {
