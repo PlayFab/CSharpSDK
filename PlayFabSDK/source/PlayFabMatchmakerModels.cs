@@ -157,13 +157,13 @@ namespace PlayFab.MatchmakerModels
 	
 	public enum Region
 	{
+		USCentral,
 		USEast,
 		EUWest,
 		Singapore,
 		Japan,
-		Australia,
 		Brazil,
-		USCentral
+		Australia
 	}
 	public class StartGameRequest
 	{
