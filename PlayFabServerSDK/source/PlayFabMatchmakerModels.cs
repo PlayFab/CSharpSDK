@@ -198,7 +198,7 @@ namespace PlayFab.MatchmakerModels
 	public class StartGameResponse : PlayFabResultCommon
 	{
 		/// <summary>
-		/// Unique identifier for the lobby in the new Game Server Instance.
+		/// Unique identifier for the game/lobby in the new Game Server Instance.
 		/// </summary>
         public string GameID { get; set;}
 
