@@ -1747,6 +1747,15 @@ namespace PlayFab.AdminModels
 	{
 	}
 
+	public class RemoveVirtualCurrencyTypesRequest
+	{
+		/// <summary>
+		/// List of virtual currencies to delete
+		/// </summary>
+        public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
+
+	}
+
 	public class ResetCharacterStatisticsRequest
 	{
 		/// <summary>
