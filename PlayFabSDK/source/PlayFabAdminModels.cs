@@ -2364,17 +2364,17 @@ namespace PlayFab.AdminModels
 	public class UserDataRecord
 	{
 		/// <summary>
-		/// User-supplied data for this user data key.
+		/// Data stored for the specified user data key.
 		/// </summary>
         public string Value { get; set;}
 
 		/// <summary>
-		/// Timestamp indicating when this data was last updated.
+		/// Timestamp for when this data was last updated.
 		/// </summary>
         public DateTime LastUpdated { get; set;}
 
 		/// <summary>
-		/// Permissions on this data key.
+		/// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData requests being made by one player about another player.
 		/// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission { get; set;}
