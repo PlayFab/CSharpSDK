@@ -3176,6 +3176,31 @@ namespace PlayFab
             return new PlayFabResult<AttributeInstallResult> { Result = result };
         }
 
+        /// <summary>
+        /// List all segments that a player currently belongs to at this moment in time.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayerSegmentsResult>> GetPlayerSegmentsAsync(GetPlayerSegmentsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayerSegments", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerSegmentsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerSegmentsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayerSegmentsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayerSegmentsResult> { Result = result };
+        }
+
         private static string _authKey = null;
 
         // Determine if the _authKey is set, without actually making it public
