@@ -243,7 +243,9 @@ namespace PlayFab
 		IdentifierNotLinked = 1239,
 		InvalidContinuationToken = 1240,
 		ExpiredContinuationToken = 1241,
-		InvalidSegment = 1242
+		InvalidSegment = 1242,
+		InvalidSessionId = 1243,
+		SessionLogNotFound = 1244
 	}
 	
 	public class PlayFabError
