@@ -400,7 +400,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method.
+        /// Adds playfab username/password auth to an existing account created via an anonymous auth method, e.g. automatic device ID login.
         /// </summary>
         public static async Task<PlayFabResult<AddUsernamePasswordResult>> AddUsernamePasswordAsync(AddUsernamePasswordRequest request)
         {
