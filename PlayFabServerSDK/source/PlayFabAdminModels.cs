@@ -669,7 +669,7 @@ namespace PlayFab.AdminModels
 	public class GetCatalogItemsRequest
 	{
 		/// <summary>
-		/// Which catalog is being requested.
+		/// Which catalog is being requested. If null, uses the default catalog.
 		/// </summary>
         public string CatalogVersion { get; set;}
 
@@ -2305,7 +2305,7 @@ namespace PlayFab.AdminModels
 	public class UpdateCatalogItemsRequest
 	{
 		/// <summary>
-		/// Which catalog is being updated
+		/// Which catalog is being updated. If null, uses the default catalog.
 		/// </summary>
         public string CatalogVersion { get; set;}
 
@@ -2409,7 +2409,7 @@ namespace PlayFab.AdminModels
 	public class UpdateStoreItemsRequest
 	{
 		/// <summary>
-		/// catalog version of the store to update. Use default catalog version if null
+		/// catalog version of the store to update. If null, uses the default catalog.
 		/// </summary>
         public string CatalogVersion { get; set;}
 

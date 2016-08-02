@@ -841,7 +841,7 @@ namespace PlayFab.ServerModels
 	public class GetCatalogItemsRequest
 	{
 		/// <summary>
-		/// Which catalog is being requested.
+		/// Which catalog is being requested. If null, uses the default catalog.
 		/// </summary>
         public string CatalogVersion { get; set;}
 
