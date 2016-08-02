@@ -67,6 +67,19 @@ namespace PlayFab.ClientModels
 
 	}
 
+	public class AddGenericIDRequest
+	{
+		/// <summary>
+		/// Generic service identifier to add to the player account.
+		/// </summary>
+        public GenericServiceId GenericId { get; set;}
+
+	}
+
+	public class AddGenericIDResult : PlayFabResultCommon
+	{
+	}
+
 	public class AddSharedGroupMembersRequest
 	{
 		/// <summary>
@@ -1040,6 +1053,34 @@ namespace PlayFab.ClientModels
 
 	}
 
+	public class GenericPlayFabIdPair
+	{
+		/// <summary>
+		/// Unique generic service identifier for a user.
+		/// </summary>
+        public GenericServiceId GenericId { get; set;}
+
+		/// <summary>
+		/// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the given generic identifier.
+		/// </summary>
+        public string PlayFabId { get; set;}
+
+	}
+
+	public class GenericServiceId
+	{
+		/// <summary>
+		/// Name of the service for which the player has a unique identifier.
+		/// </summary>
+        public string ServiceName { get; set;}
+
+		/// <summary>
+		/// Unique identifier of the player in that service.
+		/// </summary>
+        public string UserId { get; set;}
+
+	}
+
 	public class GetAccountInfoRequest
 	{
 		/// <summary>
@@ -1714,6 +1755,19 @@ namespace PlayFab.ClientModels
 
 	}
 
+	public class GetPlayerSegmentsRequest
+	{
+	}
+
+	public class GetPlayerSegmentsResult : PlayFabResultCommon
+	{
+		/// <summary>
+		/// Array of segments the requested player currently belongs to.
+		/// </summary>
+        public List<GetSegmentResult> Segments { get; set;}
+
+	}
+
 	public class GetPlayerStatisticsRequest
 	{
 		/// <summary>
@@ -1812,6 +1866,24 @@ namespace PlayFab.ClientModels
 		/// Mapping of Game Center identifiers to PlayFab identifiers.
 		/// </summary>
         public List<GameCenterPlayFabIdPair> Data { get; set;}
+
+	}
+
+	public class GetPlayFabIDsFromGenericIDsRequest
+	{
+		/// <summary>
+		/// Array of unique generic service identifiers for which the title needs to get PlayFab identifiers. Currently limited to a maximum of 10 in a single request.
+		/// </summary>
+        public List<GenericServiceId> GenericIDs { get; set;}
+
+	}
+
+	public class GetPlayFabIDsFromGenericIDsResult : PlayFabResultCommon
+	{
+		/// <summary>
+		/// Mapping of generic service identifiers to PlayFab identifiers.
+		/// </summary>
+        public List<GenericPlayFabIdPair> Data { get; set;}
 
 	}
 
@@ -1950,6 +2022,25 @@ namespace PlayFab.ClientModels
 		/// Array of items purchased.
 		/// </summary>
         public List<ItemInstance> Items { get; set;}
+
+	}
+
+	public class GetSegmentResult : PlayFabResultCommon
+	{
+		/// <summary>
+		/// Unique identifier for this segment.
+		/// </summary>
+        public string Id { get; set;}
+
+		/// <summary>
+		/// Segment name.
+		/// </summary>
+        public string Name { get; set;}
+
+		/// <summary>
+		/// Identifier of the segments AB Test, if it is attached to one.
+		/// </summary>
+        public string ABTestParent { get; set;}
 
 	}
 
@@ -2301,7 +2392,7 @@ namespace PlayFab.ClientModels
 	}
 
 	/// <summary>
-	/// A unique instance of an item in a user's inventory
+	/// A unique instance of an item in a user's inventory. Note, To retrieve additional information for an item instance (such as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The Item ID of the instance can then be matched to a catalog entry, which contains the additional information.
 	/// </summary>
 	public class ItemInstance : IComparable<ItemInstance>
 	{
@@ -3464,6 +3555,19 @@ namespace PlayFab.ClientModels
 	}
 
 	public class RemoveFriendResult : PlayFabResultCommon
+	{
+	}
+
+	public class RemoveGenericIDRequest
+	{
+		/// <summary>
+		/// Generic service identifier to be removed from the player.
+		/// </summary>
+        public GenericServiceId GenericId { get; set;}
+
+	}
+
+	public class RemoveGenericIDResult : PlayFabResultCommon
 	{
 	}
 
