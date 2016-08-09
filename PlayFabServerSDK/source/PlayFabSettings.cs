@@ -6,7 +6,7 @@ namespace PlayFab
     public class PlayFabSettings
     {
         public const string SdkVersion = "0.33.160801";
-        public const string BuildIdentifier = "jbuild_csharpsdk_0";
+        public const string BuildIdentifier = "jbuild_csharpsdk_2";
         public const string SdkVersionString = "CSharpSDK-0.33.160801";
 
         /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
