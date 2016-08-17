@@ -1791,6 +1791,11 @@ namespace PlayFab.AdminModels
         public string DisplayName { get; set;}
 
 		/// <summary>
+		/// Publisher this player belongs to
+		/// </summary>
+        public string PublisherId { get; set;}
+
+		/// <summary>
 		/// Player account origination
 		/// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
@@ -2315,6 +2320,11 @@ namespace PlayFab.AdminModels
         public string CatalogVersion { get; set;}
 
 		/// <summary>
+		/// Should this catalog be set as the default catalog. Defaults to true. If there is currently no default catalog, this will always set it.
+		/// </summary>
+        public bool? SetAsDefaultCatalog { get; set;}
+
+		/// <summary>
 		/// Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call.
 		/// </summary>
         public List<CatalogItem> Catalog { get; set;}
@@ -2328,7 +2338,7 @@ namespace PlayFab.AdminModels
 	public class UpdateCloudScriptRequest
 	{
 		/// <summary>
-		/// Deprecated - unused
+		/// Deprecated - Do not use
 		/// </summary>
         public int? Version { get; set;}
 

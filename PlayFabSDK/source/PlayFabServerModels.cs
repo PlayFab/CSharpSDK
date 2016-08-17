@@ -2398,6 +2398,11 @@ namespace PlayFab.ServerModels
         public string DisplayName { get; set;}
 
 		/// <summary>
+		/// Publisher this player belongs to
+		/// </summary>
+        public string PublisherId { get; set;}
+
+		/// <summary>
 		/// Player account origination
 		/// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
@@ -2869,7 +2874,7 @@ namespace PlayFab.ServerModels
 	public class SteamPlayFabIdPair
 	{
 		/// <summary>
-		/// Deprecated: Please use SteamStringId
+		/// Deprecated: Please use SteamStringIDs
 		/// </summary>
         public ulong SteamId { get; set;}
 

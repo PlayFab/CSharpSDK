@@ -2888,7 +2888,7 @@ namespace PlayFab.ClientModels
         public bool? CreateAccount { get; set;}
 
 		/// <summary>
-		/// Deprecated - unused
+		/// Deprecated - Do not use
 		/// </summary>
         public string PublisherId { get; set;}
 
@@ -3094,7 +3094,7 @@ namespace PlayFab.ClientModels
         public CollectionFilter TagFilter { get; set;}
 
 		/// <summary>
-		/// [deprecated]
+		/// Deprecated - Do not use
 		/// </summary>
         public bool? EnableQueue { get; set;}
 
@@ -3118,7 +3118,7 @@ namespace PlayFab.ClientModels
         public int? ServerPort { get; set;}
 
 		/// <summary>
-		/// server authorization ticket (used by RedeemCoupon to validate user insertion into the game)
+		/// server authorization ticket (used by RedeemMatchmakerTicket to validate user insertion into the game)
 		/// </summary>
         public string Ticket { get; set;}
 
@@ -3408,7 +3408,7 @@ namespace PlayFab.ClientModels
         public string CouponCode { get; set;}
 
 		/// <summary>
-		/// Catalog version of the coupon.
+		/// Catalog version of the coupon. If null, uses the default catalog
 		/// </summary>
         public string CatalogVersion { get; set;}
 
@@ -3515,7 +3515,7 @@ namespace PlayFab.ClientModels
         public string DisplayName { get; set;}
 
 		/// <summary>
-		/// [Deprecated - The Origination of a user is determined by the API call used to create the account. In the case of RegisterPlayFabUser, it will be Organic.
+		/// The Origination of a user is determined by the API call used to create the account. In the case of RegisterPlayFabUser, it will be Organic.
 		/// </summary>
         public string Origination { get; set;}
 
@@ -3720,7 +3720,7 @@ namespace PlayFab.ClientModels
         public string TitleId { get; set;}
 
 		/// <summary>
-		/// Deprecated - unused
+		/// Deprecated - Do not use
 		/// </summary>
         public string PublisherId { get; set;}
 
@@ -3940,7 +3940,7 @@ namespace PlayFab.ClientModels
 	public class SteamPlayFabIdPair
 	{
 		/// <summary>
-		/// Deprecated: Please use SteamStringId
+		/// Deprecated: Please use SteamStringIDs
 		/// </summary>
         public ulong SteamId { get; set;}
 
