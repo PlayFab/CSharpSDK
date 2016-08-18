@@ -602,6 +602,24 @@ namespace PlayFab.AdminModels
 
 	}
 
+	public class DeleteStoreRequest
+	{
+		/// <summary>
+		/// catalog version of the store to delete. If null, uses the default catalog.
+		/// </summary>
+        public string CatalogVersion { get; set;}
+
+		/// <summary>
+		/// unqiue identifier for the store which is to be deleted
+		/// </summary>
+        public string StoreId { get; set;}
+
+	}
+
+	public class DeleteStoreResult : PlayFabResultCommon
+	{
+	}
+
 	public class DeleteUsersRequest
 	{
 		/// <summary>

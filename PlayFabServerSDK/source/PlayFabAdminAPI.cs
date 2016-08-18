@@ -664,6 +664,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes an existing virtual item store
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteStoreResult>> DeleteStoreAsync(DeleteStoreRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/DeleteStore", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<DeleteStoreResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<DeleteStoreResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            DeleteStoreResult result = resultData.data;
+
+            return new PlayFabResult<DeleteStoreResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
         /// </summary>
         public static async Task<PlayFabResult<GetCatalogItemsResult>> GetCatalogItemsAsync(GetCatalogItemsRequest request)
