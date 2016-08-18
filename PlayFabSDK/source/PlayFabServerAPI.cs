@@ -991,6 +991,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the configuration information for the specified random results tables for the title, including all ItemId values and weights
+        /// </summary>
+        public static async Task<PlayFabResult<GetRandomResultTablesResult>> GetRandomResultTablesAsync(GetRandomResultTablesRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetRandomResultTables", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetRandomResultTablesResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetRandomResultTablesResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetRandomResultTablesResult result = resultData.data;
+
+            return new PlayFabResult<GetRandomResultTablesResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the specified user's current inventory of virtual goods
         /// </summary>
         public static async Task<PlayFabResult<GetUserInventoryResult>> GetUserInventoryAsync(GetUserInventoryRequest request)

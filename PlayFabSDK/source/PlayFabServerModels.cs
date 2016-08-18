@@ -1512,6 +1512,29 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class GetRandomResultTablesRequest : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Specifies the catalog version that should be used to retrieve the Random Result Tables.  If unspecified, uses default/primary catalog.
+        /// </summary>
+        public string CatalogVersion;
+
+        /// <summary>
+        /// The unique identifier of the Random Result Table to use.
+        /// </summary>
+        public List<string> TableIDs;
+
+    }
+
+    public class GetRandomResultTablesResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// array of random result tables currently available
+        /// </summary>
+        public Dictionary<string,RandomResultTableListing> Tables;
+
+    }
+
     public class GetSegmentResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2550,6 +2573,25 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class RandomResultTableListing : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Catalog version this table is associated with
+        /// </summary>
+        public string CatalogVersion;
+
+        /// <summary>
+        /// Unique name for this drop table
+        /// </summary>
+        public string TableId;
+
+        /// <summary>
+        /// Child nodes that indicate what kind of drop table item this actually is.
+        /// </summary>
+        public List<ResultTableNode> Nodes;
+
+    }
+
     public class RedeemCouponRequest
     {
         /// <summary>
@@ -2665,6 +2707,33 @@ namespace PlayFab.ServerModels
         /// </summary>
         public int SubmissionsRemaining;
 
+    }
+
+    public class ResultTableNode : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Whether this entry in the table is an item or a link to another table
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ResultTableNodeType ResultItemType;
+
+        /// <summary>
+        /// Either an ItemId, or the TableId of another random result table
+        /// </summary>
+        public string ResultItem;
+
+        /// <summary>
+        /// How likely this is to be rolled - larger numbers add more weight
+        /// </summary>
+        public int Weight;
+
+    }
+
+    
+    public enum ResultTableNodeType
+    {
+        ItemId,
+        TableId
     }
 
     public class RevokeInventoryItemRequest
