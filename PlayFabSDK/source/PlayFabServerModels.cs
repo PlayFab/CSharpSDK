@@ -2467,6 +2467,11 @@ namespace PlayFab.ServerModels
         public Dictionary<string,uint> ValuesToDate;
 
         /// <summary>
+        /// List of player's tags for segmentation.
+        /// </summary>
+        public List<string> Tags;
+
+        /// <summary>
         /// Dictionary of player's virtual currency balances
         /// </summary>
         public Dictionary<string,int> VirtualCurrencyBalances;
