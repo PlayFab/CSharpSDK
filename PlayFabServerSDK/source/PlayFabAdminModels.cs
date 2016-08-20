@@ -177,6 +177,103 @@ namespace PlayFab.AdminModels
 
     }
 
+    /// <summary>
+    /// Contains information for a ban.
+    /// </summary>
+    public class BanInfo
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// The unique Ban Id associated with this ban.
+        /// </summary>
+        public string BanId;
+
+        /// <summary>
+        /// The IP address on which the ban was applied. May affect multiple players.
+        /// </summary>
+        public string IPAddress;
+
+        /// <summary>
+        /// The MAC address on which the ban was applied. May affect multiple players.
+        /// </summary>
+        public string MACAddress;
+
+        /// <summary>
+        /// The time when this ban was applied.
+        /// </summary>
+        public DateTime? Created;
+
+        /// <summary>
+        /// The time when this ban expires. Permanent bans do not have expiration date.
+        /// </summary>
+        public DateTime? Expires;
+
+        /// <summary>
+        /// The reason why this ban was applied.
+        /// </summary>
+        public string Reason;
+
+        /// <summary>
+        /// The active state of this ban. Expired bans may still have this value set to true but they will have no effect.
+        /// </summary>
+        public bool Active;
+
+    }
+
+    /// <summary>
+    /// Represents a single ban request.
+    /// </summary>
+    public class BanRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// IP address to be banned. May affect multiple players.
+        /// </summary>
+        public string IPAddress;
+
+        /// <summary>
+        /// MAC address to be banned. May affect multiple players.
+        /// </summary>
+        public string MACAddress;
+
+        /// <summary>
+        /// The reason for this ban. Maximum 140 characters.
+        /// </summary>
+        public string Reason;
+
+        /// <summary>
+        /// The duration in hours for the ban. Leave this blank for a permanent ban.
+        /// </summary>
+        public uint? DurationInHours;
+
+    }
+
+    public class BanUsersRequest
+    {
+        /// <summary>
+        /// List of ban requests to be applied. Maximum 100.
+        /// </summary>
+        public List<BanRequest> Bans;
+
+    }
+
+    public class BanUsersResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were applied
+        /// </summary>
+        public List<BanInfo> BanData;
+
+    }
+
     public class BlankResult : PlayFabResultCommon
     {
     }
@@ -1206,6 +1303,24 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class GetUserBansRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class GetUserBansResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information about the bans
+        /// </summary>
+        public List<BanInfo> BanData;
+
+    }
+
     public class GetUserDataRequest
     {
         /// <summary>
@@ -2130,6 +2245,42 @@ namespace PlayFab.AdminModels
         TableId
     }
 
+    public class RevokeAllBansForUserRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class RevokeAllBansForUserResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were revoked.
+        /// </summary>
+        public List<BanInfo> BanData;
+
+    }
+
+    public class RevokeBansRequest
+    {
+        /// <summary>
+        /// Ids of the bans to be revoked. Maximum 100.
+        /// </summary>
+        public List<string> BanIds;
+
+    }
+
+    public class RevokeBansResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were revoked
+        /// </summary>
+        public List<BanInfo> BanData;
+
+    }
+
     public class RevokeInventoryItemRequest
     {
         /// <summary>
@@ -2343,6 +2494,66 @@ namespace PlayFab.AdminModels
         PendingSteam,
         ActivatedSteam,
         RevokedSteam
+    }
+
+    /// <summary>
+    /// Represents a single update ban request.
+    /// </summary>
+    public class UpdateBanRequest
+    {
+        /// <summary>
+        /// The id of the ban to be updated.
+        /// </summary>
+        public string BanId;
+
+        /// <summary>
+        /// The updated reason for the ban to be updated. Maximum 140 characters. Null for no change.
+        /// </summary>
+        public string Reason;
+
+        /// <summary>
+        /// The updated expiration date for the ban. Null for no change.
+        /// </summary>
+        public DateTime? Expires;
+
+        /// <summary>
+        /// The updated IP address for the ban. Null for no change.
+        /// </summary>
+        public string IPAddress;
+
+        /// <summary>
+        /// The updated MAC address for the ban. Null for no change.
+        /// </summary>
+        public string MACAddress;
+
+        /// <summary>
+        /// Whether to make this ban permanent. Set to true to make this ban permanent. This will not modify Active state.
+        /// </summary>
+        public bool? Permanent;
+
+        /// <summary>
+        /// The updated active state for the ban. Null for no change.
+        /// </summary>
+        public bool? Active;
+
+    }
+
+    public class UpdateBansRequest
+    {
+        /// <summary>
+        /// List of bans to be updated. Maximum 100.
+        /// </summary>
+        public List<UpdateBanRequest> Bans;
+
+    }
+
+    public class UpdateBansResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were updated
+        /// </summary>
+        public List<BanInfo> BanData;
+
     }
 
     public class UpdateCatalogItemsRequest

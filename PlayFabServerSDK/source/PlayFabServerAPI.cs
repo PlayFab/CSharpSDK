@@ -39,6 +39,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Bans users by PlayFab ID with optional IP address, or MAC address for the provided game.
+        /// </summary>
+        public static async Task<PlayFabResult<BanUsersResult>> BanUsersAsync(BanUsersRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/BanUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<BanUsersResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<BanUsersResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            BanUsersResult result = resultData.data;
+
+            return new PlayFabResult<BanUsersResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromFacebookIDsResult>> GetPlayFabIDsFromFacebookIDsAsync(GetPlayFabIDsFromFacebookIDsRequest request)
@@ -114,6 +139,81 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Gets all bans for a user.
+        /// </summary>
+        public static async Task<PlayFabResult<GetUserBansResult>> GetUserBansAsync(GetUserBansRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetUserBans", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetUserBansResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetUserBansResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetUserBansResult result = resultData.data;
+
+            return new PlayFabResult<GetUserBansResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Revoke all active bans for a user.
+        /// </summary>
+        public static async Task<PlayFabResult<RevokeAllBansForUserResult>> RevokeAllBansForUserAsync(RevokeAllBansForUserRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/RevokeAllBansForUser", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RevokeAllBansForUserResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RevokeAllBansForUserResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RevokeAllBansForUserResult result = resultData.data;
+
+            return new PlayFabResult<RevokeAllBansForUserResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Revoke all active bans specified with BanId.
+        /// </summary>
+        public static async Task<PlayFabResult<RevokeBansResult>> RevokeBansAsync(RevokeBansRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/RevokeBans", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RevokeBansResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RevokeBansResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RevokeBansResult result = resultData.data;
+
+            return new PlayFabResult<RevokeBansResult> { Result = result };
+        }
+
+        /// <summary>
         /// Sends an iOS/Android Push Notification to a specific user, if that user's device has been configured for Push Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified.
         /// </summary>
         public static async Task<PlayFabResult<SendPushNotificationResult>> SendPushNotificationAsync(SendPushNotificationRequest request)
@@ -136,6 +236,31 @@ namespace PlayFab
             SendPushNotificationResult result = resultData.data;
 
             return new PlayFabResult<SendPushNotificationResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Updates information of a list of existing bans specified with Ban Ids.
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateBansResult>> UpdateBansAsync(UpdateBansRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/UpdateBans", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdateBansResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<UpdateBansResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            UpdateBansResult result = resultData.data;
+
+            return new PlayFabResult<UpdateBansResult> { Result = result };
         }
 
         /// <summary>
