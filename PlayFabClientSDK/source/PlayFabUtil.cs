@@ -6,7 +6,7 @@ using PlayFab.ClientModels;
 
 namespace PlayFab
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class Unordered : Attribute
     {
         public string SortProperty { get; set; }
@@ -45,7 +45,7 @@ namespace PlayFab
         };
         public static Formatting JsonFormatting = Formatting.None;
 
-        private readonly static StringBuilder Sb = new StringBuilder();
+        private static readonly StringBuilder Sb = new StringBuilder();
         public static string GetErrorReport(PlayFabError error)
         {
             if (error == null)
@@ -72,8 +72,8 @@ namespace PlayFab
                 return null;
 
             Sb.Length = 0;
-            bool hasError = !string.IsNullOrEmpty(result.Result.Error.Error);
-            bool hasMsg = !string.IsNullOrEmpty(result.Result.Error.Message);
+            var hasError = !string.IsNullOrEmpty(result.Result.Error.Error);
+            var hasMsg = !string.IsNullOrEmpty(result.Result.Error.Message);
             if (hasError)
                 Sb.Append(result.Result.Error.Error);
             if (hasError && hasMsg)
@@ -98,7 +98,7 @@ namespace PlayFab
         {
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                TimeSpan timeSpan = (TimeSpan)value;
+                var timeSpan = (TimeSpan)value;
                 serializer.Serialize(writer, timeSpan.TotalSeconds);
             }
 
