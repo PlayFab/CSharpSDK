@@ -6,266 +6,363 @@ using System.Collections.Generic;
 
 namespace PlayFab.AdminModels
 {
-	public class AdCampaignAttribution
-	{
-		/// <summary>
-		/// Attribution network name
-		/// </summary>
-        public string Platform { get; set;}
+    public class AdCampaignAttribution
+    {
+        /// <summary>
+        /// Attribution network name
+        /// </summary>
+        public string Platform;
 
-		/// <summary>
-		/// Attribution campaign identifier
-		/// </summary>
-        public string CampaignId { get; set;}
+        /// <summary>
+        /// Attribution campaign identifier
+        /// </summary>
+        public string CampaignId;
 
-		/// <summary>
-		/// UTC time stamp of attribution
-		/// </summary>
-        public DateTime AttributedAt { get; set;}
+        /// <summary>
+        /// UTC time stamp of attribution
+        /// </summary>
+        public DateTime AttributedAt;
 
-	}
+    }
 
-	public class AddNewsRequest
-	{
-		/// <summary>
-		/// Time this news was published. If not set, defaults to now.
-		/// </summary>
-        public DateTime? Timestamp { get; set;}
+    public class AddNewsRequest
+    {
+        /// <summary>
+        /// Time this news was published. If not set, defaults to now.
+        /// </summary>
+        public DateTime? Timestamp;
 
-		/// <summary>
-		/// Title (headline) of the news item
-		/// </summary>
-        public string Title { get; set;}
+        /// <summary>
+        /// Title (headline) of the news item
+        /// </summary>
+        public string Title;
 
-		/// <summary>
-		/// Body text of the news
-		/// </summary>
-        public string Body { get; set;}
+        /// <summary>
+        /// Body text of the news
+        /// </summary>
+        public string Body;
 
-	}
+    }
 
-	public class AddNewsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Unique id of the new news item
-		/// </summary>
-        public string NewsId { get; set;}
+    public class AddNewsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique id of the new news item
+        /// </summary>
+        public string NewsId;
 
-	}
+    }
 
-	public class AddServerBuildRequest
-	{
-		/// <summary>
-		/// unique identifier for the build executable
-		/// </summary>
-        public string BuildId { get; set;}
+    public class AddServerBuildRequest
+    {
+        /// <summary>
+        /// unique identifier for the build executable
+        /// </summary>
+        public string BuildId;
 
-		/// <summary>
-		/// appended to the end of the command line when starting game servers
-		/// </summary>
-        public string CommandLineTemplate { get; set;}
+        /// <summary>
+        /// appended to the end of the command line when starting game servers
+        /// </summary>
+        public string CommandLineTemplate;
 
-		/// <summary>
-		/// path to the game server executable. Defaults to gameserver.exe
-		/// </summary>
-        public string ExecutablePath { get; set;}
+        /// <summary>
+        /// path to the game server executable. Defaults to gameserver.exe
+        /// </summary>
+        public string ExecutablePath;
 
-		/// <summary>
-		/// server host regions in which this build should be running and available
-		/// </summary>
+        /// <summary>
+        /// server host regions in which this build should be running and available
+        /// </summary>
         [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-        public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions;
 
-		/// <summary>
-		/// developer comment(s) for this build
-		/// </summary>
-        public string Comment { get; set;}
+        /// <summary>
+        /// developer comment(s) for this build
+        /// </summary>
+        public string Comment;
 
-		/// <summary>
-		/// maximum number of game server instances that can run on a single host machine
-		/// </summary>
-        public int MaxGamesPerHost { get; set;}
+        /// <summary>
+        /// maximum number of game server instances that can run on a single host machine
+        /// </summary>
+        public int MaxGamesPerHost;
 
-		/// <summary>
-		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
-		/// </summary>
-        public int MinFreeGameSlots { get; set;}
+        /// <summary>
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// </summary>
+        public int MinFreeGameSlots;
 
-	}
+    }
 
-	public class AddServerBuildResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// unique identifier for this build executable
-		/// </summary>
-        public string BuildId { get; set;}
+    public class AddServerBuildResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// unique identifier for this build executable
+        /// </summary>
+        public string BuildId;
 
-		/// <summary>
-		/// array of regions where this build can used, when it is active
-		/// </summary>
+        /// <summary>
+        /// array of regions where this build can used, when it is active
+        /// </summary>
         [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-        public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions;
 
-		/// <summary>
-		/// maximum number of game server instances that can run on a single host machine
-		/// </summary>
-        public int MaxGamesPerHost { get; set;}
+        /// <summary>
+        /// maximum number of game server instances that can run on a single host machine
+        /// </summary>
+        public int MaxGamesPerHost;
 
-		/// <summary>
-		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
-		/// </summary>
-        public int MinFreeGameSlots { get; set;}
+        /// <summary>
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// </summary>
+        public int MinFreeGameSlots;
 
-		/// <summary>
-		/// appended to the end of the command line when starting game servers
-		/// </summary>
-        public string CommandLineTemplate { get; set;}
+        /// <summary>
+        /// appended to the end of the command line when starting game servers
+        /// </summary>
+        public string CommandLineTemplate;
 
-		/// <summary>
-		/// path to the game server executable. Defaults to gameserver.exe
-		/// </summary>
-        public string ExecutablePath { get; set;}
+        /// <summary>
+        /// path to the game server executable. Defaults to gameserver.exe
+        /// </summary>
+        public string ExecutablePath;
 
-		/// <summary>
-		/// developer comment(s) for this build
-		/// </summary>
-        public string Comment { get; set;}
+        /// <summary>
+        /// developer comment(s) for this build
+        /// </summary>
+        public string Comment;
 
-		/// <summary>
-		/// time this build was last modified (or uploaded, if this build has never been modified)
-		/// </summary>
-        public DateTime Timestamp { get; set;}
+        /// <summary>
+        /// time this build was last modified (or uploaded, if this build has never been modified)
+        /// </summary>
+        public DateTime Timestamp;
 
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
-		/// </summary>
-        public string TitleId { get; set;}
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// </summary>
+        public string TitleId;
 
-		/// <summary>
-		/// the current status of the build validation and processing steps
-		/// </summary>
+        /// <summary>
+        /// the current status of the build validation and processing steps
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public GameBuildStatus? Status { get; set;}
+        public GameBuildStatus? Status;
 
-	}
+    }
 
-	public class AddUserVirtualCurrencyRequest
-	{
-		/// <summary>
-		/// PlayFab unique identifier of the user whose virtual currency balance is to be increased.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class AddUserVirtualCurrencyRequest
+    {
+        /// <summary>
+        /// PlayFab unique identifier of the user whose virtual currency balance is to be increased.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Name of the virtual currency which is to be incremented.
-		/// </summary>
-        public string VirtualCurrency { get; set;}
+        /// <summary>
+        /// Name of the virtual currency which is to be incremented.
+        /// </summary>
+        public string VirtualCurrency;
 
-		/// <summary>
-		/// Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded.
-		/// </summary>
-        public int Amount { get; set;}
+        /// <summary>
+        /// Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded.
+        /// </summary>
+        public int Amount;
 
-	}
+    }
 
-	public class AddVirtualCurrencyTypesRequest
-	{
-		/// <summary>
-		/// List of virtual currencies and their initial deposits (the amount a user is granted when signing in for the first time) to the title
-		/// </summary>
-        public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
+    public class AddVirtualCurrencyTypesRequest
+    {
+        /// <summary>
+        /// List of virtual currencies and their initial deposits (the amount a user is granted when signing in for the first time) to the title
+        /// </summary>
+        public List<VirtualCurrencyData> VirtualCurrencies;
 
-	}
+    }
 
-	public class BlankResult : PlayFabResultCommon
-	{
-	}
+    /// <summary>
+    /// Contains information for a ban.
+    /// </summary>
+    public class BanInfo
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-	/// <summary>
-	/// A purchasable item from the item catalog
-	/// </summary>
-	public class CatalogItem : IComparable<CatalogItem>
-	{
-		/// <summary>
-		/// unique identifier for this item
-		/// </summary>
-        public string ItemId { get; set;}
+        /// <summary>
+        /// The unique Ban Id associated with this ban.
+        /// </summary>
+        public string BanId;
 
-		/// <summary>
-		/// class to which the item belongs
-		/// </summary>
-        public string ItemClass { get; set;}
+        /// <summary>
+        /// The IP address on which the ban was applied. May affect multiple players.
+        /// </summary>
+        public string IPAddress;
 
-		/// <summary>
-		/// catalog version for this item
-		/// </summary>
-        public string CatalogVersion { get; set;}
+        /// <summary>
+        /// The MAC address on which the ban was applied. May affect multiple players.
+        /// </summary>
+        public string MACAddress;
 
-		/// <summary>
-		/// text name for the item, to show in-game
-		/// </summary>
-        public string DisplayName { get; set;}
+        /// <summary>
+        /// The time when this ban was applied.
+        /// </summary>
+        public DateTime? Created;
 
-		/// <summary>
-		/// text description of item, to show in-game
-		/// </summary>
-        public string Description { get; set;}
+        /// <summary>
+        /// The time when this ban expires. Permanent bans do not have expiration date.
+        /// </summary>
+        public DateTime? Expires;
 
-		/// <summary>
-		/// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
-		/// </summary>
-        public Dictionary<string,uint> VirtualCurrencyPrices { get; set;}
+        /// <summary>
+        /// The reason why this ban was applied.
+        /// </summary>
+        public string Reason;
 
-		/// <summary>
-		/// override prices for this item for specific currencies
-		/// </summary>
-        public Dictionary<string,uint> RealCurrencyPrices { get; set;}
+        /// <summary>
+        /// The active state of this ban. Expired bans may still have this value set to true but they will have no effect.
+        /// </summary>
+        public bool Active;
 
-		/// <summary>
-		/// list of item tags
-		/// </summary>
+    }
+
+    /// <summary>
+    /// Represents a single ban request.
+    /// </summary>
+    public class BanRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// IP address to be banned. May affect multiple players.
+        /// </summary>
+        public string IPAddress;
+
+        /// <summary>
+        /// MAC address to be banned. May affect multiple players.
+        /// </summary>
+        public string MACAddress;
+
+        /// <summary>
+        /// The reason for this ban. Maximum 140 characters.
+        /// </summary>
+        public string Reason;
+
+        /// <summary>
+        /// The duration in hours for the ban. Leave this blank for a permanent ban.
+        /// </summary>
+        public uint? DurationInHours;
+
+    }
+
+    public class BanUsersRequest
+    {
+        /// <summary>
+        /// List of ban requests to be applied. Maximum 100.
+        /// </summary>
+        public List<BanRequest> Bans;
+
+    }
+
+    public class BanUsersResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were applied
+        /// </summary>
+        public List<BanInfo> BanData;
+
+    }
+
+    public class BlankResult : PlayFabResultCommon
+    {
+    }
+
+    /// <summary>
+    /// A purchasable item from the item catalog
+    /// </summary>
+    public class CatalogItem : IComparable<CatalogItem>
+    {
+        /// <summary>
+        /// unique identifier for this item
+        /// </summary>
+        public string ItemId;
+
+        /// <summary>
+        /// class to which the item belongs
+        /// </summary>
+        public string ItemClass;
+
+        /// <summary>
+        /// catalog version for this item
+        /// </summary>
+        public string CatalogVersion;
+
+        /// <summary>
+        /// text name for the item, to show in-game
+        /// </summary>
+        public string DisplayName;
+
+        /// <summary>
+        /// text description of item, to show in-game
+        /// </summary>
+        public string Description;
+
+        /// <summary>
+        /// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
+        /// </summary>
+        public Dictionary<string,uint> VirtualCurrencyPrices;
+
+        /// <summary>
+        /// override prices for this item for specific currencies
+        /// </summary>
+        public Dictionary<string,uint> RealCurrencyPrices;
+
+        /// <summary>
+        /// list of item tags
+        /// </summary>
         [Unordered]
-        public List<string> Tags { get; set;}
+        public List<string> Tags;
 
-		/// <summary>
-		/// game specific custom data
-		/// </summary>
-        public string CustomData { get; set;}
+        /// <summary>
+        /// game specific custom data
+        /// </summary>
+        public string CustomData;
 
-		/// <summary>
-		/// defines the consumable properties (number of uses, timeout) for the item
-		/// </summary>
-        public CatalogItemConsumableInfo Consumable { get; set;}
+        /// <summary>
+        /// defines the consumable properties (number of uses, timeout) for the item
+        /// </summary>
+        public CatalogItemConsumableInfo Consumable;
 
-		/// <summary>
-		/// defines the container properties for the item - what items it contains, including random drop tables and virtual currencies, and what item (if any) is required to open it via the UnlockContainerItem API
-		/// </summary>
-        public CatalogItemContainerInfo Container { get; set;}
+        /// <summary>
+        /// defines the container properties for the item - what items it contains, including random drop tables and virtual currencies, and what item (if any) is required to open it via the UnlockContainerItem API
+        /// </summary>
+        public CatalogItemContainerInfo Container;
 
-		/// <summary>
-		/// defines the bundle properties for the item - bundles are items which contain other items, including random drop tables and virtual currencies
-		/// </summary>
-        public CatalogItemBundleInfo Bundle { get; set;}
+        /// <summary>
+        /// defines the bundle properties for the item - bundles are items which contain other items, including random drop tables and virtual currencies
+        /// </summary>
+        public CatalogItemBundleInfo Bundle;
 
-		/// <summary>
-		/// if true, then an item instance of this type can be used to grant a character to a user.
-		/// </summary>
-        public bool CanBecomeCharacter { get; set;}
+        /// <summary>
+        /// if true, then an item instance of this type can be used to grant a character to a user.
+        /// </summary>
+        public bool CanBecomeCharacter;
 
-		/// <summary>
-		/// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead. RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
-		/// </summary>
-        public bool IsStackable { get; set;}
+        /// <summary>
+        /// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead. RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
+        /// </summary>
+        public bool IsStackable;
 
-		/// <summary>
-		/// if true, then an item instance of this type can be traded between players using the trading APIs
-		/// </summary>
-        public bool IsTradable { get; set;}
+        /// <summary>
+        /// if true, then an item instance of this type can be traded between players using the trading APIs
+        /// </summary>
+        public bool IsTradable;
 
-		/// <summary>
-		/// URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP URL.
-		/// </summary>
-        public string ItemImageUrl { get; set;}
+        /// <summary>
+        /// URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP URL.
+        /// </summary>
+        public string ItemImageUrl;
 
         public int CompareTo(CatalogItem other)
         {
@@ -274,848 +371,868 @@ namespace PlayFab.AdminModels
             return ItemId.CompareTo(other.ItemId);
         }
 
-	}
+    }
 
-	public class CatalogItemBundleInfo
-	{
-		/// <summary>
-		/// unique ItemId values for all items which will be added to the player inventory when the bundle is added
-		/// </summary>
+    public class CatalogItemBundleInfo
+    {
+        /// <summary>
+        /// unique ItemId values for all items which will be added to the player inventory when the bundle is added
+        /// </summary>
         [Unordered]
-        public List<string> BundledItems { get; set;}
+        public List<string> BundledItems;
 
-		/// <summary>
-		/// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and add the relevant items to the player inventory when the bundle is added)
-		/// </summary>
+        /// <summary>
+        /// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and add the relevant items to the player inventory when the bundle is added)
+        /// </summary>
         [Unordered]
-        public List<string> BundledResultTables { get; set;}
+        public List<string> BundledResultTables;
 
-		/// <summary>
-		/// virtual currency types and balances which will be added to the player inventory when the bundle is added
-		/// </summary>
-        public Dictionary<string,uint> BundledVirtualCurrencies { get; set;}
+        /// <summary>
+        /// virtual currency types and balances which will be added to the player inventory when the bundle is added
+        /// </summary>
+        public Dictionary<string,uint> BundledVirtualCurrencies;
 
-	}
+    }
 
-	public class CatalogItemConsumableInfo
-	{
-		/// <summary>
-		/// number of times this object can be used, after which it will be removed from the player inventory
-		/// </summary>
-        public uint? UsageCount { get; set;}
+    public class CatalogItemConsumableInfo
+    {
+        /// <summary>
+        /// number of times this object can be used, after which it will be removed from the player inventory
+        /// </summary>
+        public uint? UsageCount;
 
-		/// <summary>
-		/// duration in seconds for how long the item will remain in the player inventory - once elapsed, the item will be removed
-		/// </summary>
-        public uint? UsagePeriod { get; set;}
+        /// <summary>
+        /// duration in seconds for how long the item will remain in the player inventory - once elapsed, the item will be removed
+        /// </summary>
+        public uint? UsagePeriod;
 
-		/// <summary>
-		/// all inventory item instances in the player inventory sharing a non-null UsagePeriodGroup have their UsagePeriod values added together, and share the result - when that period has elapsed, all the items in the group will be removed
-		/// </summary>
-        public string UsagePeriodGroup { get; set;}
+        /// <summary>
+        /// all inventory item instances in the player inventory sharing a non-null UsagePeriodGroup have their UsagePeriod values added together, and share the result - when that period has elapsed, all the items in the group will be removed
+        /// </summary>
+        public string UsagePeriodGroup;
 
-	}
+    }
 
-	/// <summary>
-	/// Containers are inventory items that can hold other items defined in the catalog, as well as virtual currency, which is added to the player inventory when the container is unlocked, using the UnlockContainerItem API. The items can be anything defined in the catalog, as well as RandomResultTable objects which will be resolved when the container is unlocked. Containers and their keys should be defined as Consumable (having a limited number of uses) in their catalog defintiions, unless the intent is for the player to be able to re-use them infinitely.
-	/// </summary>
-	public class CatalogItemContainerInfo
-	{
-		/// <summary>
-		/// ItemId for the catalog item used to unlock the container, if any (if not specified, a call to UnlockContainerItem will open the container, adding the contents to the player inventory and currency balances)
-		/// </summary>
-        public string KeyItemId { get; set;}
+    /// <summary>
+    /// Containers are inventory items that can hold other items defined in the catalog, as well as virtual currency, which is added to the player inventory when the container is unlocked, using the UnlockContainerItem API. The items can be anything defined in the catalog, as well as RandomResultTable objects which will be resolved when the container is unlocked. Containers and their keys should be defined as Consumable (having a limited number of uses) in their catalog defintiions, unless the intent is for the player to be able to re-use them infinitely.
+    /// </summary>
+    public class CatalogItemContainerInfo
+    {
+        /// <summary>
+        /// ItemId for the catalog item used to unlock the container, if any (if not specified, a call to UnlockContainerItem will open the container, adding the contents to the player inventory and currency balances)
+        /// </summary>
+        public string KeyItemId;
 
-		/// <summary>
-		/// unique ItemId values for all items which will be added to the player inventory, once the container has been unlocked
-		/// </summary>
+        /// <summary>
+        /// unique ItemId values for all items which will be added to the player inventory, once the container has been unlocked
+        /// </summary>
         [Unordered]
-        public List<string> ItemContents { get; set;}
+        public List<string> ItemContents;
 
-		/// <summary>
-		/// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables will be resolved and add the relevant items to the player inventory)
-		/// </summary>
+        /// <summary>
+        /// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables will be resolved and add the relevant items to the player inventory)
+        /// </summary>
         [Unordered]
-        public List<string> ResultTableContents { get; set;}
+        public List<string> ResultTableContents;
 
-		/// <summary>
-		/// virtual currency types and balances which will be added to the player inventory when the container is unlocked
-		/// </summary>
-        public Dictionary<string,uint> VirtualCurrencyContents { get; set;}
+        /// <summary>
+        /// virtual currency types and balances which will be added to the player inventory when the container is unlocked
+        /// </summary>
+        public Dictionary<string,uint> VirtualCurrencyContents;
 
-	}
+    }
 
-	public class CloudScriptFile
-	{
-		/// <summary>
-		/// Name of the javascript file. These names are not used internally by the server, they are only for developer organizational purposes.
-		/// </summary>
-        public string Filename { get; set;}
+    public class CloudScriptFile
+    {
+        /// <summary>
+        /// Name of the javascript file. These names are not used internally by the server, they are only for developer organizational purposes.
+        /// </summary>
+        public string Filename;
 
-		/// <summary>
-		/// Contents of the Cloud Script javascript. Must be string-escaped javascript.
-		/// </summary>
-        public string FileContents { get; set;}
+        /// <summary>
+        /// Contents of the Cloud Script javascript. Must be string-escaped javascript.
+        /// </summary>
+        public string FileContents;
 
-	}
+    }
 
-	public class CloudScriptVersionStatus
-	{
-		/// <summary>
-		/// Version number
-		/// </summary>
-        public int Version { get; set;}
+    public class CloudScriptVersionStatus
+    {
+        /// <summary>
+        /// Version number
+        /// </summary>
+        public int Version;
 
-		/// <summary>
-		/// Published code revision for this Cloud Script version
-		/// </summary>
-        public int PublishedRevision { get; set;}
+        /// <summary>
+        /// Published code revision for this Cloud Script version
+        /// </summary>
+        public int PublishedRevision;
 
-		/// <summary>
-		/// Most recent revision for this Cloud Script version
-		/// </summary>
-        public int LatestRevision { get; set;}
+        /// <summary>
+        /// Most recent revision for this Cloud Script version
+        /// </summary>
+        public int LatestRevision;
 
-	}
+    }
 
-	public class ContentInfo
-	{
-		/// <summary>
-		/// Key of the content
-		/// </summary>
-        public string Key { get; set;}
+    public class ContentInfo
+    {
+        /// <summary>
+        /// Key of the content
+        /// </summary>
+        public string Key;
 
-		/// <summary>
-		/// Size of the content in bytes
-		/// </summary>
-        public uint Size { get; set;}
+        /// <summary>
+        /// Size of the content in bytes
+        /// </summary>
+        public uint Size;
 
-		/// <summary>
-		/// Last modified time
-		/// </summary>
-        public DateTime LastModified { get; set;}
+        /// <summary>
+        /// Last modified time
+        /// </summary>
+        public DateTime LastModified;
 
-	}
+    }
 
-	public class CreatePlayerStatisticDefinitionRequest
-	{
-		/// <summary>
-		/// unique name of the statistic
-		/// </summary>
-        public string StatisticName { get; set;}
+    public class CreatePlayerStatisticDefinitionRequest
+    {
+        /// <summary>
+        /// unique name of the statistic
+        /// </summary>
+        public string StatisticName;
 
-		/// <summary>
-		/// interval at which the values of the statistic for all players are reset (resets begin at the next interval boundary)
-		/// </summary>
+        /// <summary>
+        /// interval at which the values of the statistic for all players are reset (resets begin at the next interval boundary)
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public StatisticResetIntervalOption? VersionChangeInterval { get; set;}
+        public StatisticResetIntervalOption? VersionChangeInterval;
 
-		/// <summary>
-		/// the aggregation method to use in updating the statistic (defaults to last)
-		/// </summary>
+        /// <summary>
+        /// the aggregation method to use in updating the statistic (defaults to last)
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public StatisticAggregationMethod? AggregationMethod { get; set;}
+        public StatisticAggregationMethod? AggregationMethod;
 
-	}
+    }
 
-	public class CreatePlayerStatisticDefinitionResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// created statistic definition
-		/// </summary>
-        public PlayerStatisticDefinition Statistic { get; set;}
+    public class CreatePlayerStatisticDefinitionResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// created statistic definition
+        /// </summary>
+        public PlayerStatisticDefinition Statistic;
 
-	}
+    }
 
-	
-	public enum Currency
-	{
-		AED,
-		AFN,
-		ALL,
-		AMD,
-		ANG,
-		AOA,
-		ARS,
-		AUD,
-		AWG,
-		AZN,
-		BAM,
-		BBD,
-		BDT,
-		BGN,
-		BHD,
-		BIF,
-		BMD,
-		BND,
-		BOB,
-		BRL,
-		BSD,
-		BTN,
-		BWP,
-		BYR,
-		BZD,
-		CAD,
-		CDF,
-		CHF,
-		CLP,
-		CNY,
-		COP,
-		CRC,
-		CUC,
-		CUP,
-		CVE,
-		CZK,
-		DJF,
-		DKK,
-		DOP,
-		DZD,
-		EGP,
-		ERN,
-		ETB,
-		EUR,
-		FJD,
-		FKP,
-		GBP,
-		GEL,
-		GGP,
-		GHS,
-		GIP,
-		GMD,
-		GNF,
-		GTQ,
-		GYD,
-		HKD,
-		HNL,
-		HRK,
-		HTG,
-		HUF,
-		IDR,
-		ILS,
-		IMP,
-		INR,
-		IQD,
-		IRR,
-		ISK,
-		JEP,
-		JMD,
-		JOD,
-		JPY,
-		KES,
-		KGS,
-		KHR,
-		KMF,
-		KPW,
-		KRW,
-		KWD,
-		KYD,
-		KZT,
-		LAK,
-		LBP,
-		LKR,
-		LRD,
-		LSL,
-		LYD,
-		MAD,
-		MDL,
-		MGA,
-		MKD,
-		MMK,
-		MNT,
-		MOP,
-		MRO,
-		MUR,
-		MVR,
-		MWK,
-		MXN,
-		MYR,
-		MZN,
-		NAD,
-		NGN,
-		NIO,
-		NOK,
-		NPR,
-		NZD,
-		OMR,
-		PAB,
-		PEN,
-		PGK,
-		PHP,
-		PKR,
-		PLN,
-		PYG,
-		QAR,
-		RON,
-		RSD,
-		RUB,
-		RWF,
-		SAR,
-		SBD,
-		SCR,
-		SDG,
-		SEK,
-		SGD,
-		SHP,
-		SLL,
-		SOS,
-		SPL,
-		SRD,
-		STD,
-		SVC,
-		SYP,
-		SZL,
-		THB,
-		TJS,
-		TMT,
-		TND,
-		TOP,
-		TRY,
-		TTD,
-		TVD,
-		TWD,
-		TZS,
-		UAH,
-		UGX,
-		USD,
-		UYU,
-		UZS,
-		VEF,
-		VND,
-		VUV,
-		WST,
-		XAF,
-		XCD,
-		XDR,
-		XOF,
-		XPF,
-		YER,
-		ZAR,
-		ZMW,
-		ZWD
-	}
-	public class DeleteContentRequest
-	{
-		/// <summary>
-		/// Key of the content item to be deleted
-		/// </summary>
-        public string Key { get; set;}
+    
+    public enum Currency
+    {
+        AED,
+        AFN,
+        ALL,
+        AMD,
+        ANG,
+        AOA,
+        ARS,
+        AUD,
+        AWG,
+        AZN,
+        BAM,
+        BBD,
+        BDT,
+        BGN,
+        BHD,
+        BIF,
+        BMD,
+        BND,
+        BOB,
+        BRL,
+        BSD,
+        BTN,
+        BWP,
+        BYR,
+        BZD,
+        CAD,
+        CDF,
+        CHF,
+        CLP,
+        CNY,
+        COP,
+        CRC,
+        CUC,
+        CUP,
+        CVE,
+        CZK,
+        DJF,
+        DKK,
+        DOP,
+        DZD,
+        EGP,
+        ERN,
+        ETB,
+        EUR,
+        FJD,
+        FKP,
+        GBP,
+        GEL,
+        GGP,
+        GHS,
+        GIP,
+        GMD,
+        GNF,
+        GTQ,
+        GYD,
+        HKD,
+        HNL,
+        HRK,
+        HTG,
+        HUF,
+        IDR,
+        ILS,
+        IMP,
+        INR,
+        IQD,
+        IRR,
+        ISK,
+        JEP,
+        JMD,
+        JOD,
+        JPY,
+        KES,
+        KGS,
+        KHR,
+        KMF,
+        KPW,
+        KRW,
+        KWD,
+        KYD,
+        KZT,
+        LAK,
+        LBP,
+        LKR,
+        LRD,
+        LSL,
+        LYD,
+        MAD,
+        MDL,
+        MGA,
+        MKD,
+        MMK,
+        MNT,
+        MOP,
+        MRO,
+        MUR,
+        MVR,
+        MWK,
+        MXN,
+        MYR,
+        MZN,
+        NAD,
+        NGN,
+        NIO,
+        NOK,
+        NPR,
+        NZD,
+        OMR,
+        PAB,
+        PEN,
+        PGK,
+        PHP,
+        PKR,
+        PLN,
+        PYG,
+        QAR,
+        RON,
+        RSD,
+        RUB,
+        RWF,
+        SAR,
+        SBD,
+        SCR,
+        SDG,
+        SEK,
+        SGD,
+        SHP,
+        SLL,
+        SOS,
+        SPL,
+        SRD,
+        STD,
+        SVC,
+        SYP,
+        SZL,
+        THB,
+        TJS,
+        TMT,
+        TND,
+        TOP,
+        TRY,
+        TTD,
+        TVD,
+        TWD,
+        TZS,
+        UAH,
+        UGX,
+        USD,
+        UYU,
+        UZS,
+        VEF,
+        VND,
+        VUV,
+        WST,
+        XAF,
+        XCD,
+        XDR,
+        XOF,
+        XPF,
+        YER,
+        ZAR,
+        ZMW,
+        ZWD
+    }
 
-	}
+    public class DeleteContentRequest
+    {
+        /// <summary>
+        /// Key of the content item to be deleted
+        /// </summary>
+        public string Key;
 
-	public class DeleteUsersRequest
-	{
-		/// <summary>
-		/// An array of unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public List<string> PlayFabIds { get; set;}
+    }
 
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
-		/// </summary>
-        public string TitleId { get; set;}
+    public class DeleteStoreRequest
+    {
+        /// <summary>
+        /// catalog version of the store to delete. If null, uses the default catalog.
+        /// </summary>
+        public string CatalogVersion;
 
-	}
+        /// <summary>
+        /// unqiue identifier for the store which is to be deleted
+        /// </summary>
+        public string StoreId;
 
-	public class DeleteUsersResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	
-	public enum GameBuildStatus
-	{
-		Available,
-		Validating,
-		InvalidBuildPackage,
-		Processing,
-		FailedToProcess
-	}
-	public class GameModeInfo
-	{
-		/// <summary>
-		/// specific game mode type
-		/// </summary>
-        public string Gamemode { get; set;}
+    public class DeleteStoreResult : PlayFabResultCommon
+    {
+    }
 
-		/// <summary>
-		/// minimum user count required for this Game Server Instance to continue (usually 1)
-		/// </summary>
-        public uint MinPlayerCount { get; set;}
+    public class DeleteUsersRequest
+    {
+        /// <summary>
+        /// An array of unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public List<string> PlayFabIds;
 
-		/// <summary>
-		/// maximum user count a specific Game Server Instance can support
-		/// </summary>
-        public uint MaxPlayerCount { get; set;}
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// </summary>
+        public string TitleId;
 
-		/// <summary>
-		/// whether to start as an open session, meaning that players can matchmake into it (defaults to true)
-		/// </summary>
-        public bool? StartOpen { get; set;}
+    }
 
-	}
+    public class DeleteUsersResult : PlayFabResultCommon
+    {
+    }
 
-	public class GetAllSegmentsRequest
-	{
-	}
+    
+    public enum GameBuildStatus
+    {
+        Available,
+        Validating,
+        InvalidBuildPackage,
+        Processing,
+        FailedToProcess
+    }
 
-	public class GetAllSegmentsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Array of segments for this title.
-		/// </summary>
-        public List<GetSegmentResult> Segments { get; set;}
+    public class GameModeInfo
+    {
+        /// <summary>
+        /// specific game mode type
+        /// </summary>
+        public string Gamemode;
 
-	}
+        /// <summary>
+        /// minimum user count required for this Game Server Instance to continue (usually 1)
+        /// </summary>
+        public uint MinPlayerCount;
 
-	public class GetCatalogItemsRequest
-	{
-		/// <summary>
-		/// Which catalog is being requested. If null, uses the default catalog.
-		/// </summary>
-        public string CatalogVersion { get; set;}
+        /// <summary>
+        /// maximum user count a specific Game Server Instance can support
+        /// </summary>
+        public uint MaxPlayerCount;
 
-	}
+        /// <summary>
+        /// whether to start as an open session, meaning that players can matchmake into it (defaults to true)
+        /// </summary>
+        public bool? StartOpen;
 
-	public class GetCatalogItemsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Array of items which can be purchased.
-		/// </summary>
+    }
+
+    public class GetAllSegmentsRequest
+    {
+    }
+
+    public class GetAllSegmentsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of segments for this title.
+        /// </summary>
+        public List<GetSegmentResult> Segments;
+
+    }
+
+    public class GetCatalogItemsRequest
+    {
+        /// <summary>
+        /// Which catalog is being requested. If null, uses the default catalog.
+        /// </summary>
+        public string CatalogVersion;
+
+    }
+
+    public class GetCatalogItemsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of items which can be purchased.
+        /// </summary>
         [Unordered(SortProperty="ItemId")]
-        public List<CatalogItem> Catalog { get; set;}
+        public List<CatalogItem> Catalog;
 
-	}
+    }
 
-	public class GetCloudScriptRevisionRequest
-	{
-		/// <summary>
-		/// Version number. If left null, defaults to the latest version
-		/// </summary>
-        public int? Version { get; set;}
+    public class GetCloudScriptRevisionRequest
+    {
+        /// <summary>
+        /// Version number. If left null, defaults to the latest version
+        /// </summary>
+        public int? Version;
 
-		/// <summary>
-		/// Revision number. If left null, defaults to the latest revision
-		/// </summary>
-        public int? Revision { get; set;}
+        /// <summary>
+        /// Revision number. If left null, defaults to the latest revision
+        /// </summary>
+        public int? Revision;
 
-	}
+    }
 
-	public class GetCloudScriptRevisionResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Version number.
-		/// </summary>
-        public int Version { get; set;}
+    public class GetCloudScriptRevisionResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Version number.
+        /// </summary>
+        public int Version;
 
-		/// <summary>
-		/// Revision number.
-		/// </summary>
-        public int Revision { get; set;}
+        /// <summary>
+        /// Revision number.
+        /// </summary>
+        public int Revision;
 
-		/// <summary>
-		/// Time this revision was created
-		/// </summary>
-        public DateTime CreatedAt { get; set;}
+        /// <summary>
+        /// Time this revision was created
+        /// </summary>
+        public DateTime CreatedAt;
 
-		/// <summary>
-		/// List of Cloud Script files in this revision.
-		/// </summary>
-        public List<CloudScriptFile> Files { get; set;}
+        /// <summary>
+        /// List of Cloud Script files in this revision.
+        /// </summary>
+        public List<CloudScriptFile> Files;
 
-		/// <summary>
-		/// True if this is the currently published revision
-		/// </summary>
-        public bool IsPublished { get; set;}
+        /// <summary>
+        /// True if this is the currently published revision
+        /// </summary>
+        public bool IsPublished;
 
-	}
+    }
 
-	public class GetCloudScriptVersionsRequest
-	{
-	}
+    public class GetCloudScriptVersionsRequest
+    {
+    }
 
-	public class GetCloudScriptVersionsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// List of versions
-		/// </summary>
-        public List<CloudScriptVersionStatus> Versions { get; set;}
+    public class GetCloudScriptVersionsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of versions
+        /// </summary>
+        public List<CloudScriptVersionStatus> Versions;
 
-	}
+    }
 
-	public class GetContentListRequest
-	{
-		/// <summary>
-		/// Limits the response to keys that begin with the specified prefix. You can use prefixes to list contents under a folder, or for a specified version, etc.
-		/// </summary>
-        public string Prefix { get; set;}
+    public class GetContentListRequest
+    {
+        /// <summary>
+        /// Limits the response to keys that begin with the specified prefix. You can use prefixes to list contents under a folder, or for a specified version, etc.
+        /// </summary>
+        public string Prefix;
 
-	}
+    }
 
-	public class GetContentListResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Number of content items returned. We currently have a maximum of 1000 items limit.
-		/// </summary>
-        public int ItemCount { get; set;}
+    public class GetContentListResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Number of content items returned. We currently have a maximum of 1000 items limit.
+        /// </summary>
+        public int ItemCount;
 
-		/// <summary>
-		/// The total size of listed contents in bytes.
-		/// </summary>
-        public uint TotalSize { get; set;}
+        /// <summary>
+        /// The total size of listed contents in bytes.
+        /// </summary>
+        public uint TotalSize;
 
-		/// <summary>
-		/// List of content items.
-		/// </summary>
-        public List<ContentInfo> Contents { get; set;}
+        /// <summary>
+        /// List of content items.
+        /// </summary>
+        public List<ContentInfo> Contents;
 
-	}
+    }
 
-	public class GetContentUploadUrlRequest
-	{
-		/// <summary>
-		/// Key of the content item to upload, usually formatted as a path, e.g. images/a.png
-		/// </summary>
-        public string Key { get; set;}
+    public class GetContentUploadUrlRequest
+    {
+        /// <summary>
+        /// Key of the content item to upload, usually formatted as a path, e.g. images/a.png
+        /// </summary>
+        public string Key;
 
-		/// <summary>
-		/// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content. If not specified, the MIME type is 'binary/octet-stream' by default.
-		/// </summary>
-        public string ContentType { get; set;}
+        /// <summary>
+        /// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content. If not specified, the MIME type is 'binary/octet-stream' by default.
+        /// </summary>
+        public string ContentType;
 
-	}
+    }
 
-	public class GetContentUploadUrlResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// URL for uploading content via HTTP PUT method. The URL will expire in 1 hour.
-		/// </summary>
-        public string URL { get; set;}
+    public class GetContentUploadUrlResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// URL for uploading content via HTTP PUT method. The URL will expire in 1 hour.
+        /// </summary>
+        public string URL;
 
-	}
+    }
 
-	public class GetDataReportRequest
-	{
-		/// <summary>
-		/// Report name
-		/// </summary>
-        public string ReportName { get; set;}
+    public class GetDataReportRequest
+    {
+        /// <summary>
+        /// Report name
+        /// </summary>
+        public string ReportName;
 
-		/// <summary>
-		/// Reporting year (UTC)
-		/// </summary>
-        public int Year { get; set;}
+        /// <summary>
+        /// Reporting year (UTC)
+        /// </summary>
+        public int Year;
 
-		/// <summary>
-		/// Reporting month (UTC)
-		/// </summary>
-        public int Month { get; set;}
+        /// <summary>
+        /// Reporting month (UTC)
+        /// </summary>
+        public int Month;
 
-		/// <summary>
-		/// Reporting year (UTC)
-		/// </summary>
-        public int Day { get; set;}
+        /// <summary>
+        /// Reporting year (UTC)
+        /// </summary>
+        public int Day;
 
-	}
+    }
 
-	public class GetDataReportResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// The URL where the requested report can be downloaded.
-		/// </summary>
-        public string DownloadUrl { get; set;}
+    public class GetDataReportResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The URL where the requested report can be downloaded.
+        /// </summary>
+        public string DownloadUrl;
 
-	}
+    }
 
-	public class GetMatchmakerGameInfoRequest
-	{
-		/// <summary>
-		/// unique identifier of the lobby for which info is being requested
-		/// </summary>
-        public string LobbyId { get; set;}
+    public class GetMatchmakerGameInfoRequest
+    {
+        /// <summary>
+        /// unique identifier of the lobby for which info is being requested
+        /// </summary>
+        public string LobbyId;
 
-	}
+    }
 
-	public class GetMatchmakerGameInfoResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// unique identifier of the lobby 
-		/// </summary>
-        public string LobbyId { get; set;}
+    public class GetMatchmakerGameInfoResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// unique identifier of the lobby 
+        /// </summary>
+        public string LobbyId;
 
-		/// <summary>
-		/// unique identifier of the Game Server Instance for this lobby
-		/// </summary>
-        public string TitleId { get; set;}
+        /// <summary>
+        /// unique identifier of the Game Server Instance for this lobby
+        /// </summary>
+        public string TitleId;
 
-		/// <summary>
-		/// time when the Game Server Instance was created
-		/// </summary>
-        public DateTime StartTime { get; set;}
+        /// <summary>
+        /// time when the Game Server Instance was created
+        /// </summary>
+        public DateTime StartTime;
 
-		/// <summary>
-		/// time when Game Server Instance is currently scheduled to end
-		/// </summary>
-        public DateTime? EndTime { get; set;}
+        /// <summary>
+        /// time when Game Server Instance is currently scheduled to end
+        /// </summary>
+        public DateTime? EndTime;
 
-		/// <summary>
-		/// game mode for this Game Server Instance
-		/// </summary>
-        public string Mode { get; set;}
+        /// <summary>
+        /// game mode for this Game Server Instance
+        /// </summary>
+        public string Mode;
 
-		/// <summary>
-		/// version identifier of the game server executable binary being run
-		/// </summary>
-        public string BuildVersion { get; set;}
+        /// <summary>
+        /// version identifier of the game server executable binary being run
+        /// </summary>
+        public string BuildVersion;
 
-		/// <summary>
-		/// region in which the Game Server Instance is running
-		/// </summary>
+        /// <summary>
+        /// region in which the Game Server Instance is running
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public Region? Region { get; set;}
+        public Region? Region;
 
-		/// <summary>
-		/// array of unique PlayFab identifiers for users currently connected to this Game Server Instance
-		/// </summary>
+        /// <summary>
+        /// array of unique PlayFab identifiers for users currently connected to this Game Server Instance
+        /// </summary>
         [Unordered]
-        public List<string> Players { get; set;}
+        public List<string> Players;
 
-		/// <summary>
-		/// IP address for this Game Server Instance
-		/// </summary>
-        public string ServerAddress { get; set;}
+        /// <summary>
+        /// IP address for this Game Server Instance
+        /// </summary>
+        public string ServerAddress;
 
-		/// <summary>
-		/// communication port for this Game Server Instance
-		/// </summary>
-        public uint ServerPort { get; set;}
+        /// <summary>
+        /// communication port for this Game Server Instance
+        /// </summary>
+        public uint ServerPort;
 
-	}
+    }
 
-	public class GetMatchmakerGameModesRequest
-	{
-		/// <summary>
-		/// previously uploaded build version for which game modes are being requested
-		/// </summary>
-        public string BuildVersion { get; set;}
+    public class GetMatchmakerGameModesRequest
+    {
+        /// <summary>
+        /// previously uploaded build version for which game modes are being requested
+        /// </summary>
+        public string BuildVersion;
 
-	}
+    }
 
-	public class GetMatchmakerGameModesResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// array of game modes available for the specified build
-		/// </summary>
-        public List<GameModeInfo> GameModes { get; set;}
+    public class GetMatchmakerGameModesResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// array of game modes available for the specified build
+        /// </summary>
+        public List<GameModeInfo> GameModes;
 
-	}
+    }
 
-	public class GetPlayerSegmentsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Array of segments the requested player currently belongs to.
-		/// </summary>
-        public List<GetSegmentResult> Segments { get; set;}
+    public class GetPlayerSegmentsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of segments the requested player currently belongs to.
+        /// </summary>
+        public List<GetSegmentResult> Segments;
 
-	}
+    }
 
-	public class GetPlayersInSegmentRequest
-	{
-		/// <summary>
-		/// Unique identifier for this segment.
-		/// </summary>
-        public string SegmentId { get; set;}
+    public class GetPlayersInSegmentRequest
+    {
+        /// <summary>
+        /// Unique identifier for this segment.
+        /// </summary>
+        public string SegmentId;
 
-		/// <summary>
-		/// Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes).
-		/// </summary>
-        public uint? SecondsToLive { get; set;}
+        /// <summary>
+        /// Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes).
+        /// </summary>
+        public uint? SecondsToLive;
 
-		/// <summary>
-		/// Maximum number of profiles to load. Default is 1,000. Maximum is 10,000.
-		/// </summary>
-        public uint? MaxBatchSize { get; set;}
+        /// <summary>
+        /// Maximum number of profiles to load. Default is 1,000. Maximum is 10,000.
+        /// </summary>
+        public uint? MaxBatchSize;
 
-		/// <summary>
-		/// Continuation token if retrieving subsequent pages of results.
-		/// </summary>
-        public string ContinuationToken { get; set;}
+        /// <summary>
+        /// Continuation token if retrieving subsequent pages of results.
+        /// </summary>
+        public string ContinuationToken;
 
-	}
+    }
 
-	public class GetPlayersInSegmentResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Count of profiles matching this segment.
-		/// </summary>
-        public int ProfilesInSegment { get; set;}
+    public class GetPlayersInSegmentResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Count of profiles matching this segment.
+        /// </summary>
+        public int ProfilesInSegment;
 
-		/// <summary>
-		/// Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results.
-		/// </summary>
-        public string ContinuationToken { get; set;}
+        /// <summary>
+        /// Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results.
+        /// </summary>
+        public string ContinuationToken;
 
-		/// <summary>
-		/// Array of player profiles in this segment.
-		/// </summary>
-        public List<PlayerProfile> PlayerProfiles { get; set;}
+        /// <summary>
+        /// Array of player profiles in this segment.
+        /// </summary>
+        public List<PlayerProfile> PlayerProfiles;
 
-	}
+    }
 
-	public class GetPlayersSegmentsRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class GetPlayersSegmentsRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-	}
+    }
 
-	public class GetPlayerStatisticDefinitionsRequest
-	{
-	}
+    public class GetPlayerStatisticDefinitionsRequest
+    {
+    }
 
-	public class GetPlayerStatisticDefinitionsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// the player statistic definitions for the title
-		/// </summary>
-        public List<PlayerStatisticDefinition> Statistics { get; set;}
+    public class GetPlayerStatisticDefinitionsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// the player statistic definitions for the title
+        /// </summary>
+        public List<PlayerStatisticDefinition> Statistics;
 
-	}
+    }
 
-	public class GetPlayerStatisticVersionsRequest
-	{
-		/// <summary>
-		/// unique name of the statistic
-		/// </summary>
-        public string StatisticName { get; set;}
+    public class GetPlayerStatisticVersionsRequest
+    {
+        /// <summary>
+        /// unique name of the statistic
+        /// </summary>
+        public string StatisticName;
 
-	}
+    }
 
-	public class GetPlayerStatisticVersionsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// version change history of the statistic
-		/// </summary>
-        public List<PlayerStatisticVersion> StatisticVersions { get; set;}
+    public class GetPlayerStatisticVersionsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// version change history of the statistic
+        /// </summary>
+        public List<PlayerStatisticVersion> StatisticVersions;
 
-	}
+    }
 
-	public class GetPublisherDataRequest
-	{
-		/// <summary>
-		///  array of keys to get back data from the Publisher data blob, set by the admin tools
-		/// </summary>
-        public List<string> Keys { get; set;}
+    public class GetPublisherDataRequest
+    {
+        /// <summary>
+        ///  array of keys to get back data from the Publisher data blob, set by the admin tools
+        /// </summary>
+        public List<string> Keys;
 
-	}
+    }
 
-	public class GetPublisherDataResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// a dictionary object of key / value pairs
-		/// </summary>
-        public Dictionary<string,string> Data { get; set;}
+    public class GetPublisherDataResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// a dictionary object of key / value pairs
+        /// </summary>
+        public Dictionary<string,string> Data;
 
-	}
+    }
 
-	public class GetRandomResultTablesRequest : PlayFabResultCommon
-	{
-		/// <summary>
-		/// catalog version to fetch tables from. Use default catalog version if null
-		/// </summary>
-        public string CatalogVersion { get; set;}
+    public class GetRandomResultTablesRequest : PlayFabResultCommon
+    {
+        /// <summary>
+        /// catalog version to fetch tables from. Use default catalog version if null
+        /// </summary>
+        public string CatalogVersion;
 
-	}
+    }
 
-	public class GetRandomResultTablesResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// array of random result tables currently available
-		/// </summary>
-        public Dictionary<string,RandomResultTableListing> Tables { get; set;}
+    public class GetRandomResultTablesResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// array of random result tables currently available
+        /// </summary>
+        public Dictionary<string,RandomResultTableListing> Tables;
 
-	}
+    }
 
-	public class GetSegmentResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Unique identifier for this segment.
-		/// </summary>
-        public string Id { get; set;}
+    public class GetSegmentResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique identifier for this segment.
+        /// </summary>
+        public string Id;
 
-		/// <summary>
-		/// Segment name.
-		/// </summary>
-        public string Name { get; set;}
+        /// <summary>
+        /// Segment name.
+        /// </summary>
+        public string Name;
 
-		/// <summary>
-		/// Identifier of the segments AB Test, if it is attached to one.
-		/// </summary>
-        public string ABTestParent { get; set;}
+        /// <summary>
+        /// Identifier of the segments AB Test, if it is attached to one.
+        /// </summary>
+        public string ABTestParent;
 
-	}
+    }
 
-	public class GetServerBuildInfoRequest
-	{
-		/// <summary>
-		/// unique identifier of the previously uploaded build executable for which information is being requested
-		/// </summary>
-        public string BuildId { get; set;}
+    public class GetServerBuildInfoRequest
+    {
+        /// <summary>
+        /// unique identifier of the previously uploaded build executable for which information is being requested
+        /// </summary>
+        public string BuildId;
 
-	}
+    }
 
-	/// <summary>
-	/// Information about a particular server build
-	/// </summary>
-	public class GetServerBuildInfoResult : PlayFabResultCommon, IComparable<GetServerBuildInfoResult>
-	{
-		/// <summary>
-		/// unique identifier for this build executable
-		/// </summary>
-        public string BuildId { get; set;}
+    /// <summary>
+    /// Information about a particular server build
+    /// </summary>
+    public class GetServerBuildInfoResult : PlayFabResultCommon, IComparable<GetServerBuildInfoResult>
+    {
+        /// <summary>
+        /// unique identifier for this build executable
+        /// </summary>
+        public string BuildId;
 
-		/// <summary>
-		/// array of regions where this build can used, when it is active
-		/// </summary>
+        /// <summary>
+        /// array of regions where this build can used, when it is active
+        /// </summary>
         [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
         [Unordered]
-        public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions;
 
-		/// <summary>
-		/// maximum number of game server instances that can run on a single host machine
-		/// </summary>
-        public int MaxGamesPerHost { get; set;}
+        /// <summary>
+        /// maximum number of game server instances that can run on a single host machine
+        /// </summary>
+        public int MaxGamesPerHost;
 
-		/// <summary>
-		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
-		/// </summary>
-        public int MinFreeGameSlots { get; set;}
+        /// <summary>
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// </summary>
+        public int MinFreeGameSlots;
 
-		/// <summary>
-		/// developer comment(s) for this build
-		/// </summary>
-        public string Comment { get; set;}
+        /// <summary>
+        /// developer comment(s) for this build
+        /// </summary>
+        public string Comment;
 
-		/// <summary>
-		/// time this build was last modified (or uploaded, if this build has never been modified)
-		/// </summary>
-        public DateTime Timestamp { get; set;}
+        /// <summary>
+        /// time this build was last modified (or uploaded, if this build has never been modified)
+        /// </summary>
+        public DateTime Timestamp;
 
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
-		/// </summary>
-        public string TitleId { get; set;}
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// </summary>
+        public string TitleId;
 
-		/// <summary>
-		/// the current status of the build validation and processing steps
-		/// </summary>
+        /// <summary>
+        /// the current status of the build validation and processing steps
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public GameBuildStatus? Status { get; set;}
+        public GameBuildStatus? Status;
 
-		/// <summary>
-		/// error message, if any, about this build
-		/// </summary>
-        public string ErrorMessage { get; set;}
+        /// <summary>
+        /// error message, if any, about this build
+        /// </summary>
+        public string ErrorMessage;
 
         public int CompareTo(GetServerBuildInfoResult other)
         {
@@ -1124,234 +1241,252 @@ namespace PlayFab.AdminModels
             return BuildId.CompareTo(other.BuildId);
         }
 
-	}
+    }
 
-	public class GetServerBuildUploadURLRequest
-	{
-		/// <summary>
-		/// unique identifier of the game server build to upload
-		/// </summary>
-        public string BuildId { get; set;}
+    public class GetServerBuildUploadURLRequest
+    {
+        /// <summary>
+        /// unique identifier of the game server build to upload
+        /// </summary>
+        public string BuildId;
 
-	}
+    }
 
-	public class GetServerBuildUploadURLResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// pre-authorized URL for uploading the game server build package
-		/// </summary>
-        public string URL { get; set;}
+    public class GetServerBuildUploadURLResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// pre-authorized URL for uploading the game server build package
+        /// </summary>
+        public string URL;
 
-	}
+    }
 
-	public class GetStoreItemsRequest
-	{
-		/// <summary>
-		/// catalog version to store items from. Use default catalog version if null
-		/// </summary>
-        public string CatalogVersion { get; set;}
+    public class GetStoreItemsRequest
+    {
+        /// <summary>
+        /// catalog version to store items from. Use default catalog version if null
+        /// </summary>
+        public string CatalogVersion;
 
-		/// <summary>
-		/// Unqiue identifier for the store which is being requested.
-		/// </summary>
-        public string StoreId { get; set;}
+        /// <summary>
+        /// Unqiue identifier for the store which is being requested.
+        /// </summary>
+        public string StoreId;
 
-	}
+    }
 
-	public class GetStoreItemsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Array of items which can be purchased from this store.
-		/// </summary>
+    public class GetStoreItemsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of items which can be purchased from this store.
+        /// </summary>
         [Unordered(SortProperty="ItemId")]
-        public List<StoreItem> Store { get; set;}
+        public List<StoreItem> Store;
 
-	}
+    }
 
-	public class GetTitleDataRequest
-	{
-		/// <summary>
-		/// Specific keys to search for in the title data (leave null to get all keys)
-		/// </summary>
-        public List<string> Keys { get; set;}
+    public class GetTitleDataRequest
+    {
+        /// <summary>
+        /// Specific keys to search for in the title data (leave null to get all keys)
+        /// </summary>
+        public List<string> Keys;
 
-	}
+    }
 
-	public class GetTitleDataResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// a dictionary object of key / value pairs
-		/// </summary>
-        public Dictionary<string,string> Data { get; set;}
+    public class GetTitleDataResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// a dictionary object of key / value pairs
+        /// </summary>
+        public Dictionary<string,string> Data;
 
-	}
+    }
 
-	public class GetUserDataRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class GetUserBansRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Specific keys to search for in the custom user data.
-		/// </summary>
-        public List<string> Keys { get; set;}
+    }
 
-		/// <summary>
-		/// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
-		/// </summary>
-        public uint? IfChangedFromDataVersion { get; set;}
+    public class GetUserBansResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information about the bans
+        /// </summary>
+        public List<BanInfo> BanData;
 
-	}
+    }
 
-	public class GetUserDataResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// PlayFab unique identifier of the user whose custom data is being returned.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class GetUserDataRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
-		/// </summary>
-        public uint DataVersion { get; set;}
+        /// <summary>
+        /// Specific keys to search for in the custom user data.
+        /// </summary>
+        public List<string> Keys;
 
-		/// <summary>
-		/// User specific data for this title.
-		/// </summary>
-        public Dictionary<string,UserDataRecord> Data { get; set;}
+        /// <summary>
+        /// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
+        /// </summary>
+        public uint? IfChangedFromDataVersion;
 
-	}
+    }
 
-	public class GetUserInventoryRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class GetUserDataResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// PlayFab unique identifier of the user whose custom data is being returned.
+        /// </summary>
+        public string PlayFabId;
 
-	}
+        /// <summary>
+        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+        /// </summary>
+        public uint DataVersion;
 
-	public class GetUserInventoryResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+        /// <summary>
+        /// User specific data for this title.
+        /// </summary>
+        public Dictionary<string,UserDataRecord> Data;
 
-		/// <summary>
-		/// Array of inventory items belonging to the user.
-		/// </summary>
+    }
+
+    public class GetUserInventoryRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class GetUserInventoryResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Array of inventory items belonging to the user.
+        /// </summary>
         [Unordered(SortProperty="ItemInstanceId")]
-        public List<ItemInstance> Inventory { get; set;}
+        public List<ItemInstance> Inventory;
 
-		/// <summary>
-		/// Array of virtual currency balance(s) belonging to the user.
-		/// </summary>
-        public Dictionary<string,int> VirtualCurrency { get; set;}
+        /// <summary>
+        /// Array of virtual currency balance(s) belonging to the user.
+        /// </summary>
+        public Dictionary<string,int> VirtualCurrency;
 
-		/// <summary>
-		/// Array of remaining times and timestamps for virtual currencies.
-		/// </summary>
-        public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes { get; set;}
+        /// <summary>
+        /// Array of remaining times and timestamps for virtual currencies.
+        /// </summary>
+        public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
-	}
+    }
 
-	/// <summary>
-	/// Result of granting an item to a user
-	/// </summary>
-	public class GrantedItemInstance : IComparable<GrantedItemInstance>
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    /// <summary>
+    /// Result of granting an item to a user
+    /// </summary>
+    public class GrantedItemInstance : IComparable<GrantedItemInstance>
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Unique PlayFab assigned ID for a specific character owned by a user
-		/// </summary>
-        public string CharacterId { get; set;}
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific character owned by a user
+        /// </summary>
+        public string CharacterId;
 
-		/// <summary>
-		/// Result of this operation.
-		/// </summary>
-        public bool Result { get; set;}
+        /// <summary>
+        /// Result of this operation.
+        /// </summary>
+        public bool Result;
 
-		/// <summary>
-		/// Unique identifier for the inventory item, as defined in the catalog.
-		/// </summary>
-        public string ItemId { get; set;}
+        /// <summary>
+        /// Unique identifier for the inventory item, as defined in the catalog.
+        /// </summary>
+        public string ItemId;
 
-		/// <summary>
-		/// Unique item identifier for this specific instance of the item.
-		/// </summary>
-        public string ItemInstanceId { get; set;}
+        /// <summary>
+        /// Unique item identifier for this specific instance of the item.
+        /// </summary>
+        public string ItemInstanceId;
 
-		/// <summary>
-		/// Class name for the inventory item, as defined in the catalog.
-		/// </summary>
-        public string ItemClass { get; set;}
+        /// <summary>
+        /// Class name for the inventory item, as defined in the catalog.
+        /// </summary>
+        public string ItemClass;
 
-		/// <summary>
-		/// Timestamp for when this instance was purchased.
-		/// </summary>
-        public DateTime? PurchaseDate { get; set;}
+        /// <summary>
+        /// Timestamp for when this instance was purchased.
+        /// </summary>
+        public DateTime? PurchaseDate;
 
-		/// <summary>
-		/// Timestamp for when this instance will expire.
-		/// </summary>
-        public DateTime? Expiration { get; set;}
+        /// <summary>
+        /// Timestamp for when this instance will expire.
+        /// </summary>
+        public DateTime? Expiration;
 
-		/// <summary>
-		/// Total number of remaining uses, if this is a consumable item.
-		/// </summary>
-        public int? RemainingUses { get; set;}
+        /// <summary>
+        /// Total number of remaining uses, if this is a consumable item.
+        /// </summary>
+        public int? RemainingUses;
 
-		/// <summary>
-		/// The number of uses that were added or removed to this item in this call.
-		/// </summary>
-        public int? UsesIncrementedBy { get; set;}
+        /// <summary>
+        /// The number of uses that were added or removed to this item in this call.
+        /// </summary>
+        public int? UsesIncrementedBy;
 
-		/// <summary>
-		/// Game specific comment associated with this instance when it was added to the user inventory.
-		/// </summary>
-        public string Annotation { get; set;}
+        /// <summary>
+        /// Game specific comment associated with this instance when it was added to the user inventory.
+        /// </summary>
+        public string Annotation;
 
-		/// <summary>
-		/// Catalog version for the inventory item, when this instance was created.
-		/// </summary>
-        public string CatalogVersion { get; set;}
+        /// <summary>
+        /// Catalog version for the inventory item, when this instance was created.
+        /// </summary>
+        public string CatalogVersion;
 
-		/// <summary>
-		/// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
-		/// </summary>
-        public string BundleParent { get; set;}
+        /// <summary>
+        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
+        /// </summary>
+        public string BundleParent;
 
-		/// <summary>
-		/// CatalogItem.DisplayName at the time this item was purchased.
-		/// </summary>
-        public string DisplayName { get; set;}
+        /// <summary>
+        /// CatalogItem.DisplayName at the time this item was purchased.
+        /// </summary>
+        public string DisplayName;
 
-		/// <summary>
-		/// Currency type for the cost of the catalog item.
-		/// </summary>
-        public string UnitCurrency { get; set;}
+        /// <summary>
+        /// Currency type for the cost of the catalog item.
+        /// </summary>
+        public string UnitCurrency;
 
-		/// <summary>
-		/// Cost of the catalog item in the given currency.
-		/// </summary>
-        public uint UnitPrice { get; set;}
+        /// <summary>
+        /// Cost of the catalog item in the given currency.
+        /// </summary>
+        public uint UnitPrice;
 
-		/// <summary>
-		/// Array of unique items that were awarded when this catalog item was purchased.
-		/// </summary>
-        public List<string> BundleContents { get; set;}
+        /// <summary>
+        /// Array of unique items that were awarded when this catalog item was purchased.
+        /// </summary>
+        public List<string> BundleContents;
 
-		/// <summary>
-		/// A set of custom key-value pairs on the inventory item.
-		/// </summary>
-        public Dictionary<string,string> CustomData { get; set;}
+        /// <summary>
+        /// A set of custom key-value pairs on the inventory item.
+        /// </summary>
+        public Dictionary<string,string> CustomData;
 
         public int CompareTo(GrantedItemInstance other)
         {
@@ -1360,163 +1495,163 @@ namespace PlayFab.AdminModels
             return ItemInstanceId.CompareTo(other.ItemInstanceId);
         }
 
-	}
+    }
 
-	public class GrantItemsToUsersRequest
-	{
-		/// <summary>
-		/// Catalog version from which items are to be granted.
-		/// </summary>
-        public string CatalogVersion { get; set;}
+    public class GrantItemsToUsersRequest
+    {
+        /// <summary>
+        /// Catalog version from which items are to be granted.
+        /// </summary>
+        public string CatalogVersion;
 
-		/// <summary>
-		/// Array of items to grant and the users to whom the items are to be granted.
-		/// </summary>
+        /// <summary>
+        /// Array of items to grant and the users to whom the items are to be granted.
+        /// </summary>
         [Unordered]
-        public List<ItemGrant> ItemGrants { get; set;}
+        public List<ItemGrant> ItemGrants;
 
-	}
+    }
 
-	public class GrantItemsToUsersResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Array of items granted to users.
-		/// </summary>
-        public List<GrantedItemInstance> ItemGrantResults { get; set;}
+    public class GrantItemsToUsersResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of items granted to users.
+        /// </summary>
+        public List<GrantedItemInstance> ItemGrantResults;
 
-	}
+    }
 
-	public class IncrementPlayerStatisticVersionRequest
-	{
-		/// <summary>
-		/// unique name of the statistic
-		/// </summary>
-        public string StatisticName { get; set;}
+    public class IncrementPlayerStatisticVersionRequest
+    {
+        /// <summary>
+        /// unique name of the statistic
+        /// </summary>
+        public string StatisticName;
 
-	}
+    }
 
-	public class IncrementPlayerStatisticVersionResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// version change history of the statistic
-		/// </summary>
-        public PlayerStatisticVersion StatisticVersion { get; set;}
+    public class IncrementPlayerStatisticVersionResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// version change history of the statistic
+        /// </summary>
+        public PlayerStatisticVersion StatisticVersion;
 
-	}
+    }
 
-	public class ItemGrant
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class ItemGrant
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Unique identifier of the catalog item to be granted to the user.
-		/// </summary>
-        public string ItemId { get; set;}
+        /// <summary>
+        /// Unique identifier of the catalog item to be granted to the user.
+        /// </summary>
+        public string ItemId;
 
-		/// <summary>
-		/// String detailing any additional information concerning this operation.
-		/// </summary>
-        public string Annotation { get; set;}
+        /// <summary>
+        /// String detailing any additional information concerning this operation.
+        /// </summary>
+        public string Annotation;
 
-		/// <summary>
-		/// Unique PlayFab assigned ID for a specific character owned by a user
-		/// </summary>
-        public string CharacterId { get; set;}
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific character owned by a user
+        /// </summary>
+        public string CharacterId;
 
-		/// <summary>
-		/// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
-		/// </summary>
-        public Dictionary<string,string> Data { get; set;}
+        /// <summary>
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
+        /// </summary>
+        public Dictionary<string,string> Data;
 
-		/// <summary>
-		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
-		/// </summary>
-        public List<string> KeysToRemove { get; set;}
+        /// <summary>
+        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+        /// </summary>
+        public List<string> KeysToRemove;
 
-	}
+    }
 
-	/// <summary>
-	/// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
-	/// </summary>
-	public class ItemInstance : IComparable<ItemInstance>
-	{
-		/// <summary>
-		/// Unique identifier for the inventory item, as defined in the catalog.
-		/// </summary>
-        public string ItemId { get; set;}
+    /// <summary>
+    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
+    /// </summary>
+    public class ItemInstance : IComparable<ItemInstance>
+    {
+        /// <summary>
+        /// Unique identifier for the inventory item, as defined in the catalog.
+        /// </summary>
+        public string ItemId;
 
-		/// <summary>
-		/// Unique item identifier for this specific instance of the item.
-		/// </summary>
-        public string ItemInstanceId { get; set;}
+        /// <summary>
+        /// Unique item identifier for this specific instance of the item.
+        /// </summary>
+        public string ItemInstanceId;
 
-		/// <summary>
-		/// Class name for the inventory item, as defined in the catalog.
-		/// </summary>
-        public string ItemClass { get; set;}
+        /// <summary>
+        /// Class name for the inventory item, as defined in the catalog.
+        /// </summary>
+        public string ItemClass;
 
-		/// <summary>
-		/// Timestamp for when this instance was purchased.
-		/// </summary>
-        public DateTime? PurchaseDate { get; set;}
+        /// <summary>
+        /// Timestamp for when this instance was purchased.
+        /// </summary>
+        public DateTime? PurchaseDate;
 
-		/// <summary>
-		/// Timestamp for when this instance will expire.
-		/// </summary>
-        public DateTime? Expiration { get; set;}
+        /// <summary>
+        /// Timestamp for when this instance will expire.
+        /// </summary>
+        public DateTime? Expiration;
 
-		/// <summary>
-		/// Total number of remaining uses, if this is a consumable item.
-		/// </summary>
-        public int? RemainingUses { get; set;}
+        /// <summary>
+        /// Total number of remaining uses, if this is a consumable item.
+        /// </summary>
+        public int? RemainingUses;
 
-		/// <summary>
-		/// The number of uses that were added or removed to this item in this call.
-		/// </summary>
-        public int? UsesIncrementedBy { get; set;}
+        /// <summary>
+        /// The number of uses that were added or removed to this item in this call.
+        /// </summary>
+        public int? UsesIncrementedBy;
 
-		/// <summary>
-		/// Game specific comment associated with this instance when it was added to the user inventory.
-		/// </summary>
-        public string Annotation { get; set;}
+        /// <summary>
+        /// Game specific comment associated with this instance when it was added to the user inventory.
+        /// </summary>
+        public string Annotation;
 
-		/// <summary>
-		/// Catalog version for the inventory item, when this instance was created.
-		/// </summary>
-        public string CatalogVersion { get; set;}
+        /// <summary>
+        /// Catalog version for the inventory item, when this instance was created.
+        /// </summary>
+        public string CatalogVersion;
 
-		/// <summary>
-		/// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
-		/// </summary>
-        public string BundleParent { get; set;}
+        /// <summary>
+        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
+        /// </summary>
+        public string BundleParent;
 
-		/// <summary>
-		/// CatalogItem.DisplayName at the time this item was purchased.
-		/// </summary>
-        public string DisplayName { get; set;}
+        /// <summary>
+        /// CatalogItem.DisplayName at the time this item was purchased.
+        /// </summary>
+        public string DisplayName;
 
-		/// <summary>
-		/// Currency type for the cost of the catalog item.
-		/// </summary>
-        public string UnitCurrency { get; set;}
+        /// <summary>
+        /// Currency type for the cost of the catalog item.
+        /// </summary>
+        public string UnitCurrency;
 
-		/// <summary>
-		/// Cost of the catalog item in the given currency.
-		/// </summary>
-        public uint UnitPrice { get; set;}
+        /// <summary>
+        /// Cost of the catalog item in the given currency.
+        /// </summary>
+        public uint UnitPrice;
 
-		/// <summary>
-		/// Array of unique items that were awarded when this catalog item was purchased.
-		/// </summary>
-        public List<string> BundleContents { get; set;}
+        /// <summary>
+        /// Array of unique items that were awarded when this catalog item was purchased.
+        /// </summary>
+        public List<string> BundleContents;
 
-		/// <summary>
-		/// A set of custom key-value pairs on the inventory item.
-		/// </summary>
-        public Dictionary<string,string> CustomData { get; set;}
+        /// <summary>
+        /// A set of custom key-value pairs on the inventory item.
+        /// </summary>
+        public Dictionary<string,string> CustomData;
 
         public int CompareTo(ItemInstance other)
         {
@@ -1525,750 +1660,803 @@ namespace PlayFab.AdminModels
             return ItemInstanceId.CompareTo(other.ItemInstanceId);
         }
 
-	}
+    }
 
-	public class ListBuildsRequest
-	{
-	}
+    public class ListBuildsRequest
+    {
+    }
 
-	public class ListBuildsResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// array of uploaded game server builds
-		/// </summary>
+    public class ListBuildsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// array of uploaded game server builds
+        /// </summary>
         [Unordered(SortProperty="BuildId")]
-        public List<GetServerBuildInfoResult> Builds { get; set;}
+        public List<GetServerBuildInfoResult> Builds;
 
-	}
+    }
 
-	public class ListVirtualCurrencyTypesRequest
-	{
-	}
+    public class ListVirtualCurrencyTypesRequest
+    {
+    }
 
-	public class ListVirtualCurrencyTypesResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// List of virtual currency names defined for this title
-		/// </summary>
+    public class ListVirtualCurrencyTypesResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of virtual currency names defined for this title
+        /// </summary>
         [Unordered]
-        public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
+        public List<VirtualCurrencyData> VirtualCurrencies;
 
-	}
+    }
 
-	
-	public enum LoginIdentityProvider
-	{
-		Unknown,
-		PlayFab,
-		Custom,
-		GameCenter,
-		GooglePlay,
-		Steam,
-		XBoxLive,
-		PSN,
-		Kongregate,
-		Facebook,
-		IOSDevice,
-		AndroidDevice,
-		Twitch
-	}
-	public class LookupUserAccountInfoRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    
+    public enum LoginIdentityProvider
+    {
+        Unknown,
+        PlayFab,
+        Custom,
+        GameCenter,
+        GooglePlay,
+        Steam,
+        XBoxLive,
+        PSN,
+        Kongregate,
+        Facebook,
+        IOSDevice,
+        AndroidDevice,
+        Twitch
+    }
 
-		/// <summary>
-		/// User email address attached to their account
-		/// </summary>
-        public string Email { get; set;}
+    public class LookupUserAccountInfoRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// PlayFab username for the account (3-20 characters)
-		/// </summary>
-        public string Username { get; set;}
+        /// <summary>
+        /// User email address attached to their account
+        /// </summary>
+        public string Email;
 
-		/// <summary>
-		/// Title specific username to match against existing user accounts
-		/// </summary>
-        public string TitleDisplayName { get; set;}
+        /// <summary>
+        /// PlayFab username for the account (3-20 characters)
+        /// </summary>
+        public string Username;
 
-	}
+        /// <summary>
+        /// Title specific username to match against existing user accounts
+        /// </summary>
+        public string TitleDisplayName;
 
-	public class LookupUserAccountInfoResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// User info for the user matching the request
-		/// </summary>
-        public UserAccountInfo UserInfo { get; set;}
+    }
 
-	}
+    public class LookupUserAccountInfoResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// User info for the user matching the request
+        /// </summary>
+        public UserAccountInfo UserInfo;
 
-	public class ModifyMatchmakerGameModesRequest
-	{
-		/// <summary>
-		/// previously uploaded build version for which game modes are being specified
-		/// </summary>
-        public string BuildVersion { get; set;}
+    }
 
-		/// <summary>
-		/// array of game modes (Note: this will replace all game modes for the indicated build version)
-		/// </summary>
-        public List<GameModeInfo> GameModes { get; set;}
+    public class ModifyMatchmakerGameModesRequest
+    {
+        /// <summary>
+        /// previously uploaded build version for which game modes are being specified
+        /// </summary>
+        public string BuildVersion;
 
-	}
+        /// <summary>
+        /// array of game modes (Note: this will replace all game modes for the indicated build version)
+        /// </summary>
+        public List<GameModeInfo> GameModes;
 
-	public class ModifyMatchmakerGameModesResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	public class ModifyServerBuildRequest
-	{
-		/// <summary>
-		/// unique identifier of the previously uploaded build executable to be updated
-		/// </summary>
-        public string BuildId { get; set;}
+    public class ModifyMatchmakerGameModesResult : PlayFabResultCommon
+    {
+    }
 
-		/// <summary>
-		/// new timestamp
-		/// </summary>
-        public DateTime? Timestamp { get; set;}
+    public class ModifyServerBuildRequest
+    {
+        /// <summary>
+        /// unique identifier of the previously uploaded build executable to be updated
+        /// </summary>
+        public string BuildId;
 
-		/// <summary>
-		/// array of regions where this build can used, when it is active
-		/// </summary>
+        /// <summary>
+        /// new timestamp
+        /// </summary>
+        public DateTime? Timestamp;
+
+        /// <summary>
+        /// array of regions where this build can used, when it is active
+        /// </summary>
         [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-        public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions;
 
-		/// <summary>
-		/// maximum number of game server instances that can run on a single host machine
-		/// </summary>
-        public int MaxGamesPerHost { get; set;}
+        /// <summary>
+        /// maximum number of game server instances that can run on a single host machine
+        /// </summary>
+        public int MaxGamesPerHost;
 
-		/// <summary>
-		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
-		/// </summary>
-        public int MinFreeGameSlots { get; set;}
+        /// <summary>
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// </summary>
+        public int MinFreeGameSlots;
 
-		/// <summary>
-		/// appended to the end of the command line when starting game servers
-		/// </summary>
-        public string CommandLineTemplate { get; set;}
+        /// <summary>
+        /// appended to the end of the command line when starting game servers
+        /// </summary>
+        public string CommandLineTemplate;
 
-		/// <summary>
-		/// path to the game server executable. Defaults to gameserver.exe
-		/// </summary>
-        public string ExecutablePath { get; set;}
+        /// <summary>
+        /// path to the game server executable. Defaults to gameserver.exe
+        /// </summary>
+        public string ExecutablePath;
 
-		/// <summary>
-		/// developer comment(s) for this build
-		/// </summary>
-        public string Comment { get; set;}
+        /// <summary>
+        /// developer comment(s) for this build
+        /// </summary>
+        public string Comment;
 
-	}
+    }
 
-	public class ModifyServerBuildResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// unique identifier for this build executable
-		/// </summary>
-        public string BuildId { get; set;}
+    public class ModifyServerBuildResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// unique identifier for this build executable
+        /// </summary>
+        public string BuildId;
 
-		/// <summary>
-		/// array of regions where this build can used, when it is active
-		/// </summary>
+        /// <summary>
+        /// array of regions where this build can used, when it is active
+        /// </summary>
         [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-        public List<Region> ActiveRegions { get; set;}
+        public List<Region> ActiveRegions;
 
-		/// <summary>
-		/// maximum number of game server instances that can run on a single host machine
-		/// </summary>
-        public int MaxGamesPerHost { get; set;}
+        /// <summary>
+        /// maximum number of game server instances that can run on a single host machine
+        /// </summary>
+        public int MaxGamesPerHost;
 
-		/// <summary>
-		/// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
-		/// </summary>
-        public int MinFreeGameSlots { get; set;}
+        /// <summary>
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// </summary>
+        public int MinFreeGameSlots;
 
-		/// <summary>
-		/// appended to the end of the command line when starting game servers
-		/// </summary>
-        public string CommandLineTemplate { get; set;}
+        /// <summary>
+        /// appended to the end of the command line when starting game servers
+        /// </summary>
+        public string CommandLineTemplate;
 
-		/// <summary>
-		/// path to the game server executable. Defaults to gameserver.exe
-		/// </summary>
-        public string ExecutablePath { get; set;}
+        /// <summary>
+        /// path to the game server executable. Defaults to gameserver.exe
+        /// </summary>
+        public string ExecutablePath;
 
-		/// <summary>
-		/// developer comment(s) for this build
-		/// </summary>
-        public string Comment { get; set;}
+        /// <summary>
+        /// developer comment(s) for this build
+        /// </summary>
+        public string Comment;
 
-		/// <summary>
-		/// time this build was last modified (or uploaded, if this build has never been modified)
-		/// </summary>
-        public DateTime Timestamp { get; set;}
+        /// <summary>
+        /// time this build was last modified (or uploaded, if this build has never been modified)
+        /// </summary>
+        public DateTime Timestamp;
 
-		/// <summary>
-		/// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
-		/// </summary>
-        public string TitleId { get; set;}
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// </summary>
+        public string TitleId;
 
-		/// <summary>
-		/// the current status of the build validation and processing steps
-		/// </summary>
+        /// <summary>
+        /// the current status of the build validation and processing steps
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public GameBuildStatus? Status { get; set;}
+        public GameBuildStatus? Status;
 
-	}
+    }
 
-	public class ModifyUserVirtualCurrencyResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// User currency was subtracted from.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class ModifyUserVirtualCurrencyResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// User currency was subtracted from.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Name of the virtual currency which was modified.
-		/// </summary>
-        public string VirtualCurrency { get; set;}
+        /// <summary>
+        /// Name of the virtual currency which was modified.
+        /// </summary>
+        public string VirtualCurrency;
 
-		/// <summary>
-		/// Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded.
-		/// </summary>
-        public int BalanceChange { get; set;}
+        /// <summary>
+        /// Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded.
+        /// </summary>
+        public int BalanceChange;
 
-		/// <summary>
-		/// Balance of the virtual currency after modification.
-		/// </summary>
-        public int Balance { get; set;}
+        /// <summary>
+        /// Balance of the virtual currency after modification.
+        /// </summary>
+        public int Balance;
 
-	}
+    }
 
-	public class PlayerLinkedAccount
-	{
-		/// <summary>
-		/// Authentication platform
-		/// </summary>
+    public class PlayerLinkedAccount
+    {
+        /// <summary>
+        /// Authentication platform
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public LoginIdentityProvider? Platform { get; set;}
+        public LoginIdentityProvider? Platform;
 
-		/// <summary>
-		/// Platform user identifier
-		/// </summary>
-        public string PlatformUserId { get; set;}
+        /// <summary>
+        /// Platform user identifier
+        /// </summary>
+        public string PlatformUserId;
 
-		/// <summary>
-		/// Linked account's username
-		/// </summary>
-        public string Username { get; set;}
+        /// <summary>
+        /// Linked account's username
+        /// </summary>
+        public string Username;
 
-		/// <summary>
-		/// Linked account's email
-		/// </summary>
-        public string Email { get; set;}
+        /// <summary>
+        /// Linked account's email
+        /// </summary>
+        public string Email;
 
-	}
+    }
 
-	public class PlayerProfile
-	{
-		/// <summary>
-		/// PlayFab Player ID
-		/// </summary>
-        public string PlayerId { get; set;}
+    public class PlayerProfile
+    {
+        /// <summary>
+        /// PlayFab Player ID
+        /// </summary>
+        public string PlayerId;
 
-		/// <summary>
-		/// Title ID this profile applies to
-		/// </summary>
-        public string TitleId { get; set;}
+        /// <summary>
+        /// Title ID this profile applies to
+        /// </summary>
+        public string TitleId;
 
-		/// <summary>
-		/// Player Display Name
-		/// </summary>
-        public string DisplayName { get; set;}
+        /// <summary>
+        /// Player Display Name
+        /// </summary>
+        public string DisplayName;
 
-		/// <summary>
-		/// Player account origination
-		/// </summary>
+        /// <summary>
+        /// Publisher this player belongs to
+        /// </summary>
+        public string PublisherId;
+
+        /// <summary>
+        /// Player account origination
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public LoginIdentityProvider? Origination { get; set;}
+        public LoginIdentityProvider? Origination;
 
-		/// <summary>
-		/// Player record created
-		/// </summary>
-        public DateTime? Created { get; set;}
+        /// <summary>
+        /// Player record created
+        /// </summary>
+        public DateTime? Created;
 
-		/// <summary>
-		/// Last login
-		/// </summary>
-        public DateTime? LastLogin { get; set;}
+        /// <summary>
+        /// Last login
+        /// </summary>
+        public DateTime? LastLogin;
 
-		/// <summary>
-		/// Banned until UTC Date. If permanent ban this is set for 20 years after the original ban date.
-		/// </summary>
-        public DateTime? BannedUntil { get; set;}
+        /// <summary>
+        /// Banned until UTC Date. If permanent ban this is set for 20 years after the original ban date.
+        /// </summary>
+        public DateTime? BannedUntil;
 
-		/// <summary>
-		/// Dictionary of player's statistics using only the latest version's value
-		/// </summary>
-        public Dictionary<string,int> Statistics { get; set;}
+        /// <summary>
+        /// Dictionary of player's statistics using only the latest version's value
+        /// </summary>
+        public Dictionary<string,int> Statistics;
 
-		/// <summary>
-		/// Dictionary of player's total currency purchases. The key VTD is a sum of all player_realmoney_purchase events OrderTotals.
-		/// </summary>
-        public Dictionary<string,uint> ValuesToDate { get; set;}
+        /// <summary>
+        /// Dictionary of player's total currency purchases. The key VTD is a sum of all player_realmoney_purchase events OrderTotals.
+        /// </summary>
+        public Dictionary<string,uint> ValuesToDate;
 
-		/// <summary>
-		/// Dictionary of player's virtual currency balances
-		/// </summary>
-        public Dictionary<string,int> VirtualCurrencyBalances { get; set;}
+        /// <summary>
+        /// List of player's tags for segmentation.
+        /// </summary>
+        public List<string> Tags;
 
-		/// <summary>
-		/// Array of ad campaigns player has been attributed to
-		/// </summary>
-        public List<AdCampaignAttribution> AdCampaignAttributions { get; set;}
+        /// <summary>
+        /// Dictionary of player's virtual currency balances
+        /// </summary>
+        public Dictionary<string,int> VirtualCurrencyBalances;
 
-		/// <summary>
-		/// Array of configured push notification end points
-		/// </summary>
-        public List<PushNotificationRegistration> PushNotificationRegistrations { get; set;}
+        /// <summary>
+        /// Array of ad campaigns player has been attributed to
+        /// </summary>
+        public List<AdCampaignAttribution> AdCampaignAttributions;
 
-		/// <summary>
-		/// Array of third party accounts linked to this player
-		/// </summary>
-        public List<PlayerLinkedAccount> LinkedAccounts { get; set;}
+        /// <summary>
+        /// Array of configured push notification end points
+        /// </summary>
+        public List<PushNotificationRegistration> PushNotificationRegistrations;
 
-		/// <summary>
-		/// Array of player statistics
-		/// </summary>
-        public List<PlayerStatistic> PlayerStatistics { get; set;}
+        /// <summary>
+        /// Array of third party accounts linked to this player
+        /// </summary>
+        public List<PlayerLinkedAccount> LinkedAccounts;
 
-	}
+        /// <summary>
+        /// Array of player statistics
+        /// </summary>
+        public List<PlayerStatistic> PlayerStatistics;
 
-	public class PlayerStatistic
-	{
-		/// <summary>
-		/// Statistic ID
-		/// </summary>
-        public string Id { get; set;}
+    }
 
-		/// <summary>
-		/// Statistic version (0 if not a versioned statistic)
-		/// </summary>
-        public int StatisticVersion { get; set;}
+    public class PlayerStatistic
+    {
+        /// <summary>
+        /// Statistic ID
+        /// </summary>
+        public string Id;
 
-		/// <summary>
-		/// Current statistic value
-		/// </summary>
-        public int StatisticValue { get; set;}
+        /// <summary>
+        /// Statistic version (0 if not a versioned statistic)
+        /// </summary>
+        public int StatisticVersion;
 
-		/// <summary>
-		/// Statistic name
-		/// </summary>
-        public string Name { get; set;}
+        /// <summary>
+        /// Current statistic value
+        /// </summary>
+        public int StatisticValue;
 
-	}
+        /// <summary>
+        /// Statistic name
+        /// </summary>
+        public string Name;
 
-	public class PlayerStatisticDefinition
-	{
-		/// <summary>
-		/// unique name of the statistic
-		/// </summary>
-        public string StatisticName { get; set;}
+    }
 
-		/// <summary>
-		/// current active version of the statistic, incremented each time the statistic resets
-		/// </summary>
-        public uint CurrentVersion { get; set;}
+    public class PlayerStatisticDefinition
+    {
+        /// <summary>
+        /// unique name of the statistic
+        /// </summary>
+        public string StatisticName;
 
-		/// <summary>
-		/// interval at which the values of the statistic for all players are reset automatically
-		/// </summary>
+        /// <summary>
+        /// current active version of the statistic, incremented each time the statistic resets
+        /// </summary>
+        public uint CurrentVersion;
+
+        /// <summary>
+        /// interval at which the values of the statistic for all players are reset automatically
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public StatisticResetIntervalOption? VersionChangeInterval { get; set;}
+        public StatisticResetIntervalOption? VersionChangeInterval;
 
-		/// <summary>
-		/// the aggregation method to use in updating the statistic (defaults to last)
-		/// </summary>
+        /// <summary>
+        /// the aggregation method to use in updating the statistic (defaults to last)
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public StatisticAggregationMethod? AggregationMethod { get; set;}
+        public StatisticAggregationMethod? AggregationMethod;
 
-	}
+    }
 
-	public class PlayerStatisticVersion
-	{
-		/// <summary>
-		/// name of the statistic when the version became active
-		/// </summary>
-        public string StatisticName { get; set;}
+    public class PlayerStatisticVersion
+    {
+        /// <summary>
+        /// name of the statistic when the version became active
+        /// </summary>
+        public string StatisticName;
 
-		/// <summary>
-		/// version of the statistic
-		/// </summary>
-        public uint Version { get; set;}
+        /// <summary>
+        /// version of the statistic
+        /// </summary>
+        public uint Version;
 
-		/// <summary>
-		/// time at which the statistic version was scheduled to become active, based on the configured ResetInterval
-		/// </summary>
-        public DateTime? ScheduledActivationTime { get; set;}
+        /// <summary>
+        /// time at which the statistic version was scheduled to become active, based on the configured ResetInterval
+        /// </summary>
+        public DateTime? ScheduledActivationTime;
 
-		/// <summary>
-		/// time when the statistic version became active
-		/// </summary>
-        public DateTime ActivationTime { get; set;}
+        /// <summary>
+        /// time when the statistic version became active
+        /// </summary>
+        public DateTime ActivationTime;
 
-		/// <summary>
-		/// time at which the statistic version was scheduled to become inactive, based on the configured ResetInterval
-		/// </summary>
-        public DateTime? ScheduledDeactivationTime { get; set;}
+        /// <summary>
+        /// time at which the statistic version was scheduled to become inactive, based on the configured ResetInterval
+        /// </summary>
+        public DateTime? ScheduledDeactivationTime;
 
-		/// <summary>
-		/// time when the statistic version became inactive due to statistic version incrementing
-		/// </summary>
-        public DateTime? DeactivationTime { get; set;}
+        /// <summary>
+        /// time when the statistic version became inactive due to statistic version incrementing
+        /// </summary>
+        public DateTime? DeactivationTime;
 
-		/// <summary>
-		/// status of the process of saving player statistic values of the previous version to a downloadable archive
-		/// </summary>
+        /// <summary>
+        /// status of the process of saving player statistic values of the previous version to a downloadable archive
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public StatisticVersionArchivalStatus? ArchivalStatus { get; set;}
+        public StatisticVersionArchivalStatus? ArchivalStatus;
 
-		/// <summary>
-		/// URL for the downloadable archive of player statistic values, if available
-		/// </summary>
-        public string ArchiveDownloadUrl { get; set;}
+        /// <summary>
+        /// URL for the downloadable archive of player statistic values, if available
+        /// </summary>
+        public string ArchiveDownloadUrl;
 
-	}
+    }
 
-	
-	public enum PushNotificationPlatform
-	{
-		ApplePushNotificationService,
-		GoogleCloudMessaging
-	}
-	public class PushNotificationRegistration
-	{
-		/// <summary>
-		/// Push notification platform
-		/// </summary>
+    
+    public enum PushNotificationPlatform
+    {
+        ApplePushNotificationService,
+        GoogleCloudMessaging
+    }
+
+    public class PushNotificationRegistration
+    {
+        /// <summary>
+        /// Push notification platform
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public PushNotificationPlatform? Platform { get; set;}
+        public PushNotificationPlatform? Platform;
 
-		/// <summary>
-		/// Notification configured endpoint
-		/// </summary>
-        public string NotificationEndpointARN { get; set;}
+        /// <summary>
+        /// Notification configured endpoint
+        /// </summary>
+        public string NotificationEndpointARN;
 
-	}
+    }
 
-	public class RandomResultTable : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Unique name for this drop table
-		/// </summary>
-        public string TableId { get; set;}
+    public class RandomResultTable : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique name for this drop table
+        /// </summary>
+        public string TableId;
 
-		/// <summary>
-		/// Child nodes that indicate what kind of drop table item this actually is.
-		/// </summary>
-        public List<ResultTableNode> Nodes { get; set;}
+        /// <summary>
+        /// Child nodes that indicate what kind of drop table item this actually is.
+        /// </summary>
+        public List<ResultTableNode> Nodes;
 
-	}
+    }
 
-	public class RandomResultTableListing : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Catalog version this table is associated with
-		/// </summary>
-        public string CatalogVersion { get; set;}
+    public class RandomResultTableListing : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Catalog version this table is associated with
+        /// </summary>
+        public string CatalogVersion;
 
-		/// <summary>
-		/// Unique name for this drop table
-		/// </summary>
-        public string TableId { get; set;}
+        /// <summary>
+        /// Unique name for this drop table
+        /// </summary>
+        public string TableId;
 
-		/// <summary>
-		/// Child nodes that indicate what kind of drop table item this actually is.
-		/// </summary>
-        public List<ResultTableNode> Nodes { get; set;}
+        /// <summary>
+        /// Child nodes that indicate what kind of drop table item this actually is.
+        /// </summary>
+        public List<ResultTableNode> Nodes;
 
-	}
+    }
 
-	
-	public enum Region
-	{
-		USCentral,
-		USEast,
-		EUWest,
-		Singapore,
-		Japan,
-		Brazil,
-		Australia
-	}
-	public class RemoveServerBuildRequest
-	{
-		/// <summary>
-		/// unique identifier of the previously uploaded build executable to be removed
-		/// </summary>
-        public string BuildId { get; set;}
+    
+    public enum Region
+    {
+        USCentral,
+        USEast,
+        EUWest,
+        Singapore,
+        Japan,
+        Brazil,
+        Australia
+    }
 
-	}
+    public class RemoveServerBuildRequest
+    {
+        /// <summary>
+        /// unique identifier of the previously uploaded build executable to be removed
+        /// </summary>
+        public string BuildId;
 
-	public class RemoveServerBuildResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	public class RemoveVirtualCurrencyTypesRequest
-	{
-		/// <summary>
-		/// List of virtual currencies to delete
-		/// </summary>
-        public List<VirtualCurrencyData> VirtualCurrencies { get; set;}
+    public class RemoveServerBuildResult : PlayFabResultCommon
+    {
+    }
 
-	}
+    public class RemoveVirtualCurrencyTypesRequest
+    {
+        /// <summary>
+        /// List of virtual currencies to delete
+        /// </summary>
+        public List<VirtualCurrencyData> VirtualCurrencies;
 
-	public class ResetCharacterStatisticsRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    }
 
-		/// <summary>
-		/// Unique PlayFab assigned ID for a specific character owned by a user
-		/// </summary>
-        public string CharacterId { get; set;}
+    public class ResetCharacterStatisticsRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-	}
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific character owned by a user
+        /// </summary>
+        public string CharacterId;
 
-	public class ResetCharacterStatisticsResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	public class ResetUsersRequest
-	{
-		/// <summary>
-		/// Array of users to reset
-		/// </summary>
-        public List<UserCredentials> Users { get; set;}
+    public class ResetCharacterStatisticsResult : PlayFabResultCommon
+    {
+    }
 
-	}
+    public class ResetUsersRequest
+    {
+        /// <summary>
+        /// Array of users to reset
+        /// </summary>
+        public List<UserCredentials> Users;
 
-	public class ResetUserStatisticsRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    }
 
-	}
+    public class ResetUserStatisticsRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-	public class ResetUserStatisticsResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	public class ResultTableNode : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Whether this entry in the table is an item or a link to another table
-		/// </summary>
+    public class ResetUserStatisticsResult : PlayFabResultCommon
+    {
+    }
+
+    public class ResultTableNode : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Whether this entry in the table is an item or a link to another table
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public ResultTableNodeType ResultItemType { get; set;}
+        public ResultTableNodeType ResultItemType;
 
-		/// <summary>
-		/// Either an ItemId, or the TableId of another random result table
-		/// </summary>
-        public string ResultItem { get; set;}
+        /// <summary>
+        /// Either an ItemId, or the TableId of another random result table
+        /// </summary>
+        public string ResultItem;
 
-		/// <summary>
-		/// How likely this is to be rolled - larger numbers add more weight
-		/// </summary>
-        public int Weight { get; set;}
+        /// <summary>
+        /// How likely this is to be rolled - larger numbers add more weight
+        /// </summary>
+        public int Weight;
 
-	}
+    }
 
-	
-	public enum ResultTableNodeType
-	{
-		ItemId,
-		TableId
-	}
-	public class RevokeInventoryItemRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    
+    public enum ResultTableNodeType
+    {
+        ItemId,
+        TableId
+    }
 
-		/// <summary>
-		/// Unique PlayFab assigned ID for a specific character owned by a user
-		/// </summary>
-        public string CharacterId { get; set;}
+    public class RevokeAllBansForUserRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Unique PlayFab assigned instance identifier of the item
-		/// </summary>
-        public string ItemInstanceId { get; set;}
+    }
 
-	}
+    public class RevokeAllBansForUserResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were revoked.
+        /// </summary>
+        public List<BanInfo> BanData;
 
-	public class RevokeInventoryResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	public class SendAccountRecoveryEmailRequest
-	{
-		/// <summary>
-		/// User email address attached to their account
-		/// </summary>
-        public string Email { get; set;}
+    public class RevokeBansRequest
+    {
+        /// <summary>
+        /// Ids of the bans to be revoked. Maximum 100.
+        /// </summary>
+        public List<string> BanIds;
 
-	}
+    }
 
-	public class SendAccountRecoveryEmailResult : PlayFabResultCommon
-	{
-	}
+    public class RevokeBansResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were revoked
+        /// </summary>
+        public List<BanInfo> BanData;
 
-	public class SetPublishedRevisionRequest
-	{
-		/// <summary>
-		/// Version number
-		/// </summary>
-        public int Version { get; set;}
+    }
 
-		/// <summary>
-		/// Revision to make the current published revision
-		/// </summary>
-        public int Revision { get; set;}
+    public class RevokeInventoryItemRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-	}
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific character owned by a user
+        /// </summary>
+        public string CharacterId;
 
-	public class SetPublishedRevisionResult : PlayFabResultCommon
-	{
-	}
+        /// <summary>
+        /// Unique PlayFab assigned instance identifier of the item
+        /// </summary>
+        public string ItemInstanceId;
 
-	public class SetPublisherDataRequest
-	{
-		/// <summary>
-		/// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
-		/// </summary>
-        public string Key { get; set;}
+    }
 
-		/// <summary>
-		/// new value to set. Set to null to remove a value
-		/// </summary>
-        public string Value { get; set;}
+    public class RevokeInventoryResult : PlayFabResultCommon
+    {
+    }
 
-	}
+    public class SendAccountRecoveryEmailRequest
+    {
+        /// <summary>
+        /// User email address attached to their account
+        /// </summary>
+        public string Email;
 
-	public class SetPublisherDataResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	public class SetTitleDataRequest
-	{
-		/// <summary>
-		/// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
-		/// </summary>
-        public string Key { get; set;}
+    public class SendAccountRecoveryEmailResult : PlayFabResultCommon
+    {
+    }
 
-		/// <summary>
-		/// new value to set. Set to null to remove a value
-		/// </summary>
-        public string Value { get; set;}
+    public class SetPublishedRevisionRequest
+    {
+        /// <summary>
+        /// Version number
+        /// </summary>
+        public int Version;
 
-	}
+        /// <summary>
+        /// Revision to make the current published revision
+        /// </summary>
+        public int Revision;
 
-	public class SetTitleDataResult : PlayFabResultCommon
-	{
-	}
+    }
 
-	public class SetupPushNotificationRequest
-	{
-		/// <summary>
-		/// name of the application sending the message (application names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, hyphens, and periods, and must be between 1 and 256 characters long)
-		/// </summary>
-        public string Name { get; set;}
+    public class SetPublishedRevisionResult : PlayFabResultCommon
+    {
+    }
 
-		/// <summary>
-		/// supported notification platforms are Apple Push Notification Service (APNS and APNS_SANDBOX) for iOS and Google Cloud Messaging (GCM) for Android
-		/// </summary>
-        public string Platform { get; set;}
+    public class SetPublisherDataRequest
+    {
+        /// <summary>
+        /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
+        /// </summary>
+        public string Key;
 
-		/// <summary>
-		/// for APNS, this is the PlatformPrincipal (SSL Certificate)
-		/// </summary>
-        public string Key { get; set;}
+        /// <summary>
+        /// new value to set. Set to null to remove a value
+        /// </summary>
+        public string Value;
 
-		/// <summary>
-		/// Credential is the Private Key for APNS/APNS_SANDBOX, and the API Key for GCM
-		/// </summary>
-        public string Credential { get; set;}
+    }
 
-		/// <summary>
-		/// replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if notifications have already setup for this platform.
-		/// </summary>
-        public bool OverwriteOldARN { get; set;}
+    public class SetPublisherDataResult : PlayFabResultCommon
+    {
+    }
 
-	}
+    public class SetTitleDataRequest
+    {
+        /// <summary>
+        /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
+        /// </summary>
+        public string Key;
 
-	public class SetupPushNotificationResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Amazon Resource Name for the created notification topic.
-		/// </summary>
-        public string ARN { get; set;}
+        /// <summary>
+        /// new value to set. Set to null to remove a value
+        /// </summary>
+        public string Value;
 
-	}
+    }
 
-	
-	public enum StatisticAggregationMethod
-	{
-		Last,
-		Min,
-		Max,
-		Sum
-	}
-	
-	public enum StatisticResetIntervalOption
-	{
-		Never,
-		Hour,
-		Day,
-		Week,
-		Month
-	}
-	
-	public enum StatisticVersionArchivalStatus
-	{
-		NotScheduled,
-		Scheduled,
-		Queued,
-		InProgress,
-		Complete
-	}
-	/// <summary>
-	/// A store entry that list a catalog item at a particular price
-	/// </summary>
-	public class StoreItem : IComparable<StoreItem>
-	{
-		/// <summary>
-		/// unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
-		/// </summary>
-        public string ItemId { get; set;}
+    public class SetTitleDataResult : PlayFabResultCommon
+    {
+    }
 
-		/// <summary>
-		/// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
-		/// </summary>
-        public Dictionary<string,uint> VirtualCurrencyPrices { get; set;}
+    public class SetupPushNotificationRequest
+    {
+        /// <summary>
+        /// name of the application sending the message (application names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, hyphens, and periods, and must be between 1 and 256 characters long)
+        /// </summary>
+        public string Name;
 
-		/// <summary>
-		/// override prices for this item for specific currencies
-		/// </summary>
-        public Dictionary<string,uint> RealCurrencyPrices { get; set;}
+        /// <summary>
+        /// supported notification platforms are Apple Push Notification Service (APNS and APNS_SANDBOX) for iOS and Google Cloud Messaging (GCM) for Android
+        /// </summary>
+        public string Platform;
+
+        /// <summary>
+        /// for APNS, this is the PlatformPrincipal (SSL Certificate)
+        /// </summary>
+        public string Key;
+
+        /// <summary>
+        /// Credential is the Private Key for APNS/APNS_SANDBOX, and the API Key for GCM
+        /// </summary>
+        public string Credential;
+
+        /// <summary>
+        /// replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if notifications have already setup for this platform.
+        /// </summary>
+        public bool OverwriteOldARN;
+
+    }
+
+    public class SetupPushNotificationResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Amazon Resource Name for the created notification topic.
+        /// </summary>
+        public string ARN;
+
+    }
+
+    
+    public enum StatisticAggregationMethod
+    {
+        Last,
+        Min,
+        Max,
+        Sum
+    }
+
+    
+    public enum StatisticResetIntervalOption
+    {
+        Never,
+        Hour,
+        Day,
+        Week,
+        Month
+    }
+
+    
+    public enum StatisticVersionArchivalStatus
+    {
+        NotScheduled,
+        Scheduled,
+        Queued,
+        InProgress,
+        Complete
+    }
+
+    /// <summary>
+    /// A store entry that list a catalog item at a particular price
+    /// </summary>
+    public class StoreItem : IComparable<StoreItem>
+    {
+        /// <summary>
+        /// unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
+        /// </summary>
+        public string ItemId;
+
+        /// <summary>
+        /// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
+        /// </summary>
+        public Dictionary<string,uint> VirtualCurrencyPrices;
+
+        /// <summary>
+        /// override prices for this item for specific currencies
+        /// </summary>
+        public Dictionary<string,uint> RealCurrencyPrices;
 
         public int CompareTo(StoreItem other)
         {
@@ -2277,627 +2465,696 @@ namespace PlayFab.AdminModels
             return ItemId.CompareTo(other.ItemId);
         }
 
-	}
+    }
 
-	public class SubtractUserVirtualCurrencyRequest
-	{
-		/// <summary>
-		/// PlayFab unique identifier of the user whose virtual currency balance is to be decreased.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class SubtractUserVirtualCurrencyRequest
+    {
+        /// <summary>
+        /// PlayFab unique identifier of the user whose virtual currency balance is to be decreased.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Name of the virtual currency which is to be decremented.
-		/// </summary>
-        public string VirtualCurrency { get; set;}
+        /// <summary>
+        /// Name of the virtual currency which is to be decremented.
+        /// </summary>
+        public string VirtualCurrency;
 
-		/// <summary>
-		/// Amount to be subtracted from the user balance of the specified virtual currency.
-		/// </summary>
-        public int Amount { get; set;}
+        /// <summary>
+        /// Amount to be subtracted from the user balance of the specified virtual currency.
+        /// </summary>
+        public int Amount;
 
-	}
+    }
 
-	
-	public enum TitleActivationStatus
-	{
-		None,
-		ActivatedTitleKey,
-		PendingSteam,
-		ActivatedSteam,
-		RevokedSteam
-	}
-	public class UpdateCatalogItemsRequest
-	{
-		/// <summary>
-		/// Which catalog is being updated. If null, uses the default catalog.
-		/// </summary>
-        public string CatalogVersion { get; set;}
+    
+    public enum TitleActivationStatus
+    {
+        None,
+        ActivatedTitleKey,
+        PendingSteam,
+        ActivatedSteam,
+        RevokedSteam
+    }
 
-		/// <summary>
-		/// Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call.
-		/// </summary>
-        public List<CatalogItem> Catalog { get; set;}
+    /// <summary>
+    /// Represents a single update ban request.
+    /// </summary>
+    public class UpdateBanRequest
+    {
+        /// <summary>
+        /// The id of the ban to be updated.
+        /// </summary>
+        public string BanId;
 
-	}
+        /// <summary>
+        /// The updated reason for the ban to be updated. Maximum 140 characters. Null for no change.
+        /// </summary>
+        public string Reason;
 
-	public class UpdateCatalogItemsResult : PlayFabResultCommon
-	{
-	}
+        /// <summary>
+        /// The updated expiration date for the ban. Null for no change.
+        /// </summary>
+        public DateTime? Expires;
 
-	public class UpdateCloudScriptRequest
-	{
-		/// <summary>
-		/// Deprecated - unused
-		/// </summary>
-        public int? Version { get; set;}
+        /// <summary>
+        /// The updated IP address for the ban. Null for no change.
+        /// </summary>
+        public string IPAddress;
 
-		/// <summary>
-		/// List of Cloud Script files to upload to create the new revision. Must have at least one file.
-		/// </summary>
-        public List<CloudScriptFile> Files { get; set;}
+        /// <summary>
+        /// The updated MAC address for the ban. Null for no change.
+        /// </summary>
+        public string MACAddress;
 
-		/// <summary>
-		/// Immediately publish the new revision
-		/// </summary>
-        public bool Publish { get; set;}
+        /// <summary>
+        /// Whether to make this ban permanent. Set to true to make this ban permanent. This will not modify Active state.
+        /// </summary>
+        public bool? Permanent;
 
-		/// <summary>
-		/// PlayFab user ID of the developer initiating the request.
-		/// </summary>
-        public string DeveloperPlayFabId { get; set;}
+        /// <summary>
+        /// The updated active state for the ban. Null for no change.
+        /// </summary>
+        public bool? Active;
 
-	}
+    }
 
-	public class UpdateCloudScriptResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Cloud Script version updated
-		/// </summary>
-        public int Version { get; set;}
+    public class UpdateBansRequest
+    {
+        /// <summary>
+        /// List of bans to be updated. Maximum 100.
+        /// </summary>
+        public List<UpdateBanRequest> Bans;
 
-		/// <summary>
-		/// New revision number created
-		/// </summary>
-        public int Revision { get; set;}
+    }
 
-	}
+    public class UpdateBansResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the bans that were updated
+        /// </summary>
+        public List<BanInfo> BanData;
 
-	public class UpdatePlayerStatisticDefinitionRequest
-	{
-		/// <summary>
-		/// unique name of the statistic
-		/// </summary>
-        public string StatisticName { get; set;}
+    }
 
-		/// <summary>
-		/// interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of the new interval boundary)
-		/// </summary>
+    public class UpdateCatalogItemsRequest
+    {
+        /// <summary>
+        /// Which catalog is being updated. If null, uses the default catalog.
+        /// </summary>
+        public string CatalogVersion;
+
+        /// <summary>
+        /// Should this catalog be set as the default catalog. Defaults to true. If there is currently no default catalog, this will always set it.
+        /// </summary>
+        public bool? SetAsDefaultCatalog;
+
+        /// <summary>
+        /// Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call.
+        /// </summary>
+        public List<CatalogItem> Catalog;
+
+    }
+
+    public class UpdateCatalogItemsResult : PlayFabResultCommon
+    {
+    }
+
+    public class UpdateCloudScriptRequest
+    {
+        /// <summary>
+        /// Deprecated - Do not use
+        /// </summary>
+        [Obsolete("No longer available", false)]
+        public int? Version;
+
+        /// <summary>
+        /// List of Cloud Script files to upload to create the new revision. Must have at least one file.
+        /// </summary>
+        public List<CloudScriptFile> Files;
+
+        /// <summary>
+        /// Immediately publish the new revision
+        /// </summary>
+        public bool Publish;
+
+        /// <summary>
+        /// PlayFab user ID of the developer initiating the request.
+        /// </summary>
+        public string DeveloperPlayFabId;
+
+    }
+
+    public class UpdateCloudScriptResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Cloud Script version updated
+        /// </summary>
+        public int Version;
+
+        /// <summary>
+        /// New revision number created
+        /// </summary>
+        public int Revision;
+
+    }
+
+    public class UpdatePlayerStatisticDefinitionRequest
+    {
+        /// <summary>
+        /// unique name of the statistic
+        /// </summary>
+        public string StatisticName;
+
+        /// <summary>
+        /// interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of the new interval boundary)
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public StatisticResetIntervalOption? VersionChangeInterval { get; set;}
+        public StatisticResetIntervalOption? VersionChangeInterval;
 
-		/// <summary>
-		/// the aggregation method to use in updating the statistic (defaults to last)
-		/// </summary>
+        /// <summary>
+        /// the aggregation method to use in updating the statistic (defaults to last)
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public StatisticAggregationMethod? AggregationMethod { get; set;}
+        public StatisticAggregationMethod? AggregationMethod;
 
-	}
+    }
 
-	public class UpdatePlayerStatisticDefinitionResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// updated statistic definition
-		/// </summary>
-        public PlayerStatisticDefinition Statistic { get; set;}
+    public class UpdatePlayerStatisticDefinitionResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// updated statistic definition
+        /// </summary>
+        public PlayerStatisticDefinition Statistic;
 
-	}
+    }
 
-	public class UpdateRandomResultTablesRequest : PlayFabResultCommon
-	{
-		/// <summary>
-		/// which catalog is being updated. If null, update the current default catalog version
-		/// </summary>
-        public string CatalogVersion { get; set;}
+    public class UpdateRandomResultTablesRequest : PlayFabResultCommon
+    {
+        /// <summary>
+        /// which catalog is being updated. If null, update the current default catalog version
+        /// </summary>
+        public string CatalogVersion;
 
-		/// <summary>
-		/// array of random result tables to make available (Note: specifying an existing TableId will result in overwriting that table, while any others will be added to the available set)
-		/// </summary>
-        public List<RandomResultTable> Tables { get; set;}
+        /// <summary>
+        /// array of random result tables to make available (Note: specifying an existing TableId will result in overwriting that table, while any others will be added to the available set)
+        /// </summary>
+        public List<RandomResultTable> Tables;
 
-	}
+    }
 
-	public class UpdateRandomResultTablesResult : PlayFabResultCommon
-	{
-	}
+    public class UpdateRandomResultTablesResult : PlayFabResultCommon
+    {
+    }
 
-	public class UpdateStoreItemsRequest
-	{
-		/// <summary>
-		/// catalog version of the store to update. If null, uses the default catalog.
-		/// </summary>
-        public string CatalogVersion { get; set;}
+    public class UpdateStoreItemsRequest
+    {
+        /// <summary>
+        /// catalog version of the store to update. If null, uses the default catalog.
+        /// </summary>
+        public string CatalogVersion;
 
-		/// <summary>
-		/// unqiue identifier for the store which is to be updated
-		/// </summary>
-        public string StoreId { get; set;}
+        /// <summary>
+        /// unqiue identifier for the store which is to be updated
+        /// </summary>
+        public string StoreId;
 
-		/// <summary>
-		/// array of store items - references to catalog items, with specific pricing - to be added
-		/// </summary>
-        public List<StoreItem> Store { get; set;}
+        /// <summary>
+        /// array of store items - references to catalog items, with specific pricing - to be added
+        /// </summary>
+        public List<StoreItem> Store;
 
-	}
+    }
 
-	public class UpdateStoreItemsResult : PlayFabResultCommon
-	{
-	}
+    public class UpdateStoreItemsResult : PlayFabResultCommon
+    {
+    }
 
-	public class UpdateUserDataRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class UpdateUserDataRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
-		/// </summary>
-        public Dictionary<string,string> Data { get; set;}
+        /// <summary>
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
+        /// </summary>
+        public Dictionary<string,string> Data;
 
-		/// <summary>
-		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
-		/// </summary>
-        public List<string> KeysToRemove { get; set;}
+        /// <summary>
+        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+        /// </summary>
+        public List<string> KeysToRemove;
 
-		/// <summary>
-		/// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
-		/// </summary>
+        /// <summary>
+        /// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission;
 
-	}
+    }
 
-	public class UpdateUserDataResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
-		/// </summary>
-        public uint DataVersion { get; set;}
+    public class UpdateUserDataResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+        /// </summary>
+        public uint DataVersion;
 
-	}
+    }
 
-	public class UpdateUserInternalDataRequest
-	{
-		/// <summary>
-		/// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class UpdateUserInternalDataRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
-		/// </summary>
-        public Dictionary<string,string> Data { get; set;}
+        /// <summary>
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
+        /// </summary>
+        public Dictionary<string,string> Data;
 
-		/// <summary>
-		/// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
-		/// </summary>
-        public List<string> KeysToRemove { get; set;}
+        /// <summary>
+        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+        /// </summary>
+        public List<string> KeysToRemove;
 
-	}
+    }
 
-	public class UpdateUserTitleDisplayNameRequest
-	{
-		/// <summary>
-		/// PlayFab unique identifier of the user whose title specific display name is to be changed
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class UpdateUserTitleDisplayNameRequest
+    {
+        /// <summary>
+        /// PlayFab unique identifier of the user whose title specific display name is to be changed
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// new title display name for the user - must be between 3 and 25 characters
-		/// </summary>
-        public string DisplayName { get; set;}
+        /// <summary>
+        /// new title display name for the user - must be between 3 and 25 characters
+        /// </summary>
+        public string DisplayName;
 
-	}
+    }
 
-	public class UpdateUserTitleDisplayNameResult : PlayFabResultCommon
-	{
-		/// <summary>
-		/// current title display name for the user (this will be the original display name if the rename attempt failed)
-		/// </summary>
-        public string DisplayName { get; set;}
+    public class UpdateUserTitleDisplayNameResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// current title display name for the user (this will be the original display name if the rename attempt failed)
+        /// </summary>
+        public string DisplayName;
 
-	}
+    }
 
-	public class UserAccountInfo
-	{
-		/// <summary>
-		/// Unique identifier for the user account
-		/// </summary>
-        public string PlayFabId { get; set;}
+    public class UserAccountInfo
+    {
+        /// <summary>
+        /// Unique identifier for the user account
+        /// </summary>
+        public string PlayFabId;
 
-		/// <summary>
-		/// Timestamp indicating when the user account was created
-		/// </summary>
-        public DateTime Created { get; set;}
+        /// <summary>
+        /// Timestamp indicating when the user account was created
+        /// </summary>
+        public DateTime Created;
 
-		/// <summary>
-		/// User account name in the PlayFab service
-		/// </summary>
-        public string Username { get; set;}
+        /// <summary>
+        /// User account name in the PlayFab service
+        /// </summary>
+        public string Username;
 
-		/// <summary>
-		/// Title-specific information for the user account
-		/// </summary>
-        public UserTitleInfo TitleInfo { get; set;}
+        /// <summary>
+        /// Title-specific information for the user account
+        /// </summary>
+        public UserTitleInfo TitleInfo;
 
-		/// <summary>
-		/// Personal information for the user which is considered more sensitive
-		/// </summary>
-        public UserPrivateAccountInfo PrivateInfo { get; set;}
+        /// <summary>
+        /// Personal information for the user which is considered more sensitive
+        /// </summary>
+        public UserPrivateAccountInfo PrivateInfo;
 
-		/// <summary>
-		/// User Facebook information, if a Facebook account has been linked
-		/// </summary>
-        public UserFacebookInfo FacebookInfo { get; set;}
+        /// <summary>
+        /// User Facebook information, if a Facebook account has been linked
+        /// </summary>
+        public UserFacebookInfo FacebookInfo;
 
-		/// <summary>
-		/// User Steam information, if a Steam account has been linked
-		/// </summary>
-        public UserSteamInfo SteamInfo { get; set;}
+        /// <summary>
+        /// User Steam information, if a Steam account has been linked
+        /// </summary>
+        public UserSteamInfo SteamInfo;
 
-		/// <summary>
-		/// User Gamecenter information, if a Gamecenter account has been linked
-		/// </summary>
-        public UserGameCenterInfo GameCenterInfo { get; set;}
+        /// <summary>
+        /// User Gamecenter information, if a Gamecenter account has been linked
+        /// </summary>
+        public UserGameCenterInfo GameCenterInfo;
 
-		/// <summary>
-		/// User iOS device information, if an iOS device has been linked
-		/// </summary>
-        public UserIosDeviceInfo IosDeviceInfo { get; set;}
+        /// <summary>
+        /// User iOS device information, if an iOS device has been linked
+        /// </summary>
+        public UserIosDeviceInfo IosDeviceInfo;
 
-		/// <summary>
-		/// User Android device information, if an Android device has been linked
-		/// </summary>
-        public UserAndroidDeviceInfo AndroidDeviceInfo { get; set;}
+        /// <summary>
+        /// User Android device information, if an Android device has been linked
+        /// </summary>
+        public UserAndroidDeviceInfo AndroidDeviceInfo;
 
-		/// <summary>
-		/// User Kongregate account information, if a Kongregate account has been linked
-		/// </summary>
-        public UserKongregateInfo KongregateInfo { get; set;}
+        /// <summary>
+        /// User Kongregate account information, if a Kongregate account has been linked
+        /// </summary>
+        public UserKongregateInfo KongregateInfo;
 
-		/// <summary>
-		/// User Twitch account information, if a Twitch account has been linked
-		/// </summary>
-        public UserTwitchInfo TwitchInfo { get; set;}
+        /// <summary>
+        /// User Twitch account information, if a Twitch account has been linked
+        /// </summary>
+        public UserTwitchInfo TwitchInfo;
 
-		/// <summary>
-		/// User PSN account information, if a PSN account has been linked
-		/// </summary>
-        public UserPsnInfo PsnInfo { get; set;}
+        /// <summary>
+        /// User PSN account information, if a PSN account has been linked
+        /// </summary>
+        public UserPsnInfo PsnInfo;
 
-		/// <summary>
-		/// User Google account information, if a Google account has been linked
-		/// </summary>
-        public UserGoogleInfo GoogleInfo { get; set;}
+        /// <summary>
+        /// User Google account information, if a Google account has been linked
+        /// </summary>
+        public UserGoogleInfo GoogleInfo;
 
-		/// <summary>
-		/// User XBox account information, if a XBox account has been linked
-		/// </summary>
-        public UserXboxInfo XboxInfo { get; set;}
+        /// <summary>
+        /// User XBox account information, if a XBox account has been linked
+        /// </summary>
+        public UserXboxInfo XboxInfo;
 
-		/// <summary>
-		/// Custom ID information, if a custom ID has been assigned
-		/// </summary>
-        public UserCustomIdInfo CustomIdInfo { get; set;}
+        /// <summary>
+        /// Custom ID information, if a custom ID has been assigned
+        /// </summary>
+        public UserCustomIdInfo CustomIdInfo;
 
-	}
+    }
 
-	public class UserAndroidDeviceInfo
-	{
-		/// <summary>
-		/// Android device ID
-		/// </summary>
-        public string AndroidDeviceId { get; set;}
+    public class UserAndroidDeviceInfo
+    {
+        /// <summary>
+        /// Android device ID
+        /// </summary>
+        public string AndroidDeviceId;
 
-	}
+    }
 
-	public class UserCredentials
-	{
-		/// <summary>
-		/// Username of user to reset
-		/// </summary>
-        public string Username { get; set;}
+    public class UserCredentials
+    {
+        /// <summary>
+        /// Username of user to reset
+        /// </summary>
+        public string Username;
 
-		/// <summary>
-		/// Password for the PlayFab account (6-100 characters)
-		/// </summary>
-        public string Password { get; set;}
+        /// <summary>
+        /// Password for the PlayFab account (6-100 characters)
+        /// </summary>
+        public string Password;
 
-	}
+    }
 
-	public class UserCustomIdInfo
-	{
-		/// <summary>
-		/// Custom ID
-		/// </summary>
-        public string CustomId { get; set;}
+    public class UserCustomIdInfo
+    {
+        /// <summary>
+        /// Custom ID
+        /// </summary>
+        public string CustomId;
 
-	}
+    }
 
-	
-	/// <summary>
-	/// Indicates whether a given data key is private (readable only by the player) or public (readable by all players). When a player makes a GetUserData request about another player, only keys marked Public will be returned.
-	/// </summary>
-	public enum UserDataPermission
-	{
-		Private,
-		Public
-	}
-	public class UserDataRecord
-	{
-		/// <summary>
-		/// Data stored for the specified user data key.
-		/// </summary>
-        public string Value { get; set;}
+    
+    /// <summary>
+    /// Indicates whether a given data key is private (readable only by the player) or public (readable by all players). When a player makes a GetUserData request about another player, only keys marked Public will be returned.
+    /// </summary>
+    public enum UserDataPermission
+    {
+        Private,
+        Public
+    }
 
-		/// <summary>
-		/// Timestamp for when this data was last updated.
-		/// </summary>
-        public DateTime LastUpdated { get; set;}
+    public class UserDataRecord
+    {
+        /// <summary>
+        /// Data stored for the specified user data key.
+        /// </summary>
+        public string Value;
 
-		/// <summary>
-		/// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData requests being made by one player about another player.
-		/// </summary>
+        /// <summary>
+        /// Timestamp for when this data was last updated.
+        /// </summary>
+        public DateTime LastUpdated;
+
+        /// <summary>
+        /// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData requests being made by one player about another player.
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public UserDataPermission? Permission { get; set;}
+        public UserDataPermission? Permission;
 
-	}
+    }
 
-	public class UserFacebookInfo
-	{
-		/// <summary>
-		/// Facebook identifier
-		/// </summary>
-        public string FacebookId { get; set;}
+    public class UserFacebookInfo
+    {
+        /// <summary>
+        /// Facebook identifier
+        /// </summary>
+        public string FacebookId;
 
-		/// <summary>
-		/// Facebook full name
-		/// </summary>
-        public string FullName { get; set;}
+        /// <summary>
+        /// Facebook full name
+        /// </summary>
+        public string FullName;
 
-	}
+    }
 
-	public class UserGameCenterInfo
-	{
-		/// <summary>
-		/// Gamecenter identifier
-		/// </summary>
-        public string GameCenterId { get; set;}
+    public class UserGameCenterInfo
+    {
+        /// <summary>
+        /// Gamecenter identifier
+        /// </summary>
+        public string GameCenterId;
 
-	}
+    }
 
-	public class UserGoogleInfo
-	{
-		/// <summary>
-		/// Google ID
-		/// </summary>
-        public string GoogleId { get; set;}
+    public class UserGoogleInfo
+    {
+        /// <summary>
+        /// Google ID
+        /// </summary>
+        public string GoogleId;
 
-		/// <summary>
-		/// Email address of the Google account
-		/// </summary>
-        public string GoogleEmail { get; set;}
+        /// <summary>
+        /// Email address of the Google account
+        /// </summary>
+        public string GoogleEmail;
 
-		/// <summary>
-		/// Locale of the Google account
-		/// </summary>
-        public string GoogleLocale { get; set;}
+        /// <summary>
+        /// Locale of the Google account
+        /// </summary>
+        public string GoogleLocale;
 
-		/// <summary>
-		/// Gender information of the Google account
-		/// </summary>
-        public string GoogleGender { get; set;}
+        /// <summary>
+        /// Gender information of the Google account
+        /// </summary>
+        public string GoogleGender;
 
-	}
+    }
 
-	public class UserIosDeviceInfo
-	{
-		/// <summary>
-		/// iOS device ID
-		/// </summary>
-        public string IosDeviceId { get; set;}
+    public class UserIosDeviceInfo
+    {
+        /// <summary>
+        /// iOS device ID
+        /// </summary>
+        public string IosDeviceId;
 
-	}
+    }
 
-	public class UserKongregateInfo
-	{
-		/// <summary>
-		/// Kongregate ID
-		/// </summary>
-        public string KongregateId { get; set;}
+    public class UserKongregateInfo
+    {
+        /// <summary>
+        /// Kongregate ID
+        /// </summary>
+        public string KongregateId;
 
-		/// <summary>
-		/// Kongregate Username
-		/// </summary>
-        public string KongregateName { get; set;}
+        /// <summary>
+        /// Kongregate Username
+        /// </summary>
+        public string KongregateName;
 
-	}
+    }
 
-	
-	public enum UserOrigination
-	{
-		Organic,
-		Steam,
-		Google,
-		Amazon,
-		Facebook,
-		Kongregate,
-		GamersFirst,
-		Unknown,
-		IOS,
-		LoadTest,
-		Android,
-		PSN,
-		GameCenter,
-		CustomId,
-		XboxLive,
-		Parse,
-		Twitch
-	}
-	public class UserPrivateAccountInfo
-	{
-		/// <summary>
-		/// user email address
-		/// </summary>
-        public string Email { get; set;}
+    
+    public enum UserOrigination
+    {
+        Organic,
+        Steam,
+        Google,
+        Amazon,
+        Facebook,
+        Kongregate,
+        GamersFirst,
+        Unknown,
+        IOS,
+        LoadTest,
+        Android,
+        PSN,
+        GameCenter,
+        CustomId,
+        XboxLive,
+        Parse,
+        Twitch
+    }
 
-	}
+    public class UserPrivateAccountInfo
+    {
+        /// <summary>
+        /// user email address
+        /// </summary>
+        public string Email;
 
-	public class UserPsnInfo
-	{
-		/// <summary>
-		/// PSN account ID
-		/// </summary>
-        public string PsnAccountId { get; set;}
+    }
 
-		/// <summary>
-		/// PSN online ID
-		/// </summary>
-        public string PsnOnlineId { get; set;}
+    public class UserPsnInfo
+    {
+        /// <summary>
+        /// PSN account ID
+        /// </summary>
+        public string PsnAccountId;
 
-	}
+        /// <summary>
+        /// PSN online ID
+        /// </summary>
+        public string PsnOnlineId;
 
-	public class UserSteamInfo
-	{
-		/// <summary>
-		/// Steam identifier
-		/// </summary>
-        public string SteamId { get; set;}
+    }
 
-		/// <summary>
-		/// the country in which the player resides, from Steam data
-		/// </summary>
-        public string SteamCountry { get; set;}
+    public class UserSteamInfo
+    {
+        /// <summary>
+        /// Steam identifier
+        /// </summary>
+        public string SteamId;
 
-		/// <summary>
-		/// currency type set in the user Steam account
-		/// </summary>
+        /// <summary>
+        /// the country in which the player resides, from Steam data
+        /// </summary>
+        public string SteamCountry;
+
+        /// <summary>
+        /// currency type set in the user Steam account
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public Currency? SteamCurrency { get; set;}
+        public Currency? SteamCurrency;
 
-		/// <summary>
-		/// what stage of game ownership the user is listed as being in, from Steam
-		/// </summary>
+        /// <summary>
+        /// what stage of game ownership the user is listed as being in, from Steam
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public TitleActivationStatus? SteamActivationStatus { get; set;}
+        public TitleActivationStatus? SteamActivationStatus;
 
-	}
+    }
 
-	public class UserTitleInfo
-	{
-		/// <summary>
-		/// name of the user, as it is displayed in-game
-		/// </summary>
-        public string DisplayName { get; set;}
+    public class UserTitleInfo
+    {
+        /// <summary>
+        /// name of the user, as it is displayed in-game
+        /// </summary>
+        public string DisplayName;
 
-		/// <summary>
-		/// source by which the user first joined the game, if known
-		/// </summary>
+        /// <summary>
+        /// source by which the user first joined the game, if known
+        /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public UserOrigination? Origination { get; set;}
+        public UserOrigination? Origination;
 
-		/// <summary>
-		/// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user first registered with PlayFab)
-		/// </summary>
-        public DateTime Created { get; set;}
+        /// <summary>
+        /// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user first registered with PlayFab)
+        /// </summary>
+        public DateTime Created;
 
-		/// <summary>
-		/// timestamp for the last user login for this title
-		/// </summary>
-        public DateTime? LastLogin { get; set;}
+        /// <summary>
+        /// timestamp for the last user login for this title
+        /// </summary>
+        public DateTime? LastLogin;
 
-		/// <summary>
-		/// timestamp indicating when the user first signed into this game (this can differ from the Created timestamp, as other events, such as issuing a beta key to the user, can associate the title to the user)
-		/// </summary>
-        public DateTime? FirstLogin { get; set;}
+        /// <summary>
+        /// timestamp indicating when the user first signed into this game (this can differ from the Created timestamp, as other events, such as issuing a beta key to the user, can associate the title to the user)
+        /// </summary>
+        public DateTime? FirstLogin;
 
-		/// <summary>
-		/// boolean indicating whether or not the user is currently banned for a title
-		/// </summary>
-        public bool? isBanned { get; set;}
+        /// <summary>
+        /// boolean indicating whether or not the user is currently banned for a title
+        /// </summary>
+        public bool? isBanned;
 
-	}
+    }
 
-	public class UserTwitchInfo
-	{
-		/// <summary>
-		/// Twitch ID
-		/// </summary>
-        public string TwitchId { get; set;}
+    public class UserTwitchInfo
+    {
+        /// <summary>
+        /// Twitch ID
+        /// </summary>
+        public string TwitchId;
 
-		/// <summary>
-		/// Twitch Username
-		/// </summary>
-        public string TwitchUserName { get; set;}
+        /// <summary>
+        /// Twitch Username
+        /// </summary>
+        public string TwitchUserName;
 
-	}
+    }
 
-	public class UserXboxInfo
-	{
-		/// <summary>
-		/// XBox user ID
-		/// </summary>
-        public string XboxUserId { get; set;}
+    public class UserXboxInfo
+    {
+        /// <summary>
+        /// XBox user ID
+        /// </summary>
+        public string XboxUserId;
 
-	}
+    }
 
-	public class VirtualCurrencyData
-	{
-		/// <summary>
-		/// unique one- or two-character identifier for this currency type (e.g.: "CC", "G")
-		/// </summary>
-        public string CurrencyCode { get; set;}
+    public class VirtualCurrencyData
+    {
+        /// <summary>
+        /// unique one- or two-character identifier for this currency type (e.g.: "CC", "G")
+        /// </summary>
+        public string CurrencyCode;
 
-		/// <summary>
-		/// friendly name to show in the developer portal, reports, etc.
-		/// </summary>
-        public string DisplayName { get; set;}
+        /// <summary>
+        /// friendly name to show in the developer portal, reports, etc.
+        /// </summary>
+        public string DisplayName;
 
-		/// <summary>
-		/// amount to automatically grant users upon first login to the title
-		/// </summary>
-        public int? InitialDeposit { get; set;}
+        /// <summary>
+        /// amount to automatically grant users upon first login to the title
+        /// </summary>
+        public int? InitialDeposit;
 
-		/// <summary>
-		/// rate at which the currency automatically be added to over time, in units per day (24 hours)
-		/// </summary>
-        public int? RechargeRate { get; set;}
+        /// <summary>
+        /// rate at which the currency automatically be added to over time, in units per day (24 hours)
+        /// </summary>
+        public int? RechargeRate;
 
-		/// <summary>
-		/// maximum amount to which the currency will recharge (cannot exceed MaxAmount, but can be less)
-		/// </summary>
-        public int? RechargeMax { get; set;}
+        /// <summary>
+        /// maximum amount to which the currency will recharge (cannot exceed MaxAmount, but can be less)
+        /// </summary>
+        public int? RechargeMax;
 
-	}
+    }
 
-	public class VirtualCurrencyRechargeTime
-	{
-		/// <summary>
-		/// Time remaining (in seconds) before the next recharge increment of the virtual currency.
-		/// </summary>
-        public int SecondsToRecharge { get; set;}
+    public class VirtualCurrencyRechargeTime
+    {
+        /// <summary>
+        /// Time remaining (in seconds) before the next recharge increment of the virtual currency.
+        /// </summary>
+        public int SecondsToRecharge;
 
-		/// <summary>
-		/// Server timestamp in UTC indicating the next time the virtual currency will be incremented.
-		/// </summary>
-        public DateTime RechargeTime { get; set;}
+        /// <summary>
+        /// Server timestamp in UTC indicating the next time the virtual currency will be incremented.
+        /// </summary>
+        public DateTime RechargeTime;
 
-		/// <summary>
-		/// Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen below this value.
-		/// </summary>
-        public int RechargeMax { get; set;}
+        /// <summary>
+        /// Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen below this value.
+        /// </summary>
+        public int RechargeMax;
 
-	}
+    }
 }
