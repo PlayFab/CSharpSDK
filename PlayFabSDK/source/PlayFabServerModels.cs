@@ -49,6 +49,24 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class AddPlayerTagRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Unique tag for player profile.
+        /// </summary>
+        public string TagName;
+
+    }
+
+    public class AddPlayerTagResult : PlayFabResultCommon
+    {
+    }
+
     public class AddSharedGroupMembersRequest
     {
         /// <summary>
@@ -1549,6 +1567,34 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class GetPlayerTagsRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Optional namespace to filter results by
+        /// </summary>
+        public string Namespace;
+
+    }
+
+    public class GetPlayerTagsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Canonical tags (including namespace and tag's name) for the requested user
+        /// </summary>
+        public List<string> Tags;
+
+    }
+
     public class GetPlayFabIDsFromFacebookIDsRequest
     {
         /// <summary>
@@ -2771,6 +2817,24 @@ namespace PlayFab.ServerModels
         /// </summary>
         public UserAccountInfo UserInfo;
 
+    }
+
+    public class RemovePlayerTagRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Unique tag for player profile.
+        /// </summary>
+        public string TagName;
+
+    }
+
+    public class RemovePlayerTagResult : PlayFabResultCommon
+    {
     }
 
     public class RemoveSharedGroupMembersRequest
