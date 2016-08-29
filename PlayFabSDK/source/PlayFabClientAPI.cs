@@ -3209,6 +3209,31 @@ namespace PlayFab
             return new PlayFabResult<GetPlayerSegmentsResult> { Result = result };
         }
 
+        /// <summary>
+        /// Get all tags with a given Namespace (optional) from a player profile.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayerTagsResult>> GetPlayerTagsAsync(GetPlayerTagsRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetPlayerTags", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerTagsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetPlayerTagsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetPlayerTagsResult result = resultData.data;
+
+            return new PlayFabResult<GetPlayerTagsResult> { Result = result };
+        }
+
         private static string _authKey = null;
 
         // Determine if the _authKey is set, without actually making it public
