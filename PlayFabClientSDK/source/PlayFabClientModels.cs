@@ -329,6 +329,11 @@ namespace PlayFab.ClientModels
         /// </summary>
         public string ItemImageUrl;
 
+        /// <summary>
+        /// if true, then only a fixed number can ever be granted.
+        /// </summary>
+        public bool IsLimitedEdition;
+
         public int CompareTo(CatalogItem other)
         {
             if (other == null || other.ItemId == null) return 1;

@@ -249,7 +249,8 @@ namespace PlayFab
         InvalidSearchTerm = 1245,
         TwoFactorAuthenticationTokenRequired = 1246,
         GameServerHostCountLimitExceeded = 1247,
-        PlayerTagCountLimitExceeded = 1248
+        PlayerTagCountLimitExceeded = 1248,
+        RequestAlreadyRunning = 1249
     }
     
     public class PlayFabError
