@@ -874,6 +874,11 @@ namespace PlayFab.ClientModels
 
         public double ExecutionTimeSeconds;
 
+        /// <summary>
+        /// Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP requests.
+        /// </summary>
+        public double ProcessorTimeSeconds;
+
         public uint MemoryConsumedBytes;
 
         /// <summary>
