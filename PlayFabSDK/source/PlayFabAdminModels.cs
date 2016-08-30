@@ -53,6 +53,24 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class AddPlayerTagRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Unique tag for player profile.
+        /// </summary>
+        public string TagName;
+
+    }
+
+    public class AddPlayerTagResult : PlayFabResultCommon
+    {
+    }
+
     public class AddServerBuildRequest
     {
         /// <summary>
@@ -363,6 +381,11 @@ namespace PlayFab.AdminModels
         /// URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP URL.
         /// </summary>
         public string ItemImageUrl;
+
+        /// <summary>
+        /// if true, then only a fixed number can ever be granted.
+        /// </summary>
+        public bool IsLimitedEdition;
 
         public int CompareTo(CatalogItem other)
         {
@@ -1117,6 +1140,34 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class GetPlayerTagsRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Optional namespace to filter results by
+        /// </summary>
+        public string Namespace;
+
+    }
+
+    public class GetPlayerTagsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Canonical tags (including namespace and tag's name) for the requested user
+        /// </summary>
+        public List<string> Tags;
+
+    }
+
     public class GetPublisherDataRequest
     {
         /// <summary>
@@ -1282,6 +1333,27 @@ namespace PlayFab.AdminModels
         /// </summary>
         [Unordered(SortProperty="ItemId")]
         public List<StoreItem> Store;
+
+        /// <summary>
+        /// How the store was last updated (Admin or a third party).
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public SourceType? Source;
+
+        /// <summary>
+        /// The base catalog that this store is a part of.
+        /// </summary>
+        public string CatalogVersion;
+
+        /// <summary>
+        /// The ID of this store.
+        /// </summary>
+        public string StoreId;
+
+        /// <summary>
+        /// Additional data about the store.
+        /// </summary>
+        public StoreMarketingModel MarketingData;
 
     }
 
@@ -2156,6 +2228,24 @@ namespace PlayFab.AdminModels
         Australia
     }
 
+    public class RemovePlayerTagRequest
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Unique tag for player profile.
+        /// </summary>
+        public string TagName;
+
+    }
+
+    public class RemovePlayerTagResult : PlayFabResultCommon
+    {
+    }
+
     public class RemoveServerBuildRequest
     {
         /// <summary>
@@ -2410,6 +2500,17 @@ namespace PlayFab.AdminModels
     }
 
     
+    public enum SourceType
+    {
+        Admin,
+        BackEnd,
+        GameClient,
+        GameServer,
+        Partner,
+        Stream
+    }
+
+    
     public enum StatisticAggregationMethod
     {
         Last,
@@ -2444,19 +2545,29 @@ namespace PlayFab.AdminModels
     public class StoreItem : IComparable<StoreItem>
     {
         /// <summary>
-        /// unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
+        /// Unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
         /// </summary>
         public string ItemId;
 
         /// <summary>
-        /// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
+        /// Override prices for this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
         /// </summary>
         public Dictionary<string,uint> VirtualCurrencyPrices;
 
         /// <summary>
-        /// override prices for this item for specific currencies
+        /// Override prices for this item for specific currencies
         /// </summary>
         public Dictionary<string,uint> RealCurrencyPrices;
+
+        /// <summary>
+        /// Store specific custom data. The data only exists as part of this store; it is not transferred to item instances
+        /// </summary>
+        public object CustomData;
+
+        /// <summary>
+        /// Intended display position for this item. Note that 0 is the first position
+        /// </summary>
+        public uint? DisplayPosition;
 
         public int CompareTo(StoreItem other)
         {
@@ -2464,6 +2575,28 @@ namespace PlayFab.AdminModels
             if (ItemId == null) return -1;
             return ItemId.CompareTo(other.ItemId);
         }
+
+    }
+
+    /// <summary>
+    /// Marketing data about a specific store
+    /// </summary>
+    public class StoreMarketingModel
+    {
+        /// <summary>
+        /// Display name of a store as it will appear to users.
+        /// </summary>
+        public string DisplayName;
+
+        /// <summary>
+        /// Tagline for a store.
+        /// </summary>
+        public string Description;
+
+        /// <summary>
+        /// Custom data about a store.
+        /// </summary>
+        public object Metadata;
 
     }
 
@@ -2669,17 +2802,22 @@ namespace PlayFab.AdminModels
     public class UpdateStoreItemsRequest
     {
         /// <summary>
-        /// catalog version of the store to update. If null, uses the default catalog.
+        /// Catalog version of the store to update. If null, uses the default catalog.
         /// </summary>
         public string CatalogVersion;
 
         /// <summary>
-        /// unqiue identifier for the store which is to be updated
+        /// Unique identifier for the store which is to be updated
         /// </summary>
         public string StoreId;
 
         /// <summary>
-        /// array of store items - references to catalog items, with specific pricing - to be added
+        /// Additional data about the store
+        /// </summary>
+        public StoreMarketingModel MarketingData;
+
+        /// <summary>
+        /// Array of store items - references to catalog items, with specific pricing - to be added
         /// </summary>
         public List<StoreItem> Store;
 
