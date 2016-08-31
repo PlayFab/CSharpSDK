@@ -343,9 +343,14 @@ namespace PlayFab.ServerModels
         public string ItemImageUrl;
 
         /// <summary>
-        /// if true, then only a fixed number can ever be granted.
+        /// BETA: If true, then only a fixed number can ever be granted.
         /// </summary>
         public bool IsLimitedEdition;
+
+        /// <summary>
+        /// BETA: If IsLImitedEdition is true, then this determines amount of the item initially available. Note that this fieldis ignored if the catalog item already existed in this catalog, or the field is less than 1.
+        /// </summary>
+        public int InitialLimitedEditionCount;
 
         public int CompareTo(CatalogItem other)
         {
