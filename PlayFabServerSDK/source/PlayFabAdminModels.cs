@@ -798,6 +798,33 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class GetActionGroupResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Action Group name
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// Action Group ID
+        /// </summary>
+        public string Id;
+
+    }
+
+    public class GetAllActionGroupsRequest
+    {
+    }
+
+    public class GetAllActionGroupsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of Action Groups.
+        /// </summary>
+        public List<GetActionGroupResult> ActionGroups;
+
+    }
+
     public class GetAllSegmentsRequest
     {
     }
