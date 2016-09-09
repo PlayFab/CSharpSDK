@@ -2062,7 +2062,12 @@ namespace PlayFab.AdminModels
         public Dictionary<string,int> Statistics;
 
         /// <summary>
-        /// Dictionary of player's total currency purchases. The key VTD is a sum of all player_realmoney_purchase events OrderTotals.
+        /// A sum of player's total purchases in USD across all currencies.
+        /// </summary>
+        public uint? TotalValueToDateInUSD;
+
+        /// <summary>
+        /// Dictionary of player's total purchases by currency.
         /// </summary>
         public Dictionary<string,uint> ValuesToDate;
 
