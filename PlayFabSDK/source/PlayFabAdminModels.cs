@@ -2754,7 +2754,7 @@ namespace PlayFab.AdminModels
         /// <summary>
         /// Deprecated - Do not use
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public int? Version;
 
         /// <summary>

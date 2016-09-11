@@ -1284,7 +1284,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetCloudScriptUrlRequest
     {
         /// <summary>
@@ -1299,7 +1299,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetCloudScriptUrlResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1337,7 +1337,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetFriendLeaderboardAroundCurrentUserRequest
     {
         /// <summary>
@@ -1362,7 +1362,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetFriendLeaderboardAroundCurrentUserResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1495,7 +1495,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetLeaderboardAroundCurrentUserRequest
     {
         /// <summary>
@@ -1510,7 +1510,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetLeaderboardAroundCurrentUserResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1980,7 +1980,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Deprecated: Please use SteamStringIDs
         /// </summary>
-        [Obsolete("Use 'SteamStringIDs' instead", false)]
+        [Obsolete("Use 'SteamStringIDs' instead", true)]
         public List<ulong> SteamIDs;
 
         /// <summary>
@@ -2402,12 +2402,12 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserStatisticsRequest
     {
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserStatisticsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2801,7 +2801,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LogEventRequest
     {
         /// <summary>
@@ -2826,7 +2826,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LogEventResult : PlayFabResultCommon
     {
     }
@@ -3015,7 +3015,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Deprecated - Do not use
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string PublisherId;
 
         /// <summary>
@@ -3222,7 +3222,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Deprecated - Do not use
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? EnableQueue;
 
     }
@@ -3646,7 +3646,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// The Origination of a user is determined by the API call used to create the account. In the case of RegisterPlayFabUser, it will be Organic.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string Origination;
 
     }
@@ -3760,7 +3760,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RunCloudScriptRequest
     {
         /// <summary>
@@ -3780,7 +3780,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RunCloudScriptResult : PlayFabResultCommon
     {
         /// <summary>
@@ -3854,7 +3854,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Deprecated - Do not use
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string PublisherId;
 
     }
@@ -4086,7 +4086,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Deprecated: Please use SteamStringId
         /// </summary>
-        [Obsolete("Use 'SteamStringId' instead", false)]
+        [Obsolete("Use 'SteamStringId' instead", true)]
         public ulong SteamId;
 
         /// <summary>
@@ -4608,7 +4608,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UpdateUserStatisticsRequest
     {
         /// <summary>
@@ -4618,7 +4618,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UpdateUserStatisticsResult : PlayFabResultCommon
     {
     }

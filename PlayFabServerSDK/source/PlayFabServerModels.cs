@@ -1660,7 +1660,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Deprecated: Please use SteamStringIDs
         /// </summary>
-        [Obsolete("Use 'SteamStringIDs' instead", false)]
+        [Obsolete("Use 'SteamStringIDs' instead", true)]
         public List<ulong> SteamIDs;
 
         /// <summary>
@@ -1916,7 +1916,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserStatisticsRequest
     {
         /// <summary>
@@ -1926,7 +1926,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserStatisticsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2309,7 +2309,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LogEventRequest
     {
         /// <summary>
@@ -2349,7 +2349,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LogEventResult : PlayFabResultCommon
     {
     }
@@ -3223,7 +3223,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Deprecated: Please use SteamStringId
         /// </summary>
-        [Obsolete("Use 'SteamStringId' instead", false)]
+        [Obsolete("Use 'SteamStringId' instead", true)]
         public ulong SteamId;
 
         /// <summary>
@@ -3643,7 +3643,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UpdateUserStatisticsRequest
     {
         /// <summary>
@@ -3658,7 +3658,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UpdateUserStatisticsResult : PlayFabResultCommon
     {
     }

@@ -566,7 +566,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves the details of all title-specific statistics for the user
         /// </summary>
-        [Obsolete("Use 'GetPlayerStatistics' instead", false)]
+        [Obsolete("Use 'GetPlayerStatistics' instead", true)]
         public static async Task<PlayFabResult<GetUserStatisticsResult>> GetUserStatisticsAsync(GetUserStatisticsRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -767,7 +767,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
         /// </summary>
-        [Obsolete("Use 'UpdatePlayerStatistics' instead", false)]
+        [Obsolete("Use 'UpdatePlayerStatistics' instead", true)]
         public static async Task<PlayFabResult<UpdateUserStatisticsResult>> UpdateUserStatisticsAsync(UpdateUserStatisticsRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -1668,7 +1668,7 @@ namespace PlayFab
         /// <summary>
         /// Logs a custom analytics event
         /// </summary>
-        [Obsolete("Use 'WritePlayerEvent' instead", false)]
+        [Obsolete("Use 'WritePlayerEvent' instead", true)]
         public static async Task<PlayFabResult<LogEventResult>> LogEventAsync(LogEventRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
