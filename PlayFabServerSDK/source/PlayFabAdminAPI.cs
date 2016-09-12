@@ -264,7 +264,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics.
+        /// Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. This method does not remove the player's event history, login history, inventory items, nor virtual currencies.
         /// </summary>
         public static async Task<PlayFabResult<DeleteUsersResult>> DeleteUsersAsync(DeleteUsersRequest request)
         {
@@ -1811,6 +1811,31 @@ namespace PlayFab
             AddPlayerTagResult result = resultData.data;
 
             return new PlayFabResult<AddPlayerTagResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieve a list of all PlayStream actions groups.
+        /// </summary>
+        public static async Task<PlayFabResult<GetAllActionGroupsResult>> GetAllActionGroupsAsync(GetAllActionGroupsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Admin/GetAllActionGroups", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetAllActionGroupsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetAllActionGroupsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetAllActionGroupsResult result = resultData.data;
+
+            return new PlayFabResult<GetAllActionGroupsResult> { Result = result };
         }
 
         /// <summary>

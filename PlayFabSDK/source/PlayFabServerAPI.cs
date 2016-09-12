@@ -566,7 +566,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves the details of all title-specific statistics for the user
         /// </summary>
-        [Obsolete("Use 'GetPlayerStatistics' instead", false)]
+        [Obsolete("Use 'GetPlayerStatistics' instead", true)]
         public static async Task<PlayFabResult<GetUserStatisticsResult>> GetUserStatisticsAsync(GetUserStatisticsRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -767,7 +767,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
         /// </summary>
-        [Obsolete("Use 'UpdatePlayerStatistics' instead", false)]
+        [Obsolete("Use 'UpdatePlayerStatistics' instead", true)]
         public static async Task<PlayFabResult<UpdateUserStatisticsResult>> UpdateUserStatisticsAsync(UpdateUserStatisticsRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -1668,7 +1668,7 @@ namespace PlayFab
         /// <summary>
         /// Logs a custom analytics event
         /// </summary>
-        [Obsolete("Use 'WritePlayerEvent' instead", false)]
+        [Obsolete("Use 'WritePlayerEvent' instead", true)]
         public static async Task<PlayFabResult<LogEventResult>> LogEventAsync(LogEventRequest request)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -2339,6 +2339,31 @@ namespace PlayFab
             AddPlayerTagResult result = resultData.data;
 
             return new PlayFabResult<AddPlayerTagResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieve a list of all PlayStream actions groups.
+        /// </summary>
+        public static async Task<PlayFabResult<GetAllActionGroupsResult>> GetAllActionGroupsAsync(GetAllActionGroupsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetAllActionGroups", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetAllActionGroupsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetAllActionGroupsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetAllActionGroupsResult result = resultData.data;
+
+            return new PlayFabResult<GetAllActionGroupsResult> { Result = result };
         }
 
         /// <summary>

@@ -263,7 +263,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. Unlike other login API calls, LoginWithEmailAddress does not permit the creation of new accounts via the CreateAccountFlag. Email accounts must be created using the RegisterPlayFabUser API or added to existing accounts using AddUsernamePassword.
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithPlayFabAsync(LoginWithPlayFabRequest request)
         {
@@ -1252,7 +1252,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves a list of ranked friends of the current player for the given statistic, centered on the currently signed-in user
         /// </summary>
-        [Obsolete("Use 'GetFriendLeaderboardAroundPlayer' instead", false)]
+        [Obsolete("Use 'GetFriendLeaderboardAroundPlayer' instead", true)]
         public static async Task<PlayFabResult<GetFriendLeaderboardAroundCurrentUserResult>> GetFriendLeaderboardAroundCurrentUserAsync(GetFriendLeaderboardAroundCurrentUserRequest request)
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
@@ -1328,7 +1328,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user
         /// </summary>
-        [Obsolete("Use 'GetLeaderboardAroundPlayer' instead", false)]
+        [Obsolete("Use 'GetLeaderboardAroundPlayer' instead", true)]
         public static async Task<PlayFabResult<GetLeaderboardAroundCurrentUserResult>> GetLeaderboardAroundCurrentUserAsync(GetLeaderboardAroundCurrentUserRequest request)
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
@@ -1529,7 +1529,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves the details of all title-specific statistics for the user
         /// </summary>
-        [Obsolete("Use 'GetPlayerStatistics' instead", false)]
+        [Obsolete("Use 'GetPlayerStatistics' instead", true)]
         public static async Task<PlayFabResult<GetUserStatisticsResult>> GetUserStatisticsAsync(GetUserStatisticsRequest request)
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
@@ -1630,7 +1630,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
         /// </summary>
-        [Obsolete("Use 'UpdatePlayerStatistics' instead", false)]
+        [Obsolete("Use 'UpdatePlayerStatistics' instead", true)]
         public static async Task<PlayFabResult<UpdateUserStatisticsResult>> UpdateUserStatisticsAsync(UpdateUserStatisticsRequest request)
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
@@ -2431,7 +2431,7 @@ namespace PlayFab
         /// <summary>
         /// Logs a custom analytics event
         /// </summary>
-        [Obsolete("Use 'WritePlayerEvent' instead", false)]
+        [Obsolete("Use 'WritePlayerEvent' instead", true)]
         public static async Task<PlayFabResult<LogEventResult>> LogEventAsync(LogEventRequest request)
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
@@ -2682,7 +2682,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript.
         /// </summary>
-        [Obsolete("Use 'ExecuteCloudScript' instead", false)]
+        [Obsolete("Use 'ExecuteCloudScript' instead", true)]
         public static async Task<PlayFabResult<GetCloudScriptUrlResult>> GetCloudScriptUrlAsync(GetCloudScriptUrlRequest request)
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
@@ -2709,7 +2709,7 @@ namespace PlayFab
         /// <summary>
         /// Triggers a particular server action, passing the provided inputs to the hosted Cloud Script. An action in this context is a handler in the JavaScript. NOTE: Before calling this API, you must call GetCloudScriptUrl to be assigned a Cloud Script server URL. When using an official PlayFab SDK, this URL is stored internally in the SDK, but GetCloudScriptUrl must still be manually called.
         /// </summary>
-        [Obsolete("Use 'ExecuteCloudScript' instead", false)]
+        [Obsolete("Use 'ExecuteCloudScript' instead", true)]
         public static async Task<PlayFabResult<RunCloudScriptResult>> RunCloudScriptAsync(RunCloudScriptRequest request)
         {
             if (_authKey == null) throw new Exception ("Must be logged in to call this method");
