@@ -383,9 +383,14 @@ namespace PlayFab.AdminModels
         public string ItemImageUrl;
 
         /// <summary>
-        /// if true, then only a fixed number can ever be granted.
+        /// BETA: If true, then only a fixed number can ever be granted.
         /// </summary>
         public bool IsLimitedEdition;
+
+        /// <summary>
+        /// BETA: If IsLImitedEdition is true, then this determines amount of the item initially available. Note that this fieldis ignored if the catalog item already existed in this catalog, or the field is less than 1.
+        /// </summary>
+        public int InitialLimitedEditionCount;
 
         public int CompareTo(CatalogItem other)
         {
@@ -790,6 +795,33 @@ namespace PlayFab.AdminModels
         /// whether to start as an open session, meaning that players can matchmake into it (defaults to true)
         /// </summary>
         public bool? StartOpen;
+
+    }
+
+    public class GetActionGroupResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Action Group name
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// Action Group ID
+        /// </summary>
+        public string Id;
+
+    }
+
+    public class GetAllActionGroupsRequest
+    {
+    }
+
+    public class GetAllActionGroupsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of Action Groups.
+        /// </summary>
+        public List<GetActionGroupResult> ActionGroups;
 
     }
 
@@ -2030,7 +2062,12 @@ namespace PlayFab.AdminModels
         public Dictionary<string,int> Statistics;
 
         /// <summary>
-        /// Dictionary of player's total currency purchases. The key VTD is a sum of all player_realmoney_purchase events OrderTotals.
+        /// A sum of player's total purchases in USD across all currencies.
+        /// </summary>
+        public uint? TotalValueToDateInUSD;
+
+        /// <summary>
+        /// Dictionary of player's total purchases by currency.
         /// </summary>
         public Dictionary<string,uint> ValuesToDate;
 
@@ -2717,7 +2754,7 @@ namespace PlayFab.AdminModels
         /// <summary>
         /// Deprecated - Do not use
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public int? Version;
 
         /// <summary>

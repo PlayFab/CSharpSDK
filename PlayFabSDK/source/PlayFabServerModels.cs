@@ -343,9 +343,14 @@ namespace PlayFab.ServerModels
         public string ItemImageUrl;
 
         /// <summary>
-        /// if true, then only a fixed number can ever be granted.
+        /// BETA: If true, then only a fixed number can ever be granted.
         /// </summary>
         public bool IsLimitedEdition;
+
+        /// <summary>
+        /// BETA: If IsLImitedEdition is true, then this determines amount of the item initially available. Note that this fieldis ignored if the catalog item already existed in this catalog, or the field is less than 1.
+        /// </summary>
+        public int InitialLimitedEditionCount;
 
         public int CompareTo(CatalogItem other)
         {
@@ -829,6 +834,11 @@ namespace PlayFab.ServerModels
 
         public double ExecutionTimeSeconds;
 
+        /// <summary>
+        /// Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP requests.
+        /// </summary>
+        public double ProcessorTimeSeconds;
+
         public uint MemoryConsumedBytes;
 
         /// <summary>
@@ -946,6 +956,33 @@ namespace PlayFab.ServerModels
     {
         Open,
         Closed
+    }
+
+    public class GetActionGroupResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Action Group name
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// Action Group ID
+        /// </summary>
+        public string Id;
+
+    }
+
+    public class GetAllActionGroupsRequest
+    {
+    }
+
+    public class GetAllActionGroupsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of Action Groups.
+        /// </summary>
+        public List<GetActionGroupResult> ActionGroups;
+
     }
 
     public class GetAllSegmentsRequest
@@ -1623,7 +1660,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Deprecated: Please use SteamStringIDs
         /// </summary>
-        [Obsolete("Use 'SteamStringIDs' instead", false)]
+        [Obsolete("Use 'SteamStringIDs' instead", true)]
         public List<ulong> SteamIDs;
 
         /// <summary>
@@ -1879,7 +1916,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserStatisticsRequest
     {
         /// <summary>
@@ -1889,7 +1926,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserStatisticsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2272,7 +2309,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LogEventRequest
     {
         /// <summary>
@@ -2312,7 +2349,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LogEventResult : PlayFabResultCommon
     {
     }
@@ -2628,7 +2665,12 @@ namespace PlayFab.ServerModels
         public Dictionary<string,int> Statistics;
 
         /// <summary>
-        /// Dictionary of player's total currency purchases. The key VTD is a sum of all player_realmoney_purchase events OrderTotals.
+        /// A sum of player's total purchases in USD across all currencies.
+        /// </summary>
+        public uint? TotalValueToDateInUSD;
+
+        /// <summary>
+        /// Dictionary of player's total purchases by currency.
         /// </summary>
         public Dictionary<string,uint> ValuesToDate;
 
@@ -3181,7 +3223,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Deprecated: Please use SteamStringId
         /// </summary>
-        [Obsolete("Use 'SteamStringId' instead", false)]
+        [Obsolete("Use 'SteamStringId' instead", true)]
         public ulong SteamId;
 
         /// <summary>
@@ -3601,7 +3643,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UpdateUserStatisticsRequest
     {
         /// <summary>
@@ -3616,7 +3658,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UpdateUserStatisticsResult : PlayFabResultCommon
     {
     }
