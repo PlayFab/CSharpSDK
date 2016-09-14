@@ -783,19 +783,6 @@ namespace PlayFab.ServerModels
     {
     }
 
-    public class DeregisterGameRequest
-    {
-        /// <summary>
-        /// Unique identifier for the Game Server Instance that is being deregistered.
-        /// </summary>
-        public string LobbyId;
-
-    }
-
-    public class DeregisterGameResponse : PlayFabResultCommon
-    {
-    }
-
     public class EmptyResult : PlayFabResultCommon
     {
     }
@@ -2876,62 +2863,6 @@ namespace PlayFab.ServerModels
         /// User account information for the user validated.
         /// </summary>
         public UserAccountInfo UserInfo;
-
-    }
-
-    
-    public enum Region
-    {
-        USCentral,
-        USEast,
-        EUWest,
-        Singapore,
-        Japan,
-        Brazil,
-        Australia
-    }
-
-    public class RegisterGameRequest
-    {
-        /// <summary>
-        /// IP address of the Game Server Instance.
-        /// </summary>
-        public string ServerHost;
-
-        /// <summary>
-        /// Port number for communication with the Game Server Instance.
-        /// </summary>
-        public string ServerPort;
-
-        /// <summary>
-        /// Unique identifier of the build running on the Game Server Instance.
-        /// </summary>
-        public string Build;
-
-        /// <summary>
-        /// Unique identifier of the build running on the Game Server Instance.
-        /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public Region Region;
-
-        /// <summary>
-        /// Unique identifier of the build running on the Game Server Instance.
-        /// </summary>
-        public string GameMode;
-
-        /// <summary>
-        /// Tags for the Game Server Instance
-        /// </summary>
-        public Dictionary<string,string> Tags;
-
-    }
-
-    public class RegisterGameResponse : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Unique identifier generated for the Game Server Instance that is registered.
-        /// </summary>
-        public string LobbyId;
 
     }
 
