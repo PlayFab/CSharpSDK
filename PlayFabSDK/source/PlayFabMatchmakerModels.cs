@@ -29,6 +29,19 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    public class DeregisterGameRequest
+    {
+        /// <summary>
+        /// Unique identifier for the Game Server Instance that is being deregistered.
+        /// </summary>
+        public string LobbyId;
+
+    }
+
+    public class DeregisterGameResponse : PlayFabResultCommon
+    {
+    }
+
     /// <summary>
     /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
     /// </summary>
@@ -164,6 +177,50 @@ namespace PlayFab.MatchmakerModels
         Japan,
         Brazil,
         Australia
+    }
+
+    public class RegisterGameRequest
+    {
+        /// <summary>
+        /// IP address of the Game Server Instance.
+        /// </summary>
+        public string ServerHost;
+
+        /// <summary>
+        /// Port number for communication with the Game Server Instance.
+        /// </summary>
+        public string ServerPort;
+
+        /// <summary>
+        /// Unique identifier of the build running on the Game Server Instance.
+        /// </summary>
+        public string Build;
+
+        /// <summary>
+        /// Unique identifier of the build running on the Game Server Instance.
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Region Region;
+
+        /// <summary>
+        /// Unique identifier of the build running on the Game Server Instance.
+        /// </summary>
+        public string GameMode;
+
+        /// <summary>
+        /// Tags for the Game Server Instance
+        /// </summary>
+        public Dictionary<string,string> Tags;
+
+    }
+
+    public class RegisterGameResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique identifier generated for the Game Server Instance that is registered.
+        /// </summary>
+        public string LobbyId;
+
     }
 
     public class StartGameRequest

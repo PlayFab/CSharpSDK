@@ -289,6 +289,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves a list of ranked friends of the given player for the given statistic, starting from the indicated point in the leaderboard
+        /// </summary>
+        public static async Task<PlayFabResult<GetLeaderboardResult>> GetFriendLeaderboardAsync(GetFriendLeaderboardRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetFriendLeaderboard", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetLeaderboardResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetLeaderboardResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetLeaderboardResult result = resultData.data;
+
+            return new PlayFabResult<GetLeaderboardResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard
         /// </summary>
         public static async Task<PlayFabResult<GetLeaderboardResult>> GetLeaderboardAsync(GetLeaderboardRequest request)
@@ -1541,6 +1566,106 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Adds the Friend user to the friendlist of the user with PlayFabId. At least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> AddFriendAsync(AddFriendRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/AddFriend", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            EmptyResult result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Retrieves the current friends for the user with PlayFabId, constrained to users who have PlayFab accounts. Friends from linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends.
+        /// </summary>
+        public static async Task<PlayFabResult<GetFriendsListResult>> GetFriendsListAsync(GetFriendsListRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/GetFriendsList", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetFriendsListResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetFriendsListResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetFriendsListResult result = resultData.data;
+
+            return new PlayFabResult<GetFriendsListResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Removes the specified friend from the the user's friend list
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> RemoveFriendAsync(RemoveFriendRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/RemoveFriend", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<EmptyResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            EmptyResult result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Inform the matchmaker that a Game Server Instance is removed.
+        /// </summary>
+        public static async Task<PlayFabResult<DeregisterGameResponse>> DeregisterGameAsync(DeregisterGameRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/DeregisterGame", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<DeregisterGameResponse> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<DeregisterGameResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            DeregisterGameResponse result = resultData.data;
+
+            return new PlayFabResult<DeregisterGameResponse> { Result = result };
+        }
+
+        /// <summary>
         /// Informs the PlayFab match-making service that the user specified has left the Game Server Instance
         /// </summary>
         public static async Task<PlayFabResult<NotifyMatchmakerPlayerLeftResult>> NotifyMatchmakerPlayerLeftAsync(NotifyMatchmakerPlayerLeftRequest request)
@@ -1591,6 +1716,56 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Set the state of the indicated Game Server Instance. Also update the heartbeat for the instance.
+        /// </summary>
+        public static async Task<PlayFabResult<RefreshGameServerInstanceHeartbeatResult>> RefreshGameServerInstanceHeartbeatAsync(RefreshGameServerInstanceHeartbeatRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/RefreshGameServerInstanceHeartbeat", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RefreshGameServerInstanceHeartbeatResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RefreshGameServerInstanceHeartbeatResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RefreshGameServerInstanceHeartbeatResult result = resultData.data;
+
+            return new PlayFabResult<RefreshGameServerInstanceHeartbeatResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Inform the matchmaker that a new Game Server Instance is added.
+        /// </summary>
+        public static async Task<PlayFabResult<RegisterGameResponse>> RegisterGameAsync(RegisterGameRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/RegisterGame", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RegisterGameResponse> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RegisterGameResponse>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RegisterGameResponse result = resultData.data;
+
+            return new PlayFabResult<RegisterGameResponse> { Result = result };
+        }
+
+        /// <summary>
         /// Sets the custom data of the indicated Game Server Instance
         /// </summary>
         public static async Task<PlayFabResult<SetGameServerInstanceDataResult>> SetGameServerInstanceDataAsync(SetGameServerInstanceDataRequest request)
@@ -1638,6 +1813,31 @@ namespace PlayFab
             SetGameServerInstanceStateResult result = resultData.data;
 
             return new PlayFabResult<SetGameServerInstanceStateResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Set custom tags for the specified Game Server Instance
+        /// </summary>
+        public static async Task<PlayFabResult<SetGameServerInstanceTagsResult>> SetGameServerInstanceTagsAsync(SetGameServerInstanceTagsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/SetGameServerInstanceTags", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetGameServerInstanceTagsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetGameServerInstanceTagsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            SetGameServerInstanceTagsResult result = resultData.data;
+
+            return new PlayFabResult<SetGameServerInstanceTagsResult> { Result = result };
         }
 
         /// <summary>
