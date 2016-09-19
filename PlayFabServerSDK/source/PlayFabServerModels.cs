@@ -49,6 +49,35 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class AddFriendRequest
+    {
+        /// <summary>
+        /// PlayFab identifier of the player to add a new friend.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// The PlayFab identifier of the user being added.
+        /// </summary>
+        public string FriendPlayFabId;
+
+        /// <summary>
+        /// The PlayFab username of the user being added
+        /// </summary>
+        public string FriendUsername;
+
+        /// <summary>
+        /// Email address of the user being added.
+        /// </summary>
+        public string FriendEmail;
+
+        /// <summary>
+        /// Title-specific display name of the user to being added.
+        /// </summary>
+        public string FriendTitleDisplayName;
+
+    }
+
     public class AddPlayerTagRequest
     {
         /// <summary>
@@ -783,6 +812,19 @@ namespace PlayFab.ServerModels
     {
     }
 
+    public class DeregisterGameRequest
+    {
+        /// <summary>
+        /// Unique identifier for the Game Server Instance that is being deregistered.
+        /// </summary>
+        public string LobbyId;
+
+    }
+
+    public class DeregisterGameResponse : PlayFabResultCommon
+    {
+    }
+
     public class EmptyResult : PlayFabResultCommon
     {
     }
@@ -1210,6 +1252,68 @@ namespace PlayFab.ServerModels
         /// URL for downloading content via HTTP GET or HEAD method. The URL will expire in 1 hour.
         /// </summary>
         public string URL;
+
+    }
+
+    public class GetFriendLeaderboardRequest
+    {
+        /// <summary>
+        /// The player whose friend leaderboard to get
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Statistic used to rank friends for this leaderboard.
+        /// </summary>
+        public string StatisticName;
+
+        /// <summary>
+        /// Position in the leaderboard to start this listing (defaults to the first entry).
+        /// </summary>
+        public int StartPosition;
+
+        /// <summary>
+        /// Maximum number of entries to retrieve.
+        /// </summary>
+        public int MaxResultsCount;
+
+        /// <summary>
+        /// Indicates whether Steam service friends should be included in the response. Default is true.
+        /// </summary>
+        public bool? IncludeSteamFriends;
+
+        /// <summary>
+        /// Indicates whether Facebook friends should be included in the response. Default is true.
+        /// </summary>
+        public bool? IncludeFacebookFriends;
+
+    }
+
+    public class GetFriendsListRequest
+    {
+        /// <summary>
+        /// PlayFab identifier of the player whose friend list to get.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Indicates whether Steam service friends should be included in the response. Default is true.
+        /// </summary>
+        public bool? IncludeSteamFriends;
+
+        /// <summary>
+        /// Indicates whether Facebook friends should be included in the response. Default is true.
+        /// </summary>
+        public bool? IncludeFacebookFriends;
+
+    }
+
+    public class GetFriendsListResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of friends found.
+        /// </summary>
+        public List<FriendInfo> Friends;
 
     }
 
@@ -2866,6 +2970,89 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class RefreshGameServerInstanceHeartbeatRequest
+    {
+        /// <summary>
+        /// Unique identifier of the Game Server Instance for which the heartbeat is updated.
+        /// </summary>
+        public string LobbyId;
+
+    }
+
+    public class RefreshGameServerInstanceHeartbeatResult : PlayFabResultCommon
+    {
+    }
+
+    
+    public enum Region
+    {
+        USCentral,
+        USEast,
+        EUWest,
+        Singapore,
+        Japan,
+        Brazil,
+        Australia
+    }
+
+    public class RegisterGameRequest
+    {
+        /// <summary>
+        /// IP address of the Game Server Instance.
+        /// </summary>
+        public string ServerHost;
+
+        /// <summary>
+        /// Port number for communication with the Game Server Instance.
+        /// </summary>
+        public string ServerPort;
+
+        /// <summary>
+        /// Unique identifier of the build running on the Game Server Instance.
+        /// </summary>
+        public string Build;
+
+        /// <summary>
+        /// Unique identifier of the build running on the Game Server Instance.
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Region Region;
+
+        /// <summary>
+        /// Unique identifier of the build running on the Game Server Instance.
+        /// </summary>
+        public string GameMode;
+
+        /// <summary>
+        /// Tags for the Game Server Instance
+        /// </summary>
+        public Dictionary<string,string> Tags;
+
+    }
+
+    public class RegisterGameResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Unique identifier generated for the Game Server Instance that is registered.
+        /// </summary>
+        public string LobbyId;
+
+    }
+
+    public class RemoveFriendRequest
+    {
+        /// <summary>
+        /// PlayFab identifier of the friend account which is to be removed.
+        /// </summary>
+        public string FriendPlayFabId;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
     public class RemovePlayerTagRequest
     {
         /// <summary>
@@ -3102,6 +3289,24 @@ namespace PlayFab.ServerModels
     }
 
     public class SetGameServerInstanceStateResult : PlayFabResultCommon
+    {
+    }
+
+    public class SetGameServerInstanceTagsRequest
+    {
+        /// <summary>
+        /// Unique identifier of the Game Server Instance to be updated.
+        /// </summary>
+        public string LobbyId;
+
+        /// <summary>
+        /// Tags to set for the specified Game Server Instance. Note that this is the complete list of tags to be associated with the Game Server Instance.
+        /// </summary>
+        public Dictionary<string,string> Tags;
+
+    }
+
+    public class SetGameServerInstanceTagsResult : PlayFabResultCommon
     {
     }
 
