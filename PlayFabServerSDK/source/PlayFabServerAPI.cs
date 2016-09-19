@@ -1716,6 +1716,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Set the state of the indicated Game Server Instance. Also update the heartbeat for the instance.
+        /// </summary>
+        public static async Task<PlayFabResult<RefreshGameServerInstanceHeartbeatResult>> RefreshGameServerInstanceHeartbeatAsync(RefreshGameServerInstanceHeartbeatRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/RefreshGameServerInstanceHeartbeat", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RefreshGameServerInstanceHeartbeatResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<RefreshGameServerInstanceHeartbeatResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            RefreshGameServerInstanceHeartbeatResult result = resultData.data;
+
+            return new PlayFabResult<RefreshGameServerInstanceHeartbeatResult> { Result = result };
+        }
+
+        /// <summary>
         /// Inform the matchmaker that a new Game Server Instance is added.
         /// </summary>
         public static async Task<PlayFabResult<RegisterGameResponse>> RegisterGameAsync(RegisterGameRequest request)
@@ -1788,6 +1813,31 @@ namespace PlayFab
             SetGameServerInstanceStateResult result = resultData.data;
 
             return new PlayFabResult<SetGameServerInstanceStateResult> { Result = result };
+        }
+
+        /// <summary>
+        /// Set custom tags for the specified Game Server Instance
+        /// </summary>
+        public static async Task<PlayFabResult<SetGameServerInstanceTagsResult>> SetGameServerInstanceTagsAsync(SetGameServerInstanceTagsRequest request)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Server/SetGameServerInstanceTags", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetGameServerInstanceTagsResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<SetGameServerInstanceTagsResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            SetGameServerInstanceTagsResult result = resultData.data;
+
+            return new PlayFabResult<SetGameServerInstanceTagsResult> { Result = result };
         }
 
         /// <summary>

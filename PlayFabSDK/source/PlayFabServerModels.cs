@@ -2970,6 +2970,19 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class RefreshGameServerInstanceHeartbeatRequest
+    {
+        /// <summary>
+        /// Unique identifier of the Game Server Instance for which the heartbeat is updated.
+        /// </summary>
+        public string LobbyId;
+
+    }
+
+    public class RefreshGameServerInstanceHeartbeatResult : PlayFabResultCommon
+    {
+    }
+
     
     public enum Region
     {
@@ -3276,6 +3289,24 @@ namespace PlayFab.ServerModels
     }
 
     public class SetGameServerInstanceStateResult : PlayFabResultCommon
+    {
+    }
+
+    public class SetGameServerInstanceTagsRequest
+    {
+        /// <summary>
+        /// Unique identifier of the Game Server Instance to be updated.
+        /// </summary>
+        public string LobbyId;
+
+        /// <summary>
+        /// Tags to set for the specified Game Server Instance. Note that this is the complete list of tags to be associated with the Game Server Instance.
+        /// </summary>
+        public Dictionary<string,string> Tags;
+
+    }
+
+    public class SetGameServerInstanceTagsResult : PlayFabResultCommon
     {
     }
 
