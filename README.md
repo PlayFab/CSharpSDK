@@ -32,20 +32,10 @@ This package contains three different versions of the PlayFab SDK.
 5. A testTitleData.json file required for example UnitTestRunner project
 ----
 
-This sdk includes an optional example project that is used by PlayFab to verify sdk features are fully functional.  The testTitleData.json file provides your secret title information to the unit-test project, so it can execute tests in your own PlayFab title.
+This sdk includes an optional example project that is used by PlayFab to verify sdk features are fully functional.
 
-The format is as follows:
-
-    {
-    	"titleId": "your Game Title ID, found in the settings/credentials section of your dashboard on the website",
-    	"developerSecretKey": "your PlayFab API Secret Key, found in the settings/credentials section of your dashboard on the website - NEVER SHARE THIS KEY WITH PLAYERS",
-    	"titleCanUpdateSettings": "false",  // "true" or "false", based on your Allow Client to Post Player Statistics option, found in the settings/general section of your dashboard on the website
-    	"userName": "testUser", // Arbitrary username, you can change this to any valid username
-    	"userEmail": "your@email.com", // This email address will be bound to the username above
-    	"userPassword": "testPassword", // This must be the correct password for the testUser above (if that user does not exist yet, this will be the new password)
-    	"characterName": "testCharacter" // Arbitrary characterName, you can change this to any valid characterName
-    }
-
+Please read about the testTitleData.json format, and purpose here:
+* https://github.com/PlayFab/SDKGenerator/blob/master/JenkinsConsoleUtility/testTitleData.md
 When running the UnitTestRunner example/testing project, provide the command line inputs " -testInputsFile <file-path>".  This will read the json file at that location, and attempt to interpret it as the testTitleData.json format.
 
 
