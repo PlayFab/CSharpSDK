@@ -1729,6 +1729,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the current server time
+        /// </summary>
+        public static async Task<PlayFabResult<GetTimeResult>> GetTimeAsync(GetTimeRequest request)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            object httpResult = await PlayFabHTTP.DoPost("/Client/GetTime", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                PlayFabError error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetTimeResult> { Error = error, };
+            }
+            string resultRawJson = (string)httpResult;
+
+            var serializer = JsonSerializer.Create(PlayFabUtil.JsonSettings);
+            var resultData = serializer.Deserialize<PlayFabJsonSuccess<GetTimeResult>>(new JsonTextReader(new StringReader(resultRawJson)));
+
+            GetTimeResult result = resultData.data;
+
+            return new PlayFabResult<GetTimeResult> { Result = result };
+        }
+
+        /// <summary>
         /// Retrieves the key-value store of custom title settings
         /// </summary>
         public static async Task<PlayFabResult<GetTitleDataResult>> GetTitleDataAsync(GetTitleDataRequest request)
