@@ -2821,12 +2821,6 @@ namespace PlayFab.AdminModels
     public class UpdateCloudScriptRequest
     {
         /// <summary>
-        /// Deprecated - Do not use
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public int? Version;
-
-        /// <summary>
         /// List of Cloud Script files to upload to create the new revision. Must have at least one file.
         /// </summary>
         public List<CloudScriptFile> Files;
@@ -3110,8 +3104,9 @@ namespace PlayFab.AdminModels
         public string Username;
 
         /// <summary>
-        /// Password for the PlayFab account (6-100 characters)
+        /// Password for the PlayFab account
         /// </summary>
+        [Obsolete("No longer available", false)]
         public string Password;
 
     }
