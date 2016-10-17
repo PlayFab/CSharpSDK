@@ -171,9 +171,15 @@ namespace PlayFab.ClientModels
         public string Idfa;
 
         /// <summary>
-        /// The Android Id for this Android device.
+        /// The android advertising id. This field is deprecated in favor of Adid for clarity.
         /// </summary>
+        [Obsolete("Use 'Adid' instead", false)]
         public string Android_Id;
+
+        /// <summary>
+        /// The adid for this device.
+        /// </summary>
+        public string Adid;
 
     }
 
@@ -1284,31 +1290,6 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class GetCloudScriptUrlRequest
-    {
-        /// <summary>
-        /// Cloud Script Version to use. Defaults to 1.
-        /// </summary>
-        public int? Version;
-
-        /// <summary>
-        /// Specifies whether the URL returned should be the one for the most recently uploaded Revision of the Cloud Script (true), or the Revision most recently set to live (false). Defaults to false.
-        /// </summary>
-        public bool? Testing;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetCloudScriptUrlResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// URL of the Cloud Script logic server.
-        /// </summary>
-        public string Url;
-
-    }
-
     public class GetContentDownloadUrlRequest
     {
         /// <summary>
@@ -1334,41 +1315,6 @@ namespace PlayFab.ClientModels
         /// URL for downloading content via HTTP GET or HEAD method. The URL will expire in 1 hour.
         /// </summary>
         public string URL;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetFriendLeaderboardAroundCurrentUserRequest
-    {
-        /// <summary>
-        /// Statistic used to rank players for this leaderboard.
-        /// </summary>
-        public string StatisticName;
-
-        /// <summary>
-        /// Maximum number of entries to retrieve. Default 10, maximum 100.
-        /// </summary>
-        public int? MaxResultsCount;
-
-        /// <summary>
-        /// Indicates whether Steam service friends should be included in the response. Default is true.
-        /// </summary>
-        public bool? IncludeSteamFriends;
-
-        /// <summary>
-        /// Indicates whether Facebook friends should be included in the response. Default is true.
-        /// </summary>
-        public bool? IncludeFacebookFriends;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetFriendLeaderboardAroundCurrentUserResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Ordered listing of users and their positions in the requested leaderboard.
-        /// </summary>
-        public List<PlayerLeaderboardEntry> Leaderboard;
 
     }
 
@@ -1492,31 +1438,6 @@ namespace PlayFab.ClientModels
         /// Ordered list of leaderboard entries.
         /// </summary>
         public List<CharacterLeaderboardEntry> Leaderboard;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetLeaderboardAroundCurrentUserRequest
-    {
-        /// <summary>
-        /// Statistic used to rank players for this leaderboard.
-        /// </summary>
-        public string StatisticName;
-
-        /// <summary>
-        /// Maximum number of entries to retrieve. Default 10, maximum 100.
-        /// </summary>
-        public int? MaxResultsCount;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetLeaderboardAroundCurrentUserResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Ordered listing of users and their positions in the requested leaderboard.
-        /// </summary>
-        public List<PlayerLeaderboardEntry> Leaderboard;
 
     }
 
@@ -1978,12 +1899,6 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromSteamIDsRequest
     {
         /// <summary>
-        /// Deprecated: Please use SteamStringIDs
-        /// </summary>
-        [Obsolete("Use 'SteamStringIDs' instead", true)]
-        public List<ulong> SteamIDs;
-
-        /// <summary>
         /// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
         /// </summary>
         public List<string> SteamStringIDs;
@@ -2247,7 +2162,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserCombinedInfoRequest
     {
         /// <summary>
@@ -2307,7 +2222,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetUserCombinedInfoResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2412,21 +2327,6 @@ namespace PlayFab.ClientModels
         /// Array of remaining times and timestamps for virtual currencies.
         /// </summary>
         public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetUserStatisticsRequest
-    {
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetUserStatisticsResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// User statistics for the active title.
-        /// </summary>
-        public Dictionary<string,int> UserStatistics;
 
     }
 
@@ -2814,36 +2714,6 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class LogEventRequest
-    {
-        /// <summary>
-        /// Optional timestamp for this event. If null, the a timestamp is auto-assigned to the event on the server.
-        /// </summary>
-        public DateTime? Timestamp;
-
-        /// <summary>
-        /// A unique event name which will be used as the table name in the Redshift database. The name will be made lower case, and cannot not contain spaces. The use of underscores is recommended, for readability. Events also cannot match reserved terms. The PlayFab reserved terms are 'log_in' and 'purchase', 'create' and 'request', while the Redshift reserved terms can be found here: http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html.
-        /// </summary>
-        public string EventName;
-
-        /// <summary>
-        /// Contains all the data for this event. Event Values can be strings, booleans or numerics (float, double, integer, long) and must be consistent on a per-event basis (if the Value for Key 'A' in Event 'Foo' is an integer the first time it is sent, it must be an integer in all subsequent 'Foo' events). As with event names, Keys must also not use reserved words (see above). Finally, the size of the Body for an event must be less than 32KB (UTF-8 format).
-        /// </summary>
-        public Dictionary<string,object> Body;
-
-        /// <summary>
-        /// Flag to set event Body as profile details in the Redshift database as well as a standard event.
-        /// </summary>
-        public bool ProfileSetEvent;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class LogEventResult : PlayFabResultCommon
-    {
-    }
-
     public class LoginResult : PlayFabResultCommon
     {
         /// <summary>
@@ -3024,12 +2894,6 @@ namespace PlayFab.ClientModels
         /// Automatically create a PlayFab account if one is not currently linked to this Google account.
         /// </summary>
         public bool? CreateAccount;
-
-        /// <summary>
-        /// Deprecated - Do not use
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public string PublisherId;
 
         /// <summary>
         /// Flags for which pieces of info to return for the user.
@@ -3231,12 +3095,6 @@ namespace PlayFab.ClientModels
         /// Filter to include and/or exclude Game Server Instances associated with certain Tags
         /// </summary>
         public CollectionFilter TagFilter;
-
-        /// <summary>
-        /// Deprecated - Do not use
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public bool? EnableQueue;
 
     }
 
@@ -3661,12 +3519,6 @@ namespace PlayFab.ClientModels
         /// </summary>
         public string DisplayName;
 
-        /// <summary>
-        /// The Origination of a user is determined by the API call used to create the account. In the case of RegisterPlayFabUser, it will be Organic.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public string Origination;
-
     }
 
     public class RegisterPlayFabUserResult : PlayFabResultCommon
@@ -3778,66 +3630,6 @@ namespace PlayFab.ClientModels
     {
     }
 
-    [Obsolete("No longer available", true)]
-    public class RunCloudScriptRequest
-    {
-        /// <summary>
-        /// server action to trigger
-        /// </summary>
-        public string ActionId;
-
-        /// <summary>
-        /// parameters to pass into the action (If you use this, don't use ParamsEncoded)
-        /// </summary>
-        public object Params;
-
-        /// <summary>
-        /// json-encoded parameters to pass into the action (If you use this, don't use Params)
-        /// </summary>
-        public string ParamsEncoded;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class RunCloudScriptResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// id of Cloud Script run
-        /// </summary>
-        public string ActionId;
-
-        /// <summary>
-        /// version of Cloud Script run
-        /// </summary>
-        public int Version;
-
-        /// <summary>
-        /// revision of Cloud Script run
-        /// </summary>
-        public int Revision;
-
-        /// <summary>
-        /// return values from the server action as a dynamic object
-        /// </summary>
-        public object Results;
-
-        /// <summary>
-        /// return values from the server action as a JSON encoded string
-        /// </summary>
-        public string ResultsEncoded;
-
-        /// <summary>
-        /// any log statements generated during the run of this action
-        /// </summary>
-        public string ActionLog;
-
-        /// <summary>
-        /// time this script took to run, in seconds
-        /// </summary>
-        public double ExecutionTime;
-
-    }
-
     public class ScriptExecutionError
     {
         /// <summary>
@@ -3868,12 +3660,6 @@ namespace PlayFab.ClientModels
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
         /// </summary>
         public string TitleId;
-
-        /// <summary>
-        /// Deprecated - Do not use
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public string PublisherId;
 
     }
 
@@ -4100,12 +3886,6 @@ namespace PlayFab.ClientModels
 
     public class SteamPlayFabIdPair
     {
-        /// <summary>
-        /// Deprecated: Please use SteamStringId
-        /// </summary>
-        [Obsolete("Use 'SteamStringId' instead", true)]
-        public ulong SteamId;
-
         /// <summary>
         /// Unique Steam identifier for a user.
         /// </summary>
@@ -4623,21 +4403,6 @@ namespace PlayFab.ClientModels
         /// </summary>
         public uint DataVersion;
 
-    }
-
-    [Obsolete("No longer available", true)]
-    public class UpdateUserStatisticsRequest
-    {
-        /// <summary>
-        /// Statistics to be updated with the provided values. UserStatistics object must follow the Key(string), Value(int) pattern.
-        /// </summary>
-        public Dictionary<string,int> UserStatistics;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class UpdateUserStatisticsResult : PlayFabResultCommon
-    {
     }
 
     public class UpdateUserTitleDisplayNameRequest

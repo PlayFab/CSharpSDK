@@ -5,9 +5,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "0.39.161003";
-        public const string BuildIdentifier = "jbuild_csharpsdk_0";
-        public const string SdkVersionString = "CSharpSDK-0.39.161003";
+        public const string SdkVersion = "0.40.161017";
+        public const string BuildIdentifier = "jbuild_csharpsdk_1";
+        public const string SdkVersionString = "CSharpSDK-0.40.161017";
 
         /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
         public static bool UseDevelopmentEnvironment = false;
@@ -22,8 +22,6 @@ namespace PlayFab
         /// <summary> You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website) </summary>
         public static string TitleId;
         public static ErrorCallback GlobalErrorHandler;
-        /// <summary> Deprecated </summary>
-        internal static string LogicServerUrl = null;
         /// <summary> Set this to the appropriate AD_TYPE_X constant below </summary>
         public static string AdvertisingIdType = null;
         /// <summary> Set this to corresponding device value </summary>
@@ -33,26 +31,14 @@ namespace PlayFab
         // Disabling this may prevent your advertising-related PlayFab marketplace partners from working correctly
         public static bool DisableAdvertising = false;
         public static readonly string AD_TYPE_IDFA = "Idfa";
-        public static readonly string AD_TYPE_ANDROID_ID = "Android_Id";
-
-        public static string GetLogicUrl(string apiCall)
-        {
-            return LogicServerUrl + apiCall;
-        }
+        public static readonly string AD_TYPE_ANDROID_ID = "Adid";
 
         public static string GetFullUrl(string apiCall)
         {
-            if (apiCall == "/Client/RunCloudScript")
-            {
-                return GetLogicUrl(apiCall);
-            }
-            else
-            {
-                string baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentUrl : ProductionEnvironmentUrl;
-                if (baseUrl.StartsWith("http"))
-                    return baseUrl;
-                return "https://" + TitleId + baseUrl + apiCall;
-            }
+            string baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentUrl : ProductionEnvironmentUrl;
+            if (baseUrl.StartsWith("http"))
+                return baseUrl;
+            return "https://" + TitleId + baseUrl + apiCall;
         }
     }
 }

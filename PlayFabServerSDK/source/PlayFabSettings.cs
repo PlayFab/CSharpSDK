@@ -5,9 +5,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "0.39.161003";
-        public const string BuildIdentifier = "jbuild_csharpsdk_0";
-        public const string SdkVersionString = "CSharpSDK-0.39.161003";
+        public const string SdkVersion = "0.40.161017";
+        public const string BuildIdentifier = "jbuild_csharpsdk_1";
+        public const string SdkVersionString = "CSharpSDK-0.40.161017";
 
         /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
         public static bool UseDevelopmentEnvironment = false;
@@ -25,12 +25,10 @@ namespace PlayFab
 
         public static string GetFullUrl(string apiCall)
         {
-            {
-                string baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentUrl : ProductionEnvironmentUrl;
-                if (baseUrl.StartsWith("http"))
-                    return baseUrl;
-                return "https://" + TitleId + baseUrl + apiCall;
-            }
+            string baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentUrl : ProductionEnvironmentUrl;
+            if (baseUrl.StartsWith("http"))
+                return baseUrl;
+            return "https://" + TitleId + baseUrl + apiCall;
         }
     }
 }

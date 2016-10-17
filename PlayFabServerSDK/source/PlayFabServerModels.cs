@@ -903,7 +903,7 @@ namespace PlayFab.ServerModels
     public class ExecuteCloudScriptServerRequest
     {
         /// <summary>
-        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// The unique user identifier for the player on whose behalf the script is being run
         /// </summary>
         public string PlayFabId;
 
@@ -1762,12 +1762,6 @@ namespace PlayFab.ServerModels
     public class GetPlayFabIDsFromSteamIDsRequest
     {
         /// <summary>
-        /// Deprecated: Please use SteamStringIDs
-        /// </summary>
-        [Obsolete("Use 'SteamStringIDs' instead", true)]
-        public List<ulong> SteamIDs;
-
-        /// <summary>
         /// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
         /// </summary>
         public List<string> SteamStringIDs;
@@ -2030,31 +2024,6 @@ namespace PlayFab.ServerModels
         /// Array of remaining times and timestamps for virtual currencies.
         /// </summary>
         public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetUserStatisticsRequest
-    {
-        /// <summary>
-        /// User for whom statistics are being requested.
-        /// </summary>
-        public string PlayFabId;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetUserStatisticsResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// PlayFab unique identifier of the user whose statistics are being returned.
-        /// </summary>
-        public string PlayFabId;
-
-        /// <summary>
-        /// User statistics for the requested user.
-        /// </summary>
-        public Dictionary<string,int> UserStatistics;
 
     }
 
@@ -2426,51 +2395,6 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class LogEventRequest
-    {
-        /// <summary>
-        /// PlayFab User Id of the player associated with this event. For non-player associated events, this must be null and EntityId must be set.
-        /// </summary>
-        public string PlayFabId;
-
-        /// <summary>
-        /// For non player-associated events, a unique ID for the entity associated with this event. For player associated events, this must be null and PlayFabId must be set.
-        /// </summary>
-        public string EntityId;
-
-        /// <summary>
-        /// For non player-associated events, the type of entity associated with this event. For player associated events, this must be null.
-        /// </summary>
-        public string EntityType;
-
-        /// <summary>
-        /// Optional timestamp for this event. If null, the a timestamp is auto-assigned to the event on the server.
-        /// </summary>
-        public DateTime? Timestamp;
-
-        /// <summary>
-        /// A unique event name which will be used as the table name in the Redshift database. The name will be made lower case, and cannot not contain spaces. The use of underscores is recommended, for readability. Events also cannot match reserved terms. The PlayFab reserved terms are 'log_in' and 'purchase', 'create' and 'request', while the Redshift reserved terms can be found here: http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html.
-        /// </summary>
-        public string EventName;
-
-        /// <summary>
-        /// Contains all the data for this event. Event Values can be strings, booleans or numerics (float, double, integer, long) and must be consistent on a per-event basis (if the Value for Key 'A' in Event 'Foo' is an integer the first time it is sent, it must be an integer in all subsequent 'Foo' events). As with event names, Keys must also not use reserved words (see above). Finally, the size of the Body for an event must be less than 32KB (UTF-8 format).
-        /// </summary>
-        public Dictionary<string,object> Body;
-
-        /// <summary>
-        /// Flag to set event Body as profile details in the Redshift database as well as a standard event.
-        /// </summary>
-        public bool ProfileSetEvent;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class LogEventResult : PlayFabResultCommon
-    {
-    }
-
     
     public enum LoginIdentityProvider
     {
@@ -2680,8 +2604,7 @@ namespace PlayFab.ServerModels
         Unassigned,
         Connecting,
         Participating,
-        Participated,
-        Reconnecting
+        Participated
     }
 
     public class PlayerLeaderboardEntry
@@ -3026,13 +2949,13 @@ namespace PlayFab.ServerModels
         public string Build;
 
         /// <summary>
-        /// Unique identifier of the build running on the Game Server Instance.
+        /// Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS region and use Tags (below) to specify your custom region.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public Region Region;
 
         /// <summary>
-        /// Unique identifier of the build running on the Game Server Instance.
+        /// Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs).
         /// </summary>
         public string GameMode;
 
@@ -3438,12 +3361,6 @@ namespace PlayFab.ServerModels
 
     public class SteamPlayFabIdPair
     {
-        /// <summary>
-        /// Deprecated: Please use SteamStringId
-        /// </summary>
-        [Obsolete("Use 'SteamStringId' instead", true)]
-        public ulong SteamId;
-
         /// <summary>
         /// Unique Steam identifier for a user.
         /// </summary>
@@ -3859,26 +3776,6 @@ namespace PlayFab.ServerModels
         /// </summary>
         public List<string> KeysToRemove;
 
-    }
-
-    [Obsolete("No longer available", true)]
-    public class UpdateUserStatisticsRequest
-    {
-        /// <summary>
-        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-        /// </summary>
-        public string PlayFabId;
-
-        /// <summary>
-        /// Statistics to be updated with the provided values.
-        /// </summary>
-        public Dictionary<string,int> UserStatistics;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class UpdateUserStatisticsResult : PlayFabResultCommon
-    {
     }
 
     public class UserAccountInfo
