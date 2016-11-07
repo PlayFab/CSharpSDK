@@ -1,12 +1,10 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using PlayFab.Internal;
 using System;
 using System.Collections.Generic;
 
 namespace PlayFab.MatchmakerModels
 {
-    public class AuthUserRequest
+    public class AuthUserRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Session Ticket provided by the client.
@@ -29,7 +27,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
-    public class DeregisterGameRequest
+    public class DeregisterGameRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the Game Server Instance that is being deregistered.
@@ -131,7 +129,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
-    public class PlayerJoinedRequest
+    public class PlayerJoinedRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier of the Game Server Instance the user is joining.
@@ -149,7 +147,7 @@ namespace PlayFab.MatchmakerModels
     {
     }
 
-    public class PlayerLeftRequest
+    public class PlayerLeftRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier of the Game Server Instance the user is leaving.
@@ -179,7 +177,7 @@ namespace PlayFab.MatchmakerModels
         Australia
     }
 
-    public class RegisterGameRequest
+    public class RegisterGameRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// IP address of the Game Server Instance.
@@ -199,7 +197,6 @@ namespace PlayFab.MatchmakerModels
         /// <summary>
         /// Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS region and use Tags (below) to specify your custom region.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Region Region;
 
         /// <summary>
@@ -223,7 +220,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
-    public class StartGameRequest
+    public class StartGameRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier of the previously uploaded build executable which is to be started.
@@ -233,7 +230,6 @@ namespace PlayFab.MatchmakerModels
         /// <summary>
         /// Region with which to associate the server, for filtering.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Region Region;
 
         /// <summary>
@@ -272,7 +268,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
-    public class UserInfoRequest
+    public class UserInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// PlayFab unique identifier of the user whose information is being requested.
