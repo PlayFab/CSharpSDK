@@ -1,12 +1,10 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using PlayFab.Internal;
 using System;
 using System.Collections.Generic;
 
 namespace PlayFab.ClientModels
 {
-    public class AcceptTradeRequest
+    public class AcceptTradeRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Player who opened the trade.
@@ -34,7 +32,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class AddFriendRequest
+    public class AddFriendRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// PlayFab identifier of the user to attempt to add to the local user's friend list.
@@ -67,7 +65,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class AddGenericIDRequest
+    public class AddGenericIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Generic service identifier to add to the player account.
@@ -80,7 +78,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class AddSharedGroupMembersRequest
+    public class AddSharedGroupMembersRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the shared group.
@@ -98,7 +96,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class AddUsernamePasswordRequest
+    public class AddUsernamePasswordRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// PlayFab username for the account (3-20 characters)
@@ -126,7 +124,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class AddUserVirtualCurrencyRequest
+    public class AddUserVirtualCurrencyRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Name of the virtual currency which is to be incremented.
@@ -140,7 +138,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class AndroidDevicePushNotificationRegistrationRequest
+    public class AndroidDevicePushNotificationRegistrationRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Registration ID provided by the Google Cloud Messaging service when the title registered to receive push notifications (see the GCM documentation, here: http://developer.android.com/google/gcm/client.html).
@@ -163,7 +161,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class AttributeInstallRequest
+    public class AttributeInstallRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The IdentifierForAdvertisers for iOS Devices.
@@ -187,7 +185,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class CancelTradeRequest
+    public class CancelTradeRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Trade identifier.
@@ -341,7 +339,7 @@ namespace PlayFab.ClientModels
         public bool IsLimitedEdition;
 
         /// <summary>
-        /// BETA: If IsLImitedEdition is true, then this determines amount of the item initially available. Note that this fieldis ignored if the catalog item already existed in this catalog, or the field is less than 1.
+        /// If IsLImitedEdition is true, then this determines amount of the item initially available. Note that this fieldis ignored if the catalog item already existed in this catalog, or the field is less than 1.
         /// </summary>
         public int InitialLimitedEditionCount;
 
@@ -520,7 +518,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class ConfirmPurchaseRequest
+    public class ConfirmPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Purchase order identifier returned from StartPurchase.
@@ -548,7 +546,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class ConsumeItemRequest
+    public class ConsumeItemRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique instance identifier of the item to be consumed.
@@ -593,7 +591,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class CreateSharedGroupRequest
+    public class CreateSharedGroupRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the shared group (a random identifier will be assigned, if one is not specified).
@@ -778,12 +776,11 @@ namespace PlayFab.ClientModels
         ZWD
     }
 
-    public class CurrentGamesRequest
+    public class CurrentGamesRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Region to check for Game Server Instances.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Region? Region;
 
         /// <summary>
@@ -831,7 +828,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class ExecuteCloudScriptRequest
+    public class ExecuteCloudScriptRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The name of the CloudScript function to execute
@@ -846,7 +843,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. The default value is 'Specific', if the SpeificRevision parameter is specified, otherwise it is 'Live'.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public CloudScriptRevisionOption? RevisionSelection;
 
         /// <summary>
@@ -986,7 +982,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// region to which this server is associated
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Region? Region;
 
         /// <summary>
@@ -1027,7 +1022,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// game specific string denoting server configuration
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public GameInstanceState? GameServerState;
 
         /// <summary>
@@ -1045,6 +1039,16 @@ namespace PlayFab.ClientModels
         /// </summary>
         public DateTime? LastHeartbeat;
 
+        /// <summary>
+        /// IP address of the server
+        /// </summary>
+        public string ServerHostname;
+
+        /// <summary>
+        /// port number to use for non-http communications with the server
+        /// </summary>
+        public int? ServerPort;
+
     }
 
     
@@ -1054,7 +1058,7 @@ namespace PlayFab.ClientModels
         Closed
     }
 
-    public class GameServerRegionsRequest
+    public class GameServerRegionsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// version of game server for which stats are being requested
@@ -1105,7 +1109,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetAccountInfoRequest
+    public class GetAccountInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab identifier of the user whose info is being requested. Optional, defaults to the authenticated user if no other lookup identifier set.
@@ -1123,7 +1127,7 @@ namespace PlayFab.ClientModels
         public string Email;
 
         /// <summary>
-        /// Title-specific username for the account to find (if no Email is set).
+        /// Title-specific username for the account to find (if no Email is set). Note that if the non-unique Title Display Names option is enabled for the title, attempts to look up users by Title Display Name will always return AccountNotFound.
         /// </summary>
         public string TitleDisplayName;
 
@@ -1138,7 +1142,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetCatalogItemsRequest
+    public class GetCatalogItemsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Which catalog is being requested. If null, uses the default catalog.
@@ -1157,7 +1161,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetCharacterDataRequest
+    public class GetCharacterDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab identifier of the user to load data for. Optional, defaults to yourself if not set.
@@ -1200,7 +1204,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetCharacterInventoryRequest
+    public class GetCharacterInventoryRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
@@ -1239,7 +1243,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetCharacterLeaderboardRequest
+    public class GetCharacterLeaderboardRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Optional character type on which to filter the leaderboard entries.
@@ -1272,7 +1276,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetCharacterStatisticsRequest
+    public class GetCharacterStatisticsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
@@ -1290,7 +1294,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetContentDownloadUrlRequest
+    public class GetContentDownloadUrlRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Key of the content item to fetch, usually formatted as a path, e.g. images/a.png
@@ -1318,7 +1322,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetFriendLeaderboardAroundPlayerRequest
+    public class GetFriendLeaderboardAroundPlayerRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Statistic used to rank players for this leaderboard.
@@ -1356,7 +1360,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetFriendLeaderboardRequest
+    public class GetFriendLeaderboardRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Statistic used to rank friends for this leaderboard.
@@ -1385,7 +1389,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetFriendsListRequest
+    public class GetFriendsListRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Indicates whether Steam service friends should be included in the response. Default is true.
@@ -1408,7 +1412,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetLeaderboardAroundCharacterRequest
+    public class GetLeaderboardAroundCharacterRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title-specific statistic for the leaderboard.
@@ -1441,7 +1445,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetLeaderboardAroundPlayerRequest
+    public class GetLeaderboardAroundPlayerRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// PlayFab unique identifier of the user to center the leaderboard around. If null will center on the logged in user.
@@ -1469,7 +1473,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetLeaderboardForUsersCharactersRequest
+    public class GetLeaderboardForUsersCharactersRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title-specific statistic for the leaderboard.
@@ -1492,7 +1496,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetLeaderboardRequest
+    public class GetLeaderboardRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Statistic used to rank players for this leaderboard.
@@ -1520,7 +1524,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPhotonAuthenticationTokenRequest
+    public class GetPhotonAuthenticationTokenRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The Photon applicationId for the game you wish to log into.
@@ -1538,7 +1542,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayerCombinedInfoRequest
+    public class GetPlayerCombinedInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// PlayFabId of the user whose data will be returned. If not filled included, we return the data for the calling player. 
@@ -1635,7 +1639,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayerCombinedInfoResultPayload : PlayFabResultCommon
+    public class GetPlayerCombinedInfoResultPayload
     {
         /// <summary>
         /// Account information for the user. This is always retrieved.
@@ -1700,7 +1704,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayerSegmentsRequest
+    public class GetPlayerSegmentsRequest : PlayFabRequestCommon
     {
     }
 
@@ -1713,7 +1717,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayerStatisticsRequest
+    public class GetPlayerStatisticsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// statistics to return (current version will be returned for each)
@@ -1736,7 +1740,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayerStatisticVersionsRequest
+    public class GetPlayerStatisticVersionsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// unique name of the statistic
@@ -1754,7 +1758,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayerTagsRequest
+    public class GetPlayerTagsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
@@ -1782,12 +1786,11 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayerTradesRequest
+    public class GetPlayerTradesRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Returns only trades with the given status. If null, returns all trades.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public TradeStatus? StatusFilter;
 
     }
@@ -1806,7 +1809,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayFabIDsFromFacebookIDsRequest
+    public class GetPlayFabIDsFromFacebookIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Array of unique Facebook identifiers for which the title needs to get PlayFab identifiers.
@@ -1824,7 +1827,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayFabIDsFromGameCenterIDsRequest
+    public class GetPlayFabIDsFromGameCenterIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Array of unique Game Center identifiers (the Player Identifier) for which the title needs to get PlayFab identifiers.
@@ -1842,7 +1845,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayFabIDsFromGenericIDsRequest
+    public class GetPlayFabIDsFromGenericIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Array of unique generic service identifiers for which the title needs to get PlayFab identifiers. Currently limited to a maximum of 10 in a single request.
@@ -1860,7 +1863,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayFabIDsFromGoogleIDsRequest
+    public class GetPlayFabIDsFromGoogleIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Array of unique Google identifiers (Google+ user IDs) for which the title needs to get PlayFab identifiers.
@@ -1878,7 +1881,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayFabIDsFromKongregateIDsRequest
+    public class GetPlayFabIDsFromKongregateIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Array of unique Kongregate identifiers (Kongregate's user_id) for which the title needs to get PlayFab identifiers.
@@ -1896,7 +1899,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayFabIDsFromSteamIDsRequest
+    public class GetPlayFabIDsFromSteamIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
@@ -1914,7 +1917,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPlayFabIDsFromTwitchIDsRequest
+    public class GetPlayFabIDsFromTwitchIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Array of unique Twitch identifiers (Twitch's _id) for which the title needs to get PlayFab identifiers.
@@ -1932,7 +1935,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPublisherDataRequest
+    public class GetPublisherDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         ///  array of keys to get back data from the Publisher data blob, set by the admin tools
@@ -1950,7 +1953,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetPurchaseRequest
+    public class GetPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Purchase order identifier.
@@ -2012,7 +2015,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetSharedGroupDataRequest
+    public class GetSharedGroupDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the shared group.
@@ -2045,7 +2048,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetStoreItemsRequest
+    public class GetStoreItemsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// catalog version to store items from. Use default catalog version if null
@@ -2070,7 +2073,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// How the store was last updated (Admin or a third party).
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public SourceType? Source;
 
         /// <summary>
@@ -2090,7 +2092,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetTimeRequest
+    public class GetTimeRequest : PlayFabRequestCommon
     {
     }
 
@@ -2103,7 +2105,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetTitleDataRequest
+    public class GetTitleDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Specific keys to search for in the title data (leave null to get all keys)
@@ -2121,7 +2123,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetTitleNewsRequest
+    public class GetTitleNewsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Limits the results to the last n entries. Defaults to 10 if not set.
@@ -2139,7 +2141,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetTradeStatusRequest
+    public class GetTradeStatusRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Player who opened trade.
@@ -2163,7 +2165,7 @@ namespace PlayFab.ClientModels
     }
 
     [Obsolete("No longer available", true)]
-    public class GetUserCombinedInfoRequest
+    public class GetUserCombinedInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab identifier of the user whose info is being requested. Optional, defaults to the authenticated user if no other lookup identifier set.
@@ -2273,7 +2275,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetUserDataRequest
+    public class GetUserDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Specific keys to search for in the custom data. Leave null to get all keys.
@@ -2306,7 +2308,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GetUserInventoryRequest
+    public class GetUserInventoryRequest : PlayFabRequestCommon
     {
     }
 
@@ -2344,7 +2346,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class GrantCharacterToUserRequest
+    public class GrantCharacterToUserRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Catalog version from which items are to be granted.
@@ -2471,7 +2473,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class ItemPurchaseRequest
+    public class ItemPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique ItemId of the item to purchase.
@@ -2509,7 +2511,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LinkAndroidDeviceIDRequest
+    public class LinkAndroidDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Android device identifier for the user's device.
@@ -2537,7 +2539,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkCustomIDRequest
+    public class LinkCustomIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Custom unique identifier for the user, generated by the title.
@@ -2555,7 +2557,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkFacebookAccountRequest
+    public class LinkFacebookAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier from Facebook for the user.
@@ -2573,7 +2575,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkGameCenterAccountRequest
+    public class LinkGameCenterAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Game Center identifier for the player account to be linked.
@@ -2591,7 +2593,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkGoogleAccountRequest
+    public class LinkGoogleAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user.
@@ -2609,7 +2611,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkIOSDeviceIDRequest
+    public class LinkIOSDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Vendor-specific iOS identifier for the user's device.
@@ -2637,7 +2639,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkKongregateAccountRequest
+    public class LinkKongregateAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Numeric user ID assigned by Kongregate
@@ -2660,7 +2662,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkSteamAccountRequest
+    public class LinkSteamAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Authentication token for the user, returned as a byte array from Steam, and converted to a string (for example, the byte 0x08 should become "08").
@@ -2678,7 +2680,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkTwitchAccountRequest
+    public class LinkTwitchAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Valid token issued by Twitch
@@ -2696,7 +2698,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class ListUsersCharactersRequest
+    public class ListUsersCharactersRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
@@ -2748,7 +2750,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithAndroidDeviceIDRequest
+    public class LoginWithAndroidDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2782,7 +2784,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithCustomIDRequest
+    public class LoginWithCustomIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2806,7 +2808,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithEmailAddressRequest
+    public class LoginWithEmailAddressRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2830,7 +2832,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithFacebookRequest
+    public class LoginWithFacebookRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2854,7 +2856,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithGameCenterRequest
+    public class LoginWithGameCenterRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2878,7 +2880,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithGoogleAccountRequest
+    public class LoginWithGoogleAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2902,7 +2904,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithIOSDeviceIDRequest
+    public class LoginWithIOSDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2936,7 +2938,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithKongregateRequest
+    public class LoginWithKongregateRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2965,7 +2967,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithPlayFabRequest
+    public class LoginWithPlayFabRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -2989,7 +2991,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithSteamRequest
+    public class LoginWithSteamRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -3013,7 +3015,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithTwitchRequest
+    public class LoginWithTwitchRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -3053,7 +3055,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class MatchmakeRequest
+    public class MatchmakeRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Build version to match against. [Note: Required if LobbyId is not specified]
@@ -3063,7 +3065,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Region to match make against. [Note: Required if LobbyId is not specified]
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Region? Region;
 
         /// <summary>
@@ -3133,7 +3134,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// result of match making process
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public MatchmakeStatus? Status;
 
     }
@@ -3172,7 +3172,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class OpenTradeRequest
+    public class OpenTradeRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Player inventory items offered for trade. If not set, the trade is effectively a gift request
@@ -3200,7 +3200,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class PayForPurchaseRequest
+    public class PayForPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Purchase order identifier returned from StartPurchase.
@@ -3234,7 +3234,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Status of the transaction.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public TransactionStatus? Status;
 
         /// <summary>
@@ -3361,7 +3360,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class PurchaseItemRequest
+    public class PurchaseItemRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier of the item to purchase.
@@ -3404,7 +3403,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class RedeemCouponRequest
+    public class RedeemCouponRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Generated coupon code to redeem.
@@ -3415,6 +3414,11 @@ namespace PlayFab.ClientModels
         /// Catalog version of the coupon. If null, uses the default catalog
         /// </summary>
         public string CatalogVersion;
+
+        /// <summary>
+        /// Optional identifier for the Character that should receive the item. If null, item is added to the player
+        /// </summary>
+        public string CharacterId;
 
     }
 
@@ -3444,7 +3448,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// unique identifier for the region
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Region? Region;
 
         /// <summary>
@@ -3464,7 +3467,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class RegisterForIOSPushNotificationRequest
+    public class RegisterForIOSPushNotificationRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique token generated by the Apple Push Notification service when the title registered to receive push notifications.
@@ -3487,7 +3490,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class RegisterPlayFabUserRequest
+    public class RegisterPlayFabUserRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
@@ -3545,7 +3548,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class RemoveFriendRequest
+    public class RemoveFriendRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// PlayFab identifier of the friend account which is to be removed.
@@ -3558,7 +3561,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class RemoveGenericIDRequest
+    public class RemoveGenericIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Generic service identifier to be removed from the player.
@@ -3571,7 +3574,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class RemoveSharedGroupMembersRequest
+    public class RemoveSharedGroupMembersRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the shared group.
@@ -3589,7 +3592,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class ReportPlayerClientRequest
+    public class ReportPlayerClientRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab identifier of the reported player.
@@ -3617,7 +3620,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class RestoreIOSPurchasesRequest
+    public class RestoreIOSPurchasesRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Base64 encoded receipt data, passed back by the App Store as a result of a successful purchase.
@@ -3649,7 +3652,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class SendAccountRecoveryEmailRequest
+    public class SendAccountRecoveryEmailRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// User email address attached to their account
@@ -3667,7 +3670,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class SetFriendTagsRequest
+    public class SetFriendTagsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// PlayFab identifier of the friend account to which the tag(s) should be applied.
@@ -3705,7 +3708,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Indicates whether this data can be read by all users (public) or only members of the group (private).
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission;
 
     }
@@ -3720,7 +3722,7 @@ namespace PlayFab.ClientModels
         Partner
     }
 
-    public class StartGameRequest
+    public class StartGameRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// version information for the build of the game server which is to be started
@@ -3730,7 +3732,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// the region to associate this server with for match filtering
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Region Region;
 
         /// <summary>
@@ -3789,7 +3790,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class StartPurchaseRequest
+    public class StartPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Catalog version for the items to be purchased. Defaults to most recent catalog.
@@ -3959,7 +3960,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class SubtractUserVirtualCurrencyRequest
+    public class SubtractUserVirtualCurrencyRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Name of the virtual currency which is to be decremented.
@@ -4012,7 +4013,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Describes the current state of this trade.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public TradeStatus? Status;
 
         /// <summary>
@@ -4128,7 +4128,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class UnlinkAndroidDeviceIDRequest
+    public class UnlinkAndroidDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Android device identifier for the user's device. If not specified, the most recently signed in Android Device ID will be used.
@@ -4141,7 +4141,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkCustomIDRequest
+    public class UnlinkCustomIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Custom unique identifier for the user, generated by the title. If not specified, the most recently signed in Custom ID will be used.
@@ -4154,7 +4154,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkFacebookAccountRequest
+    public class UnlinkFacebookAccountRequest : PlayFabRequestCommon
     {
     }
 
@@ -4162,7 +4162,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkGameCenterAccountRequest
+    public class UnlinkGameCenterAccountRequest : PlayFabRequestCommon
     {
     }
 
@@ -4170,7 +4170,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkGoogleAccountRequest
+    public class UnlinkGoogleAccountRequest : PlayFabRequestCommon
     {
     }
 
@@ -4178,7 +4178,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkIOSDeviceIDRequest
+    public class UnlinkIOSDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Vendor-specific iOS identifier for the user's device. If not specified, the most recently signed in iOS Device ID will be used.
@@ -4191,7 +4191,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkKongregateAccountRequest
+    public class UnlinkKongregateAccountRequest : PlayFabRequestCommon
     {
     }
 
@@ -4199,7 +4199,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkSteamAccountRequest
+    public class UnlinkSteamAccountRequest : PlayFabRequestCommon
     {
     }
 
@@ -4207,7 +4207,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkTwitchAccountRequest
+    public class UnlinkTwitchAccountRequest : PlayFabRequestCommon
     {
     }
 
@@ -4215,7 +4215,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlockContainerInstanceRequest
+    public class UnlockContainerInstanceRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
@@ -4239,7 +4239,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class UnlockContainerItemRequest
+    public class UnlockContainerItemRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Catalog ItemId of the container type to unlock.
@@ -4282,7 +4282,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class UpdateCharacterDataRequest
+    public class UpdateCharacterDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
@@ -4302,7 +4302,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission;
 
     }
@@ -4316,7 +4315,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class UpdateCharacterStatisticsRequest
+    public class UpdateCharacterStatisticsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
@@ -4334,7 +4333,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UpdatePlayerStatisticsRequest
+    public class UpdatePlayerStatisticsRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Statistics to be updated with the provided values
@@ -4347,7 +4346,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UpdateSharedGroupDataRequest
+    public class UpdateSharedGroupDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique identifier for the shared group.
@@ -4367,7 +4366,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Permission to be applied to all user data keys in this request.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission;
 
     }
@@ -4376,7 +4374,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UpdateUserDataRequest
+    public class UpdateUserDataRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
@@ -4391,7 +4389,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. This is used for requests by one player for information about another player; those requests will only return Public keys.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission;
 
     }
@@ -4405,7 +4402,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class UpdateUserTitleDisplayNameRequest
+    public class UpdateUserTitleDisplayNameRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// New title display name for the user - must be between 3 and 25 characters.
@@ -4550,7 +4547,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData requests being made by one player about another player.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public UserDataPermission? Permission;
 
     }
@@ -4694,13 +4690,11 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// currency type set in the user Steam account
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public Currency? SteamCurrency;
 
         /// <summary>
         /// what stage of game ownership the user is listed as being in, from Steam
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public TitleActivationStatus? SteamActivationStatus;
 
     }
@@ -4715,7 +4709,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// source by which the user first joined the game, if known
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public UserOrigination? Origination;
 
         /// <summary>
@@ -4763,7 +4756,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class ValidateAmazonReceiptRequest
+    public class ValidateAmazonReceiptRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// ReceiptId returned by the Amazon App Store in-app purchase API
@@ -4796,7 +4789,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class ValidateGooglePlayPurchaseRequest
+    public class ValidateGooglePlayPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Original JSON string returned by the Google Play IAB API.
@@ -4824,7 +4817,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class ValidateIOSReceiptRequest
+    public class ValidateIOSReceiptRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Base64 encoded receipt data, passed back by the App Store as a result of a successful purchase.
@@ -4866,7 +4859,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class WriteClientCharacterEventRequest
+    public class WriteClientCharacterEventRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
@@ -4890,7 +4883,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class WriteClientPlayerEventRequest
+    public class WriteClientPlayerEventRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it commonly follows the subject_verb_object pattern (e.g. player_logged_in).
@@ -4912,13 +4905,13 @@ namespace PlayFab.ClientModels
     public class WriteEventResponse : PlayFabResultCommon
     {
         /// <summary>
-        /// The unique identifier of the event. This can be used to retrieve the event's properties using the GetEvent API. The values of this identifier consist of ASCII characters and are not constrained to any particular format.
+        /// The unique identifier of the event. The values of this identifier consist of ASCII characters and are not constrained to any particular format.
         /// </summary>
         public string EventId;
 
     }
 
-    public class WriteTitleEventRequest
+    public class WriteTitleEventRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it commonly follows the subject_verb_object pattern (e.g. player_logged_in).

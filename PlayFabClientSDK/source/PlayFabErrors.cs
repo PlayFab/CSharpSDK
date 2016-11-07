@@ -1,5 +1,6 @@
 using PlayFab.Internal;
 using System.Collections.Generic;
+using System.Text;
 
 namespace PlayFab
 {
@@ -259,7 +260,11 @@ namespace PlayFab
         ScheduledTaskCreateConflict = 1255,
         InvalidScheduledTaskName = 1256,
         InvalidTaskSchedule = 1257,
-        SteamNotEnabledForTitle = 1258
+        SteamNotEnabledForTitle = 1258,
+        LimitNotAnUpgradeOption = 1259,
+        NoSecretKeyEnabledForCloudScript = 1260,
+        TaskNotFound = 1261,
+        TaskInstanceNotFound = 1262
     }
     
     public class PlayFabError
@@ -269,12 +274,30 @@ namespace PlayFab
         public PlayFabErrorCode Error;
         public string ErrorMessage;
         public Dictionary<string, string[] > ErrorDetails;
+
+        private static readonly StringBuilder Sb = new StringBuilder();
+        public string GenerateErrorReport()
+        {
+            Sb.Length = 0;
+            if (ErrorMessage != null)
+                Sb.Append(ErrorMessage);
+            if (ErrorDetails == null)
+                return Sb.ToString();
+
+            foreach (var pair in ErrorDetails)
+            {
+                foreach (var eachMsg in pair.Value)
+                    Sb.Append(pair.Key).Append(": ").Append(eachMsg);
+            }
+            return Sb.ToString();
+        }
     };
 
     public class PlayFabResult<TResult> where TResult : PlayFabResultCommon
     {
         public PlayFabError Error;
         public TResult Result;
+        public object CustomData;
     }
     
     public delegate void ErrorCallback(PlayFabError error);
