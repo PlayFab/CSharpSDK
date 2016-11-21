@@ -12,6 +12,52 @@ namespace PlayFab
     public class PlayFabAdminAPI
     {
         /// <summary>
+        /// Gets the requested policy.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPolicyResponse>> GetPolicyAsync(GetPolicyRequest request, object customData = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/GetPolicy", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPolicyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPolicyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPolicyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Changes a policy for a title
+        /// </summary>
+        public static async Task<PlayFabResult<UpdatePolicyResponse>> UpdatePolicyAsync(UpdatePolicyRequest request, object customData = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/UpdatePolicy", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UpdatePolicyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdatePolicyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UpdatePolicyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Bans users by PlayFab ID with optional IP address, or MAC address for the provided game.
         /// </summary>
         public static async Task<PlayFabResult<BanUsersResult>> BanUsersAsync(BanUsersRequest request, object customData = null)
