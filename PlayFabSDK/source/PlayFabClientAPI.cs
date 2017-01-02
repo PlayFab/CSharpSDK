@@ -600,30 +600,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// NOTE: This call will be deprecated soon. For fetching the data for a given user  use GetPlayerCombinedInfo. For looking up users from the client api, we are in the process of adding a new api call. Once that call is ready, this one will be deprecated.  Retrieves all requested data for a user in one unified request. By default, this API returns all  data for the locally signed-in user. The input parameters may be used to limit the data retrieved to any subset of the available data, as well as retrieve the available data for a different user. Note that certain data, including inventory, virtual currency balances, and personally identifying information, may only be retrieved for the locally signed-in user. In the example below, a request is made for the account details, virtual currency balances, and specified user data for the locally signed-in user.
-        /// </summary>
-        [Obsolete("Use 'GetPlayerCombinedInfo' instead", true)]
-        public static async Task<PlayFabResult<GetUserCombinedInfoResult>> GetUserCombinedInfoAsync(GetUserCombinedInfoRequest request, object customData = null)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/GetUserCombinedInfo", request, "X-Authorization", _authKey);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetUserCombinedInfoResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserCombinedInfoResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetUserCombinedInfoResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Links the Android device identifier to the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<LinkAndroidDeviceIDResult>> LinkAndroidDeviceIDAsync(LinkAndroidDeviceIDRequest request, object customData = null)
