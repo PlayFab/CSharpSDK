@@ -14,7 +14,7 @@ Xamarin Project Setup
   * That link should then provide you with a "Download Now" option after login/registration
   * Even with a fresh install, it is a good idea to check for updates
     * Tools -> Options -> Xamarin -> Other -> Check Now
-    * ![Xamarin image](/SdkQuickStart/images/Xamarin/UpdateXamarin.png)
+    * ![Xamarin image](/images/Xamarin/UpdateXamarin.png)
 * Download and extract the PlayFab CSharpSdk
   * https://api.playfab.com/sdks/download/xamarin
   * This guide will use {CSharpSdkLocation} to describe the extracted location of this SDK
@@ -22,7 +22,7 @@ Xamarin Project Setup
   * This example demonstrates a single Xamarin solution for all mobile platforms at the same time - You may however find it easier to target a single platform per solution
   * Create a new project using these options:
     * Templates -> Visual C# -> Cross-Platform -> Blank App (Xamarin.Forms Shared)
-    * ![Xamarin image](/SdkQuickStart/images/Xamarin/NewProj.png)
+    * ![Xamarin image](/images/Xamarin/NewProj.png)
   * Popups:
     * Mac agent window: Close this for now
       * If you plan to build for iOS, you'll need to set this up properly later
@@ -30,7 +30,7 @@ Xamarin Project Setup
       * Choose your target version, or just use latest (highest build number) for all options
   * Set your platform and project settings to: x86 & Universal Windows for the remainder of this example
     * The UWP project can run directly on Windows 10, making it easier to demonstrate this example
-    * ![Xamarin image](/SdkQuickStart/images/Xamarin/BuildSettings.png)
+    * ![Xamarin image](/images/Xamarin/BuildSettings.png)
 * Import the PlayFab files into your project
   * We will copy/paste those files from the extracted zip we downloaded earlier
     * Keep Visual Studio open
@@ -38,7 +38,7 @@ Xamarin Project Setup
     * Drag the "source" sub-folder from the Explorer window, into the non-platform specific "GettingStartedXamarin" project in Visual Studio
     * Once imported, rename the new "source" folder to "PlayFab"
     * If you did this correctly, your "Solution Explorer" panel in Visual Studio should look like this:
-      * ![Xamarin image](/SdkQuickStart/images/Xamarin/ImportRename.png)
+      * ![Xamarin image](/images/Xamarin/ImportRename.png)
 * Update a few project settings
   * Add "XAMARIN" to all your platform specific properites
     * This flag is not a default for Xamarin, it's an identifier used by the PlayFab CSharpSdk which activates some Xamarin specific code - Mostly you should just consider this a required step
@@ -55,7 +55,7 @@ Xamarin Project Setup
     * For each Project in (GettingStartedXamarin.Droid, GettingStartedXamarin.iOS)
       * In Solution Explorer panel, expand each project, and RClick "References" -> Add Reference
         * Find "System.Net.Http" and activate the checkbox
-        * ![Xamarin image](/SdkQuickStart/images/Xamarin/NetHttp.png)
+        * ![Xamarin image](/images/Xamarin/NetHttp.png)
 * Your project should now compile
   * You likely have several warnings
     * The Android warnings almost certainly prevent you from testing or building to an actual device

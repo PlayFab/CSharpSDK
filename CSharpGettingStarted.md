@@ -25,18 +25,18 @@ CSharp Project Setup
     * Extract to a temporary folder {CSharpSdk}, we won't be using the whole thing, but rather copying a small portion
 * New Project Setup
   * Open Visual Studio and create a new project
-    * ![CSharp image](/SdkQuickStart/images/CSharp/NewCsProj.png)
+    * ![CSharp image](/images/CSharp/NewCsProj.png)
   * Create a sub-folder for the PlayFab C# SDK source
-    * ![CSharp image](/SdkQuickStart/images/CSharp/PlayFabSourceFolder1.png)
-    * ![CSharp image](/SdkQuickStart/images/CSharp/PlayFabSourceFolder2.png)
+    * ![CSharp image](/images/CSharp/PlayFabSourceFolder1.png)
+    * ![CSharp image](/images/CSharp/PlayFabSourceFolder2.png)
   * Import the CSharpSDK into this project:
     * In Windows-Explorer, navigate to {CSharpSdk}/PlayFabClientSDK/source
     * Select all files in {CSharpSdk}/PlayFabClientSDK/source, and drag them to the "PlayFabSource" in Visual Studio
     * The result should look like this (Sometimes you need to refresh):
-      * ![CSharp image](/SdkQuickStart/images/CSharp/SdkImported.png)
+      * ![CSharp image](/images/CSharp/SdkImported.png)
   * Install nuget package for Newtonsoft.Json
-    * ![CSharp image](/SdkQuickStart/images/CSharp/Nuget1.png)
-    * ![CSharp image](/SdkQuickStart/images/CSharp/Nuget2.png)
+    * ![CSharp image](/images/CSharp/Nuget1.png)
+    * ![CSharp image](/images/CSharp/Nuget2.png)
   * At this point you should be able to successfully compile the project
     * Output window should contain something like this:
 ```text
