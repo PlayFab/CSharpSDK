@@ -3565,7 +3565,7 @@ namespace PlayFab.ServerModels
     public class SetGameServerInstanceDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Unique identifier of the Game Instance to be updated.
+        /// Unique identifier of the Game Instance to be updated, in decimal format.
         /// </summary>
         public string LobbyId;
 
@@ -3583,7 +3583,7 @@ namespace PlayFab.ServerModels
     public class SetGameServerInstanceStateRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Unique identifier of the Game Instance to be updated.
+        /// Unique identifier of the Game Instance to be updated, in decimal format.
         /// </summary>
         public string LobbyId;
 

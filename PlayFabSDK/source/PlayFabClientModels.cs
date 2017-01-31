@@ -171,7 +171,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// The android advertising id. This field is deprecated in favor of Adid for clarity.
         /// </summary>
-        [Obsolete("Use 'Adid' instead", false)]
+        [Obsolete("Use 'Adid' instead", true)]
         public string Android_Id;
 
         /// <summary>
@@ -2485,8 +2485,14 @@ namespace PlayFab.ClientModels
     public class LinkGoogleAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user.
+        /// Server authentication code obtained on the client by calling getServerAuthCode() (https://developers.google.com/identity/sign-in/android/offline-access) from Google Play for the user.
         /// </summary>
+        public string ServerAuthCode;
+
+        /// <summary>
+        /// OAuth 2.0 access token obtained on the client by calling the getAccessToken() Google client API.
+        /// </summary>
+        [Obsolete("Use 'ServerAuthCode' instead", false)]
         public string AccessToken;
 
         /// <summary>
@@ -2777,8 +2783,14 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user.
+        /// OAuth 2.0 server authentication code obtained on the client by calling the getServerAuthCode() (https://developers.google.com/identity/sign-in/android/offline-access) Google client API.
         /// </summary>
+        public string ServerAuthCode;
+
+        /// <summary>
+        /// OAuth 2.0 access token obtained on the client by calling the getAccessToken() Google client API.
+        /// </summary>
+        [Obsolete("Use 'ServerAuthCode' instead", false)]
         public string AccessToken;
 
         /// <summary>
@@ -3058,6 +3070,17 @@ namespace PlayFab.ClientModels
         /// Balance of the virtual currency after modification.
         /// </summary>
         public int Balance;
+
+    }
+
+    /// <summary>
+    /// Identifier by either name or ID. Note that a name may change due to renaming, or reused after being deleted. ID is immutable and unique.
+    /// </summary>
+    public class NameIdentifier
+    {
+        public string Name;
+
+        public string Id;
 
     }
 
