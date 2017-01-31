@@ -267,7 +267,13 @@ namespace PlayFab
         TaskInstanceNotFound = 1262,
         InvalidIdentityProviderId = 1263,
         MisconfiguredIdentityProvider = 1264,
-        InvalidScheduledTaskType = 1265
+        InvalidScheduledTaskType = 1265,
+        BillingInformationRequired = 1266,
+        LimitedEditionItemUnavailable = 1267,
+        InvalidAdPlacementAndReward = 1268,
+        AllAdPlacementViewsAlreadyConsumed = 1269,
+        GoogleOAuthNotConfiguredForTitle = 1270,
+        GoogleOAuthError = 1271
     }
     
     public class PlayFabError
