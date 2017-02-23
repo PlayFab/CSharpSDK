@@ -219,6 +219,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Update the avatar URL of the specified player
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> UpdateAvatarUrlAsync(UpdateAvatarUrlRequest request, object customData = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UpdateAvatarUrl", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Updates information of a list of existing bans specified with Ban Ids.
         /// </summary>
         public static async Task<PlayFabResult<UpdateBansResult>> UpdateBansAsync(UpdateBansRequest request, object customData = null)
@@ -1468,6 +1491,29 @@ namespace PlayFab
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Server/RemoveFriend", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Updates the tag list for a specified user in the friend list of another user
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> SetFriendTagsAsync(SetFriendTagsRequest request, object customData = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SetFriendTags", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
