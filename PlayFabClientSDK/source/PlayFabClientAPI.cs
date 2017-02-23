@@ -35,6 +35,50 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Requests a challenge from the server to be signed by Windows Hello Passport service to authenticate.
+        /// </summary>
+        public static async Task<PlayFabResult<GetWindowsHelloChallengeResponse>> GetWindowsHelloChallengeAsync(GetWindowsHelloChallengeRequest request, object customData = null)
+        {
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetWindowsHelloChallenge", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetWindowsHelloChallengeResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetWindowsHelloChallengeResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetWindowsHelloChallengeResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Link Windows Hello to the current PlayFab Account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkWindowsHelloAccountResponse>> LinkWindowsHelloAsync(LinkWindowsHelloAccountRequest request, object customData = null)
+        {
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkWindowsHello", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LinkWindowsHelloAccountResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithAndroidDeviceIDAsync(LoginWithAndroidDeviceIDRequest request, object customData = null)
@@ -321,6 +365,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Completes the Windows Hello login flow by returning the signed value of the challange from GetWindowsHelloChallenge. Windows Hello has a 2 step client to server authentication scheme. Step one is to request from the server a challenge string. Step two is to request the user sign the string via Windows Hello and then send the signed value back to the server. 
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithWindowsHelloAsync(LoginWithWindowsHelloRequest request, object customData = null)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithWindowsHello", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            _authKey = result.SessionTicket ?? _authKey;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. You must supply either a username or an email address.
         /// </summary>
         public static async Task<PlayFabResult<RegisterPlayFabUserResult>> RegisterPlayFabUserAsync(RegisterPlayFabUserRequest request, object customData = null)
@@ -344,6 +414,54 @@ namespace PlayFab
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<RegisterPlayFabUserResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Register using Windows Hello authentication. Before a user can request a challenge or perform a signin the user must first either register or link a Windows Hello account.
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> RegisterWithWindowsHelloAsync(RegisterWithWindowsHelloRequest request, object customData = null)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if(request.TitleId == null) throw new Exception ("Must be have PlayFabSettings.TitleId set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/RegisterWithWindowsHello", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            _authKey = result.SessionTicket ?? _authKey;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlink Windows Hello from the current PlayFab Account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkWindowsHelloAccountResponse>> UnlinkWindowsHelloAsync(UnlinkWindowsHelloAccountRequest request, object customData = null)
+        {
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkWindowsHello", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UnlinkWindowsHelloAccountResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1079,6 +1197,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UnlinkTwitchAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Update the avatar URL of the player
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> UpdateAvatarUrlAsync(UpdateAvatarUrlRequest request, object customData = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UpdateAvatarUrl", request, "X-Authorization", _authKey);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2806,6 +2947,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerTagsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the purchased catalog item
+        /// </summary>
+        public static async Task<PlayFabResult<ValidateWindowsReceiptResult>> ValidateWindowsStoreReceiptAsync(ValidateWindowsReceiptRequest request, object customData = null)
+        {
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateWindowsStoreReceipt", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ValidateWindowsReceiptResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ValidateWindowsReceiptResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ValidateWindowsReceiptResult> { Result = result, CustomData = customData };
         }
 
         private static string _authKey;
