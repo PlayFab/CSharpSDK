@@ -1252,7 +1252,8 @@ namespace PlayFab.AdminModels
     
     public enum EffectType
     {
-        Allow
+        Allow,
+        Deny
     }
 
     public class EmptyResult : PlayFabResultCommon
@@ -2676,7 +2677,7 @@ namespace PlayFab.AdminModels
         public string Action;
 
         /// <summary>
-        /// The effect this statement will have. The only supported effect is 'Allow'.
+        /// The effect this statement will have. It could be either Allow or Deny
         /// </summary>
         public EffectType Effect;
 
@@ -2927,7 +2928,13 @@ namespace PlayFab.AdminModels
         /// <summary>
         /// status of the process of saving player statistic values of the previous version to a downloadable archive
         /// </summary>
+        [Obsolete("Use 'Status' instead", false)]
         public StatisticVersionArchivalStatus? ArchivalStatus;
+
+        /// <summary>
+        /// status of the statistic version
+        /// </summary>
+        public StatisticVersionStatus? Status;
 
         /// <summary>
         /// URL for the downloadable archive of player statistic values, if available
@@ -3471,6 +3478,16 @@ namespace PlayFab.AdminModels
         Queued,
         InProgress,
         Complete
+    }
+
+    
+    public enum StatisticVersionStatus
+    {
+        Active,
+        SnapshotPending,
+        Snapshot,
+        ArchivalPending,
+        Archived
     }
 
     /// <summary>

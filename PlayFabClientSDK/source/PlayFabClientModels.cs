@@ -32,7 +32,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class AdCampaignAttribution
+    public class AdCampaignAttributionModel
     {
         /// <summary>
         /// Attribution network name
@@ -1638,6 +1638,11 @@ namespace PlayFab.ClientModels
         /// </summary>
         public bool UseSpecificVersion;
 
+        /// <summary>
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// </summary>
+        public PlayerProfileViewConstraints ProfileConstraints;
+
     }
 
     public class GetFriendLeaderboardAroundPlayerResult : PlayFabResultCommon
@@ -1695,6 +1700,11 @@ namespace PlayFab.ClientModels
         /// If true, uses the specified version. If false, gets the most recent version.
         /// </summary>
         public bool UseSpecificVersion;
+
+        /// <summary>
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// </summary>
+        public PlayerProfileViewConstraints ProfileConstraints;
 
     }
 
@@ -1781,6 +1791,11 @@ namespace PlayFab.ClientModels
         /// </summary>
         public bool UseSpecificVersion;
 
+        /// <summary>
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// </summary>
+        public PlayerProfileViewConstraints ProfileConstraints;
+
     }
 
     public class GetLeaderboardAroundPlayerResult : PlayFabResultCommon
@@ -1851,6 +1866,11 @@ namespace PlayFab.ClientModels
         /// If true, uses the specified version. If false, gets the most recent version.
         /// </summary>
         public bool UseSpecificVersion;
+
+        /// <summary>
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// </summary>
+        public PlayerProfileViewConstraints ProfileConstraints;
 
     }
 
@@ -2818,6 +2838,30 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class LinkedPlatformAccountModel
+    {
+        /// <summary>
+        /// Authentication platform
+        /// </summary>
+        public LoginIdentityProvider? Platform;
+
+        /// <summary>
+        /// Unique account identifier of the user on the platform
+        /// </summary>
+        public string PlatformUserId;
+
+        /// <summary>
+        /// Linked account username of the user on the platform, if available
+        /// </summary>
+        public string Username;
+
+        /// <summary>
+        /// Linked account email of the user on the platform, if available
+        /// </summary>
+        public string Email;
+
+    }
+
     public class LinkFacebookAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3008,6 +3052,35 @@ namespace PlayFab.ClientModels
         /// The requested list of characters.
         /// </summary>
         public List<CharacterResult> Characters;
+
+    }
+
+    public class LocationModel
+    {
+        /// <summary>
+        /// The two-character continent code for this location
+        /// </summary>
+        public ContinentCode? ContinentCode;
+
+        /// <summary>
+        /// The two-character ISO 3166-1 country code for the country associated with the location
+        /// </summary>
+        public CountryCode? CountryCode;
+
+        /// <summary>
+        /// City name.
+        /// </summary>
+        public string City;
+
+        /// <summary>
+        /// Latitude coordinate of the geographic location.
+        /// </summary>
+        public double? Latitude;
+
+        /// <summary>
+        /// Longitude coordinate of the geographic location.
+        /// </summary>
+        public double? Longitude;
 
     }
 
@@ -3680,71 +3753,18 @@ namespace PlayFab.ClientModels
         public int Position;
 
         /// <summary>
-        /// The profile of the user, if requested. Note that this profile may have sensitive fields scrubbed.
+        /// The profile of the user, if requested.
         /// </summary>
-        public PlayerProfile Profile;
+        public PlayerProfileModel Profile;
 
     }
 
-    public class PlayerLinkedAccount
+    public class PlayerProfileModel
     {
         /// <summary>
-        /// Authentication platform
+        /// Publisher this player belongs to
         /// </summary>
-        public LoginIdentityProvider? Platform;
-
-        /// <summary>
-        /// Platform user identifier
-        /// </summary>
-        public string PlatformUserId;
-
-        /// <summary>
-        /// Linked account's username
-        /// </summary>
-        public string Username;
-
-        /// <summary>
-        /// Linked account's email
-        /// </summary>
-        public string Email;
-
-    }
-
-    public class PlayerLocation
-    {
-        /// <summary>
-        /// The two-character continent code for this location
-        /// </summary>
-        public ContinentCode ContinentCode;
-
-        /// <summary>
-        /// The two-character ISO 3166-1 country code for the country associated with the location
-        /// </summary>
-        public CountryCode CountryCode;
-
-        /// <summary>
-        /// City of the player's geographic location.
-        /// </summary>
-        public string City;
-
-        /// <summary>
-        /// Latitude coordinate of the player's geographic location.
-        /// </summary>
-        public double? Latitude;
-
-        /// <summary>
-        /// Longitude coordinate of the player's geographic location.
-        /// </summary>
-        public double? Longitude;
-
-    }
-
-    public class PlayerProfile
-    {
-        /// <summary>
-        /// PlayFab Player ID
-        /// </summary>
-        public string PlayerId;
+        public string PublisherId;
 
         /// <summary>
         /// Title ID this profile applies to
@@ -3752,19 +3772,9 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Player Display Name
+        /// PlayFab Player ID
         /// </summary>
-        public string DisplayName;
-
-        /// <summary>
-        /// Publisher this player belongs to
-        /// </summary>
-        public string PublisherId;
-
-        /// <summary>
-        /// Player account origination
-        /// </summary>
-        public LoginIdentityProvider? Origination;
+        public string PlayerId;
 
         /// <summary>
         /// Player record created
@@ -3772,93 +3782,148 @@ namespace PlayFab.ClientModels
         public DateTime? Created;
 
         /// <summary>
+        /// Player account origination
+        /// </summary>
+        public LoginIdentityProvider? Origination;
+
+        /// <summary>
         /// Last login
         /// </summary>
         public DateTime? LastLogin;
 
         /// <summary>
-        /// Banned until UTC Date. If permanent ban this is set for 20 years after the original ban date.
+        /// If the player is currently banned, the UTC Date when the ban expires
         /// </summary>
         public DateTime? BannedUntil;
 
         /// <summary>
-        /// Image URL of the player's avatar.
+        /// List of geographic locations where the player has logged-in
+        /// </summary>
+        public List<LocationModel> Locations;
+
+        /// <summary>
+        /// Player Display Name
+        /// </summary>
+        public string DisplayName;
+
+        /// <summary>
+        /// Image URL of the player's avatar
         /// </summary>
         public string AvatarUrl;
 
         /// <summary>
-        /// Dictionary of player's statistics using only the latest version's value
+        /// List of player's tags for segmentation
         /// </summary>
-        public Dictionary<string,int> Statistics;
+        public List<TagModel> Tags;
 
         /// <summary>
-        /// A sum of player's total purchases in USD across all currencies.
+        /// List of configured end points registered for sending the player push notifications
+        /// </summary>
+        public List<PushNotificationRegistrationModel> PushNotificationRegistrations;
+
+        /// <summary>
+        /// List of third party accounts linked to this player
+        /// </summary>
+        public List<LinkedPlatformAccountModel> LinkedAccounts;
+
+        /// <summary>
+        /// List of advertising campaigns the player has been attributed to
+        /// </summary>
+        public List<AdCampaignAttributionModel> AdCampaignAttributions;
+
+        /// <summary>
+        /// A sum of player's total purchases across all real-money currencies, converted to US Dollars equivalent
         /// </summary>
         public uint? TotalValueToDateInUSD;
 
         /// <summary>
-        /// Dictionary of player's total purchases by currency.
+        /// List of player's total lifetime real-money purchases by currency
         /// </summary>
-        public Dictionary<string,uint> ValuesToDate;
+        public List<ValueToDateModel> ValuesToDate;
 
         /// <summary>
-        /// List of player's tags for segmentation.
+        /// List of player's virtual currency balances
         /// </summary>
-        public List<string> Tags;
+        public List<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
 
         /// <summary>
-        /// Dictionary of player's locations by type.
+        /// List of leaderboard statistic values for the player
         /// </summary>
-        public Dictionary<string,PlayerLocation> Locations;
-
-        /// <summary>
-        /// Dictionary of player's virtual currency balances
-        /// </summary>
-        public Dictionary<string,int> VirtualCurrencyBalances;
-
-        /// <summary>
-        /// Array of ad campaigns player has been attributed to
-        /// </summary>
-        public List<AdCampaignAttribution> AdCampaignAttributions;
-
-        /// <summary>
-        /// Array of configured push notification end points
-        /// </summary>
-        public List<PushNotificationRegistration> PushNotificationRegistrations;
-
-        /// <summary>
-        /// Array of third party accounts linked to this player
-        /// </summary>
-        public List<PlayerLinkedAccount> LinkedAccounts;
-
-        /// <summary>
-        /// Array of player statistics
-        /// </summary>
-        public List<PlayerStatistic> PlayerStatistics;
+        public List<StatisticModel> Statistics;
 
     }
 
-    public class PlayerStatistic
+    public class PlayerProfileViewConstraints
     {
         /// <summary>
-        /// Statistic ID
+        /// Whether to show the display name. Defaults to false
         /// </summary>
-        public string Id;
+        public bool ShowDisplayName;
 
         /// <summary>
-        /// Statistic version (0 if not a versioned statistic)
+        /// Whether to show the created date. Defaults to false
         /// </summary>
-        public int StatisticVersion;
+        public bool ShowCreated;
 
         /// <summary>
-        /// Current statistic value
+        /// Whether to show origination. Defaults to false
         /// </summary>
-        public int StatisticValue;
+        public bool ShowOrigination;
 
         /// <summary>
-        /// Statistic name
+        /// Whether to show the last login time. Defaults to false
         /// </summary>
-        public string Name;
+        public bool ShowLastLogin;
+
+        /// <summary>
+        /// Whether to show the banned until time. Defaults to false
+        /// </summary>
+        public bool ShowBannedUntil;
+
+        /// <summary>
+        /// Whether to show statistics, the most recent version of each stat. Defaults to false
+        /// </summary>
+        public bool ShowStatistics;
+
+        /// <summary>
+        /// Whether to show campaign attributions. Defaults to false
+        /// </summary>
+        public bool ShowCampaignAttributions;
+
+        /// <summary>
+        /// Whether to show push notification registrations. Defaults to false
+        /// </summary>
+        public bool ShowPushNotificationRegistrations;
+
+        /// <summary>
+        /// Whether to show the linked accounts. Defaults to false
+        /// </summary>
+        public bool ShowLinkedAccounts;
+
+        /// <summary>
+        /// Whether to show the total value to date in usd. Defaults to false
+        /// </summary>
+        public bool ShowTotalValueToDateInUsd;
+
+        /// <summary>
+        /// Whether to show the values to date. Defaults to false
+        /// </summary>
+        public bool ShowValuesToDate;
+
+        /// <summary>
+        /// Whether to show tags. Defaults to false
+        /// </summary>
+        public bool ShowTags;
+
+        /// <summary>
+        /// Whether to show player's locations. Defaults to false
+        /// </summary>
+        public bool ShowLocations;
+
+        /// <summary>
+        /// Whether to show player's avatar URL. Defaults to false
+        /// </summary>
+        public bool ShowAvatarUrl;
 
     }
 
@@ -3946,7 +4011,7 @@ namespace PlayFab.ClientModels
         GoogleCloudMessaging
     }
 
-    public class PushNotificationRegistration
+    public class PushNotificationRegistrationModel
     {
         /// <summary>
         /// Push notification platform
@@ -4419,6 +4484,25 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class StatisticModel
+    {
+        /// <summary>
+        /// Statistic name
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// Statistic version (0 if not a versioned statistic)
+        /// </summary>
+        public int Version;
+
+        /// <summary>
+        /// Statistic value
+        /// </summary>
+        public int Value;
+
+    }
+
     public class StatisticNameVersion
     {
         /// <summary>
@@ -4557,6 +4641,15 @@ namespace PlayFab.ClientModels
         /// Amount to be subtracted from the user balance of the specified virtual currency.
         /// </summary>
         public int Amount;
+
+    }
+
+    public class TagModel
+    {
+        /// <summary>
+        /// Full value of the tag, including namespace
+        /// </summary>
+        public string TagValue;
 
     }
 
@@ -5480,6 +5573,39 @@ namespace PlayFab.ClientModels
 
     public class ValidateWindowsReceiptResult : PlayFabResultCommon
     {
+    }
+
+    public class ValueToDateModel
+    {
+        /// <summary>
+        /// ISO 4217 code of the currency used in the purchases
+        /// </summary>
+        public string Currency;
+
+        /// <summary>
+        /// Total value of the purchases in a whole number of 1/100 monetary units. For example 999 indicates nine dollars and ninety-nine cents when Currency is 'USD')
+        /// </summary>
+        public uint TotalValue;
+
+        /// <summary>
+        /// Total value of the purchases in a string representation of decimal monetary units (e.g. '9.99' indicates nine dollars and ninety-nine cents when Currency is 'USD'))
+        /// </summary>
+        public string TotalValueAsDecimal;
+
+    }
+
+    public class VirtualCurrencyBalanceModel
+    {
+        /// <summary>
+        /// Name of the virtual currency
+        /// </summary>
+        public string Currency;
+
+        /// <summary>
+        /// Balance of the virtual currency
+        /// </summary>
+        public int TotalValue;
+
     }
 
     public class VirtualCurrencyRechargeTime
