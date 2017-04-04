@@ -57,28 +57,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Link Windows Hello to the current PlayFab Account
-        /// </summary>
-        public static async Task<PlayFabResult<LinkWindowsHelloAccountResponse>> LinkWindowsHelloAsync(LinkWindowsHelloAccountRequest request, object customData = null)
-        {
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/LinkWindowsHello", request, null, null);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<LinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LinkWindowsHelloAccountResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<LinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithAndroidDeviceIDAsync(LoginWithAndroidDeviceIDRequest request, object customData = null)
@@ -131,7 +109,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. Unlike most other login API calls, LoginWithEmailAddress does not permit the  creation of new accounts via the CreateAccountFlag. Email addresses may be used to create accounts via RegisterPlayFabUser.
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithEmailAddressAsync(LoginWithEmailAddressRequest request, object customData = null)
         {
@@ -287,7 +265,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. Unlike other login API calls, LoginWithEmailAddress does not permit the creation of new accounts via the CreateAccountFlag. Email accounts must be created using the RegisterPlayFabUser API or added to existing accounts using AddUsernamePassword.
+        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. Unlike most other login API calls, LoginWithPlayFab does not permit the  creation of new accounts via the CreateAccountFlag. Username/Password credentials may be used to create accounts via  RegisterPlayFabUser, or added to existing accounts using AddUsernamePassword.
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithPlayFabAsync(LoginWithPlayFabRequest request, object customData = null)
         {
@@ -417,7 +395,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Register using Windows Hello authentication. Before a user can request a challenge or perform a signin the user must first either register or link a Windows Hello account.
+        /// Registers a new PlayFab user account using Windows Hello authentication, returning a session ticket  that can subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> RegisterWithWindowsHelloAsync(RegisterWithWindowsHelloRequest request, object customData = null)
         {
@@ -440,28 +418,6 @@ namespace PlayFab
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Unlink Windows Hello from the current PlayFab Account
-        /// </summary>
-        public static async Task<PlayFabResult<UnlinkWindowsHelloAccountResponse>> UnlinkWindowsHelloAsync(UnlinkWindowsHelloAccountRequest request, object customData = null)
-        {
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkWindowsHello", request, null, null);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UnlinkWindowsHelloAccountResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -925,6 +881,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Link Windows Hello authentication to the current PlayFab Account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkWindowsHelloAccountResponse>> LinkWindowsHelloAsync(LinkWindowsHelloAccountRequest request, object customData = null)
+        {
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkWindowsHello", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<LinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LinkWindowsHelloAccountResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Removes the specified generic service identifier from the player's PlayFab account.
         /// </summary>
         public static async Task<PlayFabResult<RemoveGenericIDResult>> RemoveGenericIDAsync(RemoveGenericIDRequest request, object customData = null)
@@ -1197,6 +1175,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UnlinkTwitchAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlink Windows Hello authentication from the current PlayFab Account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkWindowsHelloAccountResponse>> UnlinkWindowsHelloAsync(UnlinkWindowsHelloAccountRequest request, object customData = null)
+        {
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkWindowsHello", request, null, null);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UnlinkWindowsHelloAccountResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1775,7 +1775,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a completed purchase along with its current PlayFab status.
+        /// Retrieves a purchase along with its current PlayFab status.
         /// </summary>
         public static async Task<PlayFabResult<GetPurchaseResult>> GetPurchaseAsync(GetPurchaseRequest request, object customData = null)
         {
@@ -2097,7 +2097,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Restores all in-app purchases based on the given refresh receipt.
+        /// Restores all in-app purchases based on the given restore receipt
         /// </summary>
         public static async Task<PlayFabResult<RestoreIOSPurchasesResult>> RestoreIOSPurchasesAsync(RestoreIOSPurchasesRequest request, object customData = null)
         {

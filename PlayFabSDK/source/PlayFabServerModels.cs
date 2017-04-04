@@ -1636,12 +1636,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The version of the leaderboard to get, when UseSpecificVersion is true.
         /// </summary>
-        public int Version;
+        public int? Version;
 
         /// <summary>
         /// If true, uses the specified version. If false, gets the most recent version.
         /// </summary>
-        public bool UseSpecificVersion;
+        public bool? UseSpecificVersion;
 
         /// <summary>
         /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
@@ -1741,12 +1741,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The version of the leaderboard to get, when UseSpecificVersion is true.
         /// </summary>
-        public int Version;
+        public int? Version;
 
         /// <summary>
         /// If true, uses the specified version. If false, gets the most recent version.
         /// </summary>
-        public bool UseSpecificVersion;
+        public bool? UseSpecificVersion;
 
     }
 
@@ -1822,12 +1822,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The version of the leaderboard to get, when UseSpecificVersion is true.
         /// </summary>
-        public int Version;
+        public int? Version;
 
         /// <summary>
         /// If true, uses the specified version. If false, gets the most recent version.
         /// </summary>
-        public bool UseSpecificVersion;
+        public bool? UseSpecificVersion;
 
     }
 
