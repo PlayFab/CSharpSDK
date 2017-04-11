@@ -3,9 +3,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.8.170403";
-        public const string BuildIdentifier = "jbuild_csharpsdk_0";
-        public const string SdkVersionString = "CSharpSDK-1.8.170403";
+        public const string SdkVersion = "1.9.170411";
+        public const string BuildIdentifier = "jbuild_csharpsdk_1";
+        public const string SdkVersionString = "CSharpSDK-1.9.170411";
 
         /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
         public static bool UseDevelopmentEnvironment = false;
