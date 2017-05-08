@@ -1645,7 +1645,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Delete a content file from the title
+        /// Delete a content file from the title. When deleting a file that does not exist, it returns success.
         /// </summary>
         public static async Task<PlayFabResult<BlankResult>> DeleteContentAsync(DeleteContentRequest request, object customData = null)
         {

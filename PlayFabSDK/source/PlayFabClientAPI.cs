@@ -885,8 +885,9 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<LinkWindowsHelloAccountResponse>> LinkWindowsHelloAsync(LinkWindowsHelloAccountRequest request, object customData = null)
         {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/LinkWindowsHello", request, null, null);
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkWindowsHello", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -1182,8 +1183,9 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<UnlinkWindowsHelloAccountResponse>> UnlinkWindowsHelloAsync(UnlinkWindowsHelloAccountRequest request, object customData = null)
         {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkWindowsHello", request, null, null);
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkWindowsHello", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -1775,7 +1777,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a purchase along with its current PlayFab status.
+        /// Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still active.
         /// </summary>
         public static async Task<PlayFabResult<GetPurchaseResult>> GetPurchaseAsync(GetPurchaseRequest request, object customData = null)
         {
@@ -2954,8 +2956,9 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<ValidateWindowsReceiptResult>> ValidateWindowsStoreReceiptAsync(ValidateWindowsReceiptRequest request, object customData = null)
         {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateWindowsStoreReceipt", request, null, null);
+            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateWindowsStoreReceipt", request, "X-Authorization", _authKey);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
