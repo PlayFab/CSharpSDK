@@ -298,7 +298,13 @@ namespace PlayFab
         PlayerSecretAlreadyConfigured = 1294,
         APIRequestsDisabledForTitle = 1295,
         InvalidSharedSecretKey = 1296,
-        PrizeTableHasNoRanks = 1297
+        PrizeTableHasNoRanks = 1297,
+        ProfileDoesNotExist = 1298,
+        ContentS3OriginBucketNotConfigured = 1299,
+        InvalidEnvironmentForReceipt = 1300,
+        EncryptedRequestNotAllowed = 1301,
+        SignedRequestNotAllowed = 1302,
+        RequestViewConstraintParamsNotAllowed = 1303
     }
     
     public class PlayFabError

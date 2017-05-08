@@ -1154,9 +1154,19 @@ namespace PlayFab.ClientModels
         public object FunctionResult;
 
         /// <summary>
+        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event
+        /// </summary>
+        public bool? FunctionResultTooLarge;
+
+        /// <summary>
         /// Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures.
         /// </summary>
         public List<LogStatement> Logs;
+
+        /// <summary>
+        /// Flag indicating if the logs were too large and were subsequently dropped from this event
+        /// </summary>
+        public bool? LogsTooLarge;
 
         public double ExecutionTimeSeconds;
 
@@ -1178,7 +1188,7 @@ namespace PlayFab.ClientModels
         public int HttpRequestsIssued;
 
         /// <summary>
-        /// Information about the error, if any, that occured during execution
+        /// Information about the error, if any, that occurred during execution
         /// </summary>
         public ScriptExecutionError Error;
 
@@ -2361,7 +2371,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Array of items purchased.
         /// </summary>
-        [Obsolete("Use '' instead", false)]
+        [Obsolete("Use '' instead", true)]
         public List<ItemInstance> Items;
 
     }
@@ -3160,12 +3170,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3194,12 +3204,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3252,12 +3262,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3286,12 +3296,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3320,12 +3330,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3364,12 +3374,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3408,12 +3418,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3461,12 +3471,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -3495,12 +3505,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -4224,12 +4234,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -4287,12 +4297,12 @@ namespace PlayFab.ClientModels
         public string TitleId;
 
         /// <summary>
-        /// Base64 encoded body that is encrypted with the Title's public RSA key
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
 
@@ -5095,7 +5105,7 @@ namespace PlayFab.ClientModels
         public string CharacterId;
 
         /// <summary>
-        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character or be null.
         /// </summary>
         public Dictionary<string,string> Data;
 
@@ -5159,7 +5169,7 @@ namespace PlayFab.ClientModels
         public string SharedGroupId;
 
         /// <summary>
-        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character or be null.
         /// </summary>
         public Dictionary<string,string> Data;
 
@@ -5182,7 +5192,7 @@ namespace PlayFab.ClientModels
     public class UpdateUserDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character.
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character or be null.
         /// </summary>
         public Dictionary<string,string> Data;
 
