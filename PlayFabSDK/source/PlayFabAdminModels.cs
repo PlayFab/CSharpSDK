@@ -1295,7 +1295,7 @@ namespace PlayFab.AdminModels
         public object FunctionResult;
 
         /// <summary>
-        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event
+        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if the total event size is larger than 350KB.
         /// </summary>
         public bool? FunctionResultTooLarge;
 
@@ -1305,7 +1305,7 @@ namespace PlayFab.AdminModels
         public List<LogStatement> Logs;
 
         /// <summary>
-        /// Flag indicating if the logs were too large and were subsequently dropped from this event
+        /// Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total event size is larger than 350KB after the FunctionResult was removed.
         /// </summary>
         public bool? LogsTooLarge;
 

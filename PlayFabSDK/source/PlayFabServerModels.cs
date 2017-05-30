@@ -1217,7 +1217,7 @@ namespace PlayFab.ServerModels
         public object FunctionResult;
 
         /// <summary>
-        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event
+        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if the total event size is larger than 350KB.
         /// </summary>
         public bool? FunctionResultTooLarge;
 
@@ -1227,7 +1227,7 @@ namespace PlayFab.ServerModels
         public List<LogStatement> Logs;
 
         /// <summary>
-        /// Flag indicating if the logs were too large and were subsequently dropped from this event
+        /// Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total event size is larger than 350KB after the FunctionResult was removed.
         /// </summary>
         public bool? LogsTooLarge;
 
@@ -1941,6 +1941,16 @@ namespace PlayFab.ServerModels
         /// </summary>
         public List<string> PlayerStatisticNames;
 
+        /// <summary>
+        /// Whether to get player profile. Defaults to false.
+        /// </summary>
+        public bool GetPlayerProfile;
+
+        /// <summary>
+        /// Specifies the properties to return from the player profile. Defaults to returning the player's display name.
+        /// </summary>
+        public PlayerProfileViewConstraints ProfileConstraints;
+
     }
 
     public class GetPlayerCombinedInfoResult : PlayFabResultCommon
@@ -2019,6 +2029,34 @@ namespace PlayFab.ServerModels
         /// List of statistics for this player.
         /// </summary>
         public List<StatisticValue> PlayerStatistics;
+
+        /// <summary>
+        /// The profile of the players. This profile is not guaranteed to be up-to-date. For a new player, this profile will not exist.
+        /// </summary>
+        public PlayerProfileModel PlayerProfile;
+
+    }
+
+    public class GetPlayerProfileRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// </summary>
+        public PlayerProfileViewConstraints ProfileConstraints;
+
+    }
+
+    public class GetPlayerProfileResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The profile of the player. This profile is not guaranteed to be up-to-date. For a new player, this profile will not exist.
+        /// </summary>
+        public PlayerProfileModel PlayerProfile;
 
     }
 
@@ -3745,14 +3783,9 @@ namespace PlayFab.ServerModels
         public string ReporterId;
 
         /// <summary>
-        /// PlayFabId of the reported player.
+        /// Unique PlayFab identifier of the reported player.
         /// </summary>
         public string ReporteeId;
-
-        /// <summary>
-        /// Title player was reported in, optional if report not for specific title.
-        /// </summary>
-        public string TitleId;
 
         /// <summary>
         /// Optional additional comment by reporting player.
@@ -3764,9 +3797,10 @@ namespace PlayFab.ServerModels
     public class ReportPlayerServerResult : PlayFabResultCommon
     {
         /// <summary>
-        /// Indicates whether this action completed successfully.
+        /// Deprecated: Always true
         /// </summary>
-        public bool Updated;
+        [Obsolete("No longer available", false)]
+        public bool? Updated;
 
         /// <summary>
         /// The number of remaining reports which may be filed today by this reporting player.
