@@ -2,6 +2,7 @@ using PlayFab.MatchmakerModels;
 using PlayFab.Internal;
 using PlayFab.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PlayFab
@@ -14,11 +15,11 @@ namespace PlayFab
         /// <summary>
         /// Validates a user with the PlayFab service
         /// </summary>
-        public static async Task<PlayFabResult<AuthUserResponse>> AuthUserAsync(AuthUserRequest request, object customData = null)
+        public static async Task<PlayFabResult<AuthUserResponse>> AuthUserAsync(AuthUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/AuthUser", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/AuthUser", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -37,11 +38,11 @@ namespace PlayFab
         /// <summary>
         /// Informs the PlayFab game server hosting service that the indicated user has joined the Game Server Instance specified
         /// </summary>
-        public static async Task<PlayFabResult<PlayerJoinedResponse>> PlayerJoinedAsync(PlayerJoinedRequest request, object customData = null)
+        public static async Task<PlayFabResult<PlayerJoinedResponse>> PlayerJoinedAsync(PlayerJoinedRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerJoined", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerJoined", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -60,11 +61,11 @@ namespace PlayFab
         /// <summary>
         /// Informs the PlayFab game server hosting service that the indicated user has left the Game Server Instance specified
         /// </summary>
-        public static async Task<PlayFabResult<PlayerLeftResponse>> PlayerLeftAsync(PlayerLeftRequest request, object customData = null)
+        public static async Task<PlayFabResult<PlayerLeftResponse>> PlayerLeftAsync(PlayerLeftRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerLeft", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerLeft", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -83,11 +84,11 @@ namespace PlayFab
         /// <summary>
         /// Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance
         /// </summary>
-        public static async Task<PlayFabResult<StartGameResponse>> StartGameAsync(StartGameRequest request, object customData = null)
+        public static async Task<PlayFabResult<StartGameResponse>> StartGameAsync(StartGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/StartGame", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/StartGame", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -106,11 +107,11 @@ namespace PlayFab
         /// <summary>
         /// Retrieves the relevant details for a specified user, which the external match-making service can then use to compute effective matches
         /// </summary>
-        public static async Task<PlayFabResult<UserInfoResponse>> UserInfoAsync(UserInfoRequest request, object customData = null)
+        public static async Task<PlayFabResult<UserInfoResponse>> UserInfoAsync(UserInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/UserInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/UserInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
