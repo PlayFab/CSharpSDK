@@ -2100,75 +2100,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Registers the iOS device to receive push notifications
-        /// </summary>
-        public static async Task<PlayFabResult<RegisterForIOSPushNotificationResult>> RegisterForIOSPushNotificationAsync(RegisterForIOSPushNotificationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/RegisterForIOSPushNotification", request, "X-Authorization", _authKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<RegisterForIOSPushNotificationResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RegisterForIOSPushNotificationResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<RegisterForIOSPushNotificationResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Restores all in-app purchases based on the given restore receipt
-        /// </summary>
-        public static async Task<PlayFabResult<RestoreIOSPurchasesResult>> RestoreIOSPurchasesAsync(RestoreIOSPurchasesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/RestoreIOSPurchases", request, "X-Authorization", _authKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<RestoreIOSPurchasesResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RestoreIOSPurchasesResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<RestoreIOSPurchasesResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item
-        /// </summary>
-        public static async Task<PlayFabResult<ValidateIOSReceiptResult>> ValidateIOSReceiptAsync(ValidateIOSReceiptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateIOSReceipt", request, "X-Authorization", _authKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ValidateIOSReceiptResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ValidateIOSReceiptResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ValidateIOSReceiptResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Get details about all current running game servers matching the given parameters.
         /// </summary>
         public static async Task<PlayFabResult<CurrentGamesResult>> GetCurrentGamesAsync(CurrentGamesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2258,52 +2189,6 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<StartGameResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Registers the Android device to receive push notifications
-        /// </summary>
-        public static async Task<PlayFabResult<AndroidDevicePushNotificationRegistrationResult>> AndroidDevicePushNotificationRegistrationAsync(AndroidDevicePushNotificationRegistrationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/AndroidDevicePushNotificationRegistration", request, "X-Authorization", _authKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<AndroidDevicePushNotificationRegistrationResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AndroidDevicePushNotificationRegistrationResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<AndroidDevicePushNotificationRegistrationResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Validates a Google Play purchase and gives the corresponding item to the player.
-        /// </summary>
-        public static async Task<PlayFabResult<ValidateGooglePlayPurchaseResult>> ValidateGooglePlayPurchaseAsync(ValidateGooglePlayPurchaseRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateGooglePlayPurchase", request, "X-Authorization", _authKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ValidateGooglePlayPurchaseResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ValidateGooglePlayPurchaseResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ValidateGooglePlayPurchaseResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2767,29 +2652,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item
-        /// </summary>
-        public static async Task<PlayFabResult<ValidateAmazonReceiptResult>> ValidateAmazonIAPReceiptAsync(ValidateAmazonReceiptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateAmazonIAPReceipt", request, "X-Authorization", _authKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<ValidateAmazonReceiptResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ValidateAmazonReceiptResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ValidateAmazonReceiptResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Accepts an open trade (one that has not yet been accepted or cancelled), if the locally signed-in player is in the  allowed player list for the trade, or it is open to all players. If the call is successful, the offered and accepted items will be swapped  between the two players' inventories.
         /// </summary>
         public static async Task<PlayFabResult<AcceptTradeResponse>> AcceptTradeAsync(AcceptTradeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2973,6 +2835,144 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerTagsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Registers the Android device to receive push notifications
+        /// </summary>
+        public static async Task<PlayFabResult<AndroidDevicePushNotificationRegistrationResult>> AndroidDevicePushNotificationRegistrationAsync(AndroidDevicePushNotificationRegistrationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/AndroidDevicePushNotificationRegistration", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AndroidDevicePushNotificationRegistrationResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AndroidDevicePushNotificationRegistrationResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<AndroidDevicePushNotificationRegistrationResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Registers the iOS device to receive push notifications
+        /// </summary>
+        public static async Task<PlayFabResult<RegisterForIOSPushNotificationResult>> RegisterForIOSPushNotificationAsync(RegisterForIOSPushNotificationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/RegisterForIOSPushNotification", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RegisterForIOSPushNotificationResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RegisterForIOSPushNotificationResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RegisterForIOSPushNotificationResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Restores all in-app purchases based on the given restore receipt
+        /// </summary>
+        public static async Task<PlayFabResult<RestoreIOSPurchasesResult>> RestoreIOSPurchasesAsync(RestoreIOSPurchasesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/RestoreIOSPurchases", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RestoreIOSPurchasesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RestoreIOSPurchasesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RestoreIOSPurchasesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item
+        /// </summary>
+        public static async Task<PlayFabResult<ValidateAmazonReceiptResult>> ValidateAmazonIAPReceiptAsync(ValidateAmazonReceiptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateAmazonIAPReceipt", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ValidateAmazonReceiptResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ValidateAmazonReceiptResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ValidateAmazonReceiptResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Validates a Google Play purchase and gives the corresponding item to the player.
+        /// </summary>
+        public static async Task<PlayFabResult<ValidateGooglePlayPurchaseResult>> ValidateGooglePlayPurchaseAsync(ValidateGooglePlayPurchaseRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateGooglePlayPurchase", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ValidateGooglePlayPurchaseResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ValidateGooglePlayPurchaseResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ValidateGooglePlayPurchaseResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item
+        /// </summary>
+        public static async Task<PlayFabResult<ValidateIOSReceiptResult>> ValidateIOSReceiptAsync(ValidateIOSReceiptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ValidateIOSReceipt", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ValidateIOSReceiptResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ValidateIOSReceiptResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ValidateIOSReceiptResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
