@@ -1738,29 +1738,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Awards the specified users the specified Steam achievements
-        /// </summary>
-        public static async Task<PlayFabResult<AwardSteamAchievementResult>> AwardSteamAchievementAsync(AwardSteamAchievementRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Server/AwardSteamAchievement", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<AwardSteamAchievementResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AwardSteamAchievementResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<AwardSteamAchievementResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Writes a character-based event into PlayStream.
         /// </summary>
         public static async Task<PlayFabResult<WriteEventResponse>> WriteCharacterEventAsync(WriteServerCharacterEventRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2494,6 +2471,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<RemovePlayerTagResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Awards the specified users the specified Steam achievements
+        /// </summary>
+        public static async Task<PlayFabResult<AwardSteamAchievementResult>> AwardSteamAchievementAsync(AwardSteamAchievementRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/AwardSteamAchievement", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AwardSteamAchievementResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AwardSteamAchievementResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<AwardSteamAchievementResult> { Result = result, CustomData = customData };
         }
 
     }

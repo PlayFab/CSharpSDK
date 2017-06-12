@@ -1649,7 +1649,7 @@ namespace PlayFab.ClientModels
         public bool? UseSpecificVersion;
 
         /// <summary>
-        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
         /// </summary>
         public PlayerProfileViewConstraints ProfileConstraints;
 
@@ -1712,7 +1712,7 @@ namespace PlayFab.ClientModels
         public bool? UseSpecificVersion;
 
         /// <summary>
-        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
         /// </summary>
         public PlayerProfileViewConstraints ProfileConstraints;
 
@@ -1802,7 +1802,7 @@ namespace PlayFab.ClientModels
         public bool? UseSpecificVersion;
 
         /// <summary>
-        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
         /// </summary>
         public PlayerProfileViewConstraints ProfileConstraints;
 
@@ -1878,7 +1878,7 @@ namespace PlayFab.ClientModels
         public bool? UseSpecificVersion;
 
         /// <summary>
-        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
         /// </summary>
         public PlayerProfileViewConstraints ProfileConstraints;
 
@@ -2106,7 +2106,7 @@ namespace PlayFab.ClientModels
         public string PlayFabId;
 
         /// <summary>
-        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed.
+        /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
         /// </summary>
         public PlayerProfileViewConstraints ProfileConstraints;
 
@@ -2683,7 +2683,7 @@ namespace PlayFab.ClientModels
         public string ItemId;
 
         /// <summary>
-        /// Non-unique display name of the character being granted.
+        /// Non-unique display name of the character being granted (1-20 characters in length).
         /// </summary>
         public string CharacterName;
 
@@ -3888,12 +3888,12 @@ namespace PlayFab.ClientModels
         public string PublisherId;
 
         /// <summary>
-        /// Title ID this profile applies to
+        /// Title ID this player profile applies to
         /// </summary>
         public string TitleId;
 
         /// <summary>
-        /// PlayFab Player ID
+        /// PlayFab player account unique identifier
         /// </summary>
         public string PlayerId;
 
@@ -3908,7 +3908,7 @@ namespace PlayFab.ClientModels
         public LoginIdentityProvider? Origination;
 
         /// <summary>
-        /// Last login
+        /// UTC time when the player most recently logged in to the title
         /// </summary>
         public DateTime? LastLogin;
 
@@ -3918,17 +3918,17 @@ namespace PlayFab.ClientModels
         public DateTime? BannedUntil;
 
         /// <summary>
-        /// List of geographic locations where the player has logged-in
+        /// List of geographic locations from which the player has logged in to the title
         /// </summary>
         public List<LocationModel> Locations;
 
         /// <summary>
-        /// Player Display Name
+        /// Player display name
         /// </summary>
         public string DisplayName;
 
         /// <summary>
-        /// Image URL of the player's avatar
+        /// URL of the player's avatar image
         /// </summary>
         public string AvatarUrl;
 
@@ -3943,7 +3943,7 @@ namespace PlayFab.ClientModels
         public List<PushNotificationRegistrationModel> PushNotificationRegistrations;
 
         /// <summary>
-        /// List of third party accounts linked to this player
+        /// List of all authentication systems linked to this player account
         /// </summary>
         public List<LinkedPlatformAccountModel> LinkedAccounts;
 
@@ -3953,17 +3953,17 @@ namespace PlayFab.ClientModels
         public List<AdCampaignAttributionModel> AdCampaignAttributions;
 
         /// <summary>
-        /// A sum of player's total purchases across all real-money currencies, converted to US Dollars equivalent
+        /// Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a whole number of cents (1/100 USD).              For example, 999 indicates nine dollars and ninety-nine cents.
         /// </summary>
         public uint? TotalValueToDateInUSD;
 
         /// <summary>
-        /// List of player's total lifetime real-money purchases by currency
+        /// List of the player's lifetime purchase totals, summed by real-money currency
         /// </summary>
         public List<ValueToDateModel> ValuesToDate;
 
         /// <summary>
-        /// List of player's virtual currency balances
+        /// List of the player's virtual currency balances
         /// </summary>
         public List<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
 
@@ -4256,7 +4256,7 @@ namespace PlayFab.ClientModels
         public bool? RequireBothUsernameAndEmail;
 
         /// <summary>
-        /// An optional parameter for setting the display name for this title.
+        /// An optional parameter for setting the display name for this title (3-25 characters).
         /// </summary>
         public string DisplayName;
 
@@ -5730,12 +5730,12 @@ namespace PlayFab.ClientModels
         public string Currency;
 
         /// <summary>
-        /// Total value of the purchases in a whole number of 1/100 monetary units. For example 999 indicates nine dollars and ninety-nine cents when Currency is 'USD')
+        /// Total value of the purchases in a whole number of 1/100 monetary units. For example, 999 indicates nine dollars and ninety-nine cents when Currency is 'USD')
         /// </summary>
         public uint TotalValue;
 
         /// <summary>
-        /// Total value of the purchases in a string representation of decimal monetary units (e.g. '9.99' indicates nine dollars and ninety-nine cents when Currency is 'USD'))
+        /// Total value of the purchases in a string representation of decimal monetary units. For example, '9.99' indicates nine dollars and ninety-nine cents when Currency is 'USD'.
         /// </summary>
         public string TotalValueAsDecimal;
 
