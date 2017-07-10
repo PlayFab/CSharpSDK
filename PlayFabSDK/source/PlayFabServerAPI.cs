@@ -36,6 +36,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's secret use the Admin or Server API method SetPlayerSecret.
+        /// </summary>
+        public static async Task<PlayFabResult<SetPlayerSecretResult>> SetPlayerSecretAsync(SetPlayerSecretRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SetPlayerSecret", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetPlayerSecretResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetPlayerSecretResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SetPlayerSecretResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Bans users by PlayFab ID with optional IP address, or MAC address for the provided game.
         /// </summary>
         public static async Task<PlayFabResult<BanUsersResult>> BanUsersAsync(BanUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)

@@ -1644,14 +1644,9 @@ namespace PlayFab.ServerModels
         public bool? IncludeFacebookFriends;
 
         /// <summary>
-        /// The version of the leaderboard to get, when UseSpecificVersion is true.
+        /// The version of the leaderboard to get.
         /// </summary>
         public int? Version;
-
-        /// <summary>
-        /// If true, uses the specified version. If false, gets the most recent version.
-        /// </summary>
-        public bool? UseSpecificVersion;
 
         /// <summary>
         /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
@@ -1749,14 +1744,9 @@ namespace PlayFab.ServerModels
         public PlayerProfileViewConstraints ProfileConstraints;
 
         /// <summary>
-        /// The version of the leaderboard to get, when UseSpecificVersion is true.
+        /// The version of the leaderboard to get.
         /// </summary>
         public int? Version;
-
-        /// <summary>
-        /// If true, uses the specified version. If false, gets the most recent version.
-        /// </summary>
-        public bool? UseSpecificVersion;
 
     }
 
@@ -1830,14 +1820,9 @@ namespace PlayFab.ServerModels
         public PlayerProfileViewConstraints ProfileConstraints;
 
         /// <summary>
-        /// The version of the leaderboard to get, when UseSpecificVersion is true.
+        /// The version of the leaderboard to get.
         /// </summary>
         public int? Version;
-
-        /// <summary>
-        /// If true, uses the specified version. If false, gets the most recent version.
-        /// </summary>
-        public bool? UseSpecificVersion;
 
     }
 
@@ -3537,6 +3522,40 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class PushNotificationPackage
+    {
+        /// <summary>
+        /// If set, represents a timestamp for when the device should display the message. Local format should be formatted as: yyyy-MM-dd HH:mm:ss or UTC timestamp formatted as yyyy-MM-ddTHH:mm:ssZ. Delivery is not delayed, scheduling is expected to be handled by the device.
+        /// </summary>
+        public string ScheduleDate;
+
+        /// <summary>
+        /// Title/Subject of the message
+        /// </summary>
+        public string Title;
+
+        /// <summary>
+        /// Content of the message
+        /// </summary>
+        public string Message;
+
+        /// <summary>
+        /// Icon file to display with the message
+        /// </summary>
+        public string Icon;
+
+        /// <summary>
+        /// Sound file to play with the message
+        /// </summary>
+        public string Sound;
+
+        /// <summary>
+        /// Arbitrary string that will be delivered with the message. Suggested use: JSON formatted object
+        /// </summary>
+        public string CustomData;
+
+    }
+
     
     public enum PushNotificationPlatform
     {
@@ -3685,6 +3704,11 @@ namespace PlayFab.ServerModels
     public class RegisterGameRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// Previous lobby id if re-registering an existing game.
+        /// </summary>
+        public string LobbyId;
+
+        /// <summary>
         /// IP address of the Game Server Instance.
         /// </summary>
         public string ServerHost;
@@ -3719,7 +3743,7 @@ namespace PlayFab.ServerModels
     public class RegisterGameResponse : PlayFabResultCommon
     {
         /// <summary>
-        /// Unique identifier generated for the Game Server Instance that is registered.
+        /// Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the game still exists in PlayFab, the LobbyId in request is returned. Otherwise a new lobby id will be returned.
         /// </summary>
         public string LobbyId;
 
@@ -3923,7 +3947,13 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Text of message to send.
         /// </summary>
+        [Obsolete("Use 'Package' instead", false)]
         public string Message;
+
+        /// <summary>
+        /// Defines all possible push attributes like message, title, icon, etc
+        /// </summary>
+        public PushNotificationPackage Package;
 
         /// <summary>
         /// Subject of message to send (may not be displayed in all platforms.
@@ -4006,6 +4036,24 @@ namespace PlayFab.ServerModels
     }
 
     public class SetGameServerInstanceTagsResult : PlayFabResultCommon
+    {
+    }
+
+    public class SetPlayerSecretRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class SetPlayerSecretResult : PlayFabResultCommon
     {
     }
 

@@ -1639,14 +1639,9 @@ namespace PlayFab.ClientModels
         public bool? IncludeFacebookFriends;
 
         /// <summary>
-        /// The version of the leaderboard to get, when UseSpecificVersion is true.
+        /// The version of the leaderboard to get.
         /// </summary>
         public int? Version;
-
-        /// <summary>
-        /// If true, uses the specified version. If false, gets the most recent version.
-        /// </summary>
-        public bool? UseSpecificVersion;
 
         /// <summary>
         /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
@@ -1702,14 +1697,9 @@ namespace PlayFab.ClientModels
         public bool? IncludeFacebookFriends;
 
         /// <summary>
-        /// The version of the leaderboard to get, when UseSpecificVersion is true.
+        /// The version of the leaderboard to get.
         /// </summary>
         public int? Version;
-
-        /// <summary>
-        /// If true, uses the specified version. If false, gets the most recent version.
-        /// </summary>
-        public bool? UseSpecificVersion;
 
         /// <summary>
         /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
@@ -1792,14 +1782,9 @@ namespace PlayFab.ClientModels
         public int? MaxResultsCount;
 
         /// <summary>
-        /// The version of the leaderboard to get, when UseSpecificVersion is true.
+        /// The version of the leaderboard to get.
         /// </summary>
         public int? Version;
-
-        /// <summary>
-        /// If true, uses the specified version. If false, gets the most recent version.
-        /// </summary>
-        public bool? UseSpecificVersion;
 
         /// <summary>
         /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
@@ -1868,14 +1853,9 @@ namespace PlayFab.ClientModels
         public int? MaxResultsCount;
 
         /// <summary>
-        /// The version of the leaderboard to get, when UseSpecificVersion is true.
+        /// The version of the leaderboard to get.
         /// </summary>
         public int? Version;
-
-        /// <summary>
-        /// If true, uses the specified version. If false, gets the most recent version.
-        /// </summary>
-        public bool? UseSpecificVersion;
 
         /// <summary>
         /// If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time.
@@ -2550,6 +2530,29 @@ namespace PlayFab.ClientModels
         /// Array of news items.
         /// </summary>
         public List<TitleNewsItem> News;
+
+    }
+
+    public class GetTitlePublicKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// </summary>
+        public string TitleId;
+
+        /// <summary>
+        /// The shared secret key for this title
+        /// </summary>
+        public string TitleSharedSecret;
+
+    }
+
+    public class GetTitlePublicKeyResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Base64 encoded RSA CSP byte array blob containing the title's public RSA key
+        /// </summary>
+        public string RSAPublicKey;
 
     }
 
@@ -4483,6 +4486,24 @@ namespace PlayFab.ClientModels
     }
 
     public class SetFriendTagsResult : PlayFabResultCommon
+    {
+    }
+
+    public class SetPlayerSecretRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret;
+
+        /// <summary>
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
+        /// </summary>
+        public string EncryptedRequest;
+
+    }
+
+    public class SetPlayerSecretResult : PlayFabResultCommon
     {
     }
 
