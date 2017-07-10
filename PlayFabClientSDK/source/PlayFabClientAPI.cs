@@ -36,6 +36,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Returns the title's base 64 encoded RSA CSP blob.
+        /// </summary>
+        public static async Task<PlayFabResult<GetTitlePublicKeyResult>> GetTitlePublicKeyAsync(GetTitlePublicKeyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetTitlePublicKey", request, null, null, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetTitlePublicKeyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetTitlePublicKeyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetTitlePublicKeyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Requests a challenge from the server to be signed by Windows Hello Passport service to authenticate.
         /// </summary>
         public static async Task<PlayFabResult<GetWindowsHelloChallengeResponse>> GetWindowsHelloChallengeAsync(GetWindowsHelloChallengeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -419,6 +441,29 @@ namespace PlayFab
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's secret use the Admin or Server API method SetPlayerSecret.
+        /// </summary>
+        public static async Task<PlayFabResult<SetPlayerSecretResult>> SetPlayerSecretAsync(SetPlayerSecretRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/SetPlayerSecret", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SetPlayerSecretResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetPlayerSecretResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SetPlayerSecretResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
