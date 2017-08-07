@@ -2267,7 +2267,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates the title-specific custom data for the user's chjaracter which is readable and writable by the client
+        /// Updates the title-specific custom data for the user's character which is readable and writable by the client
         /// </summary>
         public static async Task<PlayFabResult<UpdateCharacterDataResult>> UpdateCharacterDataAsync(UpdateCharacterDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

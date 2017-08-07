@@ -665,6 +665,25 @@ namespace PlayFab.AdminModels
         False
     }
 
+    public class ContactEmailInfo
+    {
+        /// <summary>
+        /// The name of the email info data
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// The email address
+        /// </summary>
+        public string EmailAddress;
+
+        /// <summary>
+        /// The verification status of the email
+        /// </summary>
+        public EmailVerificationStatus? VerificationStatus;
+
+    }
+
     public class ContentInfo
     {
         /// <summary>
@@ -1239,6 +1258,19 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class DeletePlayerRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class DeletePlayerResult : PlayFabResultCommon
+    {
+    }
+
     public class DeletePlayerSharedSecretRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1302,6 +1334,14 @@ namespace PlayFab.AdminModels
     {
         Allow,
         Deny
+    }
+
+    
+    public enum EmailVerificationStatus
+    {
+        Unverified,
+        Pending,
+        Confirmed
     }
 
     public class EmptyResult : PlayFabResultCommon
@@ -2919,6 +2959,11 @@ namespace PlayFab.AdminModels
         /// </summary>
         public List<PlayerStatistic> PlayerStatistics;
 
+        /// <summary>
+        /// Array of contact email addresses associated with the player
+        /// </summary>
+        public List<ContactEmailInfo> ContactEmailAddresses;
+
     }
 
     public class PlayerStatistic
@@ -3173,6 +3218,7 @@ namespace PlayFab.AdminModels
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class ResetUsersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4208,6 +4254,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class UserCredentials
     {
         /// <summary>
