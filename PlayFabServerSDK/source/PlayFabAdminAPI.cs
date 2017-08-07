@@ -197,6 +197,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Removes a user's player account from a title and deletes all associated data
+        /// </summary>
+        public static async Task<PlayFabResult<DeletePlayerResult>> DeletePlayerAsync(DeletePlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/DeletePlayer", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<DeletePlayerResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeletePlayerResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeletePlayerResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the relevant details for a specified user, based upon a match against a supplied unique identifier
         /// </summary>
         public static async Task<PlayFabResult<LookupUserAccountInfoResult>> GetUserAccountInfoAsync(LookupUserAccountInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -245,6 +268,7 @@ namespace PlayFab
         /// <summary>
         /// Resets all title-specific information about a particular account, including user data, virtual currency balances, inventory, purchase history, and statistics
         /// </summary>
+        [Obsolete("Use 'DeletePlayer' instead", false)]
         public static async Task<PlayFabResult<BlankResult>> ResetUsersAsync(ResetUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -406,6 +430,7 @@ namespace PlayFab
         /// <summary>
         /// Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. This method does not remove the player's event history, login history, inventory items, nor virtual currencies.
         /// </summary>
+        [Obsolete("Use 'DeleteUser' instead", false)]
         public static async Task<PlayFabResult<DeleteUsersResult>> DeleteUsersAsync(DeleteUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");

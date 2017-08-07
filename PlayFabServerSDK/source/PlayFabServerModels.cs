@@ -658,6 +658,25 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class ContactEmailInfo
+    {
+        /// <summary>
+        /// The name of the email info data
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// The email address
+        /// </summary>
+        public string EmailAddress;
+
+        /// <summary>
+        /// The verification status of the email
+        /// </summary>
+        public EmailVerificationStatus? VerificationStatus;
+
+    }
+
     
     public enum ContinentCode
     {
@@ -1170,6 +1189,14 @@ namespace PlayFab.ServerModels
 
     public class DeregisterGameResponse : PlayFabResultCommon
     {
+    }
+
+    
+    public enum EmailVerificationStatus
+    {
+        Unverified,
+        Pending,
+        Confirmed
     }
 
     public class EmptyResult : PlayFabResultCommon
@@ -3294,6 +3321,11 @@ namespace PlayFab.ServerModels
         /// </summary>
         public List<PlayerStatistic> PlayerStatistics;
 
+        /// <summary>
+        /// Array of contact email addresses associated with the player
+        /// </summary>
+        public List<ContactEmailInfo> ContactEmailAddresses;
+
     }
 
     public class PlayerProfileModel
@@ -3823,7 +3855,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Deprecated: Always true
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? Updated;
 
         /// <summary>
@@ -3947,7 +3979,6 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Text of message to send.
         /// </summary>
-        [Obsolete("Use 'Package' instead", false)]
         public string Message;
 
         /// <summary>
