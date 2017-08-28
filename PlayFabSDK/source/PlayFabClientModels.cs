@@ -592,6 +592,20 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class ContactEmailInfoModel
+    {
+        /// <summary>
+        /// The name of the email info data
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// The email address
+        /// </summary>
+        public string EmailAddress;
+
+    }
+
     /// <summary>
     /// A data container
     /// </summary>
@@ -1316,7 +1330,13 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// game specific string denoting server configuration
         /// </summary>
-        public GameInstanceState? GameServerState;
+        [Obsolete("Use 'GameServerStateEnum' instead", false)]
+        public int? GameServerState;
+
+        /// <summary>
+        /// game specific string denoting server configuration
+        /// </summary>
+        public GameInstanceState? GameServerStateEnum;
 
         /// <summary>
         /// game session custom data
@@ -3961,6 +3981,11 @@ namespace PlayFab.ClientModels
         public List<LinkedPlatformAccountModel> LinkedAccounts;
 
         /// <summary>
+        /// List of all contact email info associated with the player account
+        /// </summary>
+        public List<ContactEmailInfoModel> ContactEmailAddresses;
+
+        /// <summary>
         /// List of advertising campaigns the player has been attributed to
         /// </summary>
         public List<AdCampaignAttributionModel> AdCampaignAttributions;
@@ -4033,6 +4058,11 @@ namespace PlayFab.ClientModels
         /// Whether to show the linked accounts. Defaults to false
         /// </summary>
         public bool ShowLinkedAccounts;
+
+        /// <summary>
+        /// Whether to show contact email addresses. Defaults to false
+        /// </summary>
+        public bool ShowContactEmailAddresses;
 
         /// <summary>
         /// Whether to show the total value to date in usd. Defaults to false
@@ -4418,12 +4448,6 @@ namespace PlayFab.ClientModels
 
     public class ReportPlayerClientResult : PlayFabResultCommon
     {
-        /// <summary>
-        /// Deprecated: Always true
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public bool? Updated;
-
         /// <summary>
         /// The number of remaining reports which may be filed today.
         /// </summary>

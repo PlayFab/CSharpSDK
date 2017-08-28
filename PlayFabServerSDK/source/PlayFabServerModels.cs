@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace PlayFab.ServerModels
 {
+    [Obsolete("No longer available", false)]
     public class ActionsOnPlayersInSegmentTaskSummary
     {
         /// <summary>
@@ -674,6 +675,20 @@ namespace PlayFab.ServerModels
         /// The verification status of the email
         /// </summary>
         public EmailVerificationStatus? VerificationStatus;
+
+    }
+
+    public class ContactEmailInfoModel
+    {
+        /// <summary>
+        /// The name of the email info data
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// The email address
+        /// </summary>
+        public string EmailAddress;
 
     }
 
@@ -1388,6 +1403,7 @@ namespace PlayFab.ServerModels
         Closed
     }
 
+    [Obsolete("No longer available", false)]
     public class GetActionGroupResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1402,10 +1418,12 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GetAllActionGroupsRequest : PlayFabRequestCommon
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class GetAllActionGroupsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -3406,6 +3424,11 @@ namespace PlayFab.ServerModels
         public List<LinkedPlatformAccountModel> LinkedAccounts;
 
         /// <summary>
+        /// List of all contact email info associated with the player account
+        /// </summary>
+        public List<ContactEmailInfoModel> ContactEmailAddresses;
+
+        /// <summary>
         /// List of advertising campaigns the player has been attributed to
         /// </summary>
         public List<AdCampaignAttributionModel> AdCampaignAttributions;
@@ -3478,6 +3501,11 @@ namespace PlayFab.ServerModels
         /// Whether to show the linked accounts. Defaults to false
         /// </summary>
         public bool ShowLinkedAccounts;
+
+        /// <summary>
+        /// Whether to show contact email addresses. Defaults to false
+        /// </summary>
+        public bool ShowContactEmailAddresses;
 
         /// <summary>
         /// Whether to show the total value to date in usd. Defaults to false
@@ -3863,12 +3891,6 @@ namespace PlayFab.ServerModels
     public class ReportPlayerServerResult : PlayFabResultCommon
     {
         /// <summary>
-        /// Deprecated: Always true
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public bool? Updated;
-
-        /// <summary>
         /// The number of remaining reports which may be filed today by this reporting player.
         /// </summary>
         public int SubmissionsRemaining;
@@ -3992,14 +4014,19 @@ namespace PlayFab.ServerModels
         public string Message;
 
         /// <summary>
-        /// Defines all possible push attributes like message, title, icon, etc
+        /// Defines all possible push attributes like message, title, icon, etc. Not supported for iOS devices.
         /// </summary>
         public PushNotificationPackage Package;
 
         /// <summary>
-        /// Subject of message to send (may not be displayed in all platforms.
+        /// Subject of message to send (may not be displayed in all platforms. Not supported for Android devices (use Package instead).
         /// </summary>
         public string Subject;
+
+        /// <summary>
+        /// Platforms that should receive the message. If omitted, we will send to all available platforms.
+        /// </summary>
+        public List<PushNotificationPlatform> TargetPlatforms;
 
     }
 

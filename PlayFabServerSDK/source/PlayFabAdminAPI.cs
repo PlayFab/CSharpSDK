@@ -1903,6 +1903,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieve a list of all PlayStream actions groups.
         /// </summary>
+        [Obsolete("Use 'GetTasks' instead", false)]
         public static async Task<PlayFabResult<GetAllActionGroupsResult>> GetAllActionGroupsAsync(GetAllActionGroupsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
@@ -2133,6 +2134,7 @@ namespace PlayFab
         /// <summary>
         /// Get information about a ActionsOnPlayersInSegment task instance.
         /// </summary>
+        [Obsolete("Use 'GetTasks' instead", false)]
         public static async Task<PlayFabResult<GetActionsOnPlayersInSegmentTaskInstanceResult>> GetActionsOnPlayersInSegmentTaskInstanceAsync(GetTaskInstanceRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
