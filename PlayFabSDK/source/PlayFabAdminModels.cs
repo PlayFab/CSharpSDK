@@ -1473,21 +1473,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class GetActionGroupResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Action Group ID
-        /// </summary>
-        public string Id;
-
-        /// <summary>
-        /// Action Group name
-        /// </summary>
-        public string Name;
-
-    }
-
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1499,21 +1484,6 @@ namespace PlayFab.AdminModels
         /// Status summary of the actions-on-players-in-segment task instance
         /// </summary>
         public ActionsOnPlayersInSegmentTaskSummary Summary;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetAllActionGroupsRequest : PlayFabRequestCommon
-    {
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetAllActionGroupsResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// List of Action Groups.
-        /// </summary>
-        public List<GetActionGroupResult> ActionGroups;
 
     }
 

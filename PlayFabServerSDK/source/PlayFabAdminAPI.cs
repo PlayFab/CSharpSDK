@@ -428,30 +428,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieve a list of all PlayStream actions groups.
-        /// </summary>
-        [Obsolete("Use 'GetTasks' instead", true)]
-        public static async Task<PlayFabResult<GetAllActionGroupsResult>> GetAllActionGroupsAsync(GetAllActionGroupsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Admin/GetAllActionGroups", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<GetAllActionGroupsResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetAllActionGroupsResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetAllActionGroupsResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
         /// </summary>
         public static async Task<PlayFabResult<GetAllSegmentsResult>> GetAllSegmentsAsync(GetAllSegmentsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
