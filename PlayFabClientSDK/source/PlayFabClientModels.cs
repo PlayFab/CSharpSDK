@@ -1305,12 +1305,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// game specific string denoting server configuration
         /// </summary>
-        [Obsolete("Use 'GameServerStateEnum' instead", true)]
-        public int? GameServerState;
-
-        /// <summary>
-        /// game specific string denoting server configuration
-        /// </summary>
         public GameInstanceState? GameServerStateEnum;
 
         /// <summary>
