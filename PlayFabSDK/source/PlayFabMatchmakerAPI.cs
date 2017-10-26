@@ -105,7 +105,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the relevant details for a specified user, which the external match-making service can then use to compute effective matches
+        /// Retrieves the relevant details for a specified user, which the external match-making service can then use to compute
+        /// effective matches
         /// </summary>
         public static async Task<PlayFabResult<UserInfoResponse>> UserInfoAsync(UserInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

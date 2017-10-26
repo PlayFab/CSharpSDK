@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// APIs which provide the full range of PlayFab features available to the client - authentication, account and data management, inventory, friends, matchmaking, reporting, and platform-specific functionality
+    /// APIs which provide the full range of PlayFab features available to the client - authentication, account and data
+    /// management, inventory, friends, matchmaking, reporting, and platform-specific functionality
     /// </summary>
     public class PlayFabClientAPI
     {
         /// <summary>
-        /// Accepts an open trade (one that has not yet been accepted or cancelled), if the locally signed-in player is in the  allowed player list for the trade, or it is open to all players. If the call is successful, the offered and accepted items will be swapped  between the two players' inventories.
+        /// Accepts an open trade (one that has not yet been accepted or cancelled), if the locally signed-in player is in the
+        /// allowed player list for the trade, or it is open to all players. If the call is successful, the offered and accepted
+        /// items will be swapped  between the two players' inventories.
         /// </summary>
         public static async Task<PlayFabResult<AcceptTradeResponse>> AcceptTradeAsync(AcceptTradeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -36,7 +39,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds the PlayFab user, based upon a match against a supplied unique identifier, to the friend list of the local user. At least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized.
+        /// Adds the PlayFab user, based upon a match against a supplied unique identifier, to the friend list of the local user. At
+        /// least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized.
         /// </summary>
         public static async Task<PlayFabResult<AddFriendResult>> AddFriendAsync(AddFriendRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -59,7 +63,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as authentication credentials, as the intent is that it is easily accessible by other players.
+        /// Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab
+        /// ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as
+        /// authentication credentials, as the intent is that it is easily accessible by other players.
         /// </summary>
         public static async Task<PlayFabResult<AddGenericIDResult>> AddGenericIDAsync(AddGenericIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -82,7 +88,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds users to the set of those able to update both the shared data, as well as the set of users  in the group. Only users in the group can add new members. Shared Groups are designed for sharing data between a very  small number of players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// Adds users to the set of those able to update both the shared data, as well as the set of users  in the group. Only
+        /// users in the group can add new members. Shared Groups are designed for sharing data between a very  small number of
+        /// players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<AddSharedGroupMembersResult>> AddSharedGroupMembersAsync(AddSharedGroupMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -105,7 +113,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds playfab username/password auth to an existing account created via an anonymous auth method, e.g. automatic device ID login.
+        /// Adds playfab username/password auth to an existing account created via an anonymous auth method, e.g. automatic device
+        /// ID login.
         /// </summary>
         public static async Task<PlayFabResult<AddUsernamePasswordResult>> AddUsernamePasswordAsync(AddUsernamePasswordRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -199,7 +208,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Cancels an open trade (one that has not yet been accepted or cancelled). Note that only the player who created the trade  can cancel it via this API call, to prevent griefing of the trade system (cancelling trades in order to prevent other players from accepting  them, for trades that can be claimed by more than one player).
+        /// Cancels an open trade (one that has not yet been accepted or cancelled). Note that only the player who created the trade
+        /// can cancel it via this API call, to prevent griefing of the trade system (cancelling trades in order to prevent other
+        /// players from accepting  them, for trades that can be claimed by more than one player).
         /// </summary>
         public static async Task<PlayFabResult<CancelTradeResponse>> CancelTradeAsync(CancelTradeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -222,7 +233,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and  virtual currency balances as appropriate
+        /// Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and  virtual
+        /// currency balances as appropriate
         /// </summary>
         public static async Task<PlayFabResult<ConfirmPurchaseResult>> ConfirmPurchaseAsync(ConfirmPurchaseRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -268,7 +280,10 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Requests the creation of a shared group object, containing key/value pairs which may be updated by  all members of the group. Upon creation, the current user will be the only member of the group. Shared Groups are designed  for sharing data between a very small number of players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// Requests the creation of a shared group object, containing key/value pairs which may be updated by  all members of the
+        /// group. Upon creation, the current user will be the only member of the group. Shared Groups are designed  for sharing
+        /// data between a very small number of players, please see our guide:
+        /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<CreateSharedGroupResult>> CreateSharedGroupAsync(CreateSharedGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -337,7 +352,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness.
+        /// Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be
+        /// evaluated with the parent PlayFabId to guarantee uniqueness.
         /// </summary>
         public static async Task<PlayFabResult<ListUsersCharactersResult>> GetAllUsersCharactersAsync(ListUsersCharactersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -498,7 +514,13 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent  HTTP GET to the returned URL will attempt to download the content. A HEAD query to the returned URL will attempt to  retrieve the metadata of the content. Note that a successful result does not guarantee the existence of this content -  if it has not been uploaded, the query to retrieve the data will fail. See this post for more information:  https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service.  Also, please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN rates apply.
+        /// This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent  HTTP GET to the returned
+        /// URL will attempt to download the content. A HEAD query to the returned URL will attempt to  retrieve the metadata of the
+        /// content. Note that a successful result does not guarantee the existence of this content -  if it has not been uploaded,
+        /// the query to retrieve the data will fail. See this post for more information:
+        /// https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service.
+        /// Also, please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN rates
+        /// apply.
         /// </summary>
         public static async Task<PlayFabResult<GetContentDownloadUrlResult>> GetContentDownloadUrlAsync(GetContentDownloadUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -544,7 +566,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a list of ranked friends of the current player for the given statistic, starting from the indicated point in the leaderboard
+        /// Retrieves a list of ranked friends of the current player for the given statistic, starting from the indicated point in
+        /// the leaderboard
         /// </summary>
         public static async Task<PlayFabResult<GetLeaderboardResult>> GetFriendLeaderboardAsync(GetFriendLeaderboardRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -567,7 +590,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab user. If PlayFabId is empty or null will return currently logged in user.
+        /// Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab
+        /// user. If PlayFabId is empty or null will return currently logged in user.
         /// </summary>
         public static async Task<PlayFabResult<GetFriendLeaderboardAroundPlayerResult>> GetFriendLeaderboardAroundPlayerAsync(GetFriendLeaderboardAroundPlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -590,7 +614,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the current friend list for the local user, constrained to users who have PlayFab accounts. Friends from linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends.
+        /// Retrieves the current friend list for the local user, constrained to users who have PlayFab accounts. Friends from
+        /// linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends.
         /// </summary>
         public static async Task<PlayFabResult<GetFriendsListResult>> GetFriendsListAsync(GetFriendsListRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -613,7 +638,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        ///  Get details about the regions hosting game servers matching the given parameters.
+        /// Get details about the regions hosting game servers matching the given parameters.
         /// </summary>
         public static async Task<PlayFabResult<GameServerRegionsResult>> GetGameServerRegionsAsync(GameServerRegionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -682,7 +707,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a list of ranked users for the given statistic, centered on the requested player. If PlayFabId is empty or null will return currently logged in user.
+        /// Retrieves a list of ranked users for the given statistic, centered on the requested player. If PlayFabId is empty or
+        /// null will return currently logged in user.
         /// </summary>
         public static async Task<PlayFabResult<GetLeaderboardAroundPlayerResult>> GetLeaderboardAroundPlayerAsync(GetLeaderboardAroundPlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -728,7 +754,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Gets a Photon custom authentication token that can be used to securely join the player into a Photon room. See https://api.playfab.com/docs/using-photon-with-playfab/ for more details.
+        /// Gets a Photon custom authentication token that can be used to securely join the player into a Photon room. See
+        /// https://api.playfab.com/docs/using-photon-with-playfab/ for more details.
         /// </summary>
         public static async Task<PlayFabResult<GetPhotonAuthenticationTokenResult>> GetPhotonAuthenticationTokenAsync(GetPhotonAuthenticationTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -820,7 +847,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the indicated statistics (current version and values for all statistics, if none are specified), for the local player.
+        /// Retrieves the indicated statistics (current version and values for all statistics, if none are specified), for the local
+        /// player.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayerStatisticsResult>> GetPlayerStatisticsAsync(GetPlayerStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -935,7 +963,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of Game Center identifiers (referenced in the Game Center Programming Guide as the Player Identifier).
+        /// Retrieves the unique PlayFab identifiers for the given set of Game Center identifiers (referenced in the Game Center
+        /// Programming Guide as the Player Identifier).
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromGameCenterIDsResult>> GetPlayFabIDsFromGameCenterIDsAsync(GetPlayFabIDsFromGameCenterIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -958,7 +987,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the service name plus the service-specific ID for the player, as specified by the title when the generic identifier was added to the player account.
+        /// Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the
+        /// service name plus the service-specific ID for the player, as specified by the title when the generic identifier was
+        /// added to the player account.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromGenericIDsResult>> GetPlayFabIDsFromGenericIDsAsync(GetPlayFabIDsFromGenericIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -981,7 +1012,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of Google identifiers. The Google identifiers are the IDs for the user accounts, available as "id" in the Google+ People API calls.
+        /// Retrieves the unique PlayFab identifiers for the given set of Google identifiers. The Google identifiers are the IDs for
+        /// the user accounts, available as "id" in the Google+ People API calls.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromGoogleIDsResult>> GetPlayFabIDsFromGoogleIDsAsync(GetPlayFabIDsFromGoogleIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1004,7 +1036,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of Kongregate identifiers. The Kongregate identifiers are the IDs for the user accounts, available as "user_id" from the Kongregate API methods(ex: http://developers.kongregate.com/docs/client/getUserId).
+        /// Retrieves the unique PlayFab identifiers for the given set of Kongregate identifiers. The Kongregate identifiers are the
+        /// IDs for the user accounts, available as "user_id" from the Kongregate API methods(ex:
+        /// http://developers.kongregate.com/docs/client/getUserId).
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromKongregateIDsResult>> GetPlayFabIDsFromKongregateIDsAsync(GetPlayFabIDsFromKongregateIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1027,7 +1061,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
+        /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile
+        /// IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromSteamIDsResult>> GetPlayFabIDsFromSteamIDsAsync(GetPlayFabIDsFromSteamIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1050,7 +1085,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods (ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
+        /// Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for
+        /// the user accounts, available as "_id" from the Twitch API methods (ex:
+        /// https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser).
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromTwitchIDsResult>> GetPlayFabIDsFromTwitchIDsAsync(GetPlayFabIDsFromTwitchIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1096,7 +1133,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still active.
+        /// Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still
+        /// active.
         /// </summary>
         public static async Task<PlayFabResult<GetPurchaseResult>> GetPurchaseAsync(GetPurchaseRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1119,7 +1157,10 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves data stored in a shared group object, as well as the list of members in  the group. Non-members of the group may use this to retrieve group data, including membership, but they  will not receive data for keys marked as private. Shared Groups are designed for sharing data between a  very small number of players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// Retrieves data stored in a shared group object, as well as the list of members in  the group. Non-members of the group
+        /// may use this to retrieve group data, including membership, but they  will not receive data for keys marked as private.
+        /// Shared Groups are designed for sharing data between a  very small number of players, please see our guide:
+        /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<GetSharedGroupDataResult>> GetSharedGroupDataAsync(GetSharedGroupDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1416,7 +1457,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness.
+        /// Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated
+        /// with the parent PlayFabId to guarantee uniqueness.
         /// </summary>
         public static async Task<PlayFabResult<GrantCharacterToUserResult>> GrantCharacterToUserAsync(GrantCharacterToUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1669,7 +1711,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for
+        /// API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithAndroidDeviceIDAsync(LoginWithAndroidDeviceIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1695,7 +1738,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using a custom unique identifier generated by the title, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user in using a custom unique identifier generated by the title, returning a session identifier that can
+        /// subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithCustomIDAsync(LoginWithCustomIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1721,7 +1765,10 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. Unlike most other login API calls, LoginWithEmailAddress does not permit the  creation of new accounts via the CreateAccountFlag. Email addresses may be used to create accounts via RegisterPlayFabUser.
+        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls
+        /// which require an authenticated user. Unlike most other login API calls, LoginWithEmailAddress does not permit the
+        /// creation of new accounts via the CreateAccountFlag. Email addresses may be used to create accounts via
+        /// RegisterPlayFabUser.
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithEmailAddressAsync(LoginWithEmailAddressRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1747,7 +1794,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using a Facebook access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user in using a Facebook access token, returning a session identifier that can subsequently be used for API
+        /// calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithFacebookAsync(LoginWithFacebookRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1773,7 +1821,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using an iOS Game Center player identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user in using an iOS Game Center player identifier, returning a session identifier that can subsequently be
+        /// used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithGameCenterAsync(LoginWithGameCenterRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1825,7 +1874,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using the vendor-specific iOS device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user in using the vendor-specific iOS device identifier, returning a session identifier that can subsequently
+        /// be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithIOSDeviceIDAsync(LoginWithIOSDeviceIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1877,7 +1927,10 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. Unlike most other login API calls, LoginWithPlayFab does not permit the  creation of new accounts via the CreateAccountFlag. Username/Password credentials may be used to create accounts via  RegisterPlayFabUser, or added to existing accounts using AddUsernamePassword.
+        /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls
+        /// which require an authenticated user. Unlike most other login API calls, LoginWithPlayFab does not permit the  creation
+        /// of new accounts via the CreateAccountFlag. Username/Password credentials may be used to create accounts via
+        /// RegisterPlayFabUser, or added to existing accounts using AddUsernamePassword.
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithPlayFabAsync(LoginWithPlayFabRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1903,7 +1956,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for API calls which require an authenticated user
+        /// Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for
+        /// API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithSteamAsync(LoginWithSteamRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1955,7 +2009,10 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Completes the Windows Hello login flow by returning the signed value of the challange from GetWindowsHelloChallenge. Windows Hello has a 2 step client to server authentication scheme. Step one is to request from the server a challenge string. Step two is to request the user sign the string via Windows Hello and then send the signed value back to the server. 
+        /// Completes the Windows Hello login flow by returning the signed value of the challange from GetWindowsHelloChallenge.
+        /// Windows Hello has a 2 step client to server authentication scheme. Step one is to request from the server a challenge
+        /// string. Step two is to request the user sign the string via Windows Hello and then send the signed value back to the
+        /// server.
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithWindowsHelloAsync(LoginWithWindowsHelloRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1981,7 +2038,12 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound.
+        /// Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific
+        /// active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required
+        /// parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is
+        /// found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the
+        /// availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be
+        /// GameNotFound.
         /// </summary>
         public static async Task<PlayFabResult<MatchmakeResult>> MatchmakeAsync(MatchmakeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2050,7 +2112,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase,  as well as what the client believes the price to be. This lets the server fail the purchase if the price has changed.
+        /// Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase,  as well as
+        /// what the client believes the price to be. This lets the server fail the purchase if the price has changed.
         /// </summary>
         public static async Task<PlayFabResult<PurchaseItemResult>> PurchaseItemAsync(PurchaseItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2073,7 +2136,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Economy->Catalogs tab in the PlayFab Game Manager.
+        /// Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the
+        /// Economy->Catalogs tab in the PlayFab Game Manager.
         /// </summary>
         public static async Task<PlayFabResult<RedeemCouponResult>> RedeemCouponAsync(RedeemCouponRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2119,7 +2183,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. You must supply either a username or an email address.
+        /// Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which
+        /// require an authenticated user. You must supply either a username or an email address.
         /// </summary>
         public static async Task<PlayFabResult<RegisterPlayFabUserResult>> RegisterPlayFabUserAsync(RegisterPlayFabUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2145,7 +2210,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Registers a new PlayFab user account using Windows Hello authentication, returning a session ticket  that can subsequently be used for API calls which require an authenticated user
+        /// Registers a new PlayFab user account using Windows Hello authentication, returning a session ticket  that can
+        /// subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> RegisterWithWindowsHelloAsync(RegisterWithWindowsHelloRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2217,7 +2283,10 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Removes users from the set of those able to update the shared data and the set of users  in the group. Only users in the group can remove members. If as a result of the call, zero users remain with  access, the group and its associated data will be deleted. Shared Groups are designed for sharing data between  a very small number of players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// Removes users from the set of those able to update the shared data and the set of users  in the group. Only users in the
+        /// group can remove members. If as a result of the call, zero users remain with  access, the group and its associated data
+        /// will be deleted. Shared Groups are designed for sharing data between  a very small number of players, please see our
+        /// guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<RemoveSharedGroupMembersResult>> RemoveSharedGroupMembersAsync(RemoveSharedGroupMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2240,7 +2309,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title can take action concerning potentially toxic players.
+        /// Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title
+        /// can take action concerning potentially toxic players.
         /// </summary>
         public static async Task<PlayFabResult<ReportPlayerClientResult>> ReportPlayerAsync(ReportPlayerClientRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2286,7 +2356,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to change the password
+        /// Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to
+        /// change the password
         /// </summary>
         public static async Task<PlayFabResult<SendAccountRecoveryEmailResult>> SendAccountRecoveryEmailAsync(SendAccountRecoveryEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2331,7 +2402,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's secret use the Admin or Server API method SetPlayerSecret.
+        /// Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's
+        /// secret use the Admin or Server API method SetPlayerSecret.
         /// </summary>
         public static async Task<PlayFabResult<SetPlayerSecretResult>> SetPlayerSecretAsync(SetPlayerSecretRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2400,7 +2472,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Decrements the user's balance of the specified virtual currency by the stated amount
+        /// Decrements the user's balance of the specified virtual currency by the stated amount. It is possible to make a VC
+        /// balance negative with this API.
         /// </summary>
         public static async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> SubtractUserVirtualCurrencyAsync(SubtractUserVirtualCurrencyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2515,7 +2588,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Unlinks the related Google account from the user's PlayFab account (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods).
+        /// Unlinks the related Google account from the user's PlayFab account
+        /// (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods).
         /// </summary>
         public static async Task<PlayFabResult<UnlinkGoogleAccountResult>> UnlinkGoogleAccountAsync(UnlinkGoogleAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2653,7 +2727,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Opens the specified container, with the specified key (when required), and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
+        /// Opens the specified container, with the specified key (when required), and returns the contents of the opened container.
+        /// If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented,
+        /// consistent with the operation of ConsumeItem.
         /// </summary>
         public static async Task<PlayFabResult<UnlockContainerItemResult>> UnlockContainerInstanceAsync(UnlockContainerInstanceRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2676,7 +2752,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
+        /// Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an
+        /// appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are
+        /// consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem.
         /// </summary>
         public static async Task<PlayFabResult<UnlockContainerItemResult>> UnlockContainerItemAsync(UnlockContainerItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2722,7 +2800,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Creates and updates the title-specific custom data for the user's character which is readable  and writable by the client
+        /// Creates and updates the title-specific custom data for the user's character which is readable  and writable by the
+        /// client
         /// </summary>
         public static async Task<PlayFabResult<UpdateCharacterDataResult>> UpdateCharacterDataAsync(UpdateCharacterDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2745,7 +2824,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates the values of the specified title-specific statistics for the specific character. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
+        /// Updates the values of the specified title-specific statistics for the specific character. By default, clients are not
+        /// permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
         /// </summary>
         public static async Task<PlayFabResult<UpdateCharacterStatisticsResult>> UpdateCharacterStatisticsAsync(UpdateCharacterStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2768,7 +2848,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
+        /// Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to
+        /// update statistics. Developers may override this setting in the Game Manager > Settings > API Features.
         /// </summary>
         public static async Task<PlayFabResult<UpdatePlayerStatisticsResult>> UpdatePlayerStatisticsAsync(UpdatePlayerStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2791,7 +2872,11 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds, updates, and removes data keys for a shared group object. If the permission is set to Public, all fields updated or added in this call will be readable by users not in the group. By default, data permissions are set to Private. Regardless of the permission setting, only members of the group can update the data. Shared Groups are designed  for sharing data between a very small number of players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// Adds, updates, and removes data keys for a shared group object. If the permission is set to Public, all fields updated
+        /// or added in this call will be readable by users not in the group. By default, data permissions are set to Private.
+        /// Regardless of the permission setting, only members of the group can update the data. Shared Groups are designed  for
+        /// sharing data between a very small number of players, please see our guide:
+        /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<UpdateSharedGroupDataResult>> UpdateSharedGroupDataAsync(UpdateSharedGroupDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2883,7 +2968,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item
+        /// Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the
+        /// purchased catalog item
         /// </summary>
         public static async Task<PlayFabResult<ValidateAmazonReceiptResult>> ValidateAmazonIAPReceiptAsync(ValidateAmazonReceiptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2929,7 +3015,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item
+        /// Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased
+        /// catalog item
         /// </summary>
         public static async Task<PlayFabResult<ValidateIOSReceiptResult>> ValidateIOSReceiptAsync(ValidateIOSReceiptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2952,7 +3039,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the purchased catalog item
+        /// Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the
+        /// purchased catalog item
         /// </summary>
         public static async Task<PlayFabResult<ValidateWindowsReceiptResult>> ValidateWindowsStoreReceiptAsync(ValidateWindowsReceiptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

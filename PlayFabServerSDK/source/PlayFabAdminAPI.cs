@@ -82,7 +82,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds the game server executable specified (previously uploaded - see GetServerBuildUploadUrl) to the set of those a client is permitted to request in a call to StartGame
+        /// Adds the game server executable specified (previously uploaded - see GetServerBuildUploadUrl) to the set of those a
+        /// client is permitted to request in a call to StartGame
         /// </summary>
         public static async Task<PlayFabResult<AddServerBuildResult>> AddServerBuildAsync(AddServerBuildRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -128,7 +129,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of 2,147,483,647 when granted to a player. Any value over that will be discarded.
+        /// Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of
+        /// 2,147,483,647 when granted to a player. Any value over that will be discarded.
         /// </summary>
         public static async Task<PlayFabResult<BlankResult>> AddVirtualCurrencyTypesAsync(AddVirtualCurrencyTypesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -220,7 +222,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Creates a new Player Shared Secret Key. It may take up to 5 minutes for this key to become generally available after this API returns.
+        /// Creates a new Player Shared Secret Key. It may take up to 5 minutes for this key to become generally available after
+        /// this API returns.
         /// </summary>
         public static async Task<PlayFabResult<CreatePlayerSharedSecretResult>> CreatePlayerSharedSecretAsync(CreatePlayerSharedSecretRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -243,7 +246,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval and an aggregation method.
+        /// Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval
+        /// and an aggregation method.
         /// </summary>
         public static async Task<PlayFabResult<CreatePlayerStatisticDefinitionResult>> CreatePlayerStatisticDefinitionAsync(CreatePlayerStatisticDefinitionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -312,7 +316,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Deletes an existing Player Shared Secret Key. It may take up to 5 minutes for this delete to be reflected after this API returns.
+        /// Deletes an existing Player Shared Secret Key. It may take up to 5 minutes for this delete to be reflected after this API
+        /// returns.
         /// </summary>
         public static async Task<PlayFabResult<DeletePlayerSharedSecretResult>> DeletePlayerSharedSecretAsync(DeletePlayerSharedSecretRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -381,27 +386,26 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. This method does not remove the player's event history, login history, inventory items, nor virtual currencies.
+        /// Permanently deletes a title and all associated configuration
         /// </summary>
-        [Obsolete("Use 'DeleteUser' instead", true)]
-        public static async Task<PlayFabResult<DeleteUsersResult>> DeleteUsersAsync(DeleteUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<DeleteTitleResult>> DeleteTitleAsync(DeleteTitleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Admin/DeleteUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Admin/DeleteTitle", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
             if(httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
                 if (PlayFabSettings.GlobalErrorHandler != null)
                     PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<DeleteUsersResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<DeleteTitleResult> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeleteUsersResult>>(resultRawJson);
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeleteTitleResult>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<DeleteUsersResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<DeleteTitleResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -428,7 +432,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
+        /// Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as
+        /// GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
         /// </summary>
         public static async Task<PlayFabResult<GetAllSegmentsResult>> GetAllSegmentsAsync(GetAllSegmentsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -520,7 +525,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Lists all the current cloud script versions. For each version, information about the current published and latest revisions is also listed.
+        /// Lists all the current cloud script versions. For each version, information about the current published and latest
+        /// revisions is also listed.
         /// </summary>
         public static async Task<PlayFabResult<GetCloudScriptVersionsResult>> GetCloudScriptVersionsAsync(GetCloudScriptVersionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -566,7 +572,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the pre-signed URL for uploading a content file. A subsequent HTTP PUT to the returned URL uploads the  content. Also, please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN rates apply.
+        /// Retrieves the pre-signed URL for uploading a content file. A subsequent HTTP PUT to the returned URL uploads the
+        /// content. Also, please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN
+        /// rates apply.
         /// </summary>
         public static async Task<PlayFabResult<GetContentUploadUrlResult>> GetContentUploadUrlAsync(GetContentUploadUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -704,7 +712,10 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected in the results. AB Test segments are currently not supported by this operation.
+        /// Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match
+        /// the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span
+        /// on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected
+        /// in the results. AB Test segments are currently not supported by this operation.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayersInSegmentResult>> GetPlayersInSegmentAsync(GetPlayersInSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -727,7 +738,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have a reset interval.
+        /// Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have
+        /// a reset interval.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayerStatisticDefinitionsResult>> GetPlayerStatisticDefinitionsAsync(GetPlayerStatisticDefinitionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -888,7 +900,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for use - see AddServerBuild)
+        /// Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for
+        /// use - see AddServerBuild)
         /// </summary>
         public static async Task<PlayFabResult<GetServerBuildUploadURLResult>> GetServerBuildUploadUrlAsync(GetServerBuildUploadURLRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1417,7 +1430,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Removes the game server executable specified from the set of those a client is permitted to request in a call to StartGame
+        /// Removes the game server executable specified from the set of those a client is permitted to request in a call to
+        /// StartGame
         /// </summary>
         public static async Task<PlayFabResult<RemoveServerBuildResult>> RemoveServerBuildAsync(RemoveServerBuildRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1483,30 +1497,6 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ResetCharacterStatisticsResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Resets all title-specific information about a particular account, including user data, virtual currency balances, inventory, purchase history, and statistics
-        /// </summary>
-        [Obsolete("Use 'DeletePlayer' instead", true)]
-        public static async Task<PlayFabResult<BlankResult>> ResetUsersAsync(ResetUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Admin/ResetUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
-                return new PlayFabResult<BlankResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<BlankResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<BlankResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1648,7 +1638,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Forces an email to be sent to the registered email address for the specified account, with a link allowing the user to change the password
+        /// Forces an email to be sent to the registered email address for the specified account, with a link allowing the user to
+        /// change the password
         /// </summary>
         public static async Task<PlayFabResult<SendAccountRecoveryEmailResult>> SendAccountRecoveryEmailAsync(SendAccountRecoveryEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1832,7 +1823,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Sets the Amazon Resource Name (ARN) for iOS and Android push notifications. Documentation on the exact restrictions can be found at: http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformApplication.html. Currently, Amazon device Messaging is not supported.
+        /// Sets the Amazon Resource Name (ARN) for iOS and Android push notifications. Documentation on the exact restrictions can
+        /// be found at: http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformApplication.html. Currently, Amazon device
+        /// Messaging is not supported.
         /// </summary>
         public static async Task<PlayFabResult<SetupPushNotificationResult>> SetupPushNotificationAsync(SetupPushNotificationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1924,7 +1917,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Creates a new Cloud Script revision and uploads source code to it. Note that at this time, only one file should be submitted in the revision.
+        /// Creates a new Cloud Script revision and uploads source code to it. Note that at this time, only one file should be
+        /// submitted in the revision.
         /// </summary>
         public static async Task<PlayFabResult<UpdateCloudScriptResult>> UpdateCloudScriptAsync(UpdateCloudScriptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1947,7 +1941,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates a existing Player Shared Secret Key. It may take up to 5 minutes for this update to become generally available after this API returns.
+        /// Updates a existing Player Shared Secret Key. It may take up to 5 minutes for this update to become generally available
+        /// after this API returns.
         /// </summary>
         public static async Task<PlayFabResult<UpdatePlayerSharedSecretResult>> UpdatePlayerSharedSecretAsync(UpdatePlayerSharedSecretRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

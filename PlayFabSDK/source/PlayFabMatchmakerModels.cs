@@ -41,7 +41,10 @@ namespace PlayFab.MatchmakerModels
     }
 
     /// <summary>
-    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
+    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such
+    /// as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The
+    /// Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note
+    /// that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
     /// </summary>
     public class ItemInstance : IComparable<ItemInstance>
     {
@@ -56,7 +59,8 @@ namespace PlayFab.MatchmakerModels
         public List<string> BundleContents;
 
         /// <summary>
-        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
+        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or
+        /// container.
         /// </summary>
         public string BundleParent;
 
@@ -132,7 +136,8 @@ namespace PlayFab.MatchmakerModels
     public class PlayerJoinedRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Unique identifier of the Game Server Instance the user is joining. This must be a Game Server Instance started with the Matchmaker/StartGame API.
+        /// Unique identifier of the Game Server Instance the user is joining. This must be a Game Server Instance started with the
+        /// Matchmaker/StartGame API.
         /// </summary>
         public string LobbyId;
 
@@ -150,7 +155,8 @@ namespace PlayFab.MatchmakerModels
     public class PlayerLeftRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Unique identifier of the Game Server Instance the user is leaving. This must be a Game Server Instance started with the Matchmaker/StartGame API.
+        /// Unique identifier of the Game Server Instance the user is leaving. This must be a Game Server Instance started with the
+        /// Matchmaker/StartGame API.
         /// </summary>
         public string LobbyId;
 
@@ -165,7 +171,6 @@ namespace PlayFab.MatchmakerModels
     {
     }
 
-    
     public enum Region
     {
         USCentral,
@@ -185,7 +190,8 @@ namespace PlayFab.MatchmakerModels
         public string Build;
 
         /// <summary>
-        /// Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs).
+        /// Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game
+        /// Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs).
         /// </summary>
         public string GameMode;
 
@@ -195,14 +201,20 @@ namespace PlayFab.MatchmakerModels
         public string LobbyId;
 
         /// <summary>
-        /// Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS region and use Tags (below) to specify your custom region.
+        /// Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS
+        /// region and use Tags (below) to specify your custom region.
         /// </summary>
         public Region Region;
 
         /// <summary>
-        /// IP address of the Game Server Instance.
+        /// IPV4 address of the Game Server Instance.
         /// </summary>
         public string ServerHost;
+
+        /// <summary>
+        /// IPV6 address of the Game Server Instance.
+        /// </summary>
+        public string ServerIPV6Address;
 
         /// <summary>
         /// Port number for communication with the Game Server Instance.
@@ -219,7 +231,8 @@ namespace PlayFab.MatchmakerModels
     public class RegisterGameResponse : PlayFabResultCommon
     {
         /// <summary>
-        /// Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the game still exists in PlayFab, the LobbyId in request is returned. Otherwise a new lobby id will be returned.
+        /// Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the
+        /// game still exists in PlayFab, the LobbyId in request is returned. Otherwise a new lobby id will be returned.
         /// </summary>
         public string LobbyId;
 
@@ -238,7 +251,9 @@ namespace PlayFab.MatchmakerModels
         public string CustomCommandLineData;
 
         /// <summary>
-        /// HTTP endpoint URL for receiving game status events, if using an external matchmaker. When the game ends, PlayFab will make a POST request to this URL with the X-SecretKey header set to the value of the game's secret and an application/json body of { "EventName": "game_ended", "GameID": "<gameid>" }.
+        /// HTTP endpoint URL for receiving game status events, if using an external matchmaker. When the game ends, PlayFab will
+        /// make a POST request to this URL with the X-SecretKey header set to the value of the game's secret and an
+        /// application/json body of { "EventName": "game_ended", "GameID": "<gameid>" }.
         /// </summary>
         public string ExternalMatchmakerEventEndpoint;
 
@@ -262,9 +277,14 @@ namespace PlayFab.MatchmakerModels
         public string GameID;
 
         /// <summary>
-        /// IP address of the new Game Server Instance.
+        /// IPV4 address of the new Game Server Instance.
         /// </summary>
         public string ServerHostname;
+
+        /// <summary>
+        /// IPV6 address of the new Game Server Instance.
+        /// </summary>
+        public string ServerIPV6Address;
 
         /// <summary>
         /// Port number for communication with the Game Server Instance.
@@ -276,7 +296,8 @@ namespace PlayFab.MatchmakerModels
     public class UserInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Minimum catalog version for which data is requested (filters the results to only contain inventory items which have a catalog version of this or higher).
+        /// Minimum catalog version for which data is requested (filters the results to only contain inventory items which have a
+        /// catalog version of this or higher).
         /// </summary>
         public int MinCatalogVersion;
 
@@ -335,7 +356,9 @@ namespace PlayFab.MatchmakerModels
     public class VirtualCurrencyRechargeTime
     {
         /// <summary>
-        /// Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen below this value.
+        /// Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value
+        /// through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen
+        /// below this value.
         /// </summary>
         public int RechargeMax;
 

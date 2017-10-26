@@ -208,7 +208,8 @@ namespace PlayFab.AdminModels
         public int MaxGamesPerHost;
 
         /// <summary>
-        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
+        /// machines (given the number of current running host machines and game server instances)
         /// </summary>
         public int MinFreeGameSlots;
 
@@ -247,7 +248,8 @@ namespace PlayFab.AdminModels
         public int MaxGamesPerHost;
 
         /// <summary>
-        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
+        /// machines (given the number of current running host machines and game server instances)
         /// </summary>
         public int MinFreeGameSlots;
 
@@ -262,7 +264,8 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp;
 
         /// <summary>
-        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
         /// </summary>
         public string TitleId;
 
@@ -271,7 +274,8 @@ namespace PlayFab.AdminModels
     public class AddUserVirtualCurrencyRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded.
+        /// Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647).
+        /// Any increase over this value will be discarded.
         /// </summary>
         public int Amount;
 
@@ -290,7 +294,8 @@ namespace PlayFab.AdminModels
     public class AddVirtualCurrencyTypesRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// List of virtual currencies and their initial deposits (the amount a user is granted when signing in for the first time) to the title
+        /// List of virtual currencies and their initial deposits (the amount a user is granted when signing in for the first time)
+        /// to the title
         /// </summary>
         public List<VirtualCurrencyData> VirtualCurrencies;
 
@@ -412,7 +417,8 @@ namespace PlayFab.AdminModels
     public class CatalogItem : IComparable<CatalogItem>
     {
         /// <summary>
-        /// defines the bundle properties for the item - bundles are items which contain other items, including random drop tables and virtual currencies
+        /// defines the bundle properties for the item - bundles are items which contain other items, including random drop tables
+        /// and virtual currencies
         /// </summary>
         public CatalogItemBundleInfo Bundle;
 
@@ -432,7 +438,8 @@ namespace PlayFab.AdminModels
         public CatalogItemConsumableInfo Consumable;
 
         /// <summary>
-        /// defines the container properties for the item - what items it contains, including random drop tables and virtual currencies, and what item (if any) is required to open it via the UnlockContainerItem API
+        /// defines the container properties for the item - what items it contains, including random drop tables and virtual
+        /// currencies, and what item (if any) is required to open it via the UnlockContainerItem API
         /// </summary>
         public CatalogItemContainerInfo Container;
 
@@ -452,7 +459,11 @@ namespace PlayFab.AdminModels
         public string DisplayName;
 
         /// <summary>
-        /// If the item has IsLImitedEdition set to true, and this is the first time this ItemId has been defined as a limited edition item, this value determines the total number of instances to allocate for the title. Once this limit has been reached, no more instances of this ItemId can be created, and attempts to purchase or grant it will return a Result of false for that ItemId. If the item has already been defined to have a limited edition count, or if this value is less than zero, it will be ignored.
+        /// If the item has IsLImitedEdition set to true, and this is the first time this ItemId has been defined as a limited
+        /// edition item, this value determines the total number of instances to allocate for the title. Once this limit has been
+        /// reached, no more instances of this ItemId can be created, and attempts to purchase or grant it will return a Result of
+        /// false for that ItemId. If the item has already been defined to have a limited edition count, or if this value is less
+        /// than zero, it will be ignored.
         /// </summary>
         public int InitialLimitedEditionCount;
 
@@ -462,7 +473,8 @@ namespace PlayFab.AdminModels
         public bool IsLimitedEdition;
 
         /// <summary>
-        /// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead. RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
+        /// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead.
+        /// RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
         /// </summary>
         public bool IsStackable;
 
@@ -482,7 +494,8 @@ namespace PlayFab.AdminModels
         public string ItemId;
 
         /// <summary>
-        /// URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP URL.
+        /// URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP
+        /// URL.
         /// </summary>
         public string ItemImageUrl;
 
@@ -520,7 +533,8 @@ namespace PlayFab.AdminModels
         public List<string> BundledItems;
 
         /// <summary>
-        /// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and add the relevant items to the player inventory when the bundle is added)
+        /// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and
+        /// add the relevant items to the player inventory when the bundle is added)
         /// </summary>
         [Unordered]
         public List<string> BundledResultTables;
@@ -540,19 +554,26 @@ namespace PlayFab.AdminModels
         public uint? UsageCount;
 
         /// <summary>
-        /// duration in seconds for how long the item will remain in the player inventory - once elapsed, the item will be removed (recommended minimum value is 5 seconds, as lower values can cause the item to expire before operations depending on this item's details have completed)
+        /// duration in seconds for how long the item will remain in the player inventory - once elapsed, the item will be removed
+        /// (recommended minimum value is 5 seconds, as lower values can cause the item to expire before operations depending on
+        /// this item's details have completed)
         /// </summary>
         public uint? UsagePeriod;
 
         /// <summary>
-        /// all inventory item instances in the player inventory sharing a non-null UsagePeriodGroup have their UsagePeriod values added together, and share the result - when that period has elapsed, all the items in the group will be removed
+        /// all inventory item instances in the player inventory sharing a non-null UsagePeriodGroup have their UsagePeriod values
+        /// added together, and share the result - when that period has elapsed, all the items in the group will be removed
         /// </summary>
         public string UsagePeriodGroup;
 
     }
 
     /// <summary>
-    /// Containers are inventory items that can hold other items defined in the catalog, as well as virtual currency, which is added to the player inventory when the container is unlocked, using the UnlockContainerItem API. The items can be anything defined in the catalog, as well as RandomResultTable objects which will be resolved when the container is unlocked. Containers and their keys should be defined as Consumable (having a limited number of uses) in their catalog defintiions, unless the intent is for the player to be able to re-use them infinitely.
+    /// Containers are inventory items that can hold other items defined in the catalog, as well as virtual currency, which is
+    /// added to the player inventory when the container is unlocked, using the UnlockContainerItem API. The items can be
+    /// anything defined in the catalog, as well as RandomResultTable objects which will be resolved when the container is
+    /// unlocked. Containers and their keys should be defined as Consumable (having a limited number of uses) in their catalog
+    /// defintiions, unless the intent is for the player to be able to re-use them infinitely.
     /// </summary>
     public class CatalogItemContainerInfo
     {
@@ -563,12 +584,14 @@ namespace PlayFab.AdminModels
         public List<string> ItemContents;
 
         /// <summary>
-        /// ItemId for the catalog item used to unlock the container, if any (if not specified, a call to UnlockContainerItem will open the container, adding the contents to the player inventory and currency balances)
+        /// ItemId for the catalog item used to unlock the container, if any (if not specified, a call to UnlockContainerItem will
+        /// open the container, adding the contents to the player inventory and currency balances)
         /// </summary>
         public string KeyItemId;
 
         /// <summary>
-        /// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables will be resolved and add the relevant items to the player inventory)
+        /// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables
+        /// will be resolved and add the relevant items to the player inventory)
         /// </summary>
         [Unordered]
         public List<string> ResultTableContents;
@@ -588,7 +611,8 @@ namespace PlayFab.AdminModels
         public string FileContents;
 
         /// <summary>
-        /// Name of the javascript file. These names are not used internally by the server, they are only for developer organizational purposes.
+        /// Name of the javascript file. These names are not used internally by the server, they are only for developer
+        /// organizational purposes.
         /// </summary>
         public string Filename;
 
@@ -676,7 +700,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum Conditionals
     {
         Any,
@@ -715,6 +738,11 @@ namespace PlayFab.AdminModels
         /// </summary>
         public string Name;
 
+        /// <summary>
+        /// The verification status of the email
+        /// </summary>
+        public EmailVerificationStatus? VerificationStatus;
+
     }
 
     public class ContentInfo
@@ -736,7 +764,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum ContinentCode
     {
         AF,
@@ -748,7 +775,6 @@ namespace PlayFab.AdminModels
         SA
     }
 
-    
     public enum CountryCode
     {
         AF,
@@ -1115,7 +1141,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum Currency
     {
         AED,
@@ -1344,6 +1369,14 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class DeleteTitleRequest : PlayFabRequestCommon
+    {
+    }
+
+    public class DeleteTitleResult : PlayFabResultCommon
+    {
+    }
+
     public class DeleteUsersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1352,7 +1385,8 @@ namespace PlayFab.AdminModels
         public List<string> PlayFabIds;
 
         /// <summary>
-        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
         /// </summary>
         public string TitleId;
 
@@ -1362,14 +1396,12 @@ namespace PlayFab.AdminModels
     {
     }
 
-    
     public enum EffectType
     {
         Allow,
         Deny
     }
 
-    
     public enum EmailVerificationStatus
     {
         Unverified,
@@ -1406,7 +1438,8 @@ namespace PlayFab.AdminModels
         public object FunctionResult;
 
         /// <summary>
-        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if the total event size is larger than 350KB.
+        /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if
+        /// the total event size is larger than 350KB.
         /// </summary>
         public bool? FunctionResultTooLarge;
 
@@ -1416,19 +1449,22 @@ namespace PlayFab.AdminModels
         public int HttpRequestsIssued;
 
         /// <summary>
-        /// Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures.
+        /// Entries logged during the function execution. These include both entries logged in the function code using log.info()
+        /// and log.error() and error entries for API and HTTP request failures.
         /// </summary>
         public List<LogStatement> Logs;
 
         /// <summary>
-        /// Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total event size is larger than 350KB after the FunctionResult was removed.
+        /// Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total
+        /// event size is larger than 350KB after the FunctionResult was removed.
         /// </summary>
         public bool? LogsTooLarge;
 
         public uint MemoryConsumedBytes;
 
         /// <summary>
-        /// Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP requests.
+        /// Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP
+        /// requests.
         /// </summary>
         public double ProcessorTimeSeconds;
 
@@ -1439,7 +1475,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum GameBuildStatus
     {
         Available,
@@ -1592,7 +1627,8 @@ namespace PlayFab.AdminModels
     public class GetContentListRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Limits the response to keys that begin with the specified prefix. You can use prefixes to list contents under a folder, or for a specified version, etc.
+        /// Limits the response to keys that begin with the specified prefix. You can use prefixes to list contents under a folder,
+        /// or for a specified version, etc.
         /// </summary>
         public string Prefix;
 
@@ -1620,7 +1656,8 @@ namespace PlayFab.AdminModels
     public class GetContentUploadUrlRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when uploading the content. If not specified, the MIME type is 'binary/octet-stream' by default.
+        /// A standard MIME type describing the format of the contents. The same MIME type has to be set in the header when
+        /// uploading the content. If not specified, the MIME type is 'binary/octet-stream' by default.
         /// </summary>
         public string ContentType;
 
@@ -1634,7 +1671,7 @@ namespace PlayFab.AdminModels
     public class GetContentUploadUrlResult : PlayFabResultCommon
     {
         /// <summary>
-        /// URL for uploading content via HTTP PUT method. The URL will expire in 1 hour.
+        /// URL for uploading content via HTTP PUT method. The URL will expire in approximately one hour.
         /// </summary>
         public string URL;
 
@@ -1695,7 +1732,7 @@ namespace PlayFab.AdminModels
         public DateTime? EndTime;
 
         /// <summary>
-        /// unique identifier of the lobby 
+        /// unique identifier of the lobby
         /// </summary>
         public string LobbyId;
 
@@ -1763,7 +1800,9 @@ namespace PlayFab.AdminModels
         public string PlayFabId;
 
         /// <summary>
-        /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client, only the allowed client profile properties for the title may be requested. These allowed properties are configured in the Game Manager "Client Profile Options" tab in the "Settings" section.
+        /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
+        /// only the allowed client profile properties for the title may be requested. These allowed properties are configured in
+        /// the Game Manager "Client Profile Options" tab in the "Settings" section.
         /// </summary>
         public PlayerProfileViewConstraints ProfileConstraints;
 
@@ -1772,7 +1811,8 @@ namespace PlayFab.AdminModels
     public class GetPlayerProfileResult : PlayFabResultCommon
     {
         /// <summary>
-        /// The profile of the player. This profile is not guaranteed to be up-to-date. For a new player, this profile will not exist.
+        /// The profile of the player. This profile is not guaranteed to be up-to-date. For a new player, this profile will not
+        /// exist.
         /// </summary>
         public PlayerProfileModel PlayerProfile;
 
@@ -1813,7 +1853,8 @@ namespace PlayFab.AdminModels
         public uint? MaxBatchSize;
 
         /// <summary>
-        /// Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes).
+        /// Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging
+        /// results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes).
         /// </summary>
         public uint? SecondsToLive;
 
@@ -1937,7 +1978,7 @@ namespace PlayFab.AdminModels
     public class GetPublisherDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        ///  array of keys to get back data from the Publisher data blob, set by the admin tools
+        /// array of keys to get back data from the Publisher data blob, set by the admin tools
         /// </summary>
         public List<string> Keys;
 
@@ -2030,7 +2071,8 @@ namespace PlayFab.AdminModels
         public int MaxGamesPerHost;
 
         /// <summary>
-        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
+        /// machines (given the number of current running host machines and game server instances)
         /// </summary>
         public int MinFreeGameSlots;
 
@@ -2045,7 +2087,8 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp;
 
         /// <summary>
-        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
         /// </summary>
         public string TitleId;
 
@@ -2147,7 +2190,8 @@ namespace PlayFab.AdminModels
         public TaskInstanceStatus? StatusFilter;
 
         /// <summary>
-        /// Name or ID of the task whose instances are being queried. If not specified, return all task instances that satisfy conditions set by other filters.
+        /// Name or ID of the task whose instances are being queried. If not specified, return all task instances that satisfy
+        /// conditions set by other filters.
         /// </summary>
         public NameIdentifier TaskIdentifier;
 
@@ -2156,7 +2200,9 @@ namespace PlayFab.AdminModels
     public class GetTaskInstancesResult : PlayFabResultCommon
     {
         /// <summary>
-        /// Basic status summaries of the queried task instances. Empty If no task instances meets the filter criteria. To get detailed status summary, use Get*TaskInstance API according to task type (e.g. GetActionsOnPlayersInSegmentTaskInstance).
+        /// Basic status summaries of the queried task instances. Empty If no task instances meets the filter criteria. To get
+        /// detailed status summary, use Get*TaskInstance API according to task type (e.g.
+        /// GetActionsOnPlayersInSegmentTaskInstance).
         /// </summary>
         public List<TaskInstanceBasicSummary> Summaries;
 
@@ -2219,7 +2265,8 @@ namespace PlayFab.AdminModels
     public class GetUserDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this.
+        /// The version that currently exists according to the caller. The call will return the data for all of the keys if the
+        /// version in the system is greater than this.
         /// </summary>
         public uint? IfChangedFromDataVersion;
 
@@ -2243,7 +2290,8 @@ namespace PlayFab.AdminModels
         public Dictionary<string,UserDataRecord> Data;
 
         /// <summary>
-        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
+        /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
         /// </summary>
         public uint DataVersion;
 
@@ -2304,7 +2352,8 @@ namespace PlayFab.AdminModels
         public List<string> BundleContents;
 
         /// <summary>
-        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
+        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or
+        /// container.
         /// </summary>
         public string BundleParent;
 
@@ -2447,7 +2496,8 @@ namespace PlayFab.AdminModels
         public string CharacterId;
 
         /// <summary>
-        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character or be null.
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
+        /// not begin with a '!' character or be null.
         /// </summary>
         public Dictionary<string,string> Data;
 
@@ -2457,7 +2507,8 @@ namespace PlayFab.AdminModels
         public string ItemId;
 
         /// <summary>
-        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language
+        /// constraints.  Use this to delete the keys directly.
         /// </summary>
         public List<string> KeysToRemove;
 
@@ -2469,7 +2520,10 @@ namespace PlayFab.AdminModels
     }
 
     /// <summary>
-    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
+    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such
+    /// as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The
+    /// Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note
+    /// that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
     /// </summary>
     public class ItemInstance : IComparable<ItemInstance>
     {
@@ -2484,7 +2538,8 @@ namespace PlayFab.AdminModels
         public List<string> BundleContents;
 
         /// <summary>
-        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or container.
+        /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or
+        /// container.
         /// </summary>
         public string BundleParent;
 
@@ -2638,7 +2693,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum LoginIdentityProvider
     {
         Unknown,
@@ -2724,7 +2778,8 @@ namespace PlayFab.AdminModels
         public string MembershipId;
 
         /// <summary>
-        /// Membership expirations can be explicitly overridden (via game manager or the admin api). If this membership has been overridden, this will be the new expiration time.
+        /// Membership expirations can be explicitly overridden (via game manager or the admin api). If this membership has been
+        /// overridden, this will be the new expiration time.
         /// </summary>
         public DateTime? OverrideExpiration;
 
@@ -2786,7 +2841,8 @@ namespace PlayFab.AdminModels
         public int MaxGamesPerHost;
 
         /// <summary>
-        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
+        /// machines (given the number of current running host machines and game server instances)
         /// </summary>
         public int MinFreeGameSlots;
 
@@ -2830,7 +2886,8 @@ namespace PlayFab.AdminModels
         public int MaxGamesPerHost;
 
         /// <summary>
-        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances)
+        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
+        /// machines (given the number of current running host machines and game server instances)
         /// </summary>
         public int MinFreeGameSlots;
 
@@ -2845,7 +2902,8 @@ namespace PlayFab.AdminModels
         public DateTime Timestamp;
 
         /// <summary>
-        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected.
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
         /// </summary>
         public string TitleId;
 
@@ -2859,7 +2917,8 @@ namespace PlayFab.AdminModels
         public int Balance;
 
         /// <summary>
-        /// Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded.
+        /// Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase
+        /// over this value will be discarded.
         /// </summary>
         public int BalanceChange;
 
@@ -2876,7 +2935,8 @@ namespace PlayFab.AdminModels
     }
 
     /// <summary>
-    /// Identifier by either name or ID. Note that a name may change due to renaming, or reused after being deleted. ID is immutable and unique.
+    /// Identifier by either name or ID. Note that a name may change due to renaming, or reused after being deleted. ID is
+    /// immutable and unique.
     /// </summary>
     public class NameIdentifier
     {
@@ -2899,7 +2959,7 @@ namespace PlayFab.AdminModels
         public ApiCondition ApiConditions;
 
         /// <summary>
-        /// A comment about the statement. Intended solely for bookeeping and debugging.
+        /// A comment about the statement. Intended solely for bookkeeping and debugging.
         /// </summary>
         public string Comment;
 
@@ -2914,7 +2974,8 @@ namespace PlayFab.AdminModels
         public string Principal;
 
         /// <summary>
-        /// The resource this statements effects. The only supported resources look like 'pfrn:api--*' for all apis, or 'pfrn:api--/Client/ConfirmPurchase' for specific apis.
+        /// The resource this statements effects. The only supported resources look like 'pfrn:api--*' for all apis, or
+        /// 'pfrn:api--/Client/ConfirmPurchase' for specific apis.
         /// </summary>
         public string Resource;
 
@@ -3165,7 +3226,8 @@ namespace PlayFab.AdminModels
         public string TitleId;
 
         /// <summary>
-        /// Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a whole number of cents (1/100 USD).              For example, 999 indicates nine dollars and ninety-nine cents.
+        /// Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a
+        /// whole number of cents (1/100 USD).              For example, 999 indicates nine dollars and ninety-nine cents.
         /// </summary>
         public uint? TotalValueToDateInUSD;
 
@@ -3357,7 +3419,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum PushNotificationPlatform
     {
         ApplePushNotificationService,
@@ -3392,7 +3453,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum PushSetupPlatform
     {
         GCM,
@@ -3446,7 +3506,8 @@ namespace PlayFab.AdminModels
         public string PlayFabId;
 
         /// <summary>
-        /// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See: https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
+        /// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See:
+        /// https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
         /// </summary>
         public string Reason;
 
@@ -3461,7 +3522,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum Region
     {
         USCentral,
@@ -3531,16 +3591,6 @@ namespace PlayFab.AdminModels
     {
     }
 
-    [Obsolete("No longer available", true)]
-    public class ResetUsersRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// Array of users to reset
-        /// </summary>
-        public List<UserCredentials> Users;
-
-    }
-
     public class ResetUserStatisticsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3554,7 +3604,6 @@ namespace PlayFab.AdminModels
     {
     }
 
-    
     public enum ResolutionOutcome
     {
         Revoke,
@@ -3570,7 +3619,8 @@ namespace PlayFab.AdminModels
         public string OrderId;
 
         /// <summary>
-        /// Enum for the desired purchase result state after notifying the payment provider. Valid values are Revoke, Reinstate and Manual. Manual will cause no change to the order state.
+        /// Enum for the desired purchase result state after notifying the payment provider. Valid values are Revoke, Reinstate and
+        /// Manual. Manual will cause no change to the order state.
         /// </summary>
         public ResolutionOutcome Outcome;
 
@@ -3580,7 +3630,8 @@ namespace PlayFab.AdminModels
         public string PlayFabId;
 
         /// <summary>
-        /// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See: https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
+        /// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See:
+        /// https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
         /// </summary>
         public string Reason;
 
@@ -3614,7 +3665,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum ResultTableNodeType
     {
         ItemId,
@@ -3692,7 +3742,8 @@ namespace PlayFab.AdminModels
     public class RunTaskResult : PlayFabResultCommon
     {
         /// <summary>
-        /// ID of the task instance that is started. This can be used in Get*TaskInstance (e.g. GetCloudScriptTaskInstance) API call to retrieve status for the task instance.
+        /// ID of the task instance that is started. This can be used in Get*TaskInstance (e.g. GetCloudScriptTaskInstance) API call
+        /// to retrieve status for the task instance.
         /// </summary>
         public string TaskInstanceId;
 
@@ -3726,7 +3777,8 @@ namespace PlayFab.AdminModels
         public DateTime? NextRunTime;
 
         /// <summary>
-        /// Task parameter. Different types of task have different parameter structure. See each task type's create API documentation for the details.
+        /// Task parameter. Different types of task have different parameter structure. See each task type's create API
+        /// documentation for the details.
         /// </summary>
         public object Parameter;
 
@@ -3747,7 +3799,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum ScheduledTaskType
     {
         CloudScript,
@@ -3757,7 +3808,8 @@ namespace PlayFab.AdminModels
     public class ScriptExecutionError
     {
         /// <summary>
-        /// Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded, CloudScriptAPIRequestCountExceeded, CloudScriptAPIRequestError, or CloudScriptHTTPRequestError
+        /// Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded,
+        /// CloudScriptAPIRequestCountExceeded, CloudScriptAPIRequestError, or CloudScriptHTTPRequestError
         /// </summary>
         public string Error;
 
@@ -3825,7 +3877,8 @@ namespace PlayFab.AdminModels
     public class SetPublisherDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
+        /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
+        /// name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
         /// </summary>
         public string Key;
 
@@ -3843,7 +3896,8 @@ namespace PlayFab.AdminModels
     public class SetTitleDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
+        /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
+        /// name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
         /// </summary>
         public string Key;
 
@@ -3871,17 +3925,20 @@ namespace PlayFab.AdminModels
         public string Key;
 
         /// <summary>
-        /// name of the application sending the message (application names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, hyphens, and periods, and must be between 1 and 256 characters long)
+        /// name of the application sending the message (application names must be made up of only uppercase and lowercase ASCII
+        /// letters, numbers, underscores, hyphens, and periods, and must be between 1 and 256 characters long)
         /// </summary>
         public string Name;
 
         /// <summary>
-        /// replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if notifications have already setup for this platform.
+        /// replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if
+        /// notifications have already setup for this platform.
         /// </summary>
         public bool OverwriteOldARN;
 
         /// <summary>
-        /// supported notification platforms are Apple Push Notification Service (APNS and APNS_SANDBOX) for iOS and Google Cloud Messaging (GCM) for Android
+        /// supported notification platforms are Apple Push Notification Service (APNS and APNS_SANDBOX) for iOS and Google Cloud
+        /// Messaging (GCM) for Android
         /// </summary>
         public PushSetupPlatform Platform;
 
@@ -3915,7 +3972,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum SourceType
     {
         Admin,
@@ -3925,7 +3981,6 @@ namespace PlayFab.AdminModels
         Partner
     }
 
-    
     public enum StatisticAggregationMethod
     {
         Last,
@@ -3953,7 +4008,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum StatisticResetIntervalOption
     {
         Never,
@@ -3963,7 +4017,6 @@ namespace PlayFab.AdminModels
         Month
     }
 
-    
     public enum StatisticVersionArchivalStatus
     {
         NotScheduled,
@@ -3973,7 +4026,6 @@ namespace PlayFab.AdminModels
         Complete
     }
 
-    
     public enum StatisticVersionStatus
     {
         Active,
@@ -3999,7 +4051,8 @@ namespace PlayFab.AdminModels
         public uint? DisplayPosition;
 
         /// <summary>
-        /// Unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the catalog
+        /// Unique identifier of the item as it exists in the catalog - note that this must exactly match the ItemId from the
+        /// catalog
         /// </summary>
         public string ItemId;
 
@@ -4083,7 +4136,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum SubscriptionProviderStatus
     {
         NoError,
@@ -4173,7 +4225,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum TaskInstanceStatus
     {
         Succeeded,
@@ -4184,7 +4235,6 @@ namespace PlayFab.AdminModels
         Pending
     }
 
-    
     public enum TitleActivationStatus
     {
         None,
@@ -4257,7 +4307,8 @@ namespace PlayFab.AdminModels
     public class UpdateCatalogItemsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call.
+        /// Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not
+        /// required and ignored in this call.
         /// </summary>
         public List<CatalogItem> Catalog;
 
@@ -4267,7 +4318,8 @@ namespace PlayFab.AdminModels
         public string CatalogVersion;
 
         /// <summary>
-        /// Should this catalog be set as the default catalog. Defaults to true. If there is currently no default catalog, this will always set it.
+        /// Should this catalog be set as the default catalog. Defaults to true. If there is currently no default catalog, this will
+        /// always set it.
         /// </summary>
         public bool? SetAsDefaultCatalog;
 
@@ -4346,7 +4398,8 @@ namespace PlayFab.AdminModels
         public string StatisticName;
 
         /// <summary>
-        /// interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of the new interval boundary)
+        /// interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of
+        /// the new interval boundary)
         /// </summary>
         public StatisticResetIntervalOption? VersionChangeInterval;
 
@@ -4402,7 +4455,8 @@ namespace PlayFab.AdminModels
         public string CatalogVersion;
 
         /// <summary>
-        /// array of random result tables to make available (Note: specifying an existing TableId will result in overwriting that table, while any others will be added to the available set)
+        /// array of random result tables to make available (Note: specifying an existing TableId will result in overwriting that
+        /// table, while any others will be added to the available set)
         /// </summary>
         public List<RandomResultTable> Tables;
 
@@ -4482,12 +4536,14 @@ namespace PlayFab.AdminModels
     public class UpdateUserDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character or be null.
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
+        /// not begin with a '!' character or be null.
         /// </summary>
         public Dictionary<string,string> Data;
 
         /// <summary>
-        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language
+        /// constraints.  Use this to delete the keys directly.
         /// </summary>
         public List<string> KeysToRemove;
 
@@ -4506,7 +4562,8 @@ namespace PlayFab.AdminModels
     public class UpdateUserDataResult : PlayFabResultCommon
     {
         /// <summary>
-        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
+        /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
         /// </summary>
         public uint DataVersion;
 
@@ -4515,12 +4572,14 @@ namespace PlayFab.AdminModels
     public class UpdateUserInternalDataRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character or be null.
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
+        /// not begin with a '!' character or be null.
         /// </summary>
         public Dictionary<string,string> Data;
 
         /// <summary>
-        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly.
+        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language
+        /// constraints.  Use this to delete the keys directly.
         /// </summary>
         public List<string> KeysToRemove;
 
@@ -4647,16 +4706,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class UserCredentials
-    {
-        /// <summary>
-        /// Username of user to reset
-        /// </summary>
-        public string Username;
-
-    }
-
     public class UserCustomIdInfo
     {
         /// <summary>
@@ -4666,9 +4715,9 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     /// <summary>
-    /// Indicates whether a given data key is private (readable only by the player) or public (readable by all players). When a player makes a GetUserData request about another player, only keys marked Public will be returned.
+    /// Indicates whether a given data key is private (readable only by the player) or public (readable by all players). When a
+    /// player makes a GetUserData request about another player, only keys marked Public will be returned.
     /// </summary>
     public enum UserDataPermission
     {
@@ -4684,7 +4733,8 @@ namespace PlayFab.AdminModels
         public DateTime LastUpdated;
 
         /// <summary>
-        /// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData requests being made by one player about another player.
+        /// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData
+        /// requests being made by one player about another player.
         /// </summary>
         public UserDataPermission? Permission;
 
@@ -4765,7 +4815,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    
     public enum UserOrigination
     {
         Organic,
@@ -4843,7 +4892,8 @@ namespace PlayFab.AdminModels
         public string AvatarUrl;
 
         /// <summary>
-        /// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user first registered with PlayFab)
+        /// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user
+        /// first registered with PlayFab)
         /// </summary>
         public DateTime Created;
 
@@ -4853,7 +4903,8 @@ namespace PlayFab.AdminModels
         public string DisplayName;
 
         /// <summary>
-        /// timestamp indicating when the user first signed into this game (this can differ from the Created timestamp, as other events, such as issuing a beta key to the user, can associate the title to the user)
+        /// timestamp indicating when the user first signed into this game (this can differ from the Created timestamp, as other
+        /// events, such as issuing a beta key to the user, can associate the title to the user)
         /// </summary>
         public DateTime? FirstLogin;
 
@@ -4905,12 +4956,14 @@ namespace PlayFab.AdminModels
         public string Currency;
 
         /// <summary>
-        /// Total value of the purchases in a whole number of 1/100 monetary units. For example, 999 indicates nine dollars and ninety-nine cents when Currency is 'USD')
+        /// Total value of the purchases in a whole number of 1/100 monetary units. For example, 999 indicates nine dollars and
+        /// ninety-nine cents when Currency is 'USD')
         /// </summary>
         public uint TotalValue;
 
         /// <summary>
-        /// Total value of the purchases in a string representation of decimal monetary units. For example, '9.99' indicates nine dollars and ninety-nine cents when Currency is 'USD'.
+        /// Total value of the purchases in a string representation of decimal monetary units. For example, '9.99' indicates nine
+        /// dollars and ninety-nine cents when Currency is 'USD'.
         /// </summary>
         public string TotalValueAsDecimal;
 
@@ -4962,7 +5015,9 @@ namespace PlayFab.AdminModels
     public class VirtualCurrencyRechargeTime
     {
         /// <summary>
-        /// Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen below this value.
+        /// Maximum value to which the regenerating currency will automatically increment. Note that it can exceed this value
+        /// through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen
+        /// below this value.
         /// </summary>
         public int RechargeMax;
 
