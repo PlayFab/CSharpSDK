@@ -88,6 +88,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Adds or updates a contact email to the player's profile
+        /// </summary>
+        public static async Task<PlayFabResult<AddOrUpdateContactEmailResult>> AddOrUpdateContactEmailAsync(AddOrUpdateContactEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/AddOrUpdateContactEmail", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<AddOrUpdateContactEmailResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AddOrUpdateContactEmailResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<AddOrUpdateContactEmailResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Adds users to the set of those able to update both the shared data, as well as the set of users  in the group. Only
         /// users in the group can add new members. Shared Groups are designed for sharing data between a very  small number of
         /// players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
@@ -2234,6 +2257,29 @@ namespace PlayFab
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Removes a contact email from the player's profile
+        /// </summary>
+        public static async Task<PlayFabResult<RemoveContactEmailResult>> RemoveContactEmailAsync(RemoveContactEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/RemoveContactEmail", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<RemoveContactEmailResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RemoveContactEmailResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RemoveContactEmailResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

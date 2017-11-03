@@ -4020,6 +4020,29 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class SendCustomAccountRecoveryEmailRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// User email address attached to their account
+        /// </summary>
+        public string Email;
+
+        /// <summary>
+        /// The email template id of the account recovery email template to send.
+        /// </summary>
+        public string EmailTemplateId;
+
+        /// <summary>
+        /// The user's username requesting an account recovery.
+        /// </summary>
+        public string Username;
+
+    }
+
+    public class SendCustomAccountRecoveryEmailResult : PlayFabResultCommon
+    {
+    }
+
     public class SendPushNotificationRequest : PlayFabRequestCommon
     {
         /// <summary>

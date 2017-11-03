@@ -98,6 +98,19 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class AddOrUpdateContactEmailRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The new contact email to associate with the player.
+        /// </summary>
+        public string EmailAddress;
+
+    }
+
+    public class AddOrUpdateContactEmailResult : PlayFabResultCommon
+    {
+    }
+
     public class AddSharedGroupMembersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4521,6 +4534,14 @@ namespace PlayFab.ClientModels
         /// </summary>
         public string UserName;
 
+    }
+
+    public class RemoveContactEmailRequest : PlayFabRequestCommon
+    {
+    }
+
+    public class RemoveContactEmailResult : PlayFabResultCommon
+    {
     }
 
     public class RemoveFriendRequest : PlayFabRequestCommon

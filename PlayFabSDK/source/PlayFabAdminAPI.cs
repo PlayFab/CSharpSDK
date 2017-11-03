@@ -666,6 +666,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Gets a player's ID from an auth token.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayerIdFromAuthTokenResult>> GetPlayerIdFromAuthTokenAsync(GetPlayerIdFromAuthTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/GetPlayerIdFromAuthToken", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPlayerIdFromAuthTokenResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayerIdFromAuthTokenResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayerIdFromAuthTokenResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// List all segments that a player currently belongs to at this moment in time.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayerSegmentsResult>> GetPlayerSegmentsAsync(GetPlayersSegmentsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1497,6 +1520,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ResetCharacterStatisticsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Reset a player's password for a given title.
+        /// </summary>
+        public static async Task<PlayFabResult<ResetPasswordResult>> ResetPasswordAsync(ResetPasswordRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/ResetPassword", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<ResetPasswordResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ResetPasswordResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ResetPasswordResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
