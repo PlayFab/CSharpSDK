@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PlayFabAllSDK</id>
-    <version>1.19.171026</version>
+    <version>1.20.171102</version>
     <title>PlayFab CSharp SDK</title>
     <authors>PlayFab Inc.</authors>
     <owners>PlayFab Inc.</owners>
@@ -14,7 +14,7 @@
     <copyright>Copyright 2017</copyright>
     <tags>PlayFab, Baas, Paas, JSON, REST, HTTP, SSL, API, cloud, liveops, game, gamedev, native</tags>
     <summary>PlayFab is the unified backend platform for games and everything you need to build and operate your game, all in one place, so you can focus on creating and delivering a great player experience.</summary>
-    <releaseNotes>https://api.playfab.com/releaseNotes/#171026</releaseNotes>
+    <releaseNotes>https://api.playfab.com/releaseNotes/#171102</releaseNotes>
     <language>C#</language>
   </metadata>
 </package>

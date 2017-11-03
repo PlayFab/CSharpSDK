@@ -1818,6 +1818,30 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Forces an email to be sent to the registered contact email address for the user's account based on an account recovery
+        /// email template
+        /// </summary>
+        public static async Task<PlayFabResult<SendCustomAccountRecoveryEmailResult>> SendCustomAccountRecoveryEmailAsync(SendCustomAccountRecoveryEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SendCustomAccountRecoveryEmail", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SendCustomAccountRecoveryEmailResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SendCustomAccountRecoveryEmailResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SendCustomAccountRecoveryEmailResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Sends an iOS/Android Push Notification to a specific user, if that user's device has been configured for Push
         /// Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified.
         /// </summary>
