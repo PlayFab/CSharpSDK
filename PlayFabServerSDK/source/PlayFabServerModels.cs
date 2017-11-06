@@ -4043,6 +4043,24 @@ namespace PlayFab.ServerModels
     {
     }
 
+    public class SendEmailFromTemplateRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The email template id of the email template to send.
+        /// </summary>
+        public string EmailTemplateId;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class SendEmailFromTemplateResult : PlayFabResultCommon
+    {
+    }
+
     public class SendPushNotificationRequest : PlayFabRequestCommon
     {
         /// <summary>

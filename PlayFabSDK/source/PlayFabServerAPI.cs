@@ -1842,6 +1842,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Sends an email based on an email template to a player's contact email
+        /// </summary>
+        public static async Task<PlayFabResult<SendEmailFromTemplateResult>> SendEmailFromTemplateAsync(SendEmailFromTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SendEmailFromTemplate", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<SendEmailFromTemplateResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SendEmailFromTemplateResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SendEmailFromTemplateResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Sends an iOS/Android Push Notification to a specific user, if that user's device has been configured for Push
         /// Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified.
         /// </summary>
