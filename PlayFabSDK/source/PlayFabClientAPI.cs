@@ -88,7 +88,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds or updates a contact email to the player's profile
+        /// Adds or updates a contact email to the player's profile.
         /// </summary>
         public static async Task<PlayFabResult<AddOrUpdateContactEmailResult>> AddOrUpdateContactEmailAsync(AddOrUpdateContactEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -774,6 +774,31 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetLeaderboardForUsersCharactersResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// For payments flows where the provider requires playfab (the fulfiller) to initiate the transaction, but the client
+        /// completes the rest of the flow. In the Xsolla case, the token returned here will be passed to Xsolla by the client to
+        /// create a cart. Poll GetPurchase using the returned OrderId once you've completed the payment.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPaymentTokenResult>> GetPaymentTokenAsync(GetPaymentTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetPaymentToken", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<GetPaymentTokenResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPaymentTokenResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPaymentTokenResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2260,7 +2285,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Removes a contact email from the player's profile
+        /// Removes a contact email from the player's profile.
         /// </summary>
         public static async Task<PlayFabResult<RemoveContactEmailResult>> RemoveContactEmailAsync(RemoveContactEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2352,6 +2377,30 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<RemoveSharedGroupMembersResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Write a PlayStream event to describe the provided player device information. This API method is not designed to be
+        /// called directly by developers. Each PlayFab client SDK will eventually report this information automatically.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> ReportDeviceInfoAsync(DeviceInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (_authKey == null) throw new Exception ("Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ReportDeviceInfo", request, "X-Authorization", _authKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

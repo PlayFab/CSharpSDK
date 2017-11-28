@@ -176,6 +176,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Checks the global count for the limited edition item.
+        /// </summary>
+        public static async Task<PlayFabResult<CheckLimitedEditionItemAvailabilityResult>> CheckLimitedEditionItemAvailabilityAsync(CheckLimitedEditionItemAvailabilityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/CheckLimitedEditionItemAvailability", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<CheckLimitedEditionItemAvailabilityResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<CheckLimitedEditionItemAvailabilityResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<CheckLimitedEditionItemAvailabilityResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Create an ActionsOnPlayersInSegment task, which iterates through all players in a segment to execute action.
         /// </summary>
         public static async Task<PlayFabResult<CreateTaskResult>> CreateActionsOnPlayersInSegmentTaskAsync(CreateActionsOnPlayerSegmentTaskRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1312,6 +1335,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GrantItemsToUsersResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Increases the global count for the given scarce resource.
+        /// </summary>
+        public static async Task<PlayFabResult<IncrementLimitedEditionItemAvailabilityResult>> IncrementLimitedEditionItemAvailabilityAsync(IncrementLimitedEditionItemAvailabilityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/IncrementLimitedEditionItemAvailability", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if(httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                if (PlayFabSettings.GlobalErrorHandler != null)
+                    PlayFabSettings.GlobalErrorHandler(error);
+                return new PlayFabResult<IncrementLimitedEditionItemAvailabilityResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<IncrementLimitedEditionItemAvailabilityResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<IncrementLimitedEditionItemAvailabilityResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

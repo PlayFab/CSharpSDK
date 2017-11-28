@@ -353,7 +353,9 @@ namespace PlayFab
         TitleDeletionPlayerCleanupFailure = 1349,
         EntityFileOperationPending = 1350,
         NoEntityFileOperationPending = 1351,
-        EntityProfileVersionMismatch = 1352
+        EntityProfileVersionMismatch = 1352,
+        TemplateVersionTooOld = 1353,
+        MembershipDefinitionInUse = 1354
     }
     
     public class PlayFabError

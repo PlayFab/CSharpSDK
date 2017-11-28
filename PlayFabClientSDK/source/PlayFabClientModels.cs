@@ -1154,6 +1154,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class DeviceInfoRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Information posted to the PlayStream Event. Currently arbitrary, and specific to the environment sending it.
+        /// </summary>
+        public Dictionary<string,object> Info;
+
+    }
+
     public enum EmailVerificationStatus
     {
         Unverified,
@@ -1975,6 +1984,29 @@ namespace PlayFab.ClientModels
         /// The version of the leaderboard returned.
         /// </summary>
         public int Version;
+
+    }
+
+    public class GetPaymentTokenRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The name of service to provide the payment token. Allowed Values are: xsolla
+        /// </summary>
+        public string TokenProvider;
+
+    }
+
+    public class GetPaymentTokenResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// PlayFab's purchase order identifier.
+        /// </summary>
+        public string OrderId;
+
+        /// <summary>
+        /// The token from provider.
+        /// </summary>
+        public string ProviderToken;
 
     }
 
@@ -4146,11 +4178,6 @@ namespace PlayFab.ClientModels
         /// </summary>
         public List<ValueToDateModel> ValuesToDate;
 
-        /// <summary>
-        /// List of the player's virtual currency balances
-        /// </summary>
-        public List<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
-
     }
 
     public class PlayerProfileViewConstraints
@@ -6029,20 +6056,6 @@ namespace PlayFab.ClientModels
         /// dollars and ninety-nine cents when Currency is 'USD'.
         /// </summary>
         public string TotalValueAsDecimal;
-
-    }
-
-    public class VirtualCurrencyBalanceModel
-    {
-        /// <summary>
-        /// Name of the virtual currency
-        /// </summary>
-        public string Currency;
-
-        /// <summary>
-        /// Balance of the virtual currency
-        /// </summary>
-        public int TotalValue;
 
     }
 
