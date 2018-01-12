@@ -383,12 +383,16 @@ namespace PlayFab
             return Sb.ToString();
         }
     };
-
-    public class PlayFabResult<TResult> where TResult : PlayFabResultCommon
+    
+    public class PlayFabResultBase
     {
         public PlayFabError Error;
-        public TResult Result;
         public object CustomData;
+    }    
+
+    public class PlayFabResult<TResult> : PlayFabResultBase where TResult : PlayFabResultCommon
+    {
+        public TResult Result;
     }
     
     public delegate void ErrorCallback(PlayFabError error);
