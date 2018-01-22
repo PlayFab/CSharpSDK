@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PlayFabAllSDK</id>
-    <version>1.22.180122</version>
+    <version>1.23.180122</version>
     <title>PlayFab CSharp SDK</title>
     <authors>PlayFab Inc.</authors>
     <owners>PlayFab Inc.</owners>
