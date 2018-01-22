@@ -17,14 +17,13 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<AuthUserResponse>> AuthUserAsync(AuthUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Matchmaker/AuthUser", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
+            if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
                 return new PlayFabResult<AuthUserResponse> { Error = error, CustomData = customData };
             }
 
@@ -40,14 +39,13 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<PlayerJoinedResponse>> PlayerJoinedAsync(PlayerJoinedRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerJoined", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
+            if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
                 return new PlayFabResult<PlayerJoinedResponse> { Error = error, CustomData = customData };
             }
 
@@ -63,14 +61,13 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<PlayerLeftResponse>> PlayerLeftAsync(PlayerLeftRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerLeft", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
+            if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
                 return new PlayFabResult<PlayerLeftResponse> { Error = error, CustomData = customData };
             }
 
@@ -86,14 +83,13 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<StartGameResponse>> StartGameAsync(StartGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Matchmaker/StartGame", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
+            if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
                 return new PlayFabResult<StartGameResponse> { Error = error, CustomData = customData };
             }
 
@@ -110,14 +106,13 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<UserInfoResponse>> UserInfoAsync(UserInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new Exception ("Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Matchmaker/UserInfo", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if(httpResult is PlayFabError)
+            if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
-                if (PlayFabSettings.GlobalErrorHandler != null)
-                    PlayFabSettings.GlobalErrorHandler(error);
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
                 return new PlayFabResult<UserInfoResponse> { Error = error, CustomData = customData };
             }
 
