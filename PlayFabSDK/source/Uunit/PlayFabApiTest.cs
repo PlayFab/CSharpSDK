@@ -2,11 +2,14 @@
 
 using PlayFab.ClientModels;
 using PlayFab.Internal;
+using PlayFab.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
-using PlayFab.Json;
+#if ENABLE_PLAYFABENTITY_API
+using PlayFab.EntityModels;
+#endif
 
 namespace PlayFab.UUnit
 {
@@ -32,11 +35,8 @@ namespace PlayFab.UUnit
         private static Dictionary<string, string> extraHeaders;
 
         // Information fetched by appropriate API calls
+        private static string entityId;
         public static string PlayFabId;
-
-        // Performance
-        [ThreadStatic]
-        private static StringBuilder _sb;
 
         /// <summary>
         /// PlayFab Title cannot be created from SDK tests, so you must provide your titleId to run unit tests.
@@ -262,6 +262,31 @@ namespace PlayFab.UUnit
             testContext.True(testMin <= timeUpdated && timeUpdated <= testMax);
         }
 
+
+        /// <summary>
+        /// CLIENT API
+        /// Tests several parallel requests and ensures they complete with no errors.
+        /// </summary>
+        [UUnitTest]
+        public void ParallelRequests(UUnitTestContext testContext)
+        {
+            var tasks = Enumerable.Range(0, 10)
+                .Select(_ => PlayFabClientAPI.GetUserDataAsync(new GetUserDataRequest(), _, extraHeaders))
+                .Select(ThrowIfApiError);
+
+            Task.WhenAll(tasks).ContinueWith(whenAll =>
+            {
+                if (!whenAll.IsCanceled && !whenAll.IsFaulted)
+                {
+                    testContext.EndTest(UUnitFinishState.PASSED, null);
+                }
+                else
+                {
+                    testContext.Fail("Parallel Requests failed " + whenAll.Exception.Flatten().Message);
+                }
+            });
+        }
+
         /// <summary>
         /// CLIENT API
         /// Test a sequence of calls that modifies saved data,
@@ -417,6 +442,101 @@ namespace PlayFab.UUnit
             var writeTask = PlayFabClientAPI.WritePlayerEventAsync(request, null, extraHeaders);
             ContinueWithContext(writeTask, testContext, null, true, "PlayStream WriteEvent failed", true);
         }
+
+        private static Task<PlayFabResult<T>> ThrowIfApiError<T>(Task<PlayFabResult<T>> original) where T : PlayFabResultCommon
+        {
+            return original.ContinueWith(_ =>
+            {
+                if (_.IsFaulted) throw _.Exception;
+                if (_.Result.Error != null) throw new Exception(_.Result.Error.GenerateErrorReport());
+                return _.Result;
+            });
+        }
+
+#if ENABLE_PLAYFABENTITY_API
+        /// <summary>
+        /// ENTITY API
+        /// Get the EntityToken for the client player
+        /// </summary>
+        [UUnitTest]
+        public void GetEntityToken(UUnitTestContext testContext)
+        {
+            var writeTask = PlayFabEntityAPI.GetEntityTokenAsync(new GetEntityTokenRequest(), null, extraHeaders);
+            ContinueWithContext(writeTask, testContext, GetEntityTokenContinued, true, "GetEntityToken failed", true);
+        }
+        private void GetEntityTokenContinued(PlayFabResult<GetEntityTokenResponse> result, UUnitTestContext testContext, string failMessage)
+        {
+            entityId = result.Result.EntityId;
+        }
+
+        /// <summary>
+        /// ENTITY API
+        /// Test a sequence of calls that modifies entity objects,
+        ///   and verifies that the next sequential API call contains updated info.
+        /// Verify that the data is correctly modified on the next call.
+        /// Parameter types tested: string, Dictionary&lt;string, string>, DateTime
+        /// </summary>
+        [UUnitTest]
+        public void ObjectApi(UUnitTestContext testContext)
+        {
+            var request = new GetObjectsRequest
+            {
+                EntityId = entityId,
+                EntityType = EntityTypes.title_player_account,
+                EscapeObject = true
+            };
+            var eachTask = PlayFabEntityAPI.GetObjectsAsync(request, null, extraHeaders);
+            ContinueWithContext(eachTask, testContext, GetObjects1Continued, true, "GetObjects1 failed", false);
+        }
+        private void GetObjects1Continued(PlayFabResult<GetObjectsResponse> result, UUnitTestContext testContext, string failMessage)
+        {
+            // testContext.IntEquals(result.Result.Objects.Count, 1);
+            // testContext.StringEquals(result.Result.Objects[0].ObjectName, TEST_DATA_KEY);
+
+            _testInteger = 0;
+            if (result.Result.Objects.Count == 1 && result.Result.Objects[0].ObjectName == TEST_DATA_KEY)
+                int.TryParse(result.Result.Objects[0].EscapedDataObject, out _testInteger);
+
+            var request = new SetObjectsRequest
+            {
+                EntityId = entityId,
+                EntityType = EntityTypes.title_player_account,
+                Objects = new List<SetObject>
+                {
+                    new SetObject
+                    {
+                        Unstructured = true,
+                        DataObject = _testInteger,
+                        ObjectName = TEST_DATA_KEY
+                    }
+                }
+            };
+            var eachTask = PlayFabEntityAPI.SetObjectsAsync(request, null, extraHeaders);
+            ContinueWithContext(eachTask, testContext, SetObjectsContinued, true, "SetObjects failed", false);
+        }
+        private void SetObjectsContinued(PlayFabResult<SetObjectsResponse> result, UUnitTestContext testContext, string failMessage)
+        {
+            var request = new GetObjectsRequest
+            {
+                EntityId = entityId,
+                EntityType = EntityTypes.title_player_account,
+                EscapeObject = true
+            };
+            var eachTask = PlayFabEntityAPI.GetObjectsAsync(request, null, extraHeaders);
+            ContinueWithContext(eachTask, testContext, GetObjects2Continued, true, "GetObjects2 failed", false);
+        }
+        private void GetObjects2Continued(PlayFabResult<GetObjectsResponse> result, UUnitTestContext testContext, string failMessage)
+        {
+            testContext.IntEquals(result.Result.Objects.Count, 1);
+            testContext.StringEquals(result.Result.Objects[0].ObjectName, TEST_DATA_KEY);
+
+            if (!int.TryParse(result.Result.Objects[0].EscapedDataObject, out int actualValue))
+                actualValue = -1000;
+            testContext.IntEquals(_testInteger, actualValue, "Failed: " + _testInteger + "!=" + actualValue + ", Returned json: " + result.Result.Objects[0].EscapedDataObject);
+
+            testContext.EndTest(UUnitFinishState.PASSED, null);
+        }
+#endif
     }
 }
 #endif

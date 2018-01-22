@@ -1,4 +1,5 @@
 using PlayFab.Internal;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -355,16 +356,18 @@ namespace PlayFab
         NoEntityFileOperationPending = 1351,
         EntityProfileVersionMismatch = 1352,
         TemplateVersionTooOld = 1353,
-        MembershipDefinitionInUse = 1354
+        MembershipDefinitionInUse = 1354,
+        PaymentPageNotConfigured = 1355,
+        FailedLoginAttemptRateLimitExceeded = 1356
     }
-    
+
     public class PlayFabError
     {
         public int HttpCode;
         public string HttpStatus;
         public PlayFabErrorCode Error;
         public string ErrorMessage;
-        public Dictionary<string, string[] > ErrorDetails;
+        public Dictionary<string, string[]> ErrorDetails;
 
         private static readonly StringBuilder Sb = new StringBuilder();
         public string GenerateErrorReport()
@@ -384,12 +387,33 @@ namespace PlayFab
         }
     };
 
-    public class PlayFabResult<TResult> where TResult : PlayFabResultCommon
+    public class PlayFabBaseResult
     {
-        public PlayFabError Error;
-        public TResult Result;
         public object CustomData;
+        public PlayFabError Error;
     }
-    
+
+    public class PlayFabResult<TResult> : PlayFabBaseResult where TResult : PlayFabResultCommon
+    {
+        public TResult Result;
+    }
+
     public delegate void ErrorCallback(PlayFabError error);
+
+    public class PlayFabException : Exception
+    {
+        public readonly PlayFabExceptionCode Code;
+        public PlayFabException(PlayFabExceptionCode code, string message) : base(message)
+        {
+            Code = code;
+        }
+    }
+
+    public enum PlayFabExceptionCode
+    {
+        DeveloperKeyNotSet,
+        EntityTokenNotSet,
+        NotLoggedIn,
+        TitleNotSet,
+    }
 }
