@@ -7,8 +7,8 @@ namespace PlayFab.ClientModels
     public class AcceptTradeRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Items from the accepting player's or guild's inventory in exchange for the offered items in the trade. In the case of a
-        /// gift, this will be null.
+        /// Items from the accepting player's inventory in exchange for the offered items in the trade. In the case of a gift, this
+        /// will be null.
         /// </summary>
         public List<string> AcceptedInventoryInstanceIds;
 
@@ -1172,6 +1172,30 @@ namespace PlayFab.ClientModels
 
     public class EmptyResult : PlayFabResultCommon
     {
+    }
+
+    public class EntityTokenResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The identifier of the entity the token was issued for.
+        /// </summary>
+        public string EntityId;
+
+        /// <summary>
+        /// The token used to set X-EntityToken for all entity based API calls.
+        /// </summary>
+        public string EntityToken;
+
+        /// <summary>
+        /// The type of entity the token was issued for.
+        /// </summary>
+        public string EntityType;
+
+        /// <summary>
+        /// The time the token will expire, if it is an expiring token, in UTC.
+        /// </summary>
+        public DateTime? TokenExpiration;
+
     }
 
     public class ExecuteCloudScriptRequest : PlayFabRequestCommon
@@ -3292,6 +3316,12 @@ namespace PlayFab.ClientModels
     public class LoginResult : PlayFabResultCommon
     {
         /// <summary>
+        /// If LoginTitlePlayerAccountEntity flag is set on the login request the title_player_account will also be logged in and
+        /// returned.
+        /// </summary>
+        public EntityTokenResponse EntityToken;
+
+        /// <summary>
         /// Results for requested info.
         /// </summary>
         public GetPlayerCombinedInfoResultPayload InfoResultPayload;
@@ -3351,6 +3381,11 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
         /// Specific Operating System version for the user's device.
         /// </summary>
         public string OS;
@@ -3391,6 +3426,11 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
@@ -3414,6 +3454,11 @@ namespace PlayFab.ClientModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// Password for the PlayFab account (6-100 characters)
@@ -3451,6 +3496,11 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
@@ -3479,6 +3529,11 @@ namespace PlayFab.ClientModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// Unique Game Center player id.
@@ -3514,6 +3569,11 @@ namespace PlayFab.ClientModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
@@ -3562,6 +3622,11 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
         /// Specific Operating System version for the user's device.
         /// </summary>
         public string OS;
@@ -3607,6 +3672,11 @@ namespace PlayFab.ClientModels
         public string KongregateId;
 
         /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
@@ -3625,6 +3695,11 @@ namespace PlayFab.ClientModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// Password for the PlayFab account (6-100 characters)
@@ -3660,6 +3735,11 @@ namespace PlayFab.ClientModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
@@ -3703,6 +3783,11 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
@@ -3726,6 +3811,11 @@ namespace PlayFab.ClientModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// SHA256 hash of the PublicKey generated by Windows Hello.
@@ -4470,6 +4560,11 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
         /// Password for the PlayFab account (6-100 characters)
         /// </summary>
         public string Password;
@@ -4539,6 +4634,11 @@ namespace PlayFab.ClientModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
@@ -4677,6 +4777,11 @@ namespace PlayFab.ClientModels
         /// User email address attached to their account
         /// </summary>
         public string Email;
+
+        /// <summary>
+        /// The email template id of the account recovery email template to send.
+        /// </summary>
+        public string EmailTemplateId;
 
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
