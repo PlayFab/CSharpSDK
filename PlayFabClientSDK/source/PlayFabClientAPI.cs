@@ -16,7 +16,7 @@ namespace PlayFab
         /// <summary>
         /// Accepts an open trade (one that has not yet been accepted or cancelled), if the locally signed-in player is in the
         /// allowed player list for the trade, or it is open to all players. If the call is successful, the offered and accepted
-        /// items will be swapped  between the two players' inventories.
+        /// items will be swapped between the two players' inventories.
         /// </summary>
         public static async Task<PlayFabResult<AcceptTradeResponse>> AcceptTradeAsync(AcceptTradeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -107,9 +107,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds users to the set of those able to update both the shared data, as well as the set of users  in the group. Only
-        /// users in the group can add new members. Shared Groups are designed for sharing data between a very  small number of
-        /// players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// Adds users to the set of those able to update both the shared data, as well as the set of users in the group. Only users
+        /// in the group can add new members. Shared Groups are designed for sharing data between a very small number of players,
+        /// please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<AddSharedGroupMembersResult>> AddSharedGroupMembersAsync(AddSharedGroupMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -224,7 +224,7 @@ namespace PlayFab
         /// <summary>
         /// Cancels an open trade (one that has not yet been accepted or cancelled). Note that only the player who created the trade
         /// can cancel it via this API call, to prevent griefing of the trade system (cancelling trades in order to prevent other
-        /// players from accepting  them, for trades that can be claimed by more than one player).
+        /// players from accepting them, for trades that can be claimed by more than one player).
         /// </summary>
         public static async Task<PlayFabResult<CancelTradeResponse>> CancelTradeAsync(CancelTradeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -246,7 +246,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and  virtual
+        /// Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and virtual
         /// currency balances as appropriate
         /// </summary>
         public static async Task<PlayFabResult<ConfirmPurchaseResult>> ConfirmPurchaseAsync(ConfirmPurchaseRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -291,9 +291,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Requests the creation of a shared group object, containing key/value pairs which may be updated by  all members of the
-        /// group. Upon creation, the current user will be the only member of the group. Shared Groups are designed  for sharing
-        /// data between a very small number of players, please see our guide:
+        /// Requests the creation of a shared group object, containing key/value pairs which may be updated by all members of the
+        /// group. Upon creation, the current user will be the only member of the group. Shared Groups are designed for sharing data
+        /// between a very small number of players, please see our guide:
         /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<CreateSharedGroupResult>> CreateSharedGroupAsync(CreateSharedGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -515,13 +515,12 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent  HTTP GET to the returned
-        /// URL will attempt to download the content. A HEAD query to the returned URL will attempt to  retrieve the metadata of the
-        /// content. Note that a successful result does not guarantee the existence of this content -  if it has not been uploaded,
+        /// This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent HTTP GET to the returned
+        /// URL will attempt to download the content. A HEAD query to the returned URL will attempt to retrieve the metadata of the
+        /// content. Note that a successful result does not guarantee the existence of this content - if it has not been uploaded,
         /// the query to retrieve the data will fail. See this post for more information:
-        /// https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service.
-        /// Also, please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN rates
-        /// apply.
+        /// https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service. Also,
+        /// please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN rates apply.
         /// </summary>
         public static async Task<PlayFabResult<GetContentDownloadUrlResult>> GetContentDownloadUrlAsync(GetContentDownloadUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1063,7 +1062,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile
+        /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers are the profile
         /// IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromSteamIDsResult>> GetPlayFabIDsFromSteamIDsAsync(GetPlayFabIDsFromSteamIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1155,9 +1154,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves data stored in a shared group object, as well as the list of members in  the group. Non-members of the group
-        /// may use this to retrieve group data, including membership, but they  will not receive data for keys marked as private.
-        /// Shared Groups are designed for sharing data between a  very small number of players, please see our guide:
+        /// Retrieves data stored in a shared group object, as well as the list of members in the group. Non-members of the group
+        /// may use this to retrieve group data, including membership, but they will not receive data for keys marked as private.
+        /// Shared Groups are designed for sharing data between a very small number of players, please see our guide:
         /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<GetSharedGroupDataResult>> GetSharedGroupDataAsync(GetSharedGroupDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1705,6 +1704,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1731,6 +1731,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1759,6 +1760,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1785,6 +1787,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1811,6 +1814,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1836,6 +1840,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1862,6 +1867,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1887,6 +1893,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1894,8 +1901,8 @@ namespace PlayFab
 
         /// <summary>
         /// Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls
-        /// which require an authenticated user. Unlike most other login API calls, LoginWithPlayFab does not permit the  creation
-        /// of new accounts via the CreateAccountFlag. Username/Password credentials may be used to create accounts via
+        /// which require an authenticated user. Unlike most other login API calls, LoginWithPlayFab does not permit the creation of
+        /// new accounts via the CreateAccountFlag. Username/Password credentials may be used to create accounts via
         /// RegisterPlayFabUser, or added to existing accounts using AddUsernamePassword.
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> LoginWithPlayFabAsync(LoginWithPlayFabRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1915,6 +1922,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1941,6 +1949,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1966,6 +1975,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -1994,6 +2004,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -2071,8 +2082,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase,  as well as
-        /// what the client believes the price to be. This lets the server fail the purchase if the price has changed.
+        /// Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as well as what
+        /// the client believes the price to be. This lets the server fail the purchase if the price has changed.
         /// </summary>
         public static async Task<PlayFabResult<PurchaseItemResult>> PurchaseItemAsync(PurchaseItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2094,7 +2105,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the
+        /// Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated via the
         /// Economy->Catalogs tab in the PlayFab Game Manager.
         /// </summary>
         public static async Task<PlayFabResult<RedeemCouponResult>> RedeemCouponAsync(RedeemCouponRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2165,7 +2176,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Registers a new PlayFab user account using Windows Hello authentication, returning a session ticket  that can
+        /// Registers a new PlayFab user account using Windows Hello authentication, returning a session ticket that can
         /// subsequently be used for API calls which require an authenticated user
         /// </summary>
         public static async Task<PlayFabResult<LoginResult>> RegisterWithWindowsHelloAsync(RegisterWithWindowsHelloRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2185,6 +2196,7 @@ namespace PlayFab
             var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
             PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
             await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
@@ -2257,9 +2269,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Removes users from the set of those able to update the shared data and the set of users  in the group. Only users in the
-        /// group can remove members. If as a result of the call, zero users remain with  access, the group and its associated data
-        /// will be deleted. Shared Groups are designed for sharing data between  a very small number of players, please see our
+        /// Removes users from the set of those able to update the shared data and the set of users in the group. Only users in the
+        /// group can remove members. If as a result of the call, zero users remain with access, the group and its associated data
+        /// will be deleted. Shared Groups are designed for sharing data between a very small number of players, please see our
         /// guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
         public static async Task<PlayFabResult<RemoveSharedGroupMembersResult>> RemoveSharedGroupMembersAsync(RemoveSharedGroupMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2776,8 +2788,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Creates and updates the title-specific custom data for the user's character which is readable  and writable by the
-        /// client
+        /// Creates and updates the title-specific custom data for the user's character which is readable and writable by the client
         /// </summary>
         public static async Task<PlayFabResult<UpdateCharacterDataResult>> UpdateCharacterDataAsync(UpdateCharacterDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2847,7 +2858,7 @@ namespace PlayFab
         /// <summary>
         /// Adds, updates, and removes data keys for a shared group object. If the permission is set to Public, all fields updated
         /// or added in this call will be readable by users not in the group. By default, data permissions are set to Private.
-        /// Regardless of the permission setting, only members of the group can update the data. Shared Groups are designed  for
+        /// Regardless of the permission setting, only members of the group can update the data. Shared Groups are designed for
         /// sharing data between a very small number of players, please see our guide:
         /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
