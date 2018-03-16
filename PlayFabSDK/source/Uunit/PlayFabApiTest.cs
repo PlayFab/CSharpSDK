@@ -13,13 +13,6 @@ using PlayFab.EntityModels;
 
 namespace PlayFab.UUnit
 {
-    /// <summary>
-    /// A real system would potentially run only the client or server API, and not both.
-    /// But, they still interact with eachother directly.
-    /// The tests can't be independent for Client/Server, as the sequence of calls isn't really independent for real-world scenarios.
-    /// The client logs in, which triggers a server, and then back and forth.
-    /// For the purpose of testing, they each have pieces of information they share with one another, and that sharing makes various calls possible.
-    /// </summary>
     public class PlayFabApiTest : UUnitTestCase
     {
         private const string TEST_STAT_NAME = "str";
@@ -35,7 +28,7 @@ namespace PlayFab.UUnit
         private static Dictionary<string, string> extraHeaders;
 
         // Information fetched by appropriate API calls
-        private static string entityId;
+        private static EntityModels.EntityKey entityKey;
         public static string PlayFabId;
 
         /// <summary>
@@ -466,7 +459,7 @@ namespace PlayFab.UUnit
         }
         private void GetEntityTokenContinued(PlayFabResult<GetEntityTokenResponse> result, UUnitTestContext testContext, string failMessage)
         {
-            entityId = result.Result.EntityId;
+            entityKey = result.Result.Entity;
         }
 
         /// <summary>
@@ -481,8 +474,7 @@ namespace PlayFab.UUnit
         {
             var request = new GetObjectsRequest
             {
-                EntityId = entityId,
-                EntityType = EntityTypes.title_player_account,
+                Entity = entityKey,
                 EscapeObject = true
             };
             var eachTask = PlayFabEntityAPI.GetObjectsAsync(request, null, extraHeaders);
@@ -494,18 +486,16 @@ namespace PlayFab.UUnit
             // testContext.StringEquals(result.Result.Objects[0].ObjectName, TEST_DATA_KEY);
 
             _testInteger = 0;
-            if (result.Result.Objects.Count == 1 && result.Result.Objects[0].ObjectName == TEST_DATA_KEY)
-                int.TryParse(result.Result.Objects[0].EscapedDataObject, out _testInteger);
+            if (result.Result.Objects.Count == 1 && result.Result.Objects[TEST_DATA_KEY].ObjectName == TEST_DATA_KEY)
+                int.TryParse(result.Result.Objects[TEST_DATA_KEY].EscapedDataObject, out _testInteger);
 
             var request = new SetObjectsRequest
             {
-                EntityId = entityId,
-                EntityType = EntityTypes.title_player_account,
+                Entity = entityKey,
                 Objects = new List<SetObject>
                 {
                     new SetObject
                     {
-                        Unstructured = true,
                         DataObject = _testInteger,
                         ObjectName = TEST_DATA_KEY
                     }
@@ -518,8 +508,7 @@ namespace PlayFab.UUnit
         {
             var request = new GetObjectsRequest
             {
-                EntityId = entityId,
-                EntityType = EntityTypes.title_player_account,
+                Entity = entityKey,
                 EscapeObject = true
             };
             var eachTask = PlayFabEntityAPI.GetObjectsAsync(request, null, extraHeaders);
@@ -528,11 +517,11 @@ namespace PlayFab.UUnit
         private void GetObjects2Continued(PlayFabResult<GetObjectsResponse> result, UUnitTestContext testContext, string failMessage)
         {
             testContext.IntEquals(result.Result.Objects.Count, 1);
-            testContext.StringEquals(result.Result.Objects[0].ObjectName, TEST_DATA_KEY);
+            testContext.StringEquals(result.Result.Objects[TEST_DATA_KEY].ObjectName, TEST_DATA_KEY);
 
-            if (!int.TryParse(result.Result.Objects[0].EscapedDataObject, out int actualValue))
+            if (!int.TryParse(result.Result.Objects[TEST_DATA_KEY].EscapedDataObject, out int actualValue))
                 actualValue = -1000;
-            testContext.IntEquals(_testInteger, actualValue, "Failed: " + _testInteger + "!=" + actualValue + ", Returned json: " + result.Result.Objects[0].EscapedDataObject);
+            testContext.IntEquals(_testInteger, actualValue, "Failed: " + _testInteger + "!=" + actualValue + ", Returned json: " + result.Result.Objects[TEST_DATA_KEY].EscapedDataObject);
 
             testContext.EndTest(UUnitFinishState.PASSED, null);
         }
