@@ -6032,6 +6032,11 @@ namespace PlayFab.ClientModels
         /// </summary>
         public UserOrigination? Origination;
 
+        /// <summary>
+        /// Title player account entity for this user
+        /// </summary>
+        public EntityKey TitlePlayerAccount;
+
     }
 
     public class UserTwitchInfo
