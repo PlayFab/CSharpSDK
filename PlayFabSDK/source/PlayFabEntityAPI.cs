@@ -437,6 +437,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the entity's profile.
+        /// </summary>
+        public static async Task<PlayFabResult<GetEntityProfilesResponse>> GetProfilesAsync(GetEntityProfilesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/GetProfiles", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetEntityProfilesResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetEntityProfilesResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetEntityProfilesResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Initiates file uploads to an entity's profile.
         /// </summary>
         public static async Task<PlayFabResult<InitiateFileUploadsResponse>> InitiateFileUploadsAsync(InitiateFileUploadsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
