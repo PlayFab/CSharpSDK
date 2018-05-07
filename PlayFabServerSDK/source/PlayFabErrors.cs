@@ -14,6 +14,7 @@ namespace PlayFab
         Unknown = 1,
         ConnectionError = 2,
         JsonParseError = 3,
+        UnkownError = 500,
         InvalidParams = 1000,
         AccountNotFound = 1001,
         AccountBanned = 1002,
@@ -374,7 +375,13 @@ namespace PlayFab
         EmailReportAlreadySent = 1369,
         EmailReportRecipientBlacklisted = 1370,
         EventNamespaceNotAllowed = 1371,
-        EventEntityNotAllowed = 1372
+        EventEntityNotAllowed = 1372,
+        InvalidEntityType = 1373,
+        NullTokenResultFromAad = 1374,
+        InvalidTokenResultFromAad = 1375,
+        NoValidCertificateForAad = 1376,
+        InvalidCertificateForAad = 1377,
+        DuplicateDropTableId = 1378
     }
 
     public class PlayFabError

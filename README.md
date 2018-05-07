@@ -26,8 +26,10 @@ This package contains three different versions of the PlayFab SDK.
 
 ## 4. Usage Instructions:
 
-1) All users will want to download the latest SDK: https://github.com/PlayFab/CSharpSDK/releases
-2) For beginners or quick evaluation, please start with the included example project, and add your own logic and api calls.  For advanced users, or users with an existing project, please copy the source from one of the SDK folders into your project.
+1. Most users will want to use our [NuGet SDK](https://www.nuget.org/packages/PlayFabAllSDK/)
+    1. You can search "PlayFab" in Visual Studio 2017, NuGet package manager, and find "PlayFabAllSDK", which is our CSharp SDK.
+1. Advanced users can download the latest SDK source: https://github.com/PlayFab/CSharpSDK/releases
+1. Follow the steps in our [Getting Started Guide](https://api.playfab.com/docs/getting-started/csharp-getting-started) from there
 
 
 ## 5. A testTitleData.json file required for example UnitTestRunner project
