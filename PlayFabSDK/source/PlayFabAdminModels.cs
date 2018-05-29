@@ -1344,6 +1344,30 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class DeleteMasterPlayerAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class DeleteMasterPlayerAccountResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// A notification email with this job receipt Id will be sent to the title notification email address when deletion is
+        /// complete.
+        /// </summary>
+        public string JobReceiptId;
+
+        /// <summary>
+        /// List of titles from which the player's data will be deleted.
+        /// </summary>
+        public List<string> TitleIds;
+
+    }
+
     public class DeletePlayerRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1469,7 +1493,8 @@ namespace PlayFab.AdminModels
         master_player_account,
         title_player_account,
         character,
-        group
+        group,
+        service
     }
 
     public class ExecuteCloudScriptResult : PlayFabResultCommon
@@ -1531,6 +1556,25 @@ namespace PlayFab.AdminModels
         /// The revision of the CloudScript that executed
         /// </summary>
         public int Revision;
+
+    }
+
+    public class ExportMasterPlayerDataRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class ExportMasterPlayerDataResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// An email with this job receipt Id containing the export download link will be sent to the title notification email
+        /// address when the export is complete.
+        /// </summary>
+        public string JobReceiptId;
 
     }
 
@@ -1937,7 +1981,17 @@ namespace PlayFab.AdminModels
         InvalidTokenResultFromAad,
         NoValidCertificateForAad,
         InvalidCertificateForAad,
-        DuplicateDropTableId
+        DuplicateDropTableId,
+        ComputeOK,
+        ComputeAccepted,
+        ComputeNoContent,
+        ComputeBadRequest,
+        ComputeUnauthorized,
+        ComputeForbidden,
+        ComputeNotFound,
+        ComputeConflict,
+        ComputeInternalServerError,
+        ComputeServiceUnavailable
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -2221,6 +2275,24 @@ namespace PlayFab.AdminModels
         /// array of game modes available for the specified build
         /// </summary>
         public List<GameModeInfo> GameModes;
+
+    }
+
+    public class GetPlayedTitleListRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class GetPlayedTitleListResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of titles the player has played
+        /// </summary>
+        public List<string> TitleIds;
 
     }
 
