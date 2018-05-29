@@ -303,6 +303,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Removes a master player account entirely from all titles and deletes all associated data
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteMasterPlayerAccountResult>> DeleteMasterPlayerAccountAsync(DeleteMasterPlayerAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/DeleteMasterPlayerAccount", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteMasterPlayerAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeleteMasterPlayerAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteMasterPlayerAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Removes a user's player account from a title and deletes all associated data
         /// </summary>
         public static async Task<PlayFabResult<DeletePlayerResult>> DeletePlayerAsync(DeletePlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -411,6 +433,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<DeleteTitleResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Exports all associated data of a master player account
+        /// </summary>
+        public static async Task<PlayFabResult<ExportMasterPlayerDataResult>> ExportMasterPlayerDataAsync(ExportMasterPlayerDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/ExportMasterPlayerData", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ExportMasterPlayerDataResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ExportMasterPlayerDataResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ExportMasterPlayerDataResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -657,6 +701,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetMatchmakerGameModesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Get the list of titles that the player has played
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayedTitleListResult>> GetPlayedTitleListAsync(GetPlayedTitleListRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/GetPlayedTitleList", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayedTitleListResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayedTitleListResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayedTitleListResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
