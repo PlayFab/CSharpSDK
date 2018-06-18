@@ -4050,18 +4050,6 @@ namespace PlayFab.ClientModels
 
     }
 
-    /// <summary>
-    /// Identifier by either name or ID. Note that a name may change due to renaming, or reused after being deleted. ID is
-    /// immutable and unique.
-    /// </summary>
-    public class NameIdentifier
-    {
-        public string Id;
-
-        public string Name;
-
-    }
-
     public class OpenTradeRequest : PlayFabRequestCommon
     {
         /// <summary>

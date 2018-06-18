@@ -1429,25 +1429,6 @@ namespace PlayFab.AdminModels
     {
     }
 
-    public class DeleteUsersRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// An array of unique PlayFab assigned ID of the user on whom the operation will be performed.
-        /// </summary>
-        public List<string> PlayFabIds;
-
-        /// <summary>
-        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
-        /// title has been selected.
-        /// </summary>
-        public string TitleId;
-
-    }
-
-    public class DeleteUsersResult : PlayFabResultCommon
-    {
-    }
-
     public enum EffectType
     {
         Allow,
@@ -1614,6 +1595,7 @@ namespace PlayFab.AdminModels
     public enum GenericErrorCodes
     {
         Success,
+        MatchmakingHopperIdInvalid,
         UnkownError,
         InvalidParams,
         AccountNotFound,
@@ -1982,16 +1964,47 @@ namespace PlayFab.AdminModels
         NoValidCertificateForAad,
         InvalidCertificateForAad,
         DuplicateDropTableId,
-        ComputeOK,
-        ComputeAccepted,
-        ComputeNoContent,
-        ComputeBadRequest,
-        ComputeUnauthorized,
-        ComputeForbidden,
-        ComputeNotFound,
-        ComputeConflict,
-        ComputeInternalServerError,
-        ComputeServiceUnavailable
+        GameServerOk,
+        GameServerAccepted,
+        GameServerNoContent,
+        GameServerBadRequest,
+        GameServerUnauthorized,
+        GameServerForbidden,
+        GameServerNotFound,
+        GameServerConflict,
+        GameServerInternalServerError,
+        GameServerServiceUnavailable,
+        MatchmakingInvalidEntityKeyList,
+        MatchmakingInvalidTicketCreatorProfile,
+        MatchmakingInvalidUserAttributes,
+        MatchmakingCreateRequestMissing,
+        MatchmakingCreateRequestCreatorMissing,
+        MatchmakingCreateRequestCreatorIdMissing,
+        MatchmakingCreateRequestUserListMissing,
+        MatchmakingCreateRequestGiveUpAfterInvalid,
+        MatchmakingTicketIdMissing,
+        MatchmakingMatchIdMissing,
+        MatchmakingMatchIdIdMissing,
+        MatchmakingHopperIdMissing,
+        MatchmakingTitleIdMissing,
+        MatchmakingTicketIdIdMissing,
+        MatchmakingUserIdMissing,
+        MatchmakingJoinRequestUserMissing,
+        MatchmakingHopperConfigNotFound,
+        MatchmakingMatchNotFound,
+        MatchmakingTicketNotFound,
+        MatchmakingCreateTicketServerIdentityInvalid,
+        MatchmakingCreateTicketClientIdentityInvalid,
+        MatchmakingGetTicketUserMismatch,
+        MatchmakingJoinTicketServerIdentityInvalid,
+        MatchmakingJoinTicketUserIdentityMismatch,
+        MatchmakingCancelTicketServerIdentityInvalid,
+        MatchmakingCancelTicketUserIdentityMismatch,
+        MatchmakingGetMatchIdentityMismatch,
+        MatchmakingUserIdentityMismatch,
+        MatchmakingAlreadyJoinedTicket,
+        MatchmakingTicketAlreadyCompleted,
+        MatchmakingHopperConfigInvalid
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -3490,8 +3503,14 @@ namespace PlayFab.AdminModels
     /// </summary>
     public class NameIdentifier
     {
+        /// <summary>
+        /// Id Identifier, if present
+        /// </summary>
         public string Id;
 
+        /// <summary>
+        /// Name Identifier, if present
+        /// </summary>
         public string Name;
 
     }
@@ -4051,7 +4070,8 @@ namespace PlayFab.AdminModels
         public string PlayFabId;
 
         /// <summary>
-        /// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See:
+        /// The Reason parameter should correspond with the payment providers reason field, if they require one such as Facebook. In
+        /// the case of Facebook this must match one of their refund or dispute resolution enums (See:
         /// https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
         /// </summary>
         public string Reason;
@@ -4193,7 +4213,8 @@ namespace PlayFab.AdminModels
         public string PlayFabId;
 
         /// <summary>
-        /// Reason for refund. In the case of Facebook this must match one of their refund or dispute resolution enums (See:
+        /// The Reason parameter should correspond with the payment providers reason field, if they require one such as Facebook. In
+        /// the case of Facebook this must match one of their refund or dispute resolution enums (See:
         /// https://developers.facebook.com/docs/payments/implementation-guide/handling-disputes-refunds)
         /// </summary>
         public string Reason;
