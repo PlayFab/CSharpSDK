@@ -2,7 +2,7 @@
 {
     public enum PluginContract
     {
-        Serializer,
-        Transport
+        PlayFab_Serializer,
+        PlayFab_Transport
     }
 }
