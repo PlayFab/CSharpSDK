@@ -1426,7 +1426,6 @@ namespace PlayFab.ServerModels
     public enum GenericErrorCodes
     {
         Success,
-        MatchmakingHopperIdInvalid,
         UnkownError,
         InvalidParams,
         AccountNotFound,
@@ -1805,9 +1804,11 @@ namespace PlayFab.ServerModels
         GameServerConflict,
         GameServerInternalServerError,
         GameServerServiceUnavailable,
-        MatchmakingInvalidEntityKeyList,
-        MatchmakingInvalidTicketCreatorProfile,
-        MatchmakingInvalidUserAttributes,
+        ExplicitContentDetected,
+        PIIContentDetected,
+        InvalidScheduledTaskParameter,
+        MatchmakingEntityInvalid,
+        MatchmakingPlayerAttributesInvalid,
         MatchmakingCreateRequestMissing,
         MatchmakingCreateRequestCreatorMissing,
         MatchmakingCreateRequestCreatorIdMissing,
@@ -1819,7 +1820,7 @@ namespace PlayFab.ServerModels
         MatchmakingHopperIdMissing,
         MatchmakingTitleIdMissing,
         MatchmakingTicketIdIdMissing,
-        MatchmakingUserIdMissing,
+        MatchmakingPlayerIdMissing,
         MatchmakingJoinRequestUserMissing,
         MatchmakingHopperConfigNotFound,
         MatchmakingMatchNotFound,
@@ -1832,10 +1833,12 @@ namespace PlayFab.ServerModels
         MatchmakingCancelTicketServerIdentityInvalid,
         MatchmakingCancelTicketUserIdentityMismatch,
         MatchmakingGetMatchIdentityMismatch,
-        MatchmakingUserIdentityMismatch,
+        MatchmakingPlayerIdentityMismatch,
         MatchmakingAlreadyJoinedTicket,
         MatchmakingTicketAlreadyCompleted,
-        MatchmakingHopperConfigInvalid
+        MatchmakingHopperIdInvalid,
+        MatchmakingHopperConfigInvalid,
+        MatchmakingMemberProfileInvalid
     }
 
     public class GetAllSegmentsRequest : PlayFabRequestCommon
