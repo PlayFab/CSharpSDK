@@ -49,10 +49,10 @@ namespace PlayFab
                 switch (contract)
                 {
                     case PluginContract.PlayFab_Serializer:
-                        plugin = this.CreatePlayFabPlugin<ISerializerPlugin>();
+                        plugin = this.CreatePlugin<ISerializerPlugin>();
                         break;
                     case PluginContract.PlayFab_Transport:
-                        plugin = this.CreatePlayFabPlugin<ITransportPlugin>();
+                        plugin = this.CreatePlugin<ITransportPlugin>();
                         break;
                     default:
                         throw new ArgumentException("This contract is not supported", nameof(contract));
@@ -75,19 +75,32 @@ namespace PlayFab
             this.plugins[key] = plugin;
         }
 
-        private I CreatePlayFabPlugin<I>() where I: IPlayFabPlugin
+        private I CreatePlugin<I>() where I: class, IPlayFabPlugin
         {
             var interfaceType = typeof(I);
             var types = this.GetType().GetAssembly().GetTypes();
+            I plugin = null;
             foreach (var eachType in types)
             {
                 if (interfaceType.IsAssignableFrom(eachType) && !eachType.IsAbstract)
                 {
-                    return (I)Activator.CreateInstance(eachType.AsType());
+                    if (plugin == null)
+                    {
+                        plugin = (I)Activator.CreateInstance(eachType.AsType());
+                    }
+                    else
+                    {
+                        throw new Exception("Found more than one implementation of " + nameof(I) + ". Please call PluginManager.SetPlugin(...) to set a specific implementation before using other public PlayFab API.");
+                    }
                 }
             }
 
-            throw new Exception("Cannot find a valid " + nameof(I) + " type");
+            if (plugin == null)
+            {
+                throw new Exception("Cannot find a valid " + nameof(I) + " type");
+            }
+
+            return plugin;
         }
     }
 }

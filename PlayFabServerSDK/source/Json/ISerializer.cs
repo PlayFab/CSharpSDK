@@ -5,7 +5,7 @@ using System.Reflection;
 namespace PlayFab.Json
 {
     [Obsolete("This interface is deprecated, please use PlayFab.ISerializerPlugin instead.", false)]
-    public interface ISerializer : ISerializerPlugin
+    public interface ISerializer: ISerializerPlugin
     {
     }
 
