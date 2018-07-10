@@ -10,7 +10,7 @@ namespace PlayFab
         /// <summary>
         /// The singleton instance of plugin manager.
         /// </summary>
-        private static PluginManager Instance { get; set; } = new PluginManager();
+        private static readonly PluginManager Instance = new PluginManager();
 
         private PluginManager()
         {
