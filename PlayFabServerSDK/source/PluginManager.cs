@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using PlayFab.Internal;
-using PlayFab.Json;
 
 namespace PlayFab
 {
@@ -51,10 +49,10 @@ namespace PlayFab
                 switch (contract)
                 {
                     case PluginContract.PlayFab_Serializer:
-                        plugin = this.CreatePlayFabSerializerPlugin();
+                        plugin = this.CreatePlayFabPlugin<ISerializerPlugin>();
                         break;
                     case PluginContract.PlayFab_Transport:
-                        plugin = this.CreatePlayFabTransportPlugin();
+                        plugin = this.CreatePlayFabPlugin<ITransportPlugin>();
                         break;
                     default:
                         throw new ArgumentException("This contract is not supported", nameof(contract));
@@ -77,24 +75,19 @@ namespace PlayFab
             this.plugins[key] = plugin;
         }
 
-        private ITransportPlugin CreatePlayFabTransportPlugin()
+        private I CreatePlayFabPlugin<I>() where I: IPlayFabPlugin
         {
-            var httpInterfaceType = typeof(IPlayFabHttp);
-            var types = typeof(PlayFabHttp).GetAssembly().GetTypes();
+            var interfaceType = typeof(I);
+            var types = this.GetType().GetAssembly().GetTypes();
             foreach (var eachType in types)
             {
-                if (httpInterfaceType.IsAssignableFrom(eachType) && !eachType.IsAbstract)
+                if (interfaceType.IsAssignableFrom(eachType) && !eachType.IsAbstract)
                 {
-                    return (IPlayFabHttp)Activator.CreateInstance(eachType.AsType());
+                    return (I)Activator.CreateInstance(eachType.AsType());
                 }
             }
 
-            throw new Exception("Cannot find a valid IPlayFabHttp type");
-        }
-
-        private ISerializerPlugin CreatePlayFabSerializerPlugin()
-        {
-            return new SimpleJsonInstance();
+            throw new Exception("Cannot find a valid " + nameof(I) + " type");
         }
     }
 }
