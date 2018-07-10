@@ -480,5 +480,7 @@ namespace PlayFab
         EntityTokenNotSet,
         NotLoggedIn,
         TitleNotSet,
+        PluginAmbiguity,
+        PluginNotFound
     }
 }
