@@ -1,6 +1,6 @@
 # PluginManager API
 ## 1. Overview:
-The SDK provides a set of plugin interfaces and uses PluginManager class to support custom implementation of some SDK components. Currrently the following plugin interfaces are supported:
+The SDK provides a set of plugin interfaces and uses PluginManager class to support custom implementation of some SDK components. Currently the following plugin interfaces are supported:
 
 ```csharp
 PlayFab.ISerializerPlugin // - allows to provide a custom JSON serializer
