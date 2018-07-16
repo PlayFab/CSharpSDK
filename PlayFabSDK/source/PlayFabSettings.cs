@@ -38,7 +38,7 @@ namespace PlayFab
             var baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentUrl : ProductionEnvironmentUrl;
             if (baseUrl.StartsWith("http"))
                 return baseUrl;
-            return "https://" + TitleId + baseUrl + apiCall;
+            return "https://" + TitleId + baseUrl + apiCall + "?sdk=" + SdkVersionString;
         }
     }
 }
