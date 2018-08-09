@@ -1976,6 +1976,12 @@ namespace PlayFab.AdminModels
         ExplicitContentDetected,
         PIIContentDetected,
         InvalidScheduledTaskParameter,
+        PerEntityEventRateLimitExceeded,
+        TitleDefaultLanguageNotSet,
+        EmailTemplateMissingDefaultVersion,
+        FacebookInstantGamesIdNotLinked,
+        InvalidFacebookInstantGamesSignature,
+        FacebookInstantGamesAuthNotConfiguredForTitle,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingCreateRequestMissing,
@@ -1986,12 +1992,12 @@ namespace PlayFab.AdminModels
         MatchmakingTicketIdMissing,
         MatchmakingMatchIdMissing,
         MatchmakingMatchIdIdMissing,
-        MatchmakingHopperIdMissing,
+        MatchmakingQueueNameMissing,
         MatchmakingTitleIdMissing,
         MatchmakingTicketIdIdMissing,
         MatchmakingPlayerIdMissing,
         MatchmakingJoinRequestUserMissing,
-        MatchmakingHopperConfigNotFound,
+        MatchmakingQueueConfigNotFound,
         MatchmakingMatchNotFound,
         MatchmakingTicketNotFound,
         MatchmakingCreateTicketServerIdentityInvalid,
@@ -2005,9 +2011,12 @@ namespace PlayFab.AdminModels
         MatchmakingPlayerIdentityMismatch,
         MatchmakingAlreadyJoinedTicket,
         MatchmakingTicketAlreadyCompleted,
-        MatchmakingHopperIdInvalid,
-        MatchmakingHopperConfigInvalid,
-        MatchmakingMemberProfileInvalid
+        MatchmakingQueueNameInvalid,
+        MatchmakingQueueConfigInvalid,
+        MatchmakingMemberProfileInvalid,
+        WriteAttemptedDuringExport,
+        NintendoSwitchDeviceIdNotLinked,
+        MatchmakingNotEnabled
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -2255,14 +2264,30 @@ namespace PlayFab.AdminModels
         public Region? Region;
 
         /// <summary>
-        /// IP address for this Game Server Instance
+        /// IPV4 address of the game server instance
         /// </summary>
+        [Obsolete("Use 'ServerIPV4Address' instead", false)]
         public string ServerAddress;
+
+        /// <summary>
+        /// IPV4 address of the server
+        /// </summary>
+        public string ServerIPV4Address;
+
+        /// <summary>
+        /// IPV6 address of the server
+        /// </summary>
+        public string ServerIPV6Address;
 
         /// <summary>
         /// communication port for this Game Server Instance
         /// </summary>
         public uint ServerPort;
+
+        /// <summary>
+        /// Public DNS name (if any) of the server
+        /// </summary>
+        public string ServerPublicDNSName;
 
         /// <summary>
         /// time when the Game Server Instance was created
@@ -3274,7 +3299,11 @@ namespace PlayFab.AdminModels
         IOSDevice,
         AndroidDevice,
         Twitch,
-        WindowsHello
+        WindowsHello,
+        GameServer,
+        CustomServer,
+        NintendoSwitch,
+        FacebookInstantGames
     }
 
     public class LogStatement
@@ -3799,7 +3828,7 @@ namespace PlayFab.AdminModels
 
         /// <summary>
         /// Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a
-        /// whole number of cents (1/100 USD).       For example, 999 indicates nine dollars and ninety-nine cents.
+        /// whole number of cents (1/100 USD). For example, 999 indicates nine dollars and ninety-nine cents.
         /// </summary>
         public uint? TotalValueToDateInUSD;
 
@@ -5479,7 +5508,10 @@ namespace PlayFab.AdminModels
         XboxLive,
         Parse,
         Twitch,
-        WindowsHello
+        WindowsHello,
+        ServerCustomId,
+        NintendoSwitchDeviceId,
+        FacebookInstantGamesId
     }
 
     public class UserPrivateAccountInfo
