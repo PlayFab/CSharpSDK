@@ -1344,6 +1344,20 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class FacebookInstantGamesPlayFabIdPair
+    {
+        /// <summary>
+        /// Unique Facebook Instant Games identifier for a user.
+        /// </summary>
+        public string FacebookInstantGamesId;
+
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Facebook Instant Games identifier.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
     public class FacebookPlayFabIdPair
     {
         /// <summary>
@@ -1807,6 +1821,12 @@ namespace PlayFab.ServerModels
         ExplicitContentDetected,
         PIIContentDetected,
         InvalidScheduledTaskParameter,
+        PerEntityEventRateLimitExceeded,
+        TitleDefaultLanguageNotSet,
+        EmailTemplateMissingDefaultVersion,
+        FacebookInstantGamesIdNotLinked,
+        InvalidFacebookInstantGamesSignature,
+        FacebookInstantGamesAuthNotConfiguredForTitle,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingCreateRequestMissing,
@@ -1817,12 +1837,12 @@ namespace PlayFab.ServerModels
         MatchmakingTicketIdMissing,
         MatchmakingMatchIdMissing,
         MatchmakingMatchIdIdMissing,
-        MatchmakingHopperIdMissing,
+        MatchmakingQueueNameMissing,
         MatchmakingTitleIdMissing,
         MatchmakingTicketIdIdMissing,
         MatchmakingPlayerIdMissing,
         MatchmakingJoinRequestUserMissing,
-        MatchmakingHopperConfigNotFound,
+        MatchmakingQueueConfigNotFound,
         MatchmakingMatchNotFound,
         MatchmakingTicketNotFound,
         MatchmakingCreateTicketServerIdentityInvalid,
@@ -1836,9 +1856,12 @@ namespace PlayFab.ServerModels
         MatchmakingPlayerIdentityMismatch,
         MatchmakingAlreadyJoinedTicket,
         MatchmakingTicketAlreadyCompleted,
-        MatchmakingHopperIdInvalid,
-        MatchmakingHopperConfigInvalid,
-        MatchmakingMemberProfileInvalid
+        MatchmakingQueueNameInvalid,
+        MatchmakingQueueConfigInvalid,
+        MatchmakingMemberProfileInvalid,
+        WriteAttemptedDuringExport,
+        NintendoSwitchDeviceIdNotLinked,
+        MatchmakingNotEnabled
     }
 
     public class GetAllSegmentsRequest : PlayFabRequestCommon
@@ -2694,6 +2717,42 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class GetPlayFabIDsFromFacebookInstantGamesIdsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique Facebook Instant Games identifiers for which the title needs to get PlayFab identifiers.
+        /// </summary>
+        public List<string> FacebookInstantGamesIds;
+
+    }
+
+    public class GetPlayFabIDsFromFacebookInstantGamesIdsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of Facebook Instant Games identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<FacebookInstantGamesPlayFabIdPair> Data;
+
+    }
+
+    public class GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers.
+        /// </summary>
+        public List<string> NintendoSwitchDeviceIds;
+
+    }
+
+    public class GetPlayFabIDsFromNintendoSwitchDeviceIdsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of Nintendo Switch Device identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<NintendoSwitchPlayFabIdPair> Data;
+
+    }
+
     public class GetPlayFabIDsFromSteamIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3409,7 +3468,11 @@ namespace PlayFab.ServerModels
         IOSDevice,
         AndroidDevice,
         Twitch,
-        WindowsHello
+        WindowsHello,
+        GameServer,
+        CustomServer,
+        NintendoSwitch,
+        FacebookInstantGames
     }
 
     public class LogStatement
@@ -3602,6 +3665,20 @@ namespace PlayFab.ServerModels
 
     public class MoveItemToUserFromCharacterResult : PlayFabResultCommon
     {
+    }
+
+    public class NintendoSwitchPlayFabIdPair
+    {
+        /// <summary>
+        /// Unique Nintendo Switch Device identifier for a user.
+        /// </summary>
+        public string NintendoSwitchDeviceId;
+
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Nintendo Switch Device identifier.
+        /// </summary>
+        public string PlayFabId;
+
     }
 
     public class NotifyMatchmakerPlayerLeftRequest : PlayFabRequestCommon
@@ -3910,7 +3987,7 @@ namespace PlayFab.ServerModels
 
         /// <summary>
         /// Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a
-        /// whole number of cents (1/100 USD).       For example, 999 indicates nine dollars and ninety-nine cents.
+        /// whole number of cents (1/100 USD). For example, 999 indicates nine dollars and ninety-nine cents.
         /// </summary>
         public uint? TotalValueToDateInUSD;
 
@@ -4267,10 +4344,16 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// IPV4 address of the Game Server Instance.
         /// </summary>
+        [Obsolete("Use 'ServerIPV4Address' instead", false)]
         public string ServerHost;
 
         /// <summary>
-        /// IPV6 address of the Game Server Instance.
+        /// IPV4 address of the game server instance.
+        /// </summary>
+        public string ServerIPV4Address;
+
+        /// <summary>
+        /// IPV6 address (if any) of the game server instance.
         /// </summary>
         public string ServerIPV6Address;
 
@@ -4278,6 +4361,11 @@ namespace PlayFab.ServerModels
         /// Port number for communication with the Game Server Instance.
         /// </summary>
         public string ServerPort;
+
+        /// <summary>
+        /// Public DNS name (if any) of the server
+        /// </summary>
+        public string ServerPublicDNSName;
 
         /// <summary>
         /// Tags for the Game Server Instance
@@ -5567,7 +5655,10 @@ namespace PlayFab.ServerModels
         XboxLive,
         Parse,
         Twitch,
-        WindowsHello
+        WindowsHello,
+        ServerCustomId,
+        NintendoSwitchDeviceId,
+        FacebookInstantGamesId
     }
 
     public class UserPrivateAccountInfo

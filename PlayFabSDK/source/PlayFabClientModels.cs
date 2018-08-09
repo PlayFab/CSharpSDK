@@ -1319,6 +1319,20 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class FacebookInstantGamesPlayFabIdPair
+    {
+        /// <summary>
+        /// Unique Facebook Instant Games identifier for a user.
+        /// </summary>
+        public string FacebookInstantGamesId;
+
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Facebook Instant Games identifier.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
     public class FacebookPlayFabIdPair
     {
         /// <summary>
@@ -1461,7 +1475,13 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// IPV4 address of the server
         /// </summary>
+        [Obsolete("Use 'ServerIPV4Address' instead", false)]
         public string ServerHostname;
+
+        /// <summary>
+        /// IPV4 address of the server
+        /// </summary>
+        public string ServerIPV4Address;
 
         /// <summary>
         /// IPV6 address of the server
@@ -1472,6 +1492,11 @@ namespace PlayFab.ClientModels
         /// port number to use for non-http communications with the server
         /// </summary>
         public int? ServerPort;
+
+        /// <summary>
+        /// Public DNS name (if any) of the server
+        /// </summary>
+        public string ServerPublicDNSName;
 
         /// <summary>
         /// stastic used to match this game in player statistic matchmaking
@@ -2433,6 +2458,24 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class GetPlayFabIDsFromFacebookInstantGamesIdsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique Facebook Instant Games identifiers for which the title needs to get PlayFab identifiers.
+        /// </summary>
+        public List<string> FacebookInstantGamesIds;
+
+    }
+
+    public class GetPlayFabIDsFromFacebookInstantGamesIdsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of Facebook Instant Games identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<FacebookInstantGamesPlayFabIdPair> Data;
+
+    }
+
     public class GetPlayFabIDsFromGameCenterIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2503,6 +2546,24 @@ namespace PlayFab.ClientModels
         /// Mapping of Kongregate identifiers to PlayFab identifiers.
         /// </summary>
         public List<KongregatePlayFabIdPair> Data;
+
+    }
+
+    public class GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers.
+        /// </summary>
+        public List<string> NintendoSwitchDeviceIds;
+
+    }
+
+    public class GetPlayFabIDsFromNintendoSwitchDeviceIdsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of Nintendo Switch Device identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<NintendoSwitchPlayFabIdPair> Data;
 
     }
 
@@ -3147,6 +3208,24 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class LinkFacebookInstantGamesIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Facebook Instant Games signature for the user.
+        /// </summary>
+        public string FacebookInstantGamesSignature;
+
+        /// <summary>
+        /// If another user is already linked to the Facebook Instant Games ID, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink;
+
+    }
+
+    public class LinkFacebookInstantGamesIdResult : PlayFabResultCommon
+    {
+    }
+
     public class LinkGameCenterAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3232,6 +3311,24 @@ namespace PlayFab.ClientModels
     }
 
     public class LinkKongregateAccountResult : PlayFabResultCommon
+    {
+    }
+
+    public class LinkNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// If another user is already linked to the Nintendo Switch Device ID, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink;
+
+        /// <summary>
+        /// Nintendo Switch unique identifier for the user's device.
+        /// </summary>
+        public string NintendoSwitchDeviceId;
+
+    }
+
+    public class LinkNintendoSwitchDeviceIdResult : PlayFabResultCommon
     {
     }
 
@@ -3362,7 +3459,11 @@ namespace PlayFab.ClientModels
         IOSDevice,
         AndroidDevice,
         Twitch,
-        WindowsHello
+        WindowsHello,
+        GameServer,
+        CustomServer,
+        NintendoSwitch,
+        FacebookInstantGames
     }
 
     public class LoginResult : PlayFabResultCommon
@@ -3516,6 +3617,46 @@ namespace PlayFab.ClientModels
         /// Password for the PlayFab account (6-100 characters)
         /// </summary>
         public string Password;
+
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
+        /// </summary>
+        public string TitleId;
+
+    }
+
+    public class LoginWithFacebookInstantGamesIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount;
+
+        /// <summary>
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
+        /// </summary>
+        public string EncryptedRequest;
+
+        /// <summary>
+        /// Facebook Instant Games signature for the user.
+        /// </summary>
+        public string FacebookInstantGamesSignature;
+
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret;
 
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
@@ -3727,6 +3868,46 @@ namespace PlayFab.ClientModels
         /// Flag to automatically login the player's title_player_account and return the associated entity token.
         /// </summary>
         public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret;
+
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
+        /// </summary>
+        public string TitleId;
+
+    }
+
+    public class LoginWithNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount;
+
+        /// <summary>
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
+        /// </summary>
+        public string EncryptedRequest;
+
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// </summary>
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
+        /// Nintendo Switch unique identifier for the user's device.
+        /// </summary>
+        public string NintendoSwitchDeviceId;
 
         /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
@@ -3962,7 +4143,13 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// IPV4 address of the server
         /// </summary>
+        [Obsolete("Use 'ServerIPV4Address' instead", false)]
         public string ServerHostname;
+
+        /// <summary>
+        /// IPV4 address of the server
+        /// </summary>
+        public string ServerIPV4Address;
 
         /// <summary>
         /// IPV6 address of the server
@@ -3973,6 +4160,11 @@ namespace PlayFab.ClientModels
         /// port number to use for non-http communications with the server
         /// </summary>
         public int? ServerPort;
+
+        /// <summary>
+        /// Public DNS name (if any) of the server
+        /// </summary>
+        public string ServerPublicDNSName;
 
         /// <summary>
         /// result of match making process
@@ -4047,6 +4239,20 @@ namespace PlayFab.ClientModels
         /// Name of the virtual currency which was modified.
         /// </summary>
         public string VirtualCurrency;
+
+    }
+
+    public class NintendoSwitchPlayFabIdPair
+    {
+        /// <summary>
+        /// Unique Nintendo Switch Device identifier for a user.
+        /// </summary>
+        public string NintendoSwitchDeviceId;
+
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Nintendo Switch Device identifier.
+        /// </summary>
+        public string PlayFabId;
 
     }
 
@@ -4299,7 +4505,7 @@ namespace PlayFab.ClientModels
 
         /// <summary>
         /// Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a
-        /// whole number of cents (1/100 USD).       For example, 999 indicates nine dollars and ninety-nine cents.
+        /// whole number of cents (1/100 USD). For example, 999 indicates nine dollars and ninety-nine cents.
         /// </summary>
         public uint? TotalValueToDateInUSD;
 
@@ -4966,7 +5172,13 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// server IPV4 address
         /// </summary>
+        [Obsolete("Use 'ServerIPV4Address' instead", false)]
         public string ServerHostname;
+
+        /// <summary>
+        /// server IPV4 address
+        /// </summary>
+        public string ServerIPV4Address;
 
         /// <summary>
         /// server IPV6 address
@@ -4977,6 +5189,11 @@ namespace PlayFab.ClientModels
         /// port on the server to be used for communication
         /// </summary>
         public int? ServerPort;
+
+        /// <summary>
+        /// server public DNS name
+        /// </summary>
+        public string ServerPublicDNSName;
 
         /// <summary>
         /// unique identifier for the server
@@ -5437,6 +5654,19 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class UnlinkFacebookInstantGamesIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Facebook Instant Games identifier for the user. If not specified, the most recently signed in ID will be used.
+        /// </summary>
+        public string FacebookInstantGamesId;
+
+    }
+
+    public class UnlinkFacebookInstantGamesIdResult : PlayFabResultCommon
+    {
+    }
+
     public class UnlinkGameCenterAccountRequest : PlayFabRequestCommon
     {
     }
@@ -5472,6 +5702,19 @@ namespace PlayFab.ClientModels
     }
 
     public class UnlinkKongregateAccountResult : PlayFabResultCommon
+    {
+    }
+
+    public class UnlinkNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Nintendo Switch Device identifier for the user. If not specified, the most recently signed in device ID will be used.
+        /// </summary>
+        public string NintendoSwitchDeviceId;
+
+    }
+
+    public class UnlinkNintendoSwitchDeviceIdResult : PlayFabResultCommon
     {
     }
 
@@ -5951,7 +6194,10 @@ namespace PlayFab.ClientModels
         XboxLive,
         Parse,
         Twitch,
-        WindowsHello
+        WindowsHello,
+        ServerCustomId,
+        NintendoSwitchDeviceId,
+        FacebookInstantGamesId
     }
 
     public class UserPrivateAccountInfo

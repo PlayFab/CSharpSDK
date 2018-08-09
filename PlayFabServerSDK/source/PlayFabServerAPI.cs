@@ -29,7 +29,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ModifyCharacterVirtualCurrencyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ModifyCharacterVirtualCurrencyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ModifyCharacterVirtualCurrencyResult> { Result = result, CustomData = customData };
@@ -52,7 +52,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -74,7 +74,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AddPlayerTagResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<AddPlayerTagResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<AddPlayerTagResult> { Result = result, CustomData = customData };
@@ -98,7 +98,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AddSharedGroupMembersResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<AddSharedGroupMembersResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<AddSharedGroupMembersResult> { Result = result, CustomData = customData };
@@ -120,7 +120,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ModifyUserVirtualCurrencyResult> { Result = result, CustomData = customData };
@@ -142,7 +142,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AuthenticateSessionTicketResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<AuthenticateSessionTicketResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<AuthenticateSessionTicketResult> { Result = result, CustomData = customData };
@@ -164,7 +164,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AwardSteamAchievementResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<AwardSteamAchievementResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<AwardSteamAchievementResult> { Result = result, CustomData = customData };
@@ -186,7 +186,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<BanUsersResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<BanUsersResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<BanUsersResult> { Result = result, CustomData = customData };
@@ -208,7 +208,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ConsumeItemResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ConsumeItemResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ConsumeItemResult> { Result = result, CustomData = customData };
@@ -233,7 +233,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<CreateSharedGroupResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateSharedGroupResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<CreateSharedGroupResult> { Result = result, CustomData = customData };
@@ -255,7 +255,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeleteCharacterFromUserResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteCharacterFromUserResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<DeleteCharacterFromUserResult> { Result = result, CustomData = customData };
@@ -279,7 +279,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -301,7 +301,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeleteUsersResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteUsersResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<DeleteUsersResult> { Result = result, CustomData = customData };
@@ -323,7 +323,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeregisterGameResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeregisterGameResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<DeregisterGameResponse> { Result = result, CustomData = customData };
@@ -346,7 +346,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EvaluateRandomResultTableResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EvaluateRandomResultTableResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EvaluateRandomResultTableResult> { Result = result, CustomData = customData };
@@ -368,7 +368,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ExecuteCloudScriptResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ExecuteCloudScriptResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ExecuteCloudScriptResult> { Result = result, CustomData = customData };
@@ -391,7 +391,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetAllSegmentsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetAllSegmentsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetAllSegmentsResult> { Result = result, CustomData = customData };
@@ -414,7 +414,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ListUsersCharactersResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListUsersCharactersResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ListUsersCharactersResult> { Result = result, CustomData = customData };
@@ -436,7 +436,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetCatalogItemsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetCatalogItemsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetCatalogItemsResult> { Result = result, CustomData = customData };
@@ -458,7 +458,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetCharacterDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetCharacterDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetCharacterDataResult> { Result = result, CustomData = customData };
@@ -480,7 +480,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetCharacterDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetCharacterDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetCharacterDataResult> { Result = result, CustomData = customData };
@@ -502,7 +502,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetCharacterInventoryResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetCharacterInventoryResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetCharacterInventoryResult> { Result = result, CustomData = customData };
@@ -524,7 +524,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetCharacterLeaderboardResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetCharacterLeaderboardResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetCharacterLeaderboardResult> { Result = result, CustomData = customData };
@@ -546,7 +546,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetCharacterDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetCharacterDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetCharacterDataResult> { Result = result, CustomData = customData };
@@ -568,7 +568,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetCharacterStatisticsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetCharacterStatisticsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetCharacterStatisticsResult> { Result = result, CustomData = customData };
@@ -595,7 +595,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetContentDownloadUrlResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetContentDownloadUrlResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetContentDownloadUrlResult> { Result = result, CustomData = customData };
@@ -618,7 +618,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetLeaderboardResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetLeaderboardResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetLeaderboardResult> { Result = result, CustomData = customData };
@@ -641,7 +641,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetFriendsListResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetFriendsListResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetFriendsListResult> { Result = result, CustomData = customData };
@@ -663,7 +663,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetLeaderboardResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetLeaderboardResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetLeaderboardResult> { Result = result, CustomData = customData };
@@ -685,7 +685,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetLeaderboardAroundCharacterResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetLeaderboardAroundCharacterResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetLeaderboardAroundCharacterResult> { Result = result, CustomData = customData };
@@ -707,7 +707,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetLeaderboardAroundUserResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetLeaderboardAroundUserResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetLeaderboardAroundUserResult> { Result = result, CustomData = customData };
@@ -729,15 +729,15 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetLeaderboardForUsersCharactersResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetLeaderboardForUsersCharactersResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetLeaderboardForUsersCharactersResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
-        /// Returns whatever info is requested in the response for the user. Note that PII (like email address, facebook id)
-        /// may be returned. All parameters default to false.
+        /// Returns whatever info is requested in the response for the user. Note that PII (like email address, facebook id) may be
+        /// returned. All parameters default to false.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayerCombinedInfoResult>> GetPlayerCombinedInfoAsync(GetPlayerCombinedInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -752,7 +752,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayerCombinedInfoResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerCombinedInfoResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerCombinedInfoResult> { Result = result, CustomData = customData };
@@ -774,7 +774,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayerProfileResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerProfileResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerProfileResult> { Result = result, CustomData = customData };
@@ -796,7 +796,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayerSegmentsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerSegmentsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerSegmentsResult> { Result = result, CustomData = customData };
@@ -821,7 +821,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayersInSegmentResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayersInSegmentResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayersInSegmentResult> { Result = result, CustomData = customData };
@@ -843,7 +843,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayerStatisticsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerStatisticsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerStatisticsResult> { Result = result, CustomData = customData };
@@ -865,7 +865,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayerStatisticVersionsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerStatisticVersionsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerStatisticVersionsResult> { Result = result, CustomData = customData };
@@ -887,7 +887,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayerTagsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerTagsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerTagsResult> { Result = result, CustomData = customData };
@@ -909,10 +909,54 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromFacebookIDsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromFacebookIDsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayFabIDsFromFacebookIDsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of Facebook Instant Games identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromFacebookInstantGamesIdsResult>> GetPlayFabIDsFromFacebookInstantGamesIdsAsync(GetPlayFabIDsFromFacebookInstantGamesIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromFacebookInstantGamesIds", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromFacebookInstantGamesIdsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromFacebookInstantGamesIdsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromFacebookInstantGamesIdsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of Nintendo Switch Device identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult>> GetPlayFabIDsFromNintendoSwitchDeviceIdsAsync(GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromNintendoSwitchDeviceIds", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -932,7 +976,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromSteamIDsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromSteamIDsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayFabIDsFromSteamIDsResult> { Result = result, CustomData = customData };
@@ -954,7 +998,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetPublisherDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPublisherDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetPublisherDataResult> { Result = result, CustomData = customData };
@@ -977,7 +1021,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetRandomResultTablesResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetRandomResultTablesResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetRandomResultTablesResult> { Result = result, CustomData = customData };
@@ -1001,7 +1045,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetSharedGroupDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetSharedGroupDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetSharedGroupDataResult> { Result = result, CustomData = customData };
@@ -1023,7 +1067,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetTimeResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTimeResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetTimeResult> { Result = result, CustomData = customData };
@@ -1045,7 +1089,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetTitleDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTitleDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetTitleDataResult> { Result = result, CustomData = customData };
@@ -1067,7 +1111,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetTitleDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTitleDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetTitleDataResult> { Result = result, CustomData = customData };
@@ -1089,7 +1133,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetTitleNewsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTitleNewsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetTitleNewsResult> { Result = result, CustomData = customData };
@@ -1111,7 +1155,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserAccountInfoResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserAccountInfoResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserAccountInfoResult> { Result = result, CustomData = customData };
@@ -1133,7 +1177,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserBansResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserBansResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserBansResult> { Result = result, CustomData = customData };
@@ -1155,7 +1199,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserDataResult> { Result = result, CustomData = customData };
@@ -1177,7 +1221,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserDataResult> { Result = result, CustomData = customData };
@@ -1199,7 +1243,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserInventoryResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserInventoryResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserInventoryResult> { Result = result, CustomData = customData };
@@ -1221,7 +1265,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserDataResult> { Result = result, CustomData = customData };
@@ -1243,7 +1287,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserDataResult> { Result = result, CustomData = customData };
@@ -1265,7 +1309,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserDataResult> { Result = result, CustomData = customData };
@@ -1287,7 +1331,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetUserDataResult> { Result = result, CustomData = customData };
@@ -1310,7 +1354,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GrantCharacterToUserResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GrantCharacterToUserResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GrantCharacterToUserResult> { Result = result, CustomData = customData };
@@ -1332,7 +1376,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GrantItemsToCharacterResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GrantItemsToCharacterResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GrantItemsToCharacterResult> { Result = result, CustomData = customData };
@@ -1354,7 +1398,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GrantItemsToUserResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GrantItemsToUserResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GrantItemsToUserResult> { Result = result, CustomData = customData };
@@ -1376,7 +1420,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GrantItemsToUsersResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GrantItemsToUsersResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GrantItemsToUsersResult> { Result = result, CustomData = customData };
@@ -1398,7 +1442,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ModifyItemUsesResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ModifyItemUsesResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ModifyItemUsesResult> { Result = result, CustomData = customData };
@@ -1420,7 +1464,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<MoveItemToCharacterFromCharacterResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<MoveItemToCharacterFromCharacterResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<MoveItemToCharacterFromCharacterResult> { Result = result, CustomData = customData };
@@ -1442,7 +1486,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<MoveItemToCharacterFromUserResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<MoveItemToCharacterFromUserResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<MoveItemToCharacterFromUserResult> { Result = result, CustomData = customData };
@@ -1464,7 +1508,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<MoveItemToUserFromCharacterResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<MoveItemToUserFromCharacterResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<MoveItemToUserFromCharacterResult> { Result = result, CustomData = customData };
@@ -1486,7 +1530,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<NotifyMatchmakerPlayerLeftResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<NotifyMatchmakerPlayerLeftResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<NotifyMatchmakerPlayerLeftResult> { Result = result, CustomData = customData };
@@ -1509,7 +1553,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RedeemCouponResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemCouponResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RedeemCouponResult> { Result = result, CustomData = customData };
@@ -1531,7 +1575,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RedeemMatchmakerTicketResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemMatchmakerTicketResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RedeemMatchmakerTicketResult> { Result = result, CustomData = customData };
@@ -1553,7 +1597,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RefreshGameServerInstanceHeartbeatResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RefreshGameServerInstanceHeartbeatResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RefreshGameServerInstanceHeartbeatResult> { Result = result, CustomData = customData };
@@ -1575,7 +1619,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RegisterGameResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RegisterGameResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RegisterGameResponse> { Result = result, CustomData = customData };
@@ -1597,7 +1641,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -1619,7 +1663,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RemovePlayerTagResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RemovePlayerTagResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RemovePlayerTagResult> { Result = result, CustomData = customData };
@@ -1644,7 +1688,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RemoveSharedGroupMembersResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RemoveSharedGroupMembersResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RemoveSharedGroupMembersResult> { Result = result, CustomData = customData };
@@ -1667,7 +1711,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ReportPlayerServerResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ReportPlayerServerResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ReportPlayerServerResult> { Result = result, CustomData = customData };
@@ -1689,7 +1733,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RevokeAllBansForUserResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RevokeAllBansForUserResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RevokeAllBansForUserResult> { Result = result, CustomData = customData };
@@ -1711,7 +1755,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RevokeBansResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RevokeBansResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RevokeBansResult> { Result = result, CustomData = customData };
@@ -1733,7 +1777,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RevokeInventoryResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RevokeInventoryResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RevokeInventoryResult> { Result = result, CustomData = customData };
@@ -1755,7 +1799,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<RevokeInventoryItemsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RevokeInventoryItemsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<RevokeInventoryItemsResult> { Result = result, CustomData = customData };
@@ -1778,7 +1822,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SendCustomAccountRecoveryEmailResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SendCustomAccountRecoveryEmailResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SendCustomAccountRecoveryEmailResult> { Result = result, CustomData = customData };
@@ -1800,7 +1844,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SendEmailFromTemplateResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SendEmailFromTemplateResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SendEmailFromTemplateResult> { Result = result, CustomData = customData };
@@ -1823,7 +1867,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SendPushNotificationResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SendPushNotificationResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SendPushNotificationResult> { Result = result, CustomData = customData };
@@ -1845,7 +1889,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -1867,7 +1911,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetGameServerInstanceDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetGameServerInstanceDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SetGameServerInstanceDataResult> { Result = result, CustomData = customData };
@@ -1889,7 +1933,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetGameServerInstanceStateResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetGameServerInstanceStateResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SetGameServerInstanceStateResult> { Result = result, CustomData = customData };
@@ -1911,7 +1955,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetGameServerInstanceTagsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetGameServerInstanceTagsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SetGameServerInstanceTagsResult> { Result = result, CustomData = customData };
@@ -1934,7 +1978,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetPlayerSecretResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetPlayerSecretResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SetPlayerSecretResult> { Result = result, CustomData = customData };
@@ -1956,7 +2000,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetPublisherDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetPublisherDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SetPublisherDataResult> { Result = result, CustomData = customData };
@@ -1978,7 +2022,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetTitleDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetTitleDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SetTitleDataResult> { Result = result, CustomData = customData };
@@ -2000,7 +2044,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetTitleDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetTitleDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<SetTitleDataResult> { Result = result, CustomData = customData };
@@ -2023,7 +2067,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ModifyCharacterVirtualCurrencyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ModifyCharacterVirtualCurrencyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ModifyCharacterVirtualCurrencyResult> { Result = result, CustomData = customData };
@@ -2046,7 +2090,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ModifyUserVirtualCurrencyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ModifyUserVirtualCurrencyResult> { Result = result, CustomData = customData };
@@ -2070,7 +2114,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UnlockContainerItemResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlockContainerItemResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UnlockContainerItemResult> { Result = result, CustomData = customData };
@@ -2095,7 +2139,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UnlockContainerItemResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlockContainerItemResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UnlockContainerItemResult> { Result = result, CustomData = customData };
@@ -2117,7 +2161,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -2139,7 +2183,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateBansResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateBansResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateBansResult> { Result = result, CustomData = customData };
@@ -2161,7 +2205,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateCharacterDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateCharacterDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCharacterDataResult> { Result = result, CustomData = customData };
@@ -2183,7 +2227,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateCharacterDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateCharacterDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCharacterDataResult> { Result = result, CustomData = customData };
@@ -2205,7 +2249,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateCharacterDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateCharacterDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCharacterDataResult> { Result = result, CustomData = customData };
@@ -2227,7 +2271,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateCharacterStatisticsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateCharacterStatisticsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCharacterStatisticsResult> { Result = result, CustomData = customData };
@@ -2249,7 +2293,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdatePlayerStatisticsResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdatePlayerStatisticsResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdatePlayerStatisticsResult> { Result = result, CustomData = customData };
@@ -2275,7 +2319,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateSharedGroupDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateSharedGroupDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateSharedGroupDataResult> { Result = result, CustomData = customData };
@@ -2297,7 +2341,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateUserDataResult> { Result = result, CustomData = customData };
@@ -2319,7 +2363,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateUserDataResult> { Result = result, CustomData = customData };
@@ -2341,7 +2385,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -2363,7 +2407,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateUserDataResult> { Result = result, CustomData = customData };
@@ -2385,7 +2429,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateUserDataResult> { Result = result, CustomData = customData };
@@ -2407,7 +2451,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateUserDataResult> { Result = result, CustomData = customData };
@@ -2429,7 +2473,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateUserDataResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateUserDataResult> { Result = result, CustomData = customData };
@@ -2451,7 +2495,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<WriteEventResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<WriteEventResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<WriteEventResponse> { Result = result, CustomData = customData };
@@ -2473,7 +2517,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<WriteEventResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<WriteEventResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<WriteEventResponse> { Result = result, CustomData = customData };
@@ -2495,7 +2539,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<WriteEventResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<WriteEventResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<WriteEventResponse> { Result = result, CustomData = customData };

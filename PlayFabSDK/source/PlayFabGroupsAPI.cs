@@ -1,4 +1,4 @@
-using PlayFab.EntityModels;
+using PlayFab.GroupsModels;
 using PlayFab.Internal;
 using PlayFab.Json;
 using System;
@@ -8,33 +8,12 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// PlayFab Entity APIs provide a variety of core PlayFab features and work consistently across a broad set of entities,
-    /// such as titles, players, characters, and more. API methods for executing CloudScript with an Entity Profile
+    /// The Groups API is designed for any permanent or semi-permanent collections of Entities (Players, or non-players). If you
+    /// want to make Guilds/Clans/Corporations/etc, then you should use Groups. Groups can also be used to make chatrooms,
+    /// parties, or any other excuse you need to lump some Entites together in a persistent way.
     /// </summary>
-    public class PlayFabEntityAPI
+    public class PlayFabGroupsAPI
     {
-        /// <summary>
-        /// Abort pending file uploads to an entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<AbortFileUploadsResponse>> AbortFileUploadsAsync(AbortFileUploadsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/File/AbortFileUploads", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<AbortFileUploadsResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<AbortFileUploadsResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<AbortFileUploadsResponse> { Result = result, CustomData = customData };
-        }
-
         /// <summary>
         /// Accepts an outstanding invitation to to join a group
         /// </summary>
@@ -51,7 +30,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -73,7 +52,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -95,7 +74,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -117,7 +96,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ApplyToGroupResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ApplyToGroupResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ApplyToGroupResponse> { Result = result, CustomData = customData };
@@ -139,7 +118,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -161,7 +140,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -183,7 +162,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<CreateGroupResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateGroupResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<CreateGroupResponse> { Result = result, CustomData = customData };
@@ -205,32 +184,10 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<CreateGroupRoleResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateGroupRoleResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<CreateGroupRoleResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Delete files on an entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<DeleteFilesResponse>> DeleteFilesAsync(DeleteFilesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/File/DeleteFiles", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<DeleteFilesResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<DeleteFilesResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<DeleteFilesResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -249,7 +206,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -271,125 +228,10 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Executes CloudScript using the Entity Profile
-        /// </summary>
-        public static async Task<PlayFabResult<ExecuteCloudScriptResult>> ExecuteEntityCloudScriptAsync(ExecuteEntityCloudScriptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteEntityCloudScript", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<ExecuteCloudScriptResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ExecuteCloudScriptResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ExecuteCloudScriptResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Finalize file uploads to an entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<FinalizeFileUploadsResponse>> FinalizeFileUploadsAsync(FinalizeFileUploadsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/File/FinalizeFileUploads", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<FinalizeFileUploadsResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<FinalizeFileUploadsResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<FinalizeFileUploadsResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Method to exchange a legacy AuthenticationTicket or title SecretKey for an Entity Token or to refresh a still valid
-        /// Entity Token.
-        /// </summary>
-        public static async Task<PlayFabResult<GetEntityTokenResponse>> GetEntityTokenAsync(GetEntityTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            string authKey = null, authValue = null;
-            if (PlayFabSettings.ClientSessionTicket != null) { authKey = "X-Authorization"; authValue = PlayFabSettings.ClientSessionTicket; }
-            if (PlayFabSettings.DeveloperSecretKey != null) { authKey = "X-SecretKey"; authValue = PlayFabSettings.DeveloperSecretKey; }
-            if (PlayFabSettings.EntityToken != null) { authKey = "X-EntityToken"; authValue = PlayFabSettings.EntityToken; }
-
-            var httpResult = await PlayFabHttp.DoPost("/Authentication/GetEntityToken", request, authKey, authValue, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetEntityTokenResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetEntityTokenResponse>>(resultRawJson);
-            var result = resultData.data;
-            PlayFabSettings.EntityToken = result.EntityToken;
-
-            return new PlayFabResult<GetEntityTokenResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Retrieves file metadata from an entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<GetFilesResponse>> GetFilesAsync(GetFilesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/File/GetFiles", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetFilesResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetFilesResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetFilesResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Gets the global title access policy
-        /// </summary>
-        public static async Task<PlayFabResult<GetGlobalPolicyResponse>> GetGlobalPolicyAsync(GetGlobalPolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Profile/GetGlobalPolicy", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetGlobalPolicyResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetGlobalPolicyResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetGlobalPolicyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -408,98 +250,10 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetGroupResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetGroupResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<GetGroupResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Retrieves objects from an entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<GetObjectsResponse>> GetObjectsAsync(GetObjectsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Object/GetObjects", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetObjectsResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetObjectsResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetObjectsResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Retrieves the entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<GetEntityProfileResponse>> GetProfileAsync(GetEntityProfileRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Profile/GetProfile", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetEntityProfileResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetEntityProfileResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetEntityProfileResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Retrieves the entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<GetEntityProfilesResponse>> GetProfilesAsync(GetEntityProfilesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Profile/GetProfiles", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetEntityProfilesResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<GetEntityProfilesResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetEntityProfilesResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Initiates file uploads to an entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<InitiateFileUploadsResponse>> InitiateFileUploadsAsync(InitiateFileUploadsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/File/InitiateFileUploads", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<InitiateFileUploadsResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<InitiateFileUploadsResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<InitiateFileUploadsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -518,7 +272,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<InviteToGroupResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<InviteToGroupResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<InviteToGroupResponse> { Result = result, CustomData = customData };
@@ -540,7 +294,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<IsMemberResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<IsMemberResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<IsMemberResponse> { Result = result, CustomData = customData };
@@ -562,7 +316,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ListGroupApplicationsResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListGroupApplicationsResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ListGroupApplicationsResponse> { Result = result, CustomData = customData };
@@ -584,7 +338,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ListGroupBlocksResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListGroupBlocksResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ListGroupBlocksResponse> { Result = result, CustomData = customData };
@@ -606,7 +360,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ListGroupInvitationsResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListGroupInvitationsResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ListGroupInvitationsResponse> { Result = result, CustomData = customData };
@@ -628,7 +382,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ListGroupMembersResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListGroupMembersResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ListGroupMembersResponse> { Result = result, CustomData = customData };
@@ -650,7 +404,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ListMembershipResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListMembershipResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ListMembershipResponse> { Result = result, CustomData = customData };
@@ -672,7 +426,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<ListMembershipOpportunitiesResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListMembershipOpportunitiesResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<ListMembershipOpportunitiesResponse> { Result = result, CustomData = customData };
@@ -694,7 +448,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -716,7 +470,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -738,76 +492,10 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Sets the global title access policy
-        /// </summary>
-        public static async Task<PlayFabResult<SetGlobalPolicyResponse>> SetGlobalPolicyAsync(SetGlobalPolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Profile/SetGlobalPolicy", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<SetGlobalPolicyResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetGlobalPolicyResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<SetGlobalPolicyResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Sets objects on an entity's profile.
-        /// </summary>
-        public static async Task<PlayFabResult<SetObjectsResponse>> SetObjectsAsync(SetObjectsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Object/SetObjects", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<SetObjectsResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetObjectsResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<SetObjectsResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Sets the profiles access policy
-        /// </summary>
-        public static async Task<PlayFabResult<SetEntityProfilePolicyResponse>> SetProfilePolicyAsync(SetEntityProfilePolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Profile/SetProfilePolicy", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<SetEntityProfilePolicyResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<SetEntityProfilePolicyResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<SetEntityProfilePolicyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -826,7 +514,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
@@ -848,7 +536,7 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateGroupResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateGroupResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateGroupResponse> { Result = result, CustomData = customData };
@@ -870,32 +558,10 @@ namespace PlayFab
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<UpdateGroupRoleResponse>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateGroupRoleResponse>>(resultRawJson);
             var result = resultData.data;
 
             return new PlayFabResult<UpdateGroupRoleResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Write batches of entity based events to PlayStream.
-        /// </summary>
-        public static async Task<PlayFabResult<WriteEventsResponse>> WriteEventsAsync(WriteEventsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Event/WriteEvents", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<WriteEventsResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = JsonWrapper.DeserializeObject<PlayFabJsonSuccess<WriteEventsResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<WriteEventsResponse> { Result = result, CustomData = customData };
         }
 
     }
