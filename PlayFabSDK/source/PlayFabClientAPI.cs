@@ -291,6 +291,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Grants the player's current entitlements from Xbox Live, consuming all availble items in Xbox and granting them to the
+        /// player's PlayFab inventory. This call is idempotent and will not grant previously granted items to the player.
+        /// </summary>
+        public static async Task<PlayFabResult<ConsumeXboxEntitlementsResult>> ConsumeXboxEntitlementsAsync(ConsumeXboxEntitlementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ConsumeXboxEntitlements", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ConsumeXboxEntitlementsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ConsumeXboxEntitlementsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ConsumeXboxEntitlementsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Requests the creation of a shared group object, containing key/value pairs which may be updated by all members of the
         /// group. Upon creation, the current user will be the only member of the group. Shared Groups are designed for sharing data
         /// between a very small number of players, please see our guide:
@@ -1772,6 +1795,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkXboxAccount", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkXboxAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkXboxAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkXboxAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for
         /// API calls which require an authenticated user
         /// </summary>
@@ -2153,6 +2198,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls
+        /// which require an authenticated user
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithXboxAsync(LoginWithXboxRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "Must be have PlayFabSettings.TitleId set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithXbox", request, null, null, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific
         /// active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required
         /// parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is
@@ -2439,7 +2511,7 @@ namespace PlayFab
         /// Write a PlayStream event to describe the provided player device information. This API method is not designed to be
         /// called directly by developers. Each PlayFab client SDK will eventually report this information automatically.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> ReportDeviceInfoAsync(DeviceInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> ReportDeviceInfoAsync(DeviceInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
 
@@ -2448,14 +2520,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2904,6 +2976,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks the related Xbox Live account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkXboxAccountResult>> UnlinkXboxAccountAsync(UnlinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkXboxAccount", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkXboxAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkXboxAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkXboxAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Opens the specified container, with the specified key (when required), and returns the contents of the opened container.
         /// If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented,
         /// consistent with the operation of ConsumeItem.
@@ -2954,7 +3048,7 @@ namespace PlayFab
         /// <summary>
         /// Update the avatar URL of the player
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> UpdateAvatarUrlAsync(UpdateAvatarUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> UpdateAvatarUrlAsync(UpdateAvatarUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
 
@@ -2963,14 +3057,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>

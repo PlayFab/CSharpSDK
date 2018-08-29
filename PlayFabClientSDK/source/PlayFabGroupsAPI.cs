@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// The Groups API is designed for any permanent or semi-permanent collections of Entities (Players, or non-players). If you
-    /// want to make Guilds/Clans/Corporations/etc, then you should use Groups. Groups can also be used to make chatrooms,
-    /// parties, or any other excuse you need to lump some Entites together in a persistent way.
+    /// The Groups API is designed for any permanent or semi-permanent collections of Entities (players, or non-players). If you
+    /// want to make Guilds/Clans/Corporations/etc., then you should use groups. Groups can also be used to make chatrooms,
+    /// parties, or any other persistent collection of entities.
     /// </summary>
     public class PlayFabGroupsAPI
     {
         /// <summary>
         /// Accepts an outstanding invitation to to join a group
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> AcceptGroupApplicationAsync(AcceptGroupApplicationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> AcceptGroupApplicationAsync(AcceptGroupApplicationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -26,20 +26,20 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
         /// Accepts an invitation to join a group
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> AcceptGroupInvitationAsync(AcceptGroupInvitationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> AcceptGroupInvitationAsync(AcceptGroupInvitationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -48,20 +48,20 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
         /// Adds members to a group or role.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> AddMembersAsync(AddMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> AddMembersAsync(AddMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -70,14 +70,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace PlayFab
         /// <summary>
         /// Blocks a list of entities from joining a group.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> BlockEntityAsync(BlockEntityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> BlockEntityAsync(BlockEntityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -114,20 +114,20 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
         /// Changes the role membership of a list of entities from one role to another.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> ChangeMemberRoleAsync(ChangeMemberRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> ChangeMemberRoleAsync(ChangeMemberRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -136,14 +136,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace PlayFab
         /// <summary>
         /// Deletes a group and all roles, invitations, join requests, and blocks associated with it.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> DeleteGroupAsync(DeleteGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> DeleteGroupAsync(DeleteGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -202,20 +202,20 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
         /// Deletes an existing role in a group.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> DeleteRoleAsync(DeleteRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> DeleteRoleAsync(DeleteRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -224,14 +224,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -435,7 +435,7 @@ namespace PlayFab
         /// <summary>
         /// Removes an application to join a group
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> RemoveGroupApplicationAsync(RemoveGroupApplicationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> RemoveGroupApplicationAsync(RemoveGroupApplicationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -444,20 +444,20 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
         /// Removes an invitation join a group
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> RemoveGroupInvitationAsync(RemoveGroupInvitationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> RemoveGroupInvitationAsync(RemoveGroupInvitationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -466,20 +466,20 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
         /// Removes members from a group.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> RemoveMembersAsync(RemoveMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> RemoveMembersAsync(RemoveMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -488,20 +488,20 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
         /// Unblocks a list of entities from joining a group
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> UnblockEntityAsync(UnblockEntityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> UnblockEntityAsync(UnblockEntityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
@@ -510,14 +510,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>

@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// The Authentication API group is currently in-progress. The current GetEntityToken method is a stop-gap to convert
-    /// another authentication into an Entity Authentication. See https://api.playfab.com/documentation/client#Authentication
-    /// for the other authentication methods.
+    /// The Authentication APIs provide a convenient way to convert classic authentication responses into entity authentication
+    /// models. These APIs will provide you with the entity authentication token needed for subsequent Entity API calls.
     /// </summary>
     public class PlayFabAuthenticationAPI
     {

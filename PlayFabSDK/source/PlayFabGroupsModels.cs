@@ -250,29 +250,24 @@ namespace PlayFab.GroupsModels
 
     }
 
-    public class EmptyResult : PlayFabResultCommon
+    public class EmptyResponse : PlayFabResultCommon
     {
     }
 
     /// <summary>
-    /// Entity identifier class that contains both the ID and type.
+    /// Combined entity type and ID structure which uniquely identifies a single entity.
     /// </summary>
     public class EntityKey
     {
         /// <summary>
-        /// Entity profile ID.
+        /// Unique ID of the entity.
         /// </summary>
         public string Id;
 
         /// <summary>
-        /// Entity type. Optional to be used but one of EntityType or EntityTypeString must be set.
+        /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
         /// </summary>
-        public EntityTypes? Type;
-
-        /// <summary>
-        /// Entity type. Optional to be used but one of EntityType or EntityTypeString must be set.
-        /// </summary>
-        public string TypeString;
+        public string Type;
 
     }
 
@@ -293,16 +288,6 @@ namespace PlayFab.GroupsModels
         /// </summary>
         public string RoleName;
 
-    }
-
-    public enum EntityTypes
-    {
-        title,
-        master_player_account,
-        title_player_account,
-        character,
-        group,
-        service
     }
 
     /// <summary>

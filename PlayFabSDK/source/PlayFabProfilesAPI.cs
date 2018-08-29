@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// Entity profiles are the top level containers for essentially all information about an entity.
+    /// All PlayFab entities have profiles, which hold top-level properties about the entity. These APIs give you the tools
+    /// needed to manage entity profiles.
     /// </summary>
     public class PlayFabProfilesAPI
     {

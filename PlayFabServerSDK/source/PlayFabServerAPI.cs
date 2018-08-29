@@ -39,7 +39,7 @@ namespace PlayFab
         /// Adds the Friend user to the friendlist of the user with PlayFabId. At least one of
         /// FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> AddFriendAsync(AddFriendRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> AddFriendAsync(AddFriendRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -48,14 +48,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace PlayFab
         /// sharing data between a very small number of players, please see our guide:
         /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> DeleteSharedGroupAsync(DeleteSharedGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> DeleteSharedGroupAsync(DeleteSharedGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -275,14 +275,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1628,7 +1628,7 @@ namespace PlayFab
         /// <summary>
         /// Removes the specified friend from the the user's friend list
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> RemoveFriendAsync(RemoveFriendRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> RemoveFriendAsync(RemoveFriendRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -1637,14 +1637,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1876,7 +1876,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the tag list for a specified user in the friend list of another user
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> SetFriendTagsAsync(SetFriendTagsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> SetFriendTagsAsync(SetFriendTagsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -1885,14 +1885,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2148,7 +2148,7 @@ namespace PlayFab
         /// <summary>
         /// Update the avatar URL of the specified player
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> UpdateAvatarUrlAsync(UpdateAvatarUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> UpdateAvatarUrlAsync(UpdateAvatarUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -2157,14 +2157,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2372,7 +2372,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the key-value pair data tagged to the specified item, which is read-only from the client.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> UpdateUserInventoryItemCustomDataAsync(UpdateUserInventoryItemDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> UpdateUserInventoryItemCustomDataAsync(UpdateUserInventoryItemDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
 
@@ -2381,14 +2381,14 @@ namespace PlayFab
             {
                 var error = (PlayFabError)httpResult;
                 PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
             }
 
             var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
             var result = resultData.data;
 
-            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
