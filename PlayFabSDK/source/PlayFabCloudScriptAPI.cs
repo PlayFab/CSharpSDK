@@ -13,7 +13,8 @@ namespace PlayFab
     public class PlayFabCloudScriptAPI
     {
         /// <summary>
-        /// Executes CloudScript using the Entity Profile
+        /// Cloud Script is one of PlayFab's most versatile features. It allows client code to request execution of any kind of
+        /// custom server-side functionality you can implement, and it can be used in conjunction with virtually anything.
         /// </summary>
         public static async Task<PlayFabResult<ExecuteCloudScriptResult>> ExecuteEntityCloudScriptAsync(ExecuteEntityCloudScriptRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

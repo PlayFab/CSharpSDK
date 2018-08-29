@@ -627,6 +627,29 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class ConsumeXboxEntitlementsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Catalog version to use
+        /// </summary>
+        public string CatalogVersion;
+
+        /// <summary>
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// </summary>
+        public string XboxToken;
+
+    }
+
+    public class ConsumeXboxEntitlementsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Details for the items purchased.
+        /// </summary>
+        public List<ItemInstance> Items;
+
+    }
+
     public class ContactEmailInfoModel
     {
         /// <summary>
@@ -1170,29 +1193,24 @@ namespace PlayFab.ClientModels
         Confirmed
     }
 
-    public class EmptyResult : PlayFabResultCommon
+    public class EmptyResponse : PlayFabResultCommon
     {
     }
 
     /// <summary>
-    /// Entity identifier class that contains both the ID and type.
+    /// Combined entity type and ID structure which uniquely identifies a single entity.
     /// </summary>
     public class EntityKey
     {
         /// <summary>
-        /// Entity profile ID.
+        /// Unique ID of the entity.
         /// </summary>
         public string Id;
 
         /// <summary>
-        /// Entity type. Optional to be used but one of EntityType or EntityTypeString must be set.
+        /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
         /// </summary>
-        public EntityTypes? Type;
-
-        /// <summary>
-        /// Entity type. Optional to be used but one of EntityType or EntityTypeString must be set.
-        /// </summary>
-        public string TypeString;
+        public string Type;
 
     }
 
@@ -1213,16 +1231,6 @@ namespace PlayFab.ClientModels
         /// </summary>
         public DateTime? TokenExpiration;
 
-    }
-
-    public enum EntityTypes
-    {
-        title,
-        master_player_account,
-        title_player_account,
-        character,
-        group,
-        service
     }
 
     public class ExecuteCloudScriptRequest : PlayFabRequestCommon
@@ -3095,7 +3103,7 @@ namespace PlayFab.ClientModels
         public string ItemId;
 
         /// <summary>
-        /// How many of this item to purchase.
+        /// How many of this item to purchase. Min 1, maximum 25.
         /// </summary>
         public uint Quantity;
 
@@ -3397,6 +3405,24 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class LinkXboxAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// If another user is already linked to the account, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink;
+
+        /// <summary>
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// </summary>
+        public string XboxToken;
+
+    }
+
+    public class LinkXboxAccountResult : PlayFabResultCommon
+    {
+    }
+
     public class ListUsersCharactersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3463,7 +3489,8 @@ namespace PlayFab.ClientModels
         GameServer,
         CustomServer,
         NintendoSwitch,
-        FacebookInstantGames
+        FacebookInstantGames,
+        OpenIdConnect
     }
 
     public class LoginResult : PlayFabResultCommon
@@ -3534,8 +3561,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3579,8 +3607,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3609,8 +3638,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3649,8 +3679,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3689,8 +3720,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3724,8 +3756,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3764,8 +3797,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3815,8 +3849,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3865,8 +3900,9 @@ namespace PlayFab.ClientModels
         public string KongregateId;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3900,8 +3936,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3930,8 +3967,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3970,8 +4008,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4016,8 +4055,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4046,8 +4086,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4060,6 +4101,47 @@ namespace PlayFab.ClientModels
         /// title has been selected.
         /// </summary>
         public string TitleId;
+
+    }
+
+    public class LoginWithXboxRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount;
+
+        /// <summary>
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
+        /// </summary>
+        public string EncryptedRequest;
+
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
+        /// </summary>
+        [Obsolete("No longer available", false)]
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret;
+
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
+        /// </summary>
+        public string TitleId;
+
+        /// <summary>
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// </summary>
+        public string XboxToken;
 
     }
 
@@ -4806,8 +4888,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4888,8 +4971,9 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Flag to automatically login the player's title_player_account and return the associated entity token.
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -5747,6 +5831,19 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class UnlinkXboxAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// </summary>
+        public string XboxToken;
+
+    }
+
+    public class UnlinkXboxAccountResult : PlayFabResultCommon
+    {
+    }
+
     public class UnlockContainerInstanceRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5996,6 +6093,11 @@ namespace PlayFab.ClientModels
         public UserFacebookInfo FacebookInfo;
 
         /// <summary>
+        /// Facebook Instant Games account information, if a Facebook Instant Games account has been linked
+        /// </summary>
+        public UserFacebookInstantGamesIdInfo FacebookInstantGamesIdInfo;
+
+        /// <summary>
         /// User Gamecenter information, if a Gamecenter account has been linked
         /// </summary>
         public UserGameCenterInfo GameCenterInfo;
@@ -6014,6 +6116,16 @@ namespace PlayFab.ClientModels
         /// User Kongregate account information, if a Kongregate account has been linked
         /// </summary>
         public UserKongregateInfo KongregateInfo;
+
+        /// <summary>
+        /// Nintendo Switch account information, if a Nintendo Switch account has been linked
+        /// </summary>
+        public UserNintendoSwitchDeviceIdInfo NintendoSwitchDeviceIdInfo;
+
+        /// <summary>
+        /// OpenID Connect information, if any OpenID Connect accounts have been linked
+        /// </summary>
+        public List<UserOpenIdInfo> OpenIdInfo;
 
         /// <summary>
         /// Unique identifier for the user account
@@ -6049,6 +6161,11 @@ namespace PlayFab.ClientModels
         /// User account name in the PlayFab service
         /// </summary>
         public string Username;
+
+        /// <summary>
+        /// Windows Hello account information, if a Windows Hello account has been linked
+        /// </summary>
+        public UserWindowsHelloInfo WindowsHelloInfo;
 
         /// <summary>
         /// User XBox account information, if a XBox account has been linked
@@ -6119,6 +6236,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class UserFacebookInstantGamesIdInfo
+    {
+        /// <summary>
+        /// Facebook Instant Games ID
+        /// </summary>
+        public string FacebookInstantGamesId;
+
+    }
+
     public class UserGameCenterInfo
     {
         /// <summary>
@@ -6175,6 +6301,34 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class UserNintendoSwitchDeviceIdInfo
+    {
+        /// <summary>
+        /// Nintendo Switch Device ID
+        /// </summary>
+        public string NintendoSwitchDeviceId;
+
+    }
+
+    public class UserOpenIdInfo
+    {
+        /// <summary>
+        /// OpenID Connection ID
+        /// </summary>
+        public string ConnectionId;
+
+        /// <summary>
+        /// OpenID Issuer
+        /// </summary>
+        public string Issuer;
+
+        /// <summary>
+        /// OpenID Subject
+        /// </summary>
+        public string Subject;
+
+    }
+
     public enum UserOrigination
     {
         Organic,
@@ -6197,7 +6351,8 @@ namespace PlayFab.ClientModels
         WindowsHello,
         ServerCustomId,
         NintendoSwitchDeviceId,
-        FacebookInstantGamesId
+        FacebookInstantGamesId,
+        OpenIdConnect
     }
 
     public class UserPrivateAccountInfo
@@ -6323,6 +6478,20 @@ namespace PlayFab.ClientModels
         /// Twitch Username
         /// </summary>
         public string TwitchUserName;
+
+    }
+
+    public class UserWindowsHelloInfo
+    {
+        /// <summary>
+        /// Windows Hello Device Name
+        /// </summary>
+        public string WindowsHelloDeviceName;
+
+        /// <summary>
+        /// Windows Hello Public Key Hash
+        /// </summary>
+        public string WindowsHelloPublicKeyHash;
 
     }
 

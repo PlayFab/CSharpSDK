@@ -33,24 +33,19 @@ namespace PlayFab.ProfilesModels
     }
 
     /// <summary>
-    /// Entity identifier class that contains both the ID and type.
+    /// Combined entity type and ID structure which uniquely identifies a single entity.
     /// </summary>
     public class EntityKey
     {
         /// <summary>
-        /// Entity profile ID.
+        /// Unique ID of the entity.
         /// </summary>
         public string Id;
 
         /// <summary>
-        /// Entity type. Optional to be used but one of EntityType or EntityTypeString must be set.
+        /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
         /// </summary>
-        public EntityTypes? Type;
-
-        /// <summary>
-        /// Entity type. Optional to be used but one of EntityType or EntityTypeString must be set.
-        /// </summary>
-        public string TypeString;
+        public string Type;
 
     }
 
@@ -159,16 +154,6 @@ namespace PlayFab.ProfilesModels
         /// </summary>
         public int Size;
 
-    }
-
-    public enum EntityTypes
-    {
-        title,
-        master_player_account,
-        title_player_account,
-        character,
-        group,
-        service
     }
 
     public class GetEntityProfileRequest : PlayFabRequestCommon

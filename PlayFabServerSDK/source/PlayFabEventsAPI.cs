@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// Entity profiles are the top level containers for essentially all information about an entity.
+    /// Write custom PlayStream events for any PlayFab entity. PlayStream events can be used for analytics, reporting,
+    /// debugging, or to trigger custom actions in near real-time.
     /// </summary>
     public class PlayFabEventsAPI
     {
