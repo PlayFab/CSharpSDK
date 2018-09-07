@@ -59,6 +59,8 @@
     <Compile Include="source\PlayFabEventsModels.cs" />
     <Compile Include="source\PlayFabGroupsAPI.cs" />
     <Compile Include="source\PlayFabGroupsModels.cs" />
+    <Compile Include="source\PlayFabLocalizationAPI.cs" />
+    <Compile Include="source\PlayFabLocalizationModels.cs" />
     <Compile Include="source\PlayFabProfilesAPI.cs" />
     <Compile Include="source\PlayFabProfilesModels.cs" />
     <Compile Include="source\PlayFabErrors.cs" />
