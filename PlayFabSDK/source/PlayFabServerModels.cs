@@ -1137,6 +1137,19 @@ namespace PlayFab.ServerModels
     {
     }
 
+    public class DeletePlayerRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId;
+
+    }
+
+    public class DeletePlayerResult : PlayFabResultCommon
+    {
+    }
+
     public class DeleteSharedGroupRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1146,6 +1159,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class DeleteUsersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1161,6 +1175,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class DeleteUsersResult : PlayFabResultCommon
     {
     }

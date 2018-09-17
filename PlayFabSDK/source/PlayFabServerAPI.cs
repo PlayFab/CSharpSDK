@@ -262,6 +262,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Removes a user's player account from a title and deletes all associated data
+        /// </summary>
+        public static async Task<PlayFabResult<DeletePlayerResult>> DeletePlayerAsync(DeletePlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/DeletePlayer", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeletePlayerResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeletePlayerResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeletePlayerResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Deletes a shared group, freeing up the shared group ID to be reused for a new group. Shared Groups are designed for
         /// sharing data between a very small number of players, please see our guide:
         /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
@@ -286,8 +308,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics.
+        /// Deletes custom data, all account linkages, and statistics.
         /// </summary>
+        [Obsolete("Use 'DeletePlayer' instead", false)]
         public static async Task<PlayFabResult<DeleteUsersResult>> DeleteUsersAsync(DeleteUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
