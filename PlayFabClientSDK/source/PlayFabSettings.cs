@@ -5,19 +5,17 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.35.180906";
-        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-slave2016-1_0";
-        public const string SdkVersionString = "CSharpSDK-1.35.180906";
+        public const string SdkVersion = "1.36.180917";
+        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-slave2016-2_2";
+        public const string SdkVersionString = "CSharpSDK-1.36.180917";
         public static readonly Dictionary<string, string> RequestGetParams = new Dictionary<string, string> {
             { "sdk", SdkVersionString }
         };
 
-        /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
-        public static bool UseDevelopmentEnvironment = false;
-        /// <summary> This is for PlayFab internal debugging.  Generally you shouldn't touch this </summary>
-        public static string DevelopmentEnvironmentUrl = ".playfabsandbox.com";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string ProductionEnvironmentUrl = ".playfabapi.com";
+        /// <summary> The name of a customer vertical. This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
+        public static string VerticalName = null;
         /// <summary> Session token for Entity API. Auto-Populated by GetEntityToken method. </summary>
         internal static string EntityToken = null;
         /// <summary> Session ticket for Client API. Auto-Populated by any login or registration call. </summary>
@@ -42,9 +40,18 @@ namespace PlayFab
         {
             StringBuilder sb = new StringBuilder(1000);
         
-            var baseUrl = UseDevelopmentEnvironment ? DevelopmentEnvironmentUrl : ProductionEnvironmentUrl;
+            var baseUrl = ProductionEnvironmentUrl;
             if (!baseUrl.StartsWith("http"))
-                sb.Append("https://").Append(TitleId);
+            {
+                if (VerticalName != null)
+                {
+                    sb.Append("https://").Append(VerticalName);
+                }
+                else
+                {
+                    sb.Append("https://").Append(TitleId);
+                }
+            }
                 
             sb.Append(baseUrl).Append(apiCall);
         

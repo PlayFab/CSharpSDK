@@ -704,6 +704,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Get a matchmaking queue configuration.
+        /// </summary>
+        public static async Task<PlayFabResult<GetMatchmakingQueueResult>> GetMatchmakingQueueAsync(GetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/GetMatchmakingQueue", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetMatchmakingQueueResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetMatchmakingQueueResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetMatchmakingQueueResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Get the list of titles that the player has played
         /// </summary>
         public static async Task<PlayFabResult<GetPlayedTitleListResult>> GetPlayedTitleListAsync(GetPlayedTitleListRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1391,6 +1413,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// List all matchmaking queue configs.
+        /// </summary>
+        public static async Task<PlayFabResult<ListMatchmakingQueuesResult>> ListMatchmakingQueuesAsync(ListMatchmakingQueuesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/ListMatchmakingQueues", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListMatchmakingQueuesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListMatchmakingQueuesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListMatchmakingQueuesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the build details for all game server executables which are currently defined for the title
         /// </summary>
         public static async Task<PlayFabResult<ListBuildsResult>> ListServerBuildsAsync(ListBuildsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1498,6 +1542,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<RefundPurchaseResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Remove a matchmaking queue config.
+        /// </summary>
+        public static async Task<PlayFabResult<RemoveMatchmakingQueueResult>> RemoveMatchmakingQueueAsync(RemoveMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/RemoveMatchmakingQueue", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RemoveMatchmakingQueueResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RemoveMatchmakingQueueResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RemoveMatchmakingQueueResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1809,6 +1875,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCatalogItemsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Create or update a matchmaking queue configuration.
+        /// </summary>
+        public static async Task<PlayFabResult<SetMatchmakingQueueResult>> SetMatchmakingQueueAsync(SetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/SetMatchmakingQueue", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SetMatchmakingQueueResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetMatchmakingQueueResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SetMatchmakingQueueResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
