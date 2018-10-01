@@ -210,7 +210,7 @@ namespace PlayFab.MatchmakerModels
         /// <summary>
         /// IPV4 address of the new Game Server Instance.
         /// </summary>
-        [Obsolete("Use 'ServerIPV4Address' instead", false)]
+        [Obsolete("Use 'ServerIPV4Address' instead", true)]
         public string ServerHostname;
 
         /// <summary>
