@@ -1159,7 +1159,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class DeleteUsersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1175,7 +1175,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class DeleteUsersResult : PlayFabResultCommon
     {
     }
@@ -4340,7 +4340,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// IPV4 address of the Game Server Instance.
         /// </summary>
-        [Obsolete("Use 'ServerIPV4Address' instead", false)]
+        [Obsolete("Use 'ServerIPV4Address' instead", true)]
         public string ServerHost;
 
         /// <summary>

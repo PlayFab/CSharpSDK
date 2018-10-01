@@ -310,7 +310,7 @@ namespace PlayFab
         /// <summary>
         /// Deletes custom data, all account linkages, and statistics.
         /// </summary>
-        [Obsolete("Use 'DeletePlayer' instead", false)]
+        [Obsolete("Use 'DeletePlayer' instead", true)]
         public static async Task<PlayFabResult<DeleteUsersResult>> DeleteUsersAsync(DeleteUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");

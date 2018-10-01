@@ -310,18 +310,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    public enum AttributeNotSpecifiedBehavior
-    {
-        UseDefault,
-        MatchAny
-    }
-
-    public enum AttributeSource
-    {
-        User,
-        PlayerEntity
-    }
-
     public enum AuthTokenType
     {
         Email
@@ -2268,7 +2256,7 @@ namespace PlayFab.AdminModels
         /// <summary>
         /// IPV4 address of the game server instance
         /// </summary>
-        [Obsolete("Use 'ServerIPV4Address' instead", false)]
+        [Obsolete("Use 'ServerIPV4Address' instead", true)]
         public string ServerAddress;
 
         /// <summary>
@@ -2318,24 +2306,6 @@ namespace PlayFab.AdminModels
         /// array of game modes available for the specified build
         /// </summary>
         public List<GameModeInfo> GameModes;
-
-    }
-
-    public class GetMatchmakingQueueRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The Id of the matchmaking queue to retrieve.
-        /// </summary>
-        public string QueueName;
-
-    }
-
-    public class GetMatchmakingQueueResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// The matchmaking queue config.
-        /// </summary>
-        public MatchmakingQueueConfig MatchmakingQueue;
 
     }
 
@@ -3261,19 +3231,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    public class ListMatchmakingQueuesRequest : PlayFabRequestCommon
-    {
-    }
-
-    public class ListMatchmakingQueuesResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// The list of matchmaking queue configs for this title.
-        /// </summary>
-        public List<MatchmakingQueueConfig> MatchMakingQueues;
-
-    }
-
     public class ListVirtualCurrencyTypesRequest : PlayFabRequestCommon
     {
     }
@@ -3386,66 +3343,6 @@ namespace PlayFab.AdminModels
         /// User info for the user matching the request
         /// </summary>
         public UserAccountInfo UserInfo;
-
-    }
-
-    public class MatchmakingQueueConfig
-    {
-        /// <summary>
-        /// Maximum number of players in a match.
-        /// </summary>
-        public uint MaxMatchSize;
-
-        /// <summary>
-        /// Minimum number of players in a match.
-        /// </summary>
-        public uint MinMatchSize;
-
-        /// <summary>
-        /// Unique identifier for a Queue. Chosen by the developer.
-        /// </summary>
-        public string Name;
-
-        /// <summary>
-        /// List of rules used to find an optimal match.
-        /// </summary>
-        public List<MatchmakingQueueRule> Rules;
-
-    }
-
-    public class MatchmakingQueueRule
-    {
-        /// <summary>
-        /// Description of the attribute used by this rule to match tickets.
-        /// </summary>
-        public QueueRuleAttribute Attribute;
-
-        /// <summary>
-        /// Describes the behavior when an attribute is not specified in the ticket creation request or in the user's entity
-        /// profile.
-        /// </summary>
-        public AttributeNotSpecifiedBehavior? AttributeNotSpecifiedBehavior;
-
-        /// <summary>
-        /// Friendly name chosen by developer.
-        /// </summary>
-        public string Name;
-
-        /// <summary>
-        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
-        /// prioritized over those that don't). Leave blank if this rule is always enforced.
-        /// </summary>
-        public uint? SecondsUntilOptional;
-
-        /// <summary>
-        /// Type of rule being described.
-        /// </summary>
-        public RuleType Type;
-
-        /// <summary>
-        /// The relative weight of this rule compared to others.
-        /// </summary>
-        public double Weight;
 
     }
 
@@ -4150,20 +4047,6 @@ namespace PlayFab.AdminModels
         APNS_SANDBOX
     }
 
-    public class QueueRuleAttribute
-    {
-        /// <summary>
-        /// Specifies which attribute in a ticket to use.
-        /// </summary>
-        public string Path;
-
-        /// <summary>
-        /// Specifies which source the attribute comes from.
-        /// </summary>
-        public AttributeSource Source;
-
-    }
-
     public class RandomResultTable
     {
         /// <summary>
@@ -4236,19 +4119,6 @@ namespace PlayFab.AdminModels
         Japan,
         Brazil,
         Australia
-    }
-
-    public class RemoveMatchmakingQueueRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The Id of the matchmaking queue to remove.
-        /// </summary>
-        public string QueueName;
-
-    }
-
-    public class RemoveMatchmakingQueueResult : PlayFabResultCommon
-    {
     }
 
     public class RemovePlayerTagRequest : PlayFabRequestCommon
@@ -4518,15 +4388,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    public enum RuleType
-    {
-        Unknown,
-        DifferenceRule,
-        StringEqualityRule,
-        MatchTotalRule,
-        SetIntersectionRule
-    }
-
     public class RunTaskRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4637,19 +4498,6 @@ namespace PlayFab.AdminModels
     }
 
     public class SendAccountRecoveryEmailResult : PlayFabResultCommon
-    {
-    }
-
-    public class SetMatchmakingQueueRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The matchmaking queue config.
-        /// </summary>
-        public MatchmakingQueueConfig MatchmakingQueue;
-
-    }
-
-    public class SetMatchmakingQueueResult : PlayFabResultCommon
     {
     }
 
@@ -5049,7 +4897,7 @@ namespace PlayFab.AdminModels
         InProgress,
         Failed,
         Aborted,
-        Pending
+        Stalled
     }
 
     public enum TitleActivationStatus
