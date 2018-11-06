@@ -308,29 +308,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Deletes custom data, all account linkages, and statistics.
-        /// </summary>
-        [Obsolete("Use 'DeletePlayer' instead", true)]
-        public static async Task<PlayFabResult<DeleteUsersResult>> DeleteUsersAsync(DeleteUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Server/DeleteUsers", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<DeleteUsersResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteUsersResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<DeleteUsersResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Inform the matchmaker that a Game Server Instance is removed.
         /// </summary>
         public static async Task<PlayFabResult<DeregisterGameResponse>> DeregisterGameAsync(DeregisterGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1006,6 +983,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of XboxLive identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromXboxLiveIDsResult>> GetPlayFabIDsFromXboxLiveIDsAsync(GetPlayFabIDsFromXboxLiveIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromXboxLiveIDs", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromXboxLiveIDsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromXboxLiveIDsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromXboxLiveIDsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the key-value store of custom publisher settings
         /// </summary>
         public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1048,6 +1047,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetRandomResultTablesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves the associated PlayFab account identifiers for the given set of server custom identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetServerCustomIDsFromPlayFabIDsResult>> GetServerCustomIDsFromPlayFabIDsAsync(GetServerCustomIDsFromPlayFabIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetServerCustomIDsFromPlayFabIDs", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetServerCustomIDsFromPlayFabIDsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetServerCustomIDsFromPlayFabIDsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetServerCustomIDsFromPlayFabIDsResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1447,6 +1468,74 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GrantItemsToUsersResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LinkXboxAccount", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkXboxAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkXboxAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkXboxAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Securely login a game client from an external server backend using a custom identifier for that player. Server Custom ID
+        /// and Client Custom ID are mutually exclusive and cannot be used to retrieve the same player account.
+        /// </summary>
+        public static async Task<PlayFabResult<ServerLoginResult>> LoginWithServerCustomIdAsync(LoginWithServerCustomIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithServerCustomId", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ServerLoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ServerLoginResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ServerLoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Signs the user in using a Xbox Live Token from an external server backend, returning a session identifier that can
+        /// subsequently be used for API calls which require an authenticated user
+        /// </summary>
+        public static async Task<PlayFabResult<ServerLoginResult>> LoginWithXboxAsync(LoginWithXboxRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithXbox", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ServerLoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ServerLoginResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ServerLoginResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2117,6 +2206,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ModifyUserVirtualCurrencyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlinks the related Xbox Live account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkXboxAccountResult>> UnlinkXboxAccountAsync(UnlinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkXboxAccount", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkXboxAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkXboxAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkXboxAccountResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

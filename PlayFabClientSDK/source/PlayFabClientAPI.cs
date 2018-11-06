@@ -1176,6 +1176,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of XboxLive identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromXboxLiveIDsResult>> GetPlayFabIDsFromXboxLiveIDsAsync(GetPlayFabIDsFromXboxLiveIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetPlayFabIDsFromXboxLiveIDs", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromXboxLiveIDsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromXboxLiveIDsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromXboxLiveIDsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the key-value store of custom publisher settings
         /// </summary>
         public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1729,6 +1751,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links an OpenID Connect account to a user's PlayFab account, based on an existing relationship between a title and an
+        /// Open ID Connect provider and the OpenId Connect JWT from that provider.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> LinkOpenIdConnectAsync(LinkOpenIdConnectRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkOpenIdConnect", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<LinkSteamAccountResult>> LinkSteamAccountAsync(LinkSteamAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2069,6 +2114,33 @@ namespace PlayFab
             if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "Must be have PlayFabSettings.TitleId set to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithNintendoSwitchDeviceId", request, null, null, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Logs in a user with an Open ID Connect JWT created by an existing relationship between a title and an Open ID Connect
+        /// provider.
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithOpenIdConnectAsync(LoginWithOpenIdConnectRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "Must be have PlayFabSettings.TitleId set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithOpenIdConnect", request, null, null, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -2907,6 +2979,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UnlinkNintendoSwitchDeviceIdResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlinks an OpenID Connect account from a user's PlayFab account, based on the connection ID of an existing relationship
+        /// between a title and an Open ID Connect provider.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResponse>> UnlinkOpenIdConnectAsync(UninkOpenIdConnectRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkOpenIdConnect", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
