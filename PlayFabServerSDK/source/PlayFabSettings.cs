@@ -5,9 +5,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.39.181105";
-        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-slave2016-1_2";
-        public const string SdkVersionString = "CSharpSDK-1.39.181105";
+        public const string SdkVersion = "1.40.181114";
+        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-slave2016-1_1";
+        public const string SdkVersionString = "CSharpSDK-1.40.181114";
         public static readonly Dictionary<string, string> RequestGetParams = new Dictionary<string, string> {
             { "sdk", SdkVersionString }
         };
