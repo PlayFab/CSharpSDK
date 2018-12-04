@@ -213,6 +213,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Creates a multiplayer server build with a custom container and returns information about the build creation request.
+    /// </summary>
     public class CreateBuildWithCustomContainerRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -346,6 +349,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Creates a multiplayer server build with a managed container and returns information about the build creation request.
+    /// </summary>
     public class CreateBuildWithManagedContainerRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -464,6 +470,10 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Creates a remote user to log on to a VM for a multiplayer server build in a specific region. Returns user credential
+    /// information necessary to log on.
+    /// </summary>
     public class CreateRemoteUserRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -512,6 +522,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Deletes a multiplayer server game asset for a title.
+    /// </summary>
     public class DeleteAssetRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -521,6 +534,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Deletes a multiplayer server build.
+    /// </summary>
     public class DeleteBuildRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -530,6 +546,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Deletes a multiplayer server game certificate.
+    /// </summary>
     public class DeleteCertificateRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -539,6 +558,10 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Deletes a remote user to log on to a VM for a multiplayer server build in a specific region. Returns user credential
+    /// information necessary to log on.
+    /// </summary>
     public class DeleteRemoteUserRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -567,6 +590,11 @@ namespace PlayFab.MultiplayerModels
     {
     }
 
+    /// <summary>
+    /// Enables the multiplayer server feature for a title and returns the enabled status. The enabled status can be
+    /// Initializing, Enabled, and Disabled. It can up to 20 minutes or more for the title to be enabled for the feature. On
+    /// average, it can take up to 20 minutes for the title to be enabled for the feature.
+    /// </summary>
     public class EnableMultiplayerServersForTitleRequest : PlayFabRequestCommon
     {
     }
@@ -614,6 +642,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Gets the URL to upload assets to.
+    /// </summary>
     public class GetAssetUploadUrlRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -638,6 +669,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns the details about a multiplayer server build.
+    /// </summary>
     public class GetBuildRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -658,6 +692,11 @@ namespace PlayFab.MultiplayerModels
         /// The build name.
         /// </summary>
         public string BuildName;
+
+        /// <summary>
+        /// The current build status.
+        /// </summary>
+        public string BuildStatus;
 
         /// <summary>
         /// The flavor of container of he build.
@@ -723,6 +762,10 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Gets credentials to the container registry where game developers can upload custom container images to before creating a
+    /// new build.
+    /// </summary>
     public class GetContainerRegistryCredentialsRequest : PlayFabRequestCommon
     {
     }
@@ -746,6 +789,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Gets multiplayer server session details for a build in a specific region.
+    /// </summary>
     public class GetMultiplayerServerDetailsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -772,6 +818,11 @@ namespace PlayFab.MultiplayerModels
         /// The connected players in the multiplayer server.
         /// </summary>
         public List<ConnectedPlayer> ConnectedPlayers;
+
+        /// <summary>
+        /// The fully qualified domain name of the virtual machine that is hosting this multiplayer server.
+        /// </summary>
+        public string FQDN;
 
         /// <summary>
         /// The IPv4 address of the virtual machine that is hosting this multiplayer server.
@@ -815,6 +866,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Gets a remote login endpoint to a VM that is hosting a multiplayer server build in a specific region.
+    /// </summary>
     public class GetRemoteLoginEndpointRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -848,6 +902,10 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Gets the status of whether a title is enabled for the multiplayer server feature. The enabled status can be
+    /// Initializing, Enabled, and Disabled.
+    /// </summary>
     public class GetTitleEnabledForMultiplayerServersStatusRequest : PlayFabRequestCommon
     {
     }
@@ -861,6 +919,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of multiplayer server game asset summaries for a title.
+    /// </summary>
     public class ListAssetSummariesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -894,6 +955,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of summarized details of all multiplayer server builds for a title.
+    /// </summary>
     public class ListBuildSummariesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -927,6 +991,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of multiplayer server game certificates for a title.
+    /// </summary>
     public class ListCertificateSummariesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -960,6 +1027,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of the container images that have been uploaded to the container registry for a title.
+    /// </summary>
     public class ListContainerImagesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -993,6 +1063,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of the tags for a particular container image that exists in the container registry for a title.
+    /// </summary>
     public class ListContainerImageTagsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1011,6 +1084,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of multiplayer servers for a build in a specific region.
+    /// </summary>
     public class ListMultiplayerServersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1054,6 +1130,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of quality of service servers.
+    /// </summary>
     public class ListQosServersRequest : PlayFabRequestCommon
     {
     }
@@ -1077,6 +1156,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Returns a list of virtual machines for a title.
+    /// </summary>
     public class ListVirtualMachineSummariesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1143,6 +1225,11 @@ namespace PlayFab.MultiplayerModels
         public string ServerId;
 
         /// <summary>
+        /// The title generated guid string session ID of the multiplayer server.
+        /// </summary>
+        public string SessionId;
+
+        /// <summary>
         /// The state of the multiplayer server.
         /// </summary>
         public string State;
@@ -1193,12 +1280,21 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Requests a multiplayer server session from a particular build in any of the given preferred regions.
+    /// </summary>
     public class RequestMultiplayerServerRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The guid string build ID of the multiplayer server to request.
         /// </summary>
         public string BuildId;
+
+        /// <summary>
+        /// Initial list of players (potentially matchmade) allowed to connect to the game. The game server can use this list to
+        /// validate players connecting to it.
+        /// </summary>
+        public List<string> InitialPlayers;
 
         /// <summary>
         /// The preferred regions to request a multiplayer server from.
@@ -1225,6 +1321,11 @@ namespace PlayFab.MultiplayerModels
         /// The connected players in the multiplayer server.
         /// </summary>
         public List<ConnectedPlayer> ConnectedPlayers;
+
+        /// <summary>
+        /// The fully qualified domain name of the virtual machine that is hosting this multiplayer server.
+        /// </summary>
+        public string FQDN;
 
         /// <summary>
         /// The IPv4 address of the virtual machine that is hosting this multiplayer server.
@@ -1268,6 +1369,10 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Gets new credentials to the container registry where game developers can upload custom container images to before
+    /// creating a new build.
+    /// </summary>
     public class RolloverContainerRegistryCredentialsRequest : PlayFabRequestCommon
     {
     }
@@ -1291,6 +1396,11 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Executes the shutdown callback from the GSDK and terminates the multiplayer server session. The callback in the GSDK
+    /// will allow for graceful shutdown with a 15 minute timeoutIf graceful shutdown has not been completed before 15 minutes
+    /// have elapsed, the multiplayer server session will be forcefully terminated on it's own.
+    /// </summary>
     public class ShutdownMultiplayerServerRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1317,6 +1427,9 @@ namespace PlayFab.MultiplayerModels
         Disabled
     }
 
+    /// <summary>
+    /// Updates a multiplayer server build's regions.
+    /// </summary>
     public class UpdateBuildRegionsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1331,6 +1444,9 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Uploads a multiplayer server game certificate.
+    /// </summary>
     public class UploadCertificateRequest : PlayFabRequestCommon
     {
         /// <summary>
