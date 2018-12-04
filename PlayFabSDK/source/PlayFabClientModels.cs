@@ -98,6 +98,10 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// This API adds a contact email to the player's profile. If the player's profile already contains a contact email, it will
+    /// update the contact email to the email address specified.
+    /// </summary>
     public class AddOrUpdateContactEmailRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -148,6 +152,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Each account must have a unique username and email address in the PlayFab service. Once created, the
+    /// account may be associated with additional accounts (Steam, Facebook, Game Center, etc.),
+    /// allowing for added social network lists and achievements systems.
+    /// This can also be used to provide a recovery method if the user loses their original means of access.
+    /// </summary>
     public class AddUsernamePasswordResult : PlayFabResultCommon
     {
         /// <summary>
@@ -157,6 +167,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API must be enabled for use as an option in the game manager website. It is disabled by default.
+    /// </summary>
     public class AddUserVirtualCurrencyRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -171,6 +184,13 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// More information can be found on configuring your game for the
+    /// Google Cloud Messaging service in the Google developer documentation, here:
+    /// http://developer.android.com/google/gcm/client.html.
+    /// The steps to configure and send Push Notifications is described in the PlayFab tutorials, here:
+    /// https://api.playfab.com/docs/pushCrashCourse/.
+    /// </summary>
     public class AndroidDevicePushNotificationRegistrationRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -195,6 +215,10 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// If you have an ad attribution partner enabled, this will post an install to their service
+    /// to track the device. It uses the given device id to match based on clicks on ads.
+    /// </summary>
     public class AttributeInstallRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -566,6 +590,16 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// The final step in the purchasing process, this API finalizes the purchase with the payment provider, where
+    /// applicable, adding virtual goods to the player inventory (including random drop table resolution and recursive addition
+    /// of bundled items)
+    /// and adjusting virtual currency balances for funds used or added. Note that this is a pull operation, and should be
+    /// polled regularly when a
+    /// purchase is in progress. Please note that the processing time for inventory grants and purchases increases fractionally
+    /// the more items are
+    /// in the inventory, and the more items are in the grant/purchase operation.
+    /// </summary>
     public class ConfirmPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -575,6 +609,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// When the FailedByPaymentProvider error is returned, it's important to check the ProviderErrorCode,
+    /// ProviderErrorMessage, and ProviderErrorDetails to understand the specific reason the payment was rejected, as in some
+    /// rare cases, this
+    /// may mean that the provider hasn't completed some operation required to finalize the purchase.
+    /// </summary>
     public class ConfirmPurchaseResult : PlayFabResultCommon
     {
         /// <summary>
@@ -945,6 +985,10 @@ namespace PlayFab.ClientModels
         ZW
     }
 
+    /// <summary>
+    /// If SharedGroupId is specified, the service will attempt to create a group with that identifier, and will
+    /// return an error if it is already in use. If no SharedGroupId is specified, a random identifier will be assigned.
+    /// </summary>
     public class CreateSharedGroupRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1177,6 +1221,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Any arbitrary information collected by the device
+    /// </summary>
     public class DeviceInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1600,6 +1647,16 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API retrieves details regarding the player in the PlayFab service. Note that when this call is used
+    /// to retrieve data about another player (not the one signed into the local client), some data, such as Personally
+    /// Identifying Information
+    /// (PII), will be omitted for privacy reasons or to comply with the requirements of the platform belongs to. The user
+    /// account returned
+    /// will be based on the identifier provided in priority order: PlayFabId, Username, Email, then TitleDisplayName. If no
+    /// identifier is
+    /// specified, the currently signed in user's information will be returned.
+    /// </summary>
     public class GetAccountInfoResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1618,6 +1675,10 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// If CatalogVersion is not specified, only inventory items associated with the most recent version of
+    /// the catalog will be returned.
+    /// </summary>
     public class GetCatalogItemsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1628,6 +1689,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Data is stored as JSON key-value pairs. If the Keys parameter is provided,
+    /// the data object returned will only contain the data specific to the indicated Keys. Otherwise, the full
+    /// set of custom character data will be returned.
+    /// </summary>
     public class GetCharacterDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1673,6 +1739,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// All items currently in the character inventory will be returned, irrespective of how they were acquired
+    /// (via purchasing, grants, coupons, etc.). Items that are expired, fully consumed, or are no longer valid are not
+    /// considered to be
+    /// in the user's current inventory, and so will not be not included. Also returns their virtual currency balances.
+    /// </summary>
     public class GetCharacterInventoryRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1736,6 +1808,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Note that the Position of the character in the results is for the overall leaderboard.
+    /// </summary>
     public class GetCharacterLeaderboardResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1754,6 +1829,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// In addition to being available for use by the title, the statistics are used for all leaderboard operations in PlayFab.
+    /// </summary>
     public class GetCharacterStatisticsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1838,6 +1916,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Note: When calling 'GetLeaderboardAround...' APIs, the position of the user defaults to 0 when the user does not have
+    /// the corresponding statistic.If Facebook friends are included, make sure the access token from previous LoginWithFacebook
+    /// call is still valid and not expired.
+    /// </summary>
     public class GetFriendLeaderboardAroundPlayerResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1929,6 +2012,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// If any additional services are queried for the user's friends, those friends who also have a PlayFab account registered
+    /// for the title will be returned in the results. For Facebook, user has to have logged into the title's Facebook app
+    /// recently, and only friends who also plays this game will be included.
+    /// </summary>
     public class GetFriendsListResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1962,6 +2050,10 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Note: When calling 'GetLeaderboardAround...' APIs, the position of the character defaults to 0 when the character does
+    /// not have the corresponding statistic.
+    /// </summary>
     public class GetLeaderboardAroundCharacterResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2002,6 +2094,10 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Note: When calling 'GetLeaderboardAround...' APIs, the position of the user defaults to 0 when the user does not have
+    /// the corresponding statistic.
+    /// </summary>
     public class GetLeaderboardAroundPlayerResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2035,6 +2131,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Note that the Position of the character in the results is for the overall leaderboard.
+    /// </summary>
     public class GetLeaderboardForUsersCharactersResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2075,6 +2174,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Note: the user's Position is relative to the overall leaderboard.
+    /// </summary>
     public class GetLeaderboardResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2229,6 +2331,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Returns whatever info is requested in the response for the user. If no user is explicitly requested
+    /// this defaults to the authenticated user. If the user is the same as the requester, PII (like email address, facebook id)
+    /// is returned if available. Otherwise, only public information is returned. All parameters default to false.
+    /// </summary>
     public class GetPlayerCombinedInfoResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2314,6 +2421,14 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API allows for access to details regarding a user in the PlayFab service, usually for purposes of
+    /// customer support. Note that data returned may be Personally Identifying Information (PII), such as email address, and so
+    /// care should be
+    /// taken in how this data is stored and managed. Since this call will always return the relevant information for users who
+    /// have accessed
+    /// the title, the recommendation is to not store this data locally.
+    /// </summary>
     public class GetPlayerProfileRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2368,6 +2483,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// In addition to being available for use by the title, the statistics are used for all leaderboard operations in PlayFab.
+    /// </summary>
     public class GetPlayerStatisticsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2395,6 +2513,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API will return a list of canonical tags which includes both namespace and tag's name. If namespace is not
+    /// provided, the result is a list of all canonical tags. TagName can be used for segmentation and Namespace is limited to
+    /// 128 characters.
+    /// </summary>
     public class GetPlayerTagsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2455,6 +2578,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Facebook identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromFacebookIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2473,6 +2599,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Facebook Instant Game identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromFacebookInstantGamesIdsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2491,6 +2620,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Game Center identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromGameCenterIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2510,6 +2642,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For generic service identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromGenericIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2528,6 +2663,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Google identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromGoogleIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2546,6 +2684,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Kongregate identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromKongregateIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2564,6 +2705,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Nintendo Switch identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromNintendoSwitchDeviceIdsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2582,6 +2726,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Steam identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromSteamIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2600,6 +2747,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For Twitch identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromTwitchIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2623,6 +2773,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For XboxLive identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
     public class GetPlayFabIDsFromXboxLiveIDsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2632,6 +2785,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API is designed to return publisher-specific values which can be read, but not written to, by the client. This data
+    /// is shared across all
+    /// titles assigned to a particular publisher, and can be used for cross-game coordination. Only titles assigned to a
+    /// publisher can use this API.
+    /// For more information email devrel@playfab.com. Note that there may up to a minute delay in between updating title data
+    /// and this API call returning
+    /// the newest value.
+    /// </summary>
     public class GetPublisherDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2741,6 +2903,17 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// A store contains an array of references to items defined in one or more catalog
+    /// versions of the game, along with the prices for the item, in both real world and virtual currencies. These prices
+    /// act as an override to any prices defined in the catalog. In this way, the base definitions of the items may be
+    /// defined in the catalog, with all associated properties, while the pricing can be set for each store, as needed.
+    /// This allows for subsets of goods to be defined for different purposes (in order to simplify showing some, but not
+    /// all catalog items to users, based upon different characteristics), along with unique prices. Note that all prices
+    /// defined in the catalog and store definitions for the item are considered valid, and that a compromised client can
+    /// be made to send a request for an item based upon any of these definitions. If no price is specified in the store
+    /// for an item, the price set in the catalog should be displayed to the user.
+    /// </summary>
     public class GetStoreItemsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2785,10 +2958,18 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This query retrieves the current time from one of the servers in PlayFab. Please note that due to clock drift between
+    /// servers,
+    /// there is a potential variance of up to 5 seconds.
+    /// </summary>
     public class GetTimeRequest : PlayFabRequestCommon
     {
     }
 
+    /// <summary>
+    /// Time is always returned as Coordinated Universal Time (UTC).
+    /// </summary>
     public class GetTimeResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2798,6 +2979,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API is designed to return title specific values which can be read, but not written to, by the client. For example,
+    /// a developer
+    /// could choose to store values which modify the user experience, such as enemy spawn rates, weapon strengths, movement
+    /// speeds, etc. This allows a developer to update
+    /// the title without the need to create, test, and ship a new build. Note that there may up to a minute delay in between
+    /// updating title data and this API call returning
+    /// the newest value.
+    /// </summary>
     public class GetTitleDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2834,6 +3024,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// An RSA CSP blob to be used to encrypt the payload of account creation requests when that API requires a signature
+    /// header. For example if Client/LoginWithCustomId requires signature headers but the player does not have an account yet
+    /// follow these steps: 1) Call Client/GetTitlePublicKey with one of the title's shared secrets. 2) Convert the Base64
+    /// encoded CSP blob to a byte array and create an RSA signing object. 3) Encrypt the UTF8 encoded JSON body of the
+    /// registration request and place the Base64 encoded result into the EncryptedRequest and with the TitleId field, all other
+    /// fields can be left empty when performing the API request. 4) Client receives authentication token as normal. Future
+    /// requests to LoginWithCustomId will require the X-PlayFab-Signature header.
+    /// </summary>
     public class GetTitlePublicKeyRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2881,6 +3080,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Data is stored as JSON key-value pairs. Every time the data is updated via any source, the version counter is
+    /// incremented. If the
+    /// Version parameter is provided, then this call will only return data if the current version on the system is greater than
+    /// the value provided.
+    /// If the Keys parameter is provided, the data object returned will only contain the data specific to the indicated Keys.
+    /// Otherwise, the full set of custom user
+    /// data will be returned.
+    /// </summary>
     public class GetUserDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2921,6 +3129,12 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// All items currently in the user inventory will be returned, irrespective of how they were acquired
+    /// (via purchasing, grants, coupons, etc.). Items that are expired, fully consumed, or are no longer valid are not
+    /// considered to be
+    /// in the user's current inventory, and so will not be not included.
+    /// </summary>
     public class GetUserInventoryResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2941,6 +3155,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Requires the SHA256 hash of the user's public key.
+    /// </summary>
     public class GetWindowsHelloChallengeRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2979,6 +3196,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Grants a character to the user of the type specified by the item ID. The user must
+    /// already have an instance of this item in their inventory in order to allow character creation. This item can come
+    /// from a purchase or grant, which must be done before calling to create the character.
+    /// </summary>
     public class GrantCharacterToUserRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3219,6 +3441,18 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Facebook sign-in is accomplished using the Facebook User Access Token. More information on the Token
+    /// can be found in the Facebook developer documentation
+    /// (https://developers.facebook.com/docs/facebook-login/access-tokens/). In Unity,
+    /// for example, the Token is available as AccessToken in the Facebook SDK ScriptableObject FB. Note that titles should
+    /// never re-use the
+    /// same Facebook applications between PlayFab Title IDs, as Facebook provides unique user IDs per application and doing so
+    /// can result
+    /// in issues with the Facebook ID for the user in their PlayFab account information. If you must re-use an application in a
+    /// new PlayFab
+    /// Title ID, please be sure to first unlink all accounts from Facebook, or delete all users in the first Title ID.
+    /// </summary>
     public class LinkFacebookAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3273,6 +3507,10 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// Google sign-in is accomplished by obtaining a Google OAuth 2.0 credential using the Google sign-in for Android APIs on
+    /// the device and passing it to this API.
+    /// </summary>
     public class LinkGoogleAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3381,6 +3619,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Steam authentication is accomplished with the Steam Session Ticket. More information on the Ticket can be
+    /// found in the Steamworks SDK, here: https://partner.steamgames.com/documentation/auth (requires sign-in). NOTE: For Steam
+    /// authentication
+    /// to work, the title must be configured with the Steam Application ID and Publisher Key in the PlayFab Game Manager (under
+    /// Properties).
+    /// Information on creating a Publisher Key (referred to as the Secret Key in PlayFab) for your title can be found here:
+    /// https://partner.steamgames.com/documentation/webapi#publisherkey.
+    /// </summary>
     public class LinkSteamAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3418,6 +3665,9 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// PublicKey must be generated using the Windows Hello Passport service.
+    /// </summary>
     public class LinkWindowsHelloAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3464,6 +3714,9 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// Returns a list of every character that currently belongs to a user.
+    /// </summary>
     public class ListUsersCharactersRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3574,6 +3827,24 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// On Android devices, the recommendation is to use the Settings.Secure.ANDROID_ID as the
+    /// AndroidDeviceId, as described in this blog post
+    /// (http://android-developers.blogspot.com/2011/03/identifying-app-installations.html).
+    /// More information on this identifier can be found in the Android documentation
+    /// (http://developer.android.com/reference/android/provider/Settings.Secure.html).
+    /// If this is the first time a user has signed in with the Android device and CreateAccount is set to true, a new PlayFab
+    /// account
+    /// will be created and linked to the Android device ID. In this case, no email or username will be associated with the
+    /// PlayFab account.
+    /// Otherwise, if no PlayFab account is linked to the Android device, an error indicating this will be returned, so that the
+    /// title can
+    /// guide the user through creation of a PlayFab account. Please note that while multiple devices of this type can be linked
+    /// to a single
+    /// user account, only the one most recently used to login (or most recently linked) will be reflected in the user's account
+    /// information.
+    /// We will be updating to show all linked devices in a future release.
+    /// </summary>
     public class LoginWithAndroidDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3604,7 +3875,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3625,6 +3896,14 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// It is highly recommended that developers ensure that it is extremely unlikely that
+    /// a customer could generate an ID which is already in use by another customer. If this is the first time a user has
+    /// signed in with the Custom ID and CreateAccount is set to true, a new PlayFab account will be created and linked
+    /// to the Custom ID. In this case, no email or username will be associated with the PlayFab account. Otherwise, if
+    /// no PlayFab account is linked to the Custom ID, an error indicating this will be returned, so that the title can
+    /// guide the user through creation of a PlayFab account.
+    /// </summary>
     public class LoginWithCustomIDRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3650,7 +3929,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3666,6 +3945,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Email address and password lengths are provided for information purposes. The server will validate
+    /// that data passed in conforms to the field definition and report errors appropriately. It is recommended that developers
+    /// not
+    /// perform this validation locally, so that future updates do not require client updates.
+    /// </summary>
     public class LoginWithEmailAddressRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3681,7 +3966,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3722,7 +4007,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3738,6 +4023,26 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Facebook sign-in is accomplished using the Facebook User Access Token. More information on the Token
+    /// can be found in the Facebook developer documentation
+    /// (https://developers.facebook.com/docs/facebook-login/access-tokens/). In Unity,
+    /// for example, the Token is available as AccessToken in the Facebook SDK ScriptableObject FB. If this is the first time a
+    /// user has
+    /// signed in with the Facebook account and CreateAccount is set to true, a new PlayFab account will be created and linked
+    /// to the
+    /// provided account's Facebook ID. In this case, no email or username will be associated with the PlayFab account.
+    /// Otherwise, if no
+    /// PlayFab account is linked to the Facebook account, an error indicating this will be returned, so that the title can
+    /// guide the user
+    /// through creation of a PlayFab account. Note that titles should never re-use the same Facebook applications between
+    /// PlayFab Title IDs,
+    /// as Facebook provides unique user IDs per application and doing so can result in issues with the Facebook ID for the user
+    /// in their
+    /// PlayFab account information. If you must re-use an application in a new PlayFab Title ID, please be sure to first unlink
+    /// all accounts
+    /// from Facebook, or delete all users in the first Title ID.
+    /// </summary>
     public class LoginWithFacebookRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3763,7 +4068,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3779,6 +4084,21 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// The Game Center player identifier
+    /// (https://developer.apple.com/library/ios/documentation/Accounts/Reference/ACAccountClassRef/index.html#//apple_ref/occ/instp/ACAccount/identifier)
+    /// is a generated string which is stored on the local device. As with device identifiers, care must be taken to never
+    /// expose a
+    /// player's Game Center identifier to end users, as that could result in a user's account being compromised. If this is the
+    /// first
+    /// time a user has signed in with Game Center and CreateAccount is set to true, a new PlayFab account will be created and
+    /// linked
+    /// to the Game Center identifier. In this case, no email or username will be associated with the PlayFab account.
+    /// Otherwise, if
+    /// no PlayFab account is linked to the Game Center account, an error indicating this will be returned, so that the title
+    /// can
+    /// guide the user through creation of a PlayFab account.
+    /// </summary>
     public class LoginWithGameCenterRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3799,7 +4119,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3820,6 +4140,27 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Google sign-in is accomplished by obtaining a Google OAuth 2.0 credential using the Google sign-in for Android APIs on
+    /// the device and passing it to this API.
+    /// If this is the first time a user has signed in with the Google account and CreateAccount is
+    /// set to true, a new PlayFab account will be created and linked to the Google account. Otherwise, if no PlayFab account is
+    /// linked to the Google account, an error indicating this will be returned, so
+    /// that the title can guide the user through creation of a PlayFab account.
+    /// The current (recommended) method for obtaining a Google account credential in an Android application is to call
+    /// GoogleSignInAccount.getServerAuthCode() and send the auth code as the ServerAuthCode parameter of this API.
+    /// Before doing this, you must create an OAuth 2.0 web application client ID in the Google API Console and configure its
+    /// client ID and secret in the PlayFab Game Manager Google Add-on
+    /// for your title. This method does not require prompting of the user for additional Google account permissions, resulting
+    /// in a user experience with the least possible friction.
+    /// For more information about obtaining the server auth code, see
+    /// https://developers.google.com/identity/sign-in/android/offline-access.
+    /// The previous (deprecated) method was to obtain an OAuth access token by calling GetAccessToken() on the client and
+    /// passing it as the AccessToken parameter to this API.
+    /// for the with the Google OAuth 2.0 Access Token. More information on this change can be
+    /// found in the Google developer documentation
+    /// (https://android-developers.googleblog.com/2016/01/play-games-permissions-are-changing-in.html).
+    /// </summary>
     public class LoginWithGoogleAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3840,7 +4181,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3862,6 +4203,25 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// On iOS devices, the identifierForVendor
+    /// (https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/occ/instp/UIDevice/identifierForVendor)
+    /// must be used as the DeviceId, as the UIDevice uniqueIdentifier has been deprecated as of iOS 5, and use of the
+    /// advertisingIdentifier
+    /// for this purpose will result in failure of Apple's certification process. If this is the first time a user has signed in
+    /// with the iOS
+    /// device and CreateAccount is set to true, a new PlayFab account will be created and linked to the vendor-specific iOS
+    /// device ID. In
+    /// this case, no email or username will be associated with the PlayFab account. Otherwise, if no PlayFab account is linked
+    /// to the iOS
+    /// device, an error indicating this will be returned, so that the title can guide the user through creation of a PlayFab
+    /// account. Please
+    /// note that while multiple devices of this type can be linked to a single user account, only the one most recently used to
+    /// login (or
+    /// most recently linked) will be reflected in the user's account information. We will be updating to show all linked
+    /// devices in a future
+    /// release.
+    /// </summary>
     public class LoginWithIOSDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3892,7 +4252,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3913,6 +4273,16 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// More details regarding Kongregate and their game authentication system can be found at
+    /// http://developers.kongregate.com/docs/virtual-goods/authentication. Developers must provide the Kongregate user ID
+    /// and auth token that are generated using the Kongregate client library. PlayFab will combine these identifiers
+    /// with the title's unique Kongregate app ID to log the player into the Kongregate system. If CreateAccount is set
+    /// to true and there is not already a user matched to this Kongregate ID, then PlayFab will create a new account for this
+    /// user
+    /// and link the ID. In this case, no email or username will be associated with the PlayFab account. If there is already
+    /// a different PlayFab user linked with this account, then an error will be returned.
+    /// </summary>
     public class LoginWithKongregateRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3943,7 +4313,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -3979,7 +4349,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4031,7 +4401,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4047,6 +4417,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Username and password lengths are provided for information purposes. The server will validate
+    /// that data passed in conforms to the field definition and report errors appropriately. It is recommended that developers
+    /// not
+    /// perform this validation locally, so that future updates to the username or password do not require client updates.
+    /// </summary>
     public class LoginWithPlayFabRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4057,7 +4433,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4078,6 +4454,22 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Steam sign-in is accomplished with the Steam Session Ticket. More information on the Ticket can be
+    /// found in the Steamworks SDK, here: https://partner.steamgames.com/documentation/auth (requires sign-in). NOTE: For Steam
+    /// authentication
+    /// to work, the title must be configured with the Steam Application ID and Web API Key in the PlayFab Game Manager (under
+    /// Steam in the
+    /// Add-ons Marketplace). You can obtain a Web API Key from the Permissions page of any Group associated with your App ID in
+    /// the Steamworks
+    /// site. If this is the first time a user has signed in with the Steam account and CreateAccount is set to true, a new
+    /// PlayFab account
+    /// will be created and linked to the provided account's Steam ID. In this case, no email or username will be associated
+    /// with the PlayFab
+    /// account. Otherwise, if no PlayFab account is linked to the Steam account, an error indicating this will be returned, so
+    /// that the title
+    /// can guide the user through creation of a PlayFab account.
+    /// </summary>
     public class LoginWithSteamRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4098,7 +4490,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4120,6 +4512,15 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// More details regarding Twitch and their authentication system can be found at
+    /// https://github.com/justintv/Twitch-API/blob/master/authentication.md. Developers must provide the Twitch access token
+    /// that is generated using one of the Twitch authentication flows. PlayFab will use the title's unique Twitch Client ID to
+    /// authenticate the token and log in to the PlayFab system. If CreateAccount is set to true and there is not already a user
+    /// matched to the Twitch username that generated the token, then PlayFab will create a new account for this user
+    /// and link the ID. In this case, no email or username will be associated with the PlayFab account. If there is already
+    /// a different PlayFab user linked with this account, then an error will be returned.
+    /// </summary>
     public class LoginWithTwitchRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4145,7 +4546,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4161,6 +4562,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Requires both the SHA256 hash of the user's public key as well as the signed response from GetWindowsHelloChallenge
+    /// </summary>
     public class LoginWithWindowsHelloRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4176,7 +4580,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4192,6 +4596,14 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// If this is the first time a user has signed in with the Xbox Live account and CreateAccount
+    /// is set to true, a new PlayFab account will be created and linked to the Xbox Live account. In this case, no email or
+    /// username will be
+    /// associated with the PlayFab account. Otherwise, if no PlayFab account is linked to the Xbox Live account, an error
+    /// indicating this will
+    /// be returned, so that the title can guide the user through creation of a PlayFab account.
+    /// </summary>
     public class LoginWithXboxRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4212,7 +4624,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -4449,6 +4861,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This is the second step in the purchasing process, initiating the purchase transaction with the payment provider (if
+    /// applicable). For payment provider scenarios, the title should next present the user with the payment provider'sinterface
+    /// for payment. Once the player has completed the payment with the provider, the title should call ConfirmPurchase
+    /// tofinalize the process and add the appropriate items to the player inventory.
+    /// </summary>
     public class PayForPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4473,6 +4891,10 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// For web-based payment providers, this operation returns the URL to which the user should be directed inorder to approve
+    /// the purchase. Items added to the user inventory as a result of this operation will be marked as unconfirmed.
+    /// </summary>
     public class PayForPurchaseResult : PlayFabResultCommon
     {
         /// <summary>
@@ -4798,6 +5220,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Please note that the processing time for inventory grants and purchases increases fractionally
+    /// the more items are in the inventory, and the more items are in the grant/purchase operation (with each item in a bundle
+    /// being a
+    /// distinct add).
+    /// </summary>
     public class PurchaseItemRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4861,6 +5289,12 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Coupon codes can be created for any item, or set of items, in the catalog for the title. This
+    /// operation causes the coupon to be consumed, and the specific items to be awarded to the user. Attempting to re-use an
+    /// already
+    /// consumed code, or a code which has not yet been created in the service, will result in an error.
+    /// </summary>
     public class RedeemCouponRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4924,6 +5358,10 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// The steps to configure and send Push Notifications is described in the PlayFab tutorials, here:
+    /// https://api.playfab.com/docs/pushCrashCourse/
+    /// </summary>
     public class RegisterForIOSPushNotificationRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4972,7 +5410,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -5005,6 +5443,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Each account must have a unique email address in the PlayFab service. Once created, the
+    /// account may be associated with additional accounts (Steam, Facebook, Game Center, etc.), allowing for added social
+    /// network lists and achievements systems.
+    /// </summary>
     public class RegisterPlayFabUserResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5035,6 +5478,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// PublicKey must be generated using the Windows Hello Passport service.
+    /// </summary>
     public class RegisterWithWindowsHelloRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5055,7 +5501,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
@@ -5081,6 +5527,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API removes an existing contact email from the player's profile.
+    /// </summary>
     public class RemoveContactEmailRequest : PlayFabRequestCommon
     {
     }
@@ -5147,6 +5596,10 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Players are currently limited to five reports per day. Attempts by a single user account to submit reports beyond five
+    /// will result in Updated being returned as false.
+    /// </summary>
     public class ReportPlayerClientResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5156,6 +5609,14 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// The title should obtain a refresh receipt via restoreCompletedTransactions in the SKPaymentQueue
+    /// of the Apple StoreKit and pass that in to this call. The resultant receipt contains new receipt instances for all
+    /// non-consumable
+    /// goods previously purchased by the user. This API call iterates through every purchase in the receipt and restores the
+    /// items if
+    /// they still exist in the catalog and can be validated.
+    /// </summary>
     public class RestoreIOSPurchasesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5165,6 +5626,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Once verified, the valid items will be restored into the user's inventory.
+    /// </summary>
     public class RestoreIOSPurchasesResult : PlayFabResultCommon
     {
     }
@@ -5189,6 +5653,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// If the account in question is a "temporary" account (for example, one that was created via a call to
+    /// LoginFromIOSDeviceID), thisfunction will have no effect. Only PlayFab accounts which have valid email addresses will be
+    /// able to receive a password reset email using this API.
+    /// </summary>
     public class SendAccountRecoveryEmailRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5213,6 +5682,12 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// This operation is not additive. It will completely replace the tag list for the specified user.
+    /// Please note that only users in the PlayFab friends list can be assigned tags. Attempting to set a tag on a friend only
+    /// included
+    /// in the friends list from a social site integration (such as Facebook or Steam) will return the AccountNotFound error.
+    /// </summary>
     public class SetFriendTagsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5231,6 +5706,14 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// APIs that require signatures require that the player have a configured Player Secret Key that is used to sign all
+    /// requests. Players that don't have a secret will be blocked from making API calls until it is configured. To create a
+    /// signature header add a SHA256 hashed string containing UTF8 encoded JSON body as it will be sent to the server, the
+    /// current time in UTC formatted to ISO 8601, and the players secret formatted as 'body.date.secret'. Place the resulting
+    /// hash into the header X-PlayFab-Signature, along with a header X-PlayFab-Timestamp of the same UTC timestamp used in the
+    /// signature.
+    /// </summary>
     public class SetPlayerSecretRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5284,6 +5767,9 @@ namespace PlayFab.ClientModels
         API
     }
 
+    /// <summary>
+    /// This API must be enabled for use as an option in the game manager website. It is disabled by default.
+    /// </summary>
     public class StartGameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5362,6 +5848,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This is the first step in the purchasing process. For security purposes, once the order (or "cart") has been created,
+    /// additional inventory objects may no longer be added. In addition, inventory objects will be locked to the current
+    /// prices, regardless of any subsequent changes at the catalog level which may occur during the next two steps.
+    /// </summary>
     public class StartPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5604,6 +6095,9 @@ namespace PlayFab.ClientModels
         PaymentPending
     }
 
+    /// <summary>
+    /// This API must be enabled for use as an option in the game manager website. It is disabled by default.
+    /// </summary>
     public class SubtractUserVirtualCurrencyRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5903,6 +6397,9 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// Must include the Public Key Hint
+    /// </summary>
     public class UnlinkWindowsHelloAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5929,6 +6426,9 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// Specify the container and optionally the catalogVersion for the container to open
+    /// </summary>
     public class UnlockContainerInstanceRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5955,6 +6455,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Specify the type of container to open and optionally the catalogVersion for the container to open
+    /// </summary>
     public class UnlockContainerItemRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5975,6 +6478,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// The items and vc found within the container.  These will be added and stacked in the appropriate inventory.
+    /// </summary>
     public class UnlockContainerItemResult : PlayFabResultCommon
     {
         /// <summary>
@@ -6008,6 +6514,13 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This function performs an additive update of the arbitrary strings
+    /// containing the custom data for the character. In updating the custom data object, keys which already
+    /// exist in the object will have their values overwritten, while keys with null values will be removed.
+    /// New keys will be added, with the given values. No other key-value pairs will be changed apart from
+    /// those specified in the call.
+    /// </summary>
     public class UpdateCharacterDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6044,6 +6557,14 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Enable this option with the 'Allow Client to Post Player Statistics' option in PlayFab GameManager for your title.
+    /// However, this is not best practice, as this data will no longer be safely controlled by the server.
+    /// This operation is additive.  Character Statistics not currently defined will be added, while those already defined will
+    /// be updated with the given values.
+    /// All other user statistics will remain unchanged.  Character statistics are used by the character-leaderboard apis, and
+    /// accessible for custom game-logic.
+    /// </summary>
     public class UpdateCharacterStatisticsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6062,6 +6583,18 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// Enable this option with the 'Allow Client to Post Player Statistics' option in PlayFab GameManager for your title.
+    /// However, this is not best practice, as this data will no longer be safely controlled by the server. This operation is
+    /// additive.  Statistics not
+    /// currently defined will be added, while those already defined will be updated with the given values. All other user
+    /// statistics will remain
+    /// unchanged.  Note that if the statistic is intended to have a reset period, the UpdatePlayerStatisticDefinition API call
+    /// can be used to define
+    /// that reset period. Once a statistic has been versioned (reset), the now-previous version can still be written to for up
+    /// a
+    /// short, pre-defined period (currently 10 seconds), using the Version parameter in this call.
+    /// </summary>
     public class UpdatePlayerStatisticsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6075,6 +6608,13 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// Note that in the case of multiple calls to write to the same shared group data keys, the
+    /// last write received by the PlayFab service will determine the value available to subsequent read operations. For
+    /// scenarios
+    /// requiring coordination of data updates, it is recommended that titles make use of user data with read permission set to
+    /// public, or a combination of user data and shared group data.
+    /// </summary>
     public class UpdateSharedGroupDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6105,6 +6645,13 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// This function performs an additive update of the arbitrary strings containing the custom data for the user.
+    /// In updating the custom data object, keys which already exist in the object will have their values overwritten, while
+    /// keys with null values will
+    /// be removed. New keys will be added, with the given values. No other key-value pairs will be changed apart from those
+    /// specified in the call.
+    /// </summary>
     public class UpdateUserDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6137,6 +6684,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// In addition to the PlayFab username, titles can make use of a DisplayName which is also a unique identifier,
+    /// but specific to the title. This allows for unique names which more closely match the theme or genre of a title, for
+    /// example.
+    /// </summary>
     public class UpdateUserTitleDisplayNameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6618,10 +7170,22 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Once verified, the catalog item matching the Amazon item name will be added to the user's inventory.
+    /// </summary>
     public class ValidateAmazonReceiptResult : PlayFabResultCommon
     {
     }
 
+    /// <summary>
+    /// The packageName and productId are defined in the GooglePlay store. The productId must match the ItemId of the inventory
+    /// item
+    /// in the PlayFab catalog for the title. This enables the PlayFab service to securely validate that the purchase is for the
+    /// correct item, in order to prevent
+    /// uses from passing valid receipts as being for more expensive items (passing a receipt for a 99-cent purchase as being
+    /// for a $19.99 purchase, for example).
+    /// Each receipt may be validated only once to avoid granting the same item over and over from a single purchase.
+    /// </summary>
     public class ValidateGooglePlayPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6646,10 +7210,22 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Once verified, the catalog item (ItemId) matching the GooglePlay store item (productId) will be added to the user's
+    /// inventory.
+    /// </summary>
     public class ValidateGooglePlayPurchaseResult : PlayFabResultCommon
     {
     }
 
+    /// <summary>
+    /// The CurrencyCode and PurchasePrice must match the price which was set up for the item in the Apple store. In addition,
+    /// The ItemId of the inventory in the PlayFab Catalog must match the Product ID as it was set up in the Apple store. This
+    /// enables the PlayFab service to
+    /// securely validate that the purchase is for the correct item, in order to prevent uses from passing valid receipts as
+    /// being for more expensive items
+    /// (passing a receipt for a 99-cent purchase as being for a $19.99 purchase, for example).
+    /// </summary>
     public class ValidateIOSReceiptRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6669,6 +7245,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Once verified, the catalog item matching the iTunes item name will be added to the user's inventory.
+    /// </summary>
     public class ValidateIOSReceiptResult : PlayFabResultCommon
     {
     }
@@ -6697,6 +7276,9 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// Once verified, the catalog item matching the Product name will be added to the user's inventory.
+    /// </summary>
     public class ValidateWindowsReceiptResult : PlayFabResultCommon
     {
     }
@@ -6743,6 +7325,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API is designed to write a multitude of different client-defined events into PlayStream. It supports a flexible
+    /// JSON schema, which allowsfor arbitrary key-value pairs to describe any character-based event. The created event will be
+    /// locked to the authenticated title and player.
+    /// </summary>
     public class WriteClientCharacterEventRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6768,6 +7355,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API is designed to write a multitude of different event types into PlayStream. It supports a flexible JSON schema,
+    /// which allowsfor arbitrary key-value pairs to describe any player-based event. The created event will be locked to the
+    /// authenticated title and player.
+    /// </summary>
     public class WriteClientPlayerEventRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6798,6 +7390,11 @@ namespace PlayFab.ClientModels
 
     }
 
+    /// <summary>
+    /// This API is designed to write a multitude of different client-defined events into PlayStream. It supports a flexible
+    /// JSON schema, which allowsfor arbitrary key-value pairs to describe any title-based event. The created event will be
+    /// locked to the authenticated title.
+    /// </summary>
     public class WriteTitleEventRequest : PlayFabRequestCommon
     {
         /// <summary>

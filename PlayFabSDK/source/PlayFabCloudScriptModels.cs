@@ -90,6 +90,9 @@ namespace PlayFab.CloudScriptModels
 
     }
 
+    /// <summary>
+    /// Executes CloudScript with the entity profile that is defined in the request.
+    /// </summary>
     public class ExecuteEntityCloudScriptRequest : PlayFabRequestCommon
     {
         /// <summary>
