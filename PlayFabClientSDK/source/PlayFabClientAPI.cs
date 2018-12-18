@@ -291,6 +291,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items
+        /// </summary>
+        public static async Task<PlayFabResult<ConsumePSNEntitlementsResult>> ConsumePSNEntitlementsAsync(ConsumePSNEntitlementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ConsumePSNEntitlements", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ConsumePSNEntitlementsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ConsumePSNEntitlementsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ConsumePSNEntitlementsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Grants the player's current entitlements from Xbox Live, consuming all availble items in Xbox and granting them to the
         /// player's PlayFab inventory. This call is idempotent and will not grant previously granted items to the player.
         /// </summary>
@@ -1129,6 +1151,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetPlayFabIDsFromPSNAccountIDs", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromPSNAccountIDsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers are the profile
         /// IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
         /// </summary>
@@ -1774,6 +1818,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkPSNAccountResult>> LinkPSNAccountAsync(LinkPSNAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkPSNAccount", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkPSNAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkPSNAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkPSNAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<LinkSteamAccountResult>> LinkSteamAccountAsync(LinkSteamAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2188,6 +2254,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently
+        /// be used for API calls which require an authenticated user
+        /// </summary>
+        public static async Task<PlayFabResult<LoginResult>> LoginWithPSNAsync(LoginWithPSNRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            request.TitleId = PlayFabSettings.TitleId ?? request.TitleId;
+            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "Must be have PlayFabSettings.TitleId set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithPSN", request, null, null, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            PlayFabSettings.ClientSessionTicket = result.SessionTicket ?? PlayFabSettings.ClientSessionTicket;
+            PlayFabSettings.EntityToken = result.EntityToken?.EntityToken ?? PlayFabSettings.EntityToken;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for
         /// API calls which require an authenticated user
         /// </summary>
@@ -2411,6 +2504,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<RedeemCouponResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Uses the supplied OAuth code to refresh the internally cached player PSN auth token
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResponse>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/RefreshPSNAuthToken", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -3002,6 +3117,28 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlinks the related PSN account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkPSNAccountResult>> UnlinkPSNAccountAsync(UnlinkPSNAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkPSNAccount", request, "X-Authorization", PlayFabSettings.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkPSNAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkPSNAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkPSNAccountResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

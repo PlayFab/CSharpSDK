@@ -667,6 +667,30 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class ConsumePSNEntitlementsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Which catalog to match granted entitlements against. If null, defaults to title default catalog
+        /// </summary>
+        public string CatalogVersion;
+
+        /// <summary>
+        /// Id of the PSN service label to consume entitlements from
+        /// </summary>
+        public int ServiceLabel;
+
+    }
+
+    public class ConsumePSNEntitlementsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of items granted to the player as a result of consuming entitlements.
+        /// </summary>
+        [Unordered(SortProperty="ItemInstanceId")]
+        public List<ItemInstance> ItemsGranted;
+
+    }
+
     public class ConsumeXboxEntitlementsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2717,6 +2741,32 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class GetPlayFabIDsFromPSNAccountIDsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// </summary>
+        public int? IssuerId;
+
+        /// <summary>
+        /// Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers.
+        /// </summary>
+        public List<string> PSNAccountIDs;
+
+    }
+
+    /// <summary>
+    /// For PlayStation Network identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
+    public class GetPlayFabIDsFromPSNAccountIDsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of PlayStation Network identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<PSNAccountPlayFabIdPair> Data;
+
+    }
+
     public class GetPlayFabIDsFromSteamIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3619,6 +3669,34 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class LinkPSNAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Authentication code provided by the PlayStation Network.
+        /// </summary>
+        public string AuthCode;
+
+        /// <summary>
+        /// If another user is already linked to the account, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink;
+
+        /// <summary>
+        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// </summary>
+        public int? IssuerId;
+
+        /// <summary>
+        /// Redirect URI supplied to PSN when requesting an auth code
+        /// </summary>
+        public string RedirectUri;
+
+    }
+
+    public class LinkPSNAccountResult : PlayFabResultCommon
+    {
+    }
+
     /// <summary>
     /// Steam authentication is accomplished with the Steam Session Ticket. More information on the Ticket can be
     /// found in the Steamworks SDK, here: https://partner.steamgames.com/documentation/auth (requires sign-in). NOTE: For Steam
@@ -4455,6 +4533,65 @@ namespace PlayFab.ClientModels
     }
 
     /// <summary>
+    /// If this is the first time a user has signed in with the PlayStation Network account and CreateAccount
+    /// is set to true, a new PlayFab account will be created and linked to the PSN account. In this case, no email or username
+    /// will be
+    /// associated with the PlayFab account. Otherwise, if no PlayFab account is linked to the PSN account, an error indicating
+    /// this will
+    /// be returned, so that the title can guide the user through creation of a PlayFab account.
+    /// </summary>
+    public class LoginWithPSNRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Auth code provided by the PSN OAuth provider.
+        /// </summary>
+        public string AuthCode;
+
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount;
+
+        /// <summary>
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
+        /// </summary>
+        public string EncryptedRequest;
+
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+        /// <summary>
+        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// </summary>
+        public int? IssuerId;
+
+        /// <summary>
+        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
+        /// </summary>
+        [Obsolete("No longer available", true)]
+        public bool? LoginTitlePlayerAccountEntity;
+
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret;
+
+        /// <summary>
+        /// Redirect URI supplied to PSN when requesting an auth code
+        /// </summary>
+        public string RedirectUri;
+
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
+        /// </summary>
+        public string TitleId;
+
+    }
+
+    /// <summary>
     /// Steam sign-in is accomplished with the Steam Session Ticket. More information on the Ticket can be
     /// found in the Steamworks SDK, here: https://partner.steamgames.com/documentation/auth (requires sign-in). NOTE: For Steam
     /// authentication
@@ -5220,6 +5357,20 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class PSNAccountPlayFabIdPair
+    {
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation Network identifier.
+        /// </summary>
+        public string PlayFabId;
+
+        /// <summary>
+        /// Unique PlayStation Network identifier for a user.
+        /// </summary>
+        public string PSNAccountId;
+
+    }
+
     /// <summary>
     /// Please note that the processing time for inventory grants and purchases increases fractionally
     /// the more items are in the inventory, and the more items are in the grant/purchase operation (with each item in a bundle
@@ -5320,6 +5471,25 @@ namespace PlayFab.ClientModels
         /// Items granted to the player as a result of redeeming the coupon.
         /// </summary>
         public List<ItemInstance> GrantedItems;
+
+    }
+
+    public class RefreshPSNAuthTokenRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Auth code returned by PSN OAuth system.
+        /// </summary>
+        public string AuthCode;
+
+        /// <summary>
+        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// </summary>
+        public int? IssuerId;
+
+        /// <summary>
+        /// Redirect URI supplied to PSN when requesting an auth code
+        /// </summary>
+        public string RedirectUri;
 
     }
 
@@ -6378,6 +6548,14 @@ namespace PlayFab.ClientModels
     }
 
     public class UnlinkNintendoSwitchDeviceIdResult : PlayFabResultCommon
+    {
+    }
+
+    public class UnlinkPSNAccountRequest : PlayFabRequestCommon
+    {
+    }
+
+    public class UnlinkPSNAccountResult : PlayFabResultCommon
     {
     }
 
