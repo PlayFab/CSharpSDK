@@ -2109,6 +2109,7 @@ namespace PlayFab.AdminModels
         PushNotificationTemplateMissingDefaultVersion,
         PushNotificationTemplateInvalidSyntax,
         PushNotificationTemplateNoCustomPayloadForV1,
+        NoLeaderboardForStatistic,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingCreateRequestMissing,

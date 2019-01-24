@@ -1891,6 +1891,7 @@ namespace PlayFab.ServerModels
         PushNotificationTemplateMissingDefaultVersion,
         PushNotificationTemplateInvalidSyntax,
         PushNotificationTemplateNoCustomPayloadForV1,
+        NoLeaderboardForStatistic,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingCreateRequestMissing,
@@ -3787,12 +3788,6 @@ namespace PlayFab.ServerModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
 
         /// <summary>
-        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public bool? LoginTitlePlayerAccountEntity;
-
-        /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
@@ -3823,12 +3818,6 @@ namespace PlayFab.ServerModels
         /// Flags for which pieces of info to return for the user.
         /// </summary>
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
-
-        /// <summary>
-        /// Formerly triggered an Entity login with a normal client login. This is now automatic, and always-on.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public bool? LoginTitlePlayerAccountEntity;
 
         /// <summary>
         /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
