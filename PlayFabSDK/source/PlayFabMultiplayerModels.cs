@@ -21,7 +21,7 @@ namespace PlayFab.MultiplayerModels
     public class AssetReferenceParams
     {
         /// <summary>
-        /// The asset's file name. This must be a filename with the .zip, .tar, or .tar.gz extension.
+        /// The asset's file name.
         /// </summary>
         public string FileName;
 
@@ -62,7 +62,9 @@ namespace PlayFab.MultiplayerModels
         SouthCentralUs,
         SoutheastAsia,
         WestEurope,
-        WestUs
+        WestUs,
+        ChinaEast2,
+        ChinaNorth2
     }
 
     public enum AzureVmSize
@@ -93,6 +95,11 @@ namespace PlayFab.MultiplayerModels
 
     public class BuildRegion
     {
+        /// <summary>
+        /// The current multiplayer server stats for the region.
+        /// </summary>
+        public CurrentServerStats CurrentServerStats;
+
         /// <summary>
         /// The maximum number of multiplayer servers for the region.
         /// </summary>
@@ -534,13 +541,37 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class CurrentServerStats
+    {
+        /// <summary>
+        /// The number of active multiplayer servers.
+        /// </summary>
+        public int Active;
+
+        /// <summary>
+        /// The number of multiplayer servers still downloading game resources (such as assets).
+        /// </summary>
+        public int Propping;
+
+        /// <summary>
+        /// The number of standingby multiplayer servers.
+        /// </summary>
+        public int StandingBy;
+
+        /// <summary>
+        /// The total number of multiplayer servers.
+        /// </summary>
+        public int Total;
+
+    }
+
     /// <summary>
     /// Deletes a multiplayer server game asset for a title.
     /// </summary>
     public class DeleteAssetRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// The filename of the asset to delete. This must be a filename with the .zip, .tar, or .tar.gz extension.
+        /// The filename of the asset to delete.
         /// </summary>
         public string FileName;
 
@@ -660,7 +691,7 @@ namespace PlayFab.MultiplayerModels
     public class GetAssetUploadUrlRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// The asset's file name to get the upload URL for. This must be a filename with the .zip, .tar, or .tar.gz extension.
+        /// The asset's file name to get the upload URL for.
         /// </summary>
         public string FileName;
 
@@ -674,8 +705,7 @@ namespace PlayFab.MultiplayerModels
         public string AssetUploadUrl;
 
         /// <summary>
-        /// The asset's file name to get the upload URL for. This must be a filename will be a file with the .zip, .tar, or .tar.gz
-        /// extension.
+        /// The asset's file name to get the upload URL for.
         /// </summary>
         public string FileName;
 
