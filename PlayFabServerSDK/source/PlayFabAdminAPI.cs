@@ -35,6 +35,28 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Update news item to include localized version
+        /// </summary>
+        public static async Task<PlayFabResult<AddLocalizedNewsResult>> AddLocalizedNewsAsync(AddLocalizedNewsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.DeveloperSecretKey set to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/AddLocalizedNews", request, "X-SecretKey", PlayFabSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<AddLocalizedNewsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<AddLocalizedNewsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<AddLocalizedNewsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Adds a new news item to the title's news feed
         /// </summary>
         public static async Task<PlayFabResult<AddNewsResult>> AddNewsAsync(AddNewsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
