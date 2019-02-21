@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// API methods for managing multiplayer servers.
+    /// API methods for managing multiplayer servers. API methods for managing parties.
     /// </summary>
     public class PlayFabMultiplayerAPI
     {

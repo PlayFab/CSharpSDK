@@ -3552,6 +3552,27 @@ namespace PlayFab.ClientModels
         /// </summary>
         public string GameCenterId;
 
+        /// <summary>
+        /// The URL for the public encryption key that will be used to verify the signature.
+        /// </summary>
+        public string PublicKeyUrl;
+
+        /// <summary>
+        /// A random value used to compute the hash and keep it randomized.
+        /// </summary>
+        public string Salt;
+
+        /// <summary>
+        /// The verification signature of the authentication payload.
+        /// </summary>
+        public string Signature;
+
+        /// <summary>
+        /// The integer representation of date and time that the signature was created on. PlayFab will reject authentication
+        /// signatures not within 10 minutes of the server's current time.
+        /// </summary>
+        public string Timestamp;
+
     }
 
     public class LinkGameCenterAccountResult : PlayFabResultCommon
@@ -4174,6 +4195,27 @@ namespace PlayFab.ClientModels
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
         public string PlayerSecret;
+
+        /// <summary>
+        /// The URL for the public encryption key that will be used to verify the signature.
+        /// </summary>
+        public string PublicKeyUrl;
+
+        /// <summary>
+        /// A random value used to compute the hash and keep it randomized.
+        /// </summary>
+        public string Salt;
+
+        /// <summary>
+        /// The verification signature of the authentication payload.
+        /// </summary>
+        public string Signature;
+
+        /// <summary>
+        /// The integer representation of date and time that the signature was created on. PlayFab will reject authentication
+        /// signatures not within 10 minutes of the server's current time.
+        /// </summary>
+        public string Timestamp;
 
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a

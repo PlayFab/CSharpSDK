@@ -8,7 +8,7 @@
     <FileAlignment>512</FileAlignment>
 
     <PackageId>PlayFabAllSDK</PackageId>
-    <Version>1.44.190205</Version>
+    <Version>1.45.190219</Version>
     <Title>PlayFab CSharp Sdk</Title>
     <Authors>PlayFab Inc.</Authors>
     <Owners>PlayFab Inc.</Owners>
@@ -21,7 +21,7 @@
     <Product>PlayFabSDK</Product>
     <Copyright>Copyright 2019</Copyright>
     <PackageTags>PlayFab, Baas, Paas, JSON, REST, HTTP, SSL, API, cloud, liveops, game, gamedev, native</PackageTags>
-    <PackageReleaseNotes>https://api.playfab.com/releaseNotes/#190205</PackageReleaseNotes>
+    <PackageReleaseNotes>https://api.playfab.com/releaseNotes/#190219</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>1</AssemblyVersion>
     <FileVersion>1</FileVersion>
@@ -38,7 +38,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <DefineConstants>TRACE;DEBUG;NETFX_CORE;SIMPLE_JSON_TYPEINFO;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFABSERVER_API</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;SIMPLE_JSON_TYPEINFO;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFABSERVER_API;ENABLE_PLAYFABCLIENT_API</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -46,7 +46,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;NETFX_CORE;SIMPLE_JSON_TYPEINFO;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFABSERVER_API</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;SIMPLE_JSON_TYPEINFO;ENABLE_PLAYFABADMIN_API;ENABLE_PLAYFABSERVER_API;ENABLE_PLAYFABCLIENT_API</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
