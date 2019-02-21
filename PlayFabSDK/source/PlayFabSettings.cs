@@ -5,9 +5,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.44.190205";
+        public const string SdkVersion = "1.45.190219";
         public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-3_0";
-        public const string SdkVersionString = "CSharpSDK-1.44.190205";
+        public const string SdkVersionString = "CSharpSDK-1.45.190219";
         public static readonly Dictionary<string, string> RequestGetParams = new Dictionary<string, string> {
             { "sdk", SdkVersionString }
         };
@@ -36,20 +36,20 @@ namespace PlayFab
         public static readonly string AD_TYPE_IDFA = "Idfa";
         public static readonly string AD_TYPE_ANDROID_ID = "Adid";
 
-        public static string GetFullUrl(string apiCall, Dictionary<string, string> getParams)
+        public static string GetFullUrl(string apiCall, Dictionary<string, string> getParams, PlayFabApiSettings apiSettings = null)
         {
             StringBuilder sb = new StringBuilder(1000);
         
-            var baseUrl = ProductionEnvironmentUrl;
+            var baseUrl = apiSettings?.ProductionEnvironmentUrl ?? ProductionEnvironmentUrl;
             if (!baseUrl.StartsWith("http"))
             {
-                if (VerticalName != null)
+                if ((apiSettings?.VerticalName ?? VerticalName) != null)
                 {
-                    sb.Append("https://").Append(VerticalName);
+                    sb.Append("https://").Append(apiSettings?.VerticalName ?? VerticalName);
                 }
                 else
                 {
-                    sb.Append("https://").Append(TitleId);
+                    sb.Append("https://").Append(apiSettings?.TitleId ?? TitleId);
                 }
             }
                 
