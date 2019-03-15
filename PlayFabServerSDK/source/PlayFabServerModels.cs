@@ -9,17 +9,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// UTC time stamp of attribution
         /// </summary>
-        public DateTime AttributedAt;
+        public DateTime AttributedAt ;
 
         /// <summary>
         /// Attribution campaign identifier
         /// </summary>
-        public string CampaignId;
+        public string CampaignId ;
 
         /// <summary>
         /// Attribution network name
         /// </summary>
-        public string Platform;
+        public string Platform ;
 
     }
 
@@ -28,17 +28,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// UTC time stamp of attribution
         /// </summary>
-        public DateTime AttributedAt;
+        public DateTime AttributedAt ;
 
         /// <summary>
         /// Attribution campaign identifier
         /// </summary>
-        public string CampaignId;
+        public string CampaignId ;
 
         /// <summary>
         /// Attribution network name
         /// </summary>
-        public string Platform;
+        public string Platform ;
 
     }
 
@@ -48,22 +48,22 @@ namespace PlayFab.ServerModels
         /// Amount to be added to the character balance of the specified virtual currency. Maximum VC balance is Int32
         /// (2,147,483,647). Any increase over this value will be discarded.
         /// </summary>
-        public int Amount;
+        public int Amount ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// PlayFab unique identifier of the user whose virtual currency balance is to be incremented.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Name of the virtual currency which is to be incremented.
         /// </summary>
-        public string VirtualCurrency;
+        public string VirtualCurrency ;
 
     }
 
@@ -72,27 +72,27 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Email address of the user being added.
         /// </summary>
-        public string FriendEmail;
+        public string FriendEmail ;
 
         /// <summary>
         /// The PlayFab identifier of the user being added.
         /// </summary>
-        public string FriendPlayFabId;
+        public string FriendPlayFabId ;
 
         /// <summary>
         /// Title-specific display name of the user to being added.
         /// </summary>
-        public string FriendTitleDisplayName;
+        public string FriendTitleDisplayName ;
 
         /// <summary>
         /// The PlayFab username of the user being added
         /// </summary>
-        public string FriendUsername;
+        public string FriendUsername ;
 
         /// <summary>
         /// PlayFab identifier of the player to add a new friend.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -106,12 +106,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique tag for player profile.
         /// </summary>
-        public string TagName;
+        public string TagName ;
 
     }
 
@@ -124,12 +124,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// An array of unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public List<string> PlayFabIds;
+        public List<string> PlayFabIds ;
 
         /// <summary>
         /// Unique identifier for the shared group.
         /// </summary>
-        public string SharedGroupId;
+        public string SharedGroupId ;
 
     }
 
@@ -143,17 +143,17 @@ namespace PlayFab.ServerModels
         /// Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647).
         /// Any increase over this value will be discarded.
         /// </summary>
-        public int Amount;
+        public int Amount ;
 
         /// <summary>
         /// PlayFab unique identifier of the user whose virtual currency balance is to be increased.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Name of the virtual currency which is to be incremented.
         /// </summary>
-        public string VirtualCurrency;
+        public string VirtualCurrency ;
 
     }
 
@@ -162,12 +162,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The Json the platform should receive.
         /// </summary>
-        public string Json;
+        public string Json ;
 
         /// <summary>
         /// The platform that should receive the Json.
         /// </summary>
-        public PushNotificationPlatform Platform;
+        public PushNotificationPlatform Platform ;
 
     }
 
@@ -182,7 +182,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Session ticket as issued by a PlayFab client login API.
         /// </summary>
-        public string SessionTicket;
+        public string SessionTicket ;
 
     }
 
@@ -191,7 +191,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Account info for the user whose session ticket was supplied.
         /// </summary>
-        public UserAccountInfo UserInfo;
+        public UserAccountInfo UserInfo ;
 
     }
 
@@ -200,17 +200,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique Steam achievement name.
         /// </summary>
-        public string AchievementName;
+        public string AchievementName ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Result of the award attempt (only valid on response, not on request).
         /// </summary>
-        public bool Result;
+        public bool Result ;
 
     }
 
@@ -219,7 +219,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of achievements to grant and the users to whom they are to be granted.
         /// </summary>
-        public List<AwardSteamAchievementItem> Achievements;
+        public List<AwardSteamAchievementItem> Achievements ;
 
     }
 
@@ -228,7 +228,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of achievements granted.
         /// </summary>
-        public List<AwardSteamAchievementItem> AchievementResults;
+        public List<AwardSteamAchievementItem> AchievementResults ;
 
     }
 
@@ -240,42 +240,42 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The active state of this ban. Expired bans may still have this value set to true but they will have no effect.
         /// </summary>
-        public bool Active;
+        public bool Active ;
 
         /// <summary>
         /// The unique Ban Id associated with this ban.
         /// </summary>
-        public string BanId;
+        public string BanId ;
 
         /// <summary>
         /// The time when this ban was applied.
         /// </summary>
-        public DateTime? Created;
+        public DateTime? Created ;
 
         /// <summary>
         /// The time when this ban expires. Permanent bans do not have expiration date.
         /// </summary>
-        public DateTime? Expires;
+        public DateTime? Expires ;
 
         /// <summary>
         /// The IP address on which the ban was applied. May affect multiple players.
         /// </summary>
-        public string IPAddress;
+        public string IPAddress ;
 
         /// <summary>
         /// The MAC address on which the ban was applied. May affect multiple players.
         /// </summary>
-        public string MACAddress;
+        public string MACAddress ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// The reason why this ban was applied.
         /// </summary>
-        public string Reason;
+        public string Reason ;
 
     }
 
@@ -287,27 +287,27 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The duration in hours for the ban. Leave this blank for a permanent ban.
         /// </summary>
-        public uint? DurationInHours;
+        public uint? DurationInHours ;
 
         /// <summary>
         /// IP address to be banned. May affect multiple players.
         /// </summary>
-        public string IPAddress;
+        public string IPAddress ;
 
         /// <summary>
         /// MAC address to be banned. May affect multiple players.
         /// </summary>
-        public string MACAddress;
+        public string MACAddress ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// The reason for this ban. Maximum 140 characters.
         /// </summary>
-        public string Reason;
+        public string Reason ;
 
     }
 
@@ -320,7 +320,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// List of ban requests to be applied. Maximum 100.
         /// </summary>
-        public List<BanRequest> Bans;
+        public List<BanRequest> Bans ;
 
     }
 
@@ -329,7 +329,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Information on the bans that were applied
         /// </summary>
-        public List<BanInfo> BanData;
+        public List<BanInfo> BanData ;
 
     }
 
@@ -342,43 +342,43 @@ namespace PlayFab.ServerModels
         /// defines the bundle properties for the item - bundles are items which contain other items, including random drop tables
         /// and virtual currencies
         /// </summary>
-        public CatalogItemBundleInfo Bundle;
+        public CatalogItemBundleInfo Bundle ;
 
         /// <summary>
         /// if true, then an item instance of this type can be used to grant a character to a user.
         /// </summary>
-        public bool CanBecomeCharacter;
+        public bool CanBecomeCharacter ;
 
         /// <summary>
         /// catalog version for this item
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// defines the consumable properties (number of uses, timeout) for the item
         /// </summary>
-        public CatalogItemConsumableInfo Consumable;
+        public CatalogItemConsumableInfo Consumable ;
 
         /// <summary>
         /// defines the container properties for the item - what items it contains, including random drop tables and virtual
         /// currencies, and what item (if any) is required to open it via the UnlockContainerItem API
         /// </summary>
-        public CatalogItemContainerInfo Container;
+        public CatalogItemContainerInfo Container ;
 
         /// <summary>
         /// game specific custom data
         /// </summary>
-        public string CustomData;
+        public string CustomData ;
 
         /// <summary>
         /// text description of item, to show in-game
         /// </summary>
-        public string Description;
+        public string Description ;
 
         /// <summary>
         /// text name for the item, to show in-game
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// If the item has IsLImitedEdition set to true, and this is the first time this ItemId has been defined as a limited
@@ -387,55 +387,55 @@ namespace PlayFab.ServerModels
         /// false for that ItemId. If the item has already been defined to have a limited edition count, or if this value is less
         /// than zero, it will be ignored.
         /// </summary>
-        public int InitialLimitedEditionCount;
+        public int InitialLimitedEditionCount ;
 
         /// <summary>
         /// BETA: If true, then only a fixed number can ever be granted.
         /// </summary>
-        public bool IsLimitedEdition;
+        public bool IsLimitedEdition ;
 
         /// <summary>
         /// if true, then only one item instance of this type will exist and its remaininguses will be incremented instead.
         /// RemainingUses will cap out at Int32.Max (2,147,483,647). All subsequent increases will be discarded
         /// </summary>
-        public bool IsStackable;
+        public bool IsStackable ;
 
         /// <summary>
         /// if true, then an item instance of this type can be traded between players using the trading APIs
         /// </summary>
-        public bool IsTradable;
+        public bool IsTradable ;
 
         /// <summary>
         /// class to which the item belongs
         /// </summary>
-        public string ItemClass;
+        public string ItemClass ;
 
         /// <summary>
         /// unique identifier for this item
         /// </summary>
-        public string ItemId;
+        public string ItemId ;
 
         /// <summary>
         /// URL to the item image. For Facebook purchase to display the image on the item purchase page, this must be set to an HTTP
         /// URL.
         /// </summary>
-        public string ItemImageUrl;
+        public string ItemImageUrl ;
 
         /// <summary>
         /// override prices for this item for specific currencies
         /// </summary>
-        public Dictionary<string,uint> RealCurrencyPrices;
+        public Dictionary<string,uint> RealCurrencyPrices ;
 
         /// <summary>
         /// list of item tags
         /// </summary>
         [Unordered]
-        public List<string> Tags;
+        public List<string> Tags ;
 
         /// <summary>
         /// price of this item in virtual currencies and "RM" (the base Real Money purchase price, in USD pennies)
         /// </summary>
-        public Dictionary<string,uint> VirtualCurrencyPrices;
+        public Dictionary<string,uint> VirtualCurrencyPrices ;
 
         public int CompareTo(CatalogItem other)
         {
@@ -452,19 +452,19 @@ namespace PlayFab.ServerModels
         /// unique ItemId values for all items which will be added to the player inventory when the bundle is added
         /// </summary>
         [Unordered]
-        public List<string> BundledItems;
+        public List<string> BundledItems ;
 
         /// <summary>
         /// unique TableId values for all RandomResultTable objects which are part of the bundle (random tables will be resolved and
         /// add the relevant items to the player inventory when the bundle is added)
         /// </summary>
         [Unordered]
-        public List<string> BundledResultTables;
+        public List<string> BundledResultTables ;
 
         /// <summary>
         /// virtual currency types and balances which will be added to the player inventory when the bundle is added
         /// </summary>
-        public Dictionary<string,uint> BundledVirtualCurrencies;
+        public Dictionary<string,uint> BundledVirtualCurrencies ;
 
     }
 
@@ -473,20 +473,20 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// number of times this object can be used, after which it will be removed from the player inventory
         /// </summary>
-        public uint? UsageCount;
+        public uint? UsageCount ;
 
         /// <summary>
         /// duration in seconds for how long the item will remain in the player inventory - once elapsed, the item will be removed
         /// (recommended minimum value is 5 seconds, as lower values can cause the item to expire before operations depending on
         /// this item's details have completed)
         /// </summary>
-        public uint? UsagePeriod;
+        public uint? UsagePeriod ;
 
         /// <summary>
         /// all inventory item instances in the player inventory sharing a non-null UsagePeriodGroup have their UsagePeriod values
         /// added together, and share the result - when that period has elapsed, all the items in the group will be removed
         /// </summary>
-        public string UsagePeriodGroup;
+        public string UsagePeriodGroup ;
 
     }
 
@@ -503,25 +503,25 @@ namespace PlayFab.ServerModels
         /// unique ItemId values for all items which will be added to the player inventory, once the container has been unlocked
         /// </summary>
         [Unordered]
-        public List<string> ItemContents;
+        public List<string> ItemContents ;
 
         /// <summary>
         /// ItemId for the catalog item used to unlock the container, if any (if not specified, a call to UnlockContainerItem will
         /// open the container, adding the contents to the player inventory and currency balances)
         /// </summary>
-        public string KeyItemId;
+        public string KeyItemId ;
 
         /// <summary>
         /// unique TableId values for all RandomResultTable objects which are part of the container (once unlocked, random tables
         /// will be resolved and add the relevant items to the player inventory)
         /// </summary>
         [Unordered]
-        public List<string> ResultTableContents;
+        public List<string> ResultTableContents ;
 
         /// <summary>
         /// virtual currency types and balances which will be added to the player inventory when the container is unlocked
         /// </summary>
-        public Dictionary<string,uint> VirtualCurrencyContents;
+        public Dictionary<string,uint> VirtualCurrencyContents ;
 
     }
 
@@ -530,12 +530,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The id of this character.
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// The inventory of this character.
         /// </summary>
-        public List<ItemInstance> Inventory;
+        public List<ItemInstance> Inventory ;
 
     }
 
@@ -544,37 +544,37 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// PlayFab unique identifier of the character that belongs to the user for this leaderboard entry.
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Title-specific display name of the character for this leaderboard entry.
         /// </summary>
-        public string CharacterName;
+        public string CharacterName ;
 
         /// <summary>
         /// Name of the character class for this entry.
         /// </summary>
-        public string CharacterType;
+        public string CharacterType ;
 
         /// <summary>
         /// Title-specific display name of the user for this leaderboard entry.
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// PlayFab unique identifier of the user for this leaderboard entry.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// User's overall position in the leaderboard.
         /// </summary>
-        public int Position;
+        public int Position ;
 
         /// <summary>
         /// Specific value of the user's statistic.
         /// </summary>
-        public int StatValue;
+        public int StatValue ;
 
     }
 
@@ -583,17 +583,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The id for this character on this player.
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// The name of this character.
         /// </summary>
-        public string CharacterName;
+        public string CharacterName ;
 
         /// <summary>
         /// The type-string that was given to this character on creation.
         /// </summary>
-        public string CharacterType;
+        public string CharacterType ;
 
     }
 
@@ -609,22 +609,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Number of uses to consume from the item.
         /// </summary>
-        public int ConsumeCount;
+        public int ConsumeCount ;
 
         /// <summary>
         /// Unique instance identifier of the item to be consumed.
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -633,12 +633,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique instance identifier of the item with uses consumed.
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Number of uses remaining on the item.
         /// </summary>
-        public int RemainingUses;
+        public int RemainingUses ;
 
     }
 
@@ -647,17 +647,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The email address
         /// </summary>
-        public string EmailAddress;
+        public string EmailAddress ;
 
         /// <summary>
         /// The name of the email info data
         /// </summary>
-        public string Name;
+        public string Name ;
 
         /// <summary>
         /// The verification status of the email
         /// </summary>
-        public EmailVerificationStatus? VerificationStatus;
+        public EmailVerificationStatus? VerificationStatus ;
 
     }
 
@@ -666,17 +666,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The email address
         /// </summary>
-        public string EmailAddress;
+        public string EmailAddress ;
 
         /// <summary>
         /// The name of the email info data
         /// </summary>
-        public string Name;
+        public string Name ;
 
         /// <summary>
         /// The verification status of the email
         /// </summary>
-        public EmailVerificationStatus? VerificationStatus;
+        public EmailVerificationStatus? VerificationStatus ;
 
     }
 
@@ -954,7 +954,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier for the shared group (a random identifier will be assigned, if one is not specified).
         /// </summary>
-        public string SharedGroupId;
+        public string SharedGroupId ;
 
     }
 
@@ -963,7 +963,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier for the shared group.
         /// </summary>
-        public string SharedGroupId;
+        public string SharedGroupId ;
 
     }
 
@@ -1143,18 +1143,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// If true, the character's inventory will be transferred up to the owning user; otherwise, this request will purge those
         /// items.
         /// </summary>
-        public bool SaveCharacterInventory;
+        public bool SaveCharacterInventory ;
 
     }
 
@@ -1181,7 +1181,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -1194,7 +1194,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier for the shared group.
         /// </summary>
-        public string SharedGroupId;
+        public string SharedGroupId ;
 
     }
 
@@ -1203,7 +1203,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier for the Game Server Instance that is being deregistered.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
     }
 
@@ -1230,12 +1230,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique ID of the entity.
         /// </summary>
-        public string Id;
+        public string Id { get; set; }
 
         /// <summary>
         /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
         /// </summary>
-        public string Type;
+        public string Type { get; set; }
 
     }
 
@@ -1244,17 +1244,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The entity id and type.
         /// </summary>
-        public EntityKey Entity;
+        public EntityKey Entity ;
 
         /// <summary>
         /// The token used to set X-EntityToken for all entity based API calls.
         /// </summary>
-        public string EntityToken;
+        public string EntityToken ;
 
         /// <summary>
         /// The time the token will expire, if it is an expiring token, in UTC.
         /// </summary>
-        public DateTime? TokenExpiration;
+        public DateTime? TokenExpiration ;
 
     }
 
@@ -1264,12 +1264,12 @@ namespace PlayFab.ServerModels
         /// Specifies the catalog version that should be used to evaluate the Random Result Table. If unspecified, uses
         /// default/primary catalog.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// The unique identifier of the Random Result Table to use.
         /// </summary>
-        public string TableId;
+        public string TableId ;
 
     }
 
@@ -1282,7 +1282,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier for the item returned from the Random Result Table evaluation, for the given catalog.
         /// </summary>
-        public string ResultItemId;
+        public string ResultItemId ;
 
     }
 
@@ -1291,60 +1291,60 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Number of PlayFab API requests issued by the CloudScript function
         /// </summary>
-        public int APIRequestsIssued;
+        public int APIRequestsIssued ;
 
         /// <summary>
         /// Information about the error, if any, that occurred during execution
         /// </summary>
-        public ScriptExecutionError Error;
+        public ScriptExecutionError Error ;
 
-        public double ExecutionTimeSeconds;
+        public double ExecutionTimeSeconds ;
 
         /// <summary>
         /// The name of the function that executed
         /// </summary>
-        public string FunctionName;
+        public string FunctionName ;
 
         /// <summary>
         /// The object returned from the CloudScript function, if any
         /// </summary>
-        public object FunctionResult;
+        public object FunctionResult ;
 
         /// <summary>
         /// Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if
         /// the total event size is larger than 350KB.
         /// </summary>
-        public bool? FunctionResultTooLarge;
+        public bool? FunctionResultTooLarge ;
 
         /// <summary>
         /// Number of external HTTP requests issued by the CloudScript function
         /// </summary>
-        public int HttpRequestsIssued;
+        public int HttpRequestsIssued ;
 
         /// <summary>
         /// Entries logged during the function execution. These include both entries logged in the function code using log.info()
         /// and log.error() and error entries for API and HTTP request failures.
         /// </summary>
-        public List<LogStatement> Logs;
+        public List<LogStatement> Logs ;
 
         /// <summary>
         /// Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total
         /// event size is larger than 350KB after the FunctionResult was removed.
         /// </summary>
-        public bool? LogsTooLarge;
+        public bool? LogsTooLarge ;
 
-        public uint MemoryConsumedBytes;
+        public uint MemoryConsumedBytes ;
 
         /// <summary>
         /// Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP
         /// requests.
         /// </summary>
-        public double ProcessorTimeSeconds;
+        public double ProcessorTimeSeconds ;
 
         /// <summary>
         /// The revision of the CloudScript that executed
         /// </summary>
-        public int Revision;
+        public int Revision ;
 
     }
 
@@ -1353,35 +1353,35 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The name of the CloudScript function to execute
         /// </summary>
-        public string FunctionName;
+        public string FunctionName ;
 
         /// <summary>
         /// Object that is passed in to the function as the first argument
         /// </summary>
-        public object FunctionParameter;
+        public object FunctionParameter ;
 
         /// <summary>
         /// Generate a 'player_executed_cloudscript' PlayStream event containing the results of the function execution and other
         /// contextual information. This event will show up in the PlayStream debugger console for the player in Game Manager.
         /// </summary>
-        public bool? GeneratePlayStreamEvent;
+        public bool? GeneratePlayStreamEvent ;
 
         /// <summary>
         /// The unique user identifier for the player on whose behalf the script is being run
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live'
         /// executes the current live, published revision, and 'Specific' executes the specified revision. The default value is
         /// 'Specific', if the SpeificRevision parameter is specified, otherwise it is 'Live'.
         /// </summary>
-        public CloudScriptRevisionOption? RevisionSelection;
+        public CloudScriptRevisionOption? RevisionSelection ;
 
         /// <summary>
         /// The specivic revision to execute, when RevisionSelection is set to 'Specific'
         /// </summary>
-        public int? SpecificRevision;
+        public int? SpecificRevision ;
 
     }
 
@@ -1390,12 +1390,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique Facebook Instant Games identifier for a user.
         /// </summary>
-        public string FacebookInstantGamesId;
+        public string FacebookInstantGamesId ;
 
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Facebook Instant Games identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -1404,12 +1404,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique Facebook identifier for a user.
         /// </summary>
-        public string FacebookId;
+        public string FacebookId ;
 
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Facebook identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -1418,58 +1418,58 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// This field is not populated.
         /// </summary>
-        [Obsolete("No longer available", false)]
-        public string CurrentMatchmakerLobbyId;
+        [Obsolete("No longer available", true)]
+        public string CurrentMatchmakerLobbyId ;
 
         /// <summary>
         /// Available Facebook information (if the user and PlayFab friend are also connected in Facebook).
         /// </summary>
-        public UserFacebookInfo FacebookInfo;
+        public UserFacebookInfo FacebookInfo ;
 
         /// <summary>
         /// PlayFab unique identifier for this friend.
         /// </summary>
-        public string FriendPlayFabId;
+        public string FriendPlayFabId ;
 
         /// <summary>
         /// Available Game Center information (if the user and PlayFab friend are also connected in Game Center).
         /// </summary>
-        public UserGameCenterInfo GameCenterInfo;
+        public UserGameCenterInfo GameCenterInfo ;
 
         /// <summary>
         /// The profile of the user, if requested.
         /// </summary>
-        public PlayerProfileModel Profile;
+        public PlayerProfileModel Profile ;
 
         /// <summary>
         /// Available PSN information, if the user and PlayFab friend are both connected to PSN.
         /// </summary>
-        public UserPsnInfo PSNInfo;
+        public UserPsnInfo PSNInfo ;
 
         /// <summary>
         /// Available Steam information (if the user and PlayFab friend are also connected in Steam).
         /// </summary>
-        public UserSteamInfo SteamInfo;
+        public UserSteamInfo SteamInfo ;
 
         /// <summary>
         /// Tags which have been associated with this friend.
         /// </summary>
-        public List<string> Tags;
+        public List<string> Tags ;
 
         /// <summary>
         /// Title-specific display name for this friend.
         /// </summary>
-        public string TitleDisplayName;
+        public string TitleDisplayName ;
 
         /// <summary>
         /// PlayFab unique username for this friend.
         /// </summary>
-        public string Username;
+        public string Username ;
 
         /// <summary>
         /// Available Xbox information, if the user and PlayFab friend are both connected to Xbox Live.
         /// </summary>
-        public UserXboxInfo XboxInfo;
+        public UserXboxInfo XboxInfo ;
 
     }
 
@@ -1872,8 +1872,7 @@ namespace PlayFab.ServerModels
         EntityProfileConstraintValidationFailed,
         TelemetryIngestionKeyPending,
         TelemetryIngestionKeyNotFound,
-        StatisticTagRequired,
-        StatisticTagInvalid,
+        StatisticChildNameInvalid,
         DataIntegrityError,
         VirtualCurrencyCannotBeSetToOlderVersion,
         VirtualCurrencyMustBeWithinIntegerRange,
@@ -1901,57 +1900,6 @@ namespace PlayFab.ServerModels
         EmailRecipientBlacklisted,
         InvalidGameCenterAuthRequest,
         GameCenterAuthenticationFailed,
-        MatchmakingEntityInvalid,
-        MatchmakingPlayerAttributesInvalid,
-        MatchmakingCreateTicketRequestMissing,
-        MatchmakingCreateTicketCreatorMissing,
-        MatchmakingCreateTicketCreatorIdMissing,
-        MatchmakingCreateTicketMemberListMissing,
-        MatchmakingCreateTicketGiveUpAfterInvalid,
-        MatchmakingTicketIdMissing,
-        MatchmakingMatchIdMissing,
-        MatchmakingMatchIdIdMissing,
-        MatchmakingQueueNameMissing,
-        MatchmakingTitleIdMissing,
-        MatchmakingTicketIdIdMissing,
-        MatchmakingPlayerIdMissing,
-        MatchmakingJoinTicketPlayerMissing,
-        MatchmakingQueueConfigNotFound,
-        MatchmakingMatchNotFound,
-        MatchmakingTicketNotFound,
-        MatchmakingCreateTicketServerIdentityInvalid,
-        MatchmakingCreateTicketClientIdentityInvalid,
-        MatchmakingGetTicketPlayerMismatch,
-        MatchmakingJoinTicketServerIdentityInvalid,
-        MatchmakingJoinTicketPlayerIdentityMismatch,
-        MatchmakingCancelTicketServerIdentityInvalid,
-        MatchmakingCancelTicketPlayerIdentityMismatch,
-        MatchmakingGetMatchIdentityMismatch,
-        MatchmakingPlayerIdentityMismatch,
-        MatchmakingAlreadyJoinedTicket,
-        MatchmakingTicketAlreadyCompleted,
-        MatchmakingClientTimeout,
-        MatchmakingQueueConfigInvalid,
-        MatchmakingMemberProfileInvalid,
-        WriteAttemptedDuringExport,
-        NintendoSwitchDeviceIdNotLinked,
-        MatchmakingNotEnabled,
-        MatchmakingGetStatisticsIdentityInvalid,
-        MatchmakingBucketOwnerNotFound,
-        CannotEnableMultiplayerServersForTitle,
-        MatchmakingCancelAllTicketsUnauthorized,
-        MatchmakingListTicketsUnauthorized,
-        MatchmakingPlayerAttributesTooLarge,
-        MatchmakingNumberOfPlayersInTicketTooLarge,
-        MatchmakingMatchTotalAttributeIsNegative,
-        MatchmakingAttributeTypeInvalid,
-        MatchmakingMatchTotalAttributeTooLarge,
-        MatchmakingMatchTotalAttributeSumTooLarge,
-        MatchmakingTicketUnmatchable,
-        MatchmakingCommonRegionMissing,
-        MatchmakingLatencyMeasurementMissing,
-        MatchmakingStatisticsNotFound,
-        MatchmakingPlayerHasNotJoinedTicket,
         CannotEnablePartiesForTitle,
         PartyError,
         PartyRequests,
@@ -1964,6 +1912,28 @@ namespace PlayFab.ServerModels
         PartyInternalServerError,
         PartyUnavailable,
         PartyTooManyRequests,
+        PushNotificationTemplateMissingName,
+        CannotEnableMultiplayerServersForTitle,
+        WriteAttemptedDuringExport,
+        MultiplayerServerTitleQuotaCoresExceeded,
+        MatchmakingEntityInvalid,
+        MatchmakingPlayerAttributesInvalid,
+        MatchmakingQueueNotFound,
+        MatchmakingMatchNotFound,
+        MatchmakingTicketNotFound,
+        MatchmakingAlreadyJoinedTicket,
+        MatchmakingTicketAlreadyCompleted,
+        MatchmakingQueueConfigInvalid,
+        MatchmakingMemberProfileInvalid,
+        NintendoSwitchDeviceIdNotLinked,
+        MatchmakingNotEnabled,
+        MatchmakingPlayerAttributesTooLarge,
+        MatchmakingNumberOfPlayersInTicketTooLarge,
+        MatchmakingAttributeInvalid,
+        MatchmakingPlayerHasNotJoinedTicket,
+        MatchmakingRateLimitExceeded,
+        MatchmakingTicketMembershipLimitExceeded,
+        MatchmakingUnauthorized,
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
@@ -1980,7 +1950,14 @@ namespace PlayFab.ServerModels
         CatalogConfigTooManyContentTypes,
         CatalogConfigContentTypeTooLong,
         CatalogConfigTooManyTags,
-        CatalogConfigTagTooLong
+        CatalogConfigTagTooLong,
+        ExportInvalidStatusUpdate,
+        ExportInvalidPrefix,
+        ExportBlobContainerDoesNotExist,
+        ExportEventNameNotFound,
+        ExportExportTitleIdNotFound,
+        ExportCouldNotUpdate,
+        ExportInvalidStorageType
     }
 
     /// <summary>
@@ -1995,7 +1972,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of segments for this title.
         /// </summary>
-        public List<GetSegmentResult> Segments;
+        public List<GetSegmentResult> Segments ;
 
     }
 
@@ -2004,7 +1981,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Which catalog is being requested. If null, uses the default catalog.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
     }
 
@@ -2014,7 +1991,7 @@ namespace PlayFab.ServerModels
         /// Array of items which can be purchased.
         /// </summary>
         [Unordered(SortProperty="ItemId")]
-        public List<CatalogItem> Catalog;
+        public List<CatalogItem> Catalog ;
 
     }
 
@@ -2028,23 +2005,23 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// The version that currently exists according to the caller. The call will return the data for all of the keys if the
         /// version in the system is greater than this.
         /// </summary>
-        public uint? IfChangedFromDataVersion;
+        public uint? IfChangedFromDataVersion ;
 
         /// <summary>
         /// Specific keys to search for in the custom user data.
         /// </summary>
-        public List<string> Keys;
+        public List<string> Keys ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2053,23 +2030,23 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// User specific data for this title.
         /// </summary>
-        public Dictionary<string,UserDataRecord> Data;
+        public Dictionary<string,UserDataRecord> Data ;
 
         /// <summary>
         /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
         /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
         /// </summary>
-        public uint DataVersion;
+        public uint DataVersion ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2084,17 +2061,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Used to limit results to only those from a specific catalog version.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2103,28 +2080,28 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the character for this inventory.
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Array of inventory items belonging to the character.
         /// </summary>
         [Unordered(SortProperty="ItemInstanceId")]
-        public List<ItemInstance> Inventory;
+        public List<ItemInstance> Inventory ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Array of virtual currency balance(s) belonging to the character.
         /// </summary>
-        public Dictionary<string,int> VirtualCurrency;
+        public Dictionary<string,int> VirtualCurrency ;
 
         /// <summary>
         /// Array of remaining times and timestamps for virtual currencies.
         /// </summary>
-        public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
+        public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes ;
 
     }
 
@@ -2133,22 +2110,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Optional character type on which to filter the leaderboard entries.
         /// </summary>
-        public string CharacterType;
+        public string CharacterType ;
 
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        public int MaxResultsCount;
+        public int MaxResultsCount ;
 
         /// <summary>
         /// First entry in the leaderboard to be retrieved.
         /// </summary>
-        public int StartPosition;
+        public int StartPosition ;
 
         /// <summary>
         /// Unique identifier for the title-specific statistic for the leaderboard.
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
     }
 
@@ -2160,7 +2137,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Ordered list of leaderboard entries.
         /// </summary>
-        public List<CharacterLeaderboardEntry> Leaderboard;
+        public List<CharacterLeaderboardEntry> Leaderboard ;
 
     }
 
@@ -2174,12 +2151,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2188,17 +2165,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the character for the statistics.
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Character statistics for the requested user.
         /// </summary>
-        public Dictionary<string,int> CharacterStatistics;
+        public Dictionary<string,int> CharacterStatistics ;
 
         /// <summary>
         /// PlayFab unique identifier of the user whose character statistics are being returned.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2207,18 +2184,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// HTTP method to fetch item - GET or HEAD. Use HEAD when only fetching metadata. Default is GET.
         /// </summary>
-        public string HttpMethod;
+        public string HttpMethod ;
 
         /// <summary>
         /// Key of the content item to fetch, usually formatted as a path, e.g. images/a.png
         /// </summary>
-        public string Key;
+        public string Key ;
 
         /// <summary>
         /// True to download through CDN. CDN provides higher download bandwidth and lower latency. However, if you want the latest,
         /// non-cached version of the content during development, set this to false. Default is true.
         /// </summary>
-        public bool? ThruCDN;
+        public bool? ThruCDN ;
 
     }
 
@@ -2227,7 +2204,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// URL for downloading content via HTTP GET or HEAD method. The URL will expire in approximately one hour.
         /// </summary>
-        public string URL;
+        public string URL ;
 
     }
 
@@ -2236,49 +2213,49 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Indicates whether Facebook friends should be included in the response. Default is true.
         /// </summary>
-        public bool? IncludeFacebookFriends;
+        public bool? IncludeFacebookFriends ;
 
         /// <summary>
         /// Indicates whether Steam service friends should be included in the response. Default is true.
         /// </summary>
-        public bool? IncludeSteamFriends;
+        public bool? IncludeSteamFriends ;
 
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        public int MaxResultsCount;
+        public int MaxResultsCount ;
 
         /// <summary>
         /// The player whose friend leaderboard to get
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
         /// only the allowed client profile properties for the title may be requested. These allowed properties are configured in
         /// the Game Manager "Client Profile Options" tab in the "Settings" section.
         /// </summary>
-        public PlayerProfileViewConstraints ProfileConstraints;
+        public PlayerProfileViewConstraints ProfileConstraints ;
 
         /// <summary>
         /// Position in the leaderboard to start this listing (defaults to the first entry).
         /// </summary>
-        public int StartPosition;
+        public int StartPosition ;
 
         /// <summary>
         /// Statistic used to rank friends for this leaderboard.
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
         /// <summary>
         /// The version of the leaderboard to get.
         /// </summary>
-        public int? Version;
+        public int? Version ;
 
         /// <summary>
         /// Xbox token if Xbox friends should be included. Requires Xbox be configured on PlayFab.
         /// </summary>
-        public string XboxToken;
+        public string XboxToken ;
 
     }
 
@@ -2287,29 +2264,29 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Indicates whether Facebook friends should be included in the response. Default is true.
         /// </summary>
-        public bool? IncludeFacebookFriends;
+        public bool? IncludeFacebookFriends ;
 
         /// <summary>
         /// Indicates whether Steam service friends should be included in the response. Default is true.
         /// </summary>
-        public bool? IncludeSteamFriends;
+        public bool? IncludeSteamFriends ;
 
         /// <summary>
         /// PlayFab identifier of the player whose friend list to get.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
         /// only the allowed client profile properties for the title may be requested. These allowed properties are configured in
         /// the Game Manager "Client Profile Options" tab in the "Settings" section.
         /// </summary>
-        public PlayerProfileViewConstraints ProfileConstraints;
+        public PlayerProfileViewConstraints ProfileConstraints ;
 
         /// <summary>
         /// Xbox token if Xbox friends should be included. Requires Xbox be configured on PlayFab.
         /// </summary>
-        public string XboxToken;
+        public string XboxToken ;
 
     }
 
@@ -2323,7 +2300,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of friends found.
         /// </summary>
-        public List<FriendInfo> Friends;
+        public List<FriendInfo> Friends ;
 
     }
 
@@ -2332,27 +2309,27 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Optional character type on which to filter the leaderboard entries.
         /// </summary>
-        public string CharacterType;
+        public string CharacterType ;
 
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        public int MaxResultsCount;
+        public int MaxResultsCount ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique identifier for the title-specific statistic for the leaderboard.
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
     }
 
@@ -2365,7 +2342,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Ordered list of leaderboard entries.
         /// </summary>
-        public List<CharacterLeaderboardEntry> Leaderboard;
+        public List<CharacterLeaderboardEntry> Leaderboard ;
 
     }
 
@@ -2374,29 +2351,29 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        public int MaxResultsCount;
+        public int MaxResultsCount ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
         /// only the allowed client profile properties for the title may be requested. These allowed properties are configured in
         /// the Game Manager "Client Profile Options" tab in the "Settings" section.
         /// </summary>
-        public PlayerProfileViewConstraints ProfileConstraints;
+        public PlayerProfileViewConstraints ProfileConstraints ;
 
         /// <summary>
         /// Unique identifier for the title-specific statistic for the leaderboard.
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
         /// <summary>
         /// The version of the leaderboard to get.
         /// </summary>
-        public int? Version;
+        public int? Version ;
 
     }
 
@@ -2409,17 +2386,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Ordered listing of users and their positions in the requested leaderboard.
         /// </summary>
-        public List<PlayerLeaderboardEntry> Leaderboard;
+        public List<PlayerLeaderboardEntry> Leaderboard ;
 
         /// <summary>
         /// The time the next scheduled reset will occur. Null if the leaderboard does not reset on a schedule.
         /// </summary>
-        public DateTime? NextReset;
+        public DateTime? NextReset ;
 
         /// <summary>
         /// The version of the leaderboard returned.
         /// </summary>
-        public int Version;
+        public int Version ;
 
     }
 
@@ -2428,17 +2405,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        public int MaxResultsCount;
+        public int MaxResultsCount ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique identifier for the title-specific statistic for the leaderboard.
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
     }
 
@@ -2450,7 +2427,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Ordered list of leaderboard entries.
         /// </summary>
-        public List<CharacterLeaderboardEntry> Leaderboard;
+        public List<CharacterLeaderboardEntry> Leaderboard ;
 
     }
 
@@ -2459,29 +2436,29 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        public int MaxResultsCount;
+        public int MaxResultsCount ;
 
         /// <summary>
         /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
         /// only the allowed client profile properties for the title may be requested. These allowed properties are configured in
         /// the Game Manager "Client Profile Options" tab in the "Settings" section.
         /// </summary>
-        public PlayerProfileViewConstraints ProfileConstraints;
+        public PlayerProfileViewConstraints ProfileConstraints ;
 
         /// <summary>
         /// First entry in the leaderboard to be retrieved.
         /// </summary>
-        public int StartPosition;
+        public int StartPosition ;
 
         /// <summary>
         /// Unique identifier for the title-specific statistic for the leaderboard.
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
         /// <summary>
         /// The version of the leaderboard to get.
         /// </summary>
-        public int? Version;
+        public int? Version ;
 
     }
 
@@ -2493,17 +2470,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Ordered listing of users and their positions in the requested leaderboard.
         /// </summary>
-        public List<PlayerLeaderboardEntry> Leaderboard;
+        public List<PlayerLeaderboardEntry> Leaderboard ;
 
         /// <summary>
         /// The time the next scheduled reset will occur. Null if the leaderboard does not reset on a schedule.
         /// </summary>
-        public DateTime? NextReset;
+        public DateTime? NextReset ;
 
         /// <summary>
         /// The version of the leaderboard returned.
         /// </summary>
-        public int Version;
+        public int Version ;
 
     }
 
@@ -2512,12 +2489,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Flags for which pieces of info to return for the user.
         /// </summary>
-        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
 
         /// <summary>
         /// PlayFabId of the user whose data will be returned
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2526,78 +2503,78 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Whether to get character inventories. Defaults to false.
         /// </summary>
-        public bool GetCharacterInventories;
+        public bool GetCharacterInventories ;
 
         /// <summary>
         /// Whether to get the list of characters. Defaults to false.
         /// </summary>
-        public bool GetCharacterList;
+        public bool GetCharacterList ;
 
         /// <summary>
         /// Whether to get player profile. Defaults to false.
         /// </summary>
-        public bool GetPlayerProfile;
+        public bool GetPlayerProfile ;
 
         /// <summary>
         /// Whether to get player statistics. Defaults to false.
         /// </summary>
-        public bool GetPlayerStatistics;
+        public bool GetPlayerStatistics ;
 
         /// <summary>
         /// Whether to get title data. Defaults to false.
         /// </summary>
-        public bool GetTitleData;
+        public bool GetTitleData ;
 
         /// <summary>
         /// Whether to get the player's account Info. Defaults to false
         /// </summary>
-        public bool GetUserAccountInfo;
+        public bool GetUserAccountInfo ;
 
         /// <summary>
         /// Whether to get the player's custom data. Defaults to false
         /// </summary>
-        public bool GetUserData;
+        public bool GetUserData ;
 
         /// <summary>
         /// Whether to get the player's inventory. Defaults to false
         /// </summary>
-        public bool GetUserInventory;
+        public bool GetUserInventory ;
 
         /// <summary>
         /// Whether to get the player's read only data. Defaults to false
         /// </summary>
-        public bool GetUserReadOnlyData;
+        public bool GetUserReadOnlyData ;
 
         /// <summary>
         /// Whether to get the player's virtual currency balances. Defaults to false
         /// </summary>
-        public bool GetUserVirtualCurrency;
+        public bool GetUserVirtualCurrency ;
 
         /// <summary>
         /// Specific statistics to retrieve. Leave null to get all keys. Has no effect if GetPlayerStatistics is false
         /// </summary>
-        public List<string> PlayerStatisticNames;
+        public List<string> PlayerStatisticNames ;
 
         /// <summary>
         /// Specifies the properties to return from the player profile. Defaults to returning the player's display name.
         /// </summary>
-        public PlayerProfileViewConstraints ProfileConstraints;
+        public PlayerProfileViewConstraints ProfileConstraints ;
 
         /// <summary>
         /// Specific keys to search for in the custom data. Leave null to get all keys. Has no effect if GetTitleData is false
         /// </summary>
-        public List<string> TitleDataKeys;
+        public List<string> TitleDataKeys ;
 
         /// <summary>
         /// Specific keys to search for in the custom data. Leave null to get all keys. Has no effect if GetUserData is false
         /// </summary>
-        public List<string> UserDataKeys;
+        public List<string> UserDataKeys ;
 
         /// <summary>
         /// Specific keys to search for in the custom data. Leave null to get all keys. Has no effect if GetUserReadOnlyData is
         /// false
         /// </summary>
-        public List<string> UserReadOnlyDataKeys;
+        public List<string> UserReadOnlyDataKeys ;
 
     }
 
@@ -2606,12 +2583,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Results for requested info.
         /// </summary>
-        public GetPlayerCombinedInfoResultPayload InfoResultPayload;
+        public GetPlayerCombinedInfoResultPayload InfoResultPayload ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2620,69 +2597,69 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Account information for the user. This is always retrieved.
         /// </summary>
-        public UserAccountInfo AccountInfo;
+        public UserAccountInfo AccountInfo ;
 
         /// <summary>
         /// Inventories for each character for the user.
         /// </summary>
-        public List<CharacterInventory> CharacterInventories;
+        public List<CharacterInventory> CharacterInventories ;
 
         /// <summary>
         /// List of characters for the user.
         /// </summary>
-        public List<CharacterResult> CharacterList;
+        public List<CharacterResult> CharacterList ;
 
         /// <summary>
         /// The profile of the players. This profile is not guaranteed to be up-to-date. For a new player, this profile will not
         /// exist.
         /// </summary>
-        public PlayerProfileModel PlayerProfile;
+        public PlayerProfileModel PlayerProfile ;
 
         /// <summary>
         /// List of statistics for this player.
         /// </summary>
-        public List<StatisticValue> PlayerStatistics;
+        public List<StatisticValue> PlayerStatistics ;
 
         /// <summary>
         /// Title data for this title.
         /// </summary>
-        public Dictionary<string,string> TitleData;
+        public Dictionary<string,string> TitleData ;
 
         /// <summary>
         /// User specific custom data.
         /// </summary>
-        public Dictionary<string,UserDataRecord> UserData;
+        public Dictionary<string,UserDataRecord> UserData ;
 
         /// <summary>
         /// The version of the UserData that was returned.
         /// </summary>
-        public uint UserDataVersion;
+        public uint UserDataVersion ;
 
         /// <summary>
         /// Array of inventory items in the user's current inventory.
         /// </summary>
         [Unordered(SortProperty="ItemInstanceId")]
-        public List<ItemInstance> UserInventory;
+        public List<ItemInstance> UserInventory ;
 
         /// <summary>
         /// User specific read-only data.
         /// </summary>
-        public Dictionary<string,UserDataRecord> UserReadOnlyData;
+        public Dictionary<string,UserDataRecord> UserReadOnlyData ;
 
         /// <summary>
         /// The version of the Read-Only UserData that was returned.
         /// </summary>
-        public uint UserReadOnlyDataVersion;
+        public uint UserReadOnlyDataVersion ;
 
         /// <summary>
         /// Dictionary of virtual currency balance(s) belonging to the user.
         /// </summary>
-        public Dictionary<string,int> UserVirtualCurrency;
+        public Dictionary<string,int> UserVirtualCurrency ;
 
         /// <summary>
         /// Dictionary of remaining times and timestamps for virtual currencies.
         /// </summary>
-        public Dictionary<string,VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
+        public Dictionary<string,VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes ;
 
     }
 
@@ -2699,14 +2676,14 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
         /// only the allowed client profile properties for the title may be requested. These allowed properties are configured in
         /// the Game Manager "Client Profile Options" tab in the "Settings" section.
         /// </summary>
-        public PlayerProfileViewConstraints ProfileConstraints;
+        public PlayerProfileViewConstraints ProfileConstraints ;
 
     }
 
@@ -2716,7 +2693,7 @@ namespace PlayFab.ServerModels
         /// The profile of the player. This profile is not guaranteed to be up-to-date. For a new player, this profile will not
         /// exist.
         /// </summary>
-        public PlayerProfileModel PlayerProfile;
+        public PlayerProfileModel PlayerProfile ;
 
     }
 
@@ -2725,7 +2702,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of segments the requested player currently belongs to.
         /// </summary>
-        public List<GetSegmentResult> Segments;
+        public List<GetSegmentResult> Segments ;
 
     }
 
@@ -2743,23 +2720,23 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Continuation token if retrieving subsequent pages of results.
         /// </summary>
-        public string ContinuationToken;
+        public string ContinuationToken ;
 
         /// <summary>
         /// Maximum number of profiles to load. Default is 1,000. Maximum is 10,000.
         /// </summary>
-        public uint? MaxBatchSize;
+        public uint? MaxBatchSize ;
 
         /// <summary>
         /// Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging
         /// results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes).
         /// </summary>
-        public uint? SecondsToLive;
+        public uint? SecondsToLive ;
 
         /// <summary>
         /// Unique identifier for this segment.
         /// </summary>
-        public string SegmentId;
+        public string SegmentId ;
 
     }
 
@@ -2768,17 +2745,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results.
         /// </summary>
-        public string ContinuationToken;
+        public string ContinuationToken ;
 
         /// <summary>
         /// Array of player profiles in this segment.
         /// </summary>
-        public List<PlayerProfile> PlayerProfiles;
+        public List<PlayerProfile> PlayerProfiles ;
 
         /// <summary>
         /// Count of profiles matching this segment.
         /// </summary>
-        public int ProfilesInSegment;
+        public int ProfilesInSegment ;
 
     }
 
@@ -2787,7 +2764,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2796,18 +2773,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// user for whom statistics are being requested
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// statistics to return
         /// </summary>
-        public List<string> StatisticNames;
+        public List<string> StatisticNames ;
 
         /// <summary>
         /// statistics to return, if StatisticNames is not set (only statistics which have a version matching that provided will be
         /// returned)
         /// </summary>
-        public List<StatisticNameVersion> StatisticNameVersions;
+        public List<StatisticNameVersion> StatisticNameVersions ;
 
     }
 
@@ -2819,12 +2796,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// PlayFab unique identifier of the user whose statistics are being returned
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// User statistics for the requested user.
         /// </summary>
-        public List<StatisticValue> Statistics;
+        public List<StatisticValue> Statistics ;
 
     }
 
@@ -2833,7 +2810,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// unique name of the statistic
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
     }
 
@@ -2842,7 +2819,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// version change history of the statistic
         /// </summary>
-        public List<PlayerStatisticVersion> StatisticVersions;
+        public List<PlayerStatisticVersion> StatisticVersions ;
 
     }
 
@@ -2856,12 +2833,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Optional namespace to filter results by
         /// </summary>
-        public string Namespace;
+        public string Namespace ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -2870,12 +2847,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Canonical tags (including namespace and tag's name) for the requested user
         /// </summary>
-        public List<string> Tags;
+        public List<string> Tags ;
 
     }
 
@@ -2884,7 +2861,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of unique Facebook identifiers for which the title needs to get PlayFab identifiers.
         /// </summary>
-        public List<string> FacebookIDs;
+        public List<string> FacebookIDs ;
 
     }
 
@@ -2896,7 +2873,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Mapping of Facebook identifiers to PlayFab identifiers.
         /// </summary>
-        public List<FacebookPlayFabIdPair> Data;
+        public List<FacebookPlayFabIdPair> Data ;
 
     }
 
@@ -2905,7 +2882,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of unique Facebook Instant Games identifiers for which the title needs to get PlayFab identifiers.
         /// </summary>
-        public List<string> FacebookInstantGamesIds;
+        public List<string> FacebookInstantGamesIds ;
 
     }
 
@@ -2917,7 +2894,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Mapping of Facebook Instant Games identifiers to PlayFab identifiers.
         /// </summary>
-        public List<FacebookInstantGamesPlayFabIdPair> Data;
+        public List<FacebookInstantGamesPlayFabIdPair> Data ;
 
     }
 
@@ -2926,7 +2903,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers.
         /// </summary>
-        public List<string> NintendoSwitchDeviceIds;
+        public List<string> NintendoSwitchDeviceIds ;
 
     }
 
@@ -2938,7 +2915,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Mapping of Nintendo Switch Device identifiers to PlayFab identifiers.
         /// </summary>
-        public List<NintendoSwitchPlayFabIdPair> Data;
+        public List<NintendoSwitchPlayFabIdPair> Data ;
 
     }
 
@@ -2947,12 +2924,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Id of the PSN issuer environment. If null, defaults to 256 (production)
         /// </summary>
-        public int? IssuerId;
+        public int? IssuerId ;
 
         /// <summary>
         /// Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers.
         /// </summary>
-        public List<string> PSNAccountIDs;
+        public List<string> PSNAccountIDs ;
 
     }
 
@@ -2964,7 +2941,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Mapping of PlayStation Network identifiers to PlayFab identifiers.
         /// </summary>
-        public List<PSNAccountPlayFabIdPair> Data;
+        public List<PSNAccountPlayFabIdPair> Data ;
 
     }
 
@@ -2973,7 +2950,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
         /// </summary>
-        public List<string> SteamStringIDs;
+        public List<string> SteamStringIDs ;
 
     }
 
@@ -2985,7 +2962,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Mapping of Steam identifiers to PlayFab identifiers.
         /// </summary>
-        public List<SteamPlayFabIdPair> Data;
+        public List<SteamPlayFabIdPair> Data ;
 
     }
 
@@ -2994,12 +2971,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The ID of Xbox Live sandbox.
         /// </summary>
-        public string Sandbox;
+        public string Sandbox ;
 
         /// <summary>
         /// Array of unique Xbox Live account identifiers for which the title needs to get PlayFab identifiers.
         /// </summary>
-        public List<string> XboxLiveAccountIDs;
+        public List<string> XboxLiveAccountIDs ;
 
     }
 
@@ -3011,7 +2988,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Mapping of PlayStation Network identifiers to PlayFab identifiers.
         /// </summary>
-        public List<XboxLiveAccountPlayFabIdPair> Data;
+        public List<XboxLiveAccountPlayFabIdPair> Data ;
 
     }
 
@@ -3029,7 +3006,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// array of keys to get back data from the Publisher data blob, set by the admin tools
         /// </summary>
-        public List<string> Keys;
+        public List<string> Keys ;
 
     }
 
@@ -3038,7 +3015,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// a dictionary object of key / value pairs
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
     }
 
@@ -3048,12 +3025,12 @@ namespace PlayFab.ServerModels
         /// Specifies the catalog version that should be used to retrieve the Random Result Tables. If unspecified, uses
         /// default/primary catalog.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// The unique identifier of the Random Result Table to use.
         /// </summary>
-        public List<string> TableIDs;
+        public List<string> TableIDs ;
 
     }
 
@@ -3066,7 +3043,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// array of random result tables currently available
         /// </summary>
-        public Dictionary<string,RandomResultTableListing> Tables;
+        public Dictionary<string,RandomResultTableListing> Tables ;
 
     }
 
@@ -3075,17 +3052,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Identifier of the segments AB Test, if it is attached to one.
         /// </summary>
-        public string ABTestParent;
+        public string ABTestParent ;
 
         /// <summary>
         /// Unique identifier for this segment.
         /// </summary>
-        public string Id;
+        public string Id ;
 
         /// <summary>
         /// Segment name.
         /// </summary>
-        public string Name;
+        public string Name ;
 
     }
 
@@ -3095,7 +3072,7 @@ namespace PlayFab.ServerModels
         /// Array of unique PlayFab player identifiers for which the title needs to get server custom identifiers. Cannot contain
         /// more than 25 identifiers.
         /// </summary>
-        public List<string> PlayFabIDs;
+        public List<string> PlayFabIDs ;
 
     }
 
@@ -3107,7 +3084,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Mapping of server custom player identifiers to PlayFab identifiers.
         /// </summary>
-        public List<ServerCustomIDPlayFabIDPair> Data;
+        public List<ServerCustomIDPlayFabIDPair> Data ;
 
     }
 
@@ -3116,18 +3093,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// If true, return the list of all members of the shared group.
         /// </summary>
-        public bool? GetMembers;
+        public bool? GetMembers ;
 
         /// <summary>
         /// Specific keys to retrieve from the shared group (if not specified, all keys will be returned, while an empty array
         /// indicates that no keys should be returned).
         /// </summary>
-        public List<string> Keys;
+        public List<string> Keys ;
 
         /// <summary>
         /// Unique identifier for the shared group.
         /// </summary>
-        public string SharedGroupId;
+        public string SharedGroupId ;
 
     }
 
@@ -3136,12 +3113,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Data for the requested keys.
         /// </summary>
-        public Dictionary<string,SharedGroupDataRecord> Data;
+        public Dictionary<string,SharedGroupDataRecord> Data ;
 
         /// <summary>
         /// List of PlayFabId identifiers for the members of this group, if requested.
         /// </summary>
-        public List<string> Members;
+        public List<string> Members ;
 
     }
 
@@ -3162,7 +3139,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Current server time when the request was received, in UTC
         /// </summary>
-        public DateTime Time;
+        public DateTime Time ;
 
     }
 
@@ -3180,7 +3157,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Specific keys to search for in the title data (leave null to get all keys)
         /// </summary>
-        public List<string> Keys;
+        public List<string> Keys ;
 
     }
 
@@ -3189,7 +3166,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// a dictionary object of key / value pairs
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
     }
 
@@ -3198,7 +3175,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Limits the results to the last n entries. Defaults to 10 if not set.
         /// </summary>
-        public int? Count;
+        public int? Count ;
 
     }
 
@@ -3207,7 +3184,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of localized news items.
         /// </summary>
-        public List<TitleNewsItem> News;
+        public List<TitleNewsItem> News ;
 
     }
 
@@ -3224,7 +3201,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3233,7 +3210,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Account details for the user whose information was requested.
         /// </summary>
-        public UserAccountInfo UserInfo;
+        public UserAccountInfo UserInfo ;
 
     }
 
@@ -3245,7 +3222,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3254,7 +3231,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Information about the bans
         /// </summary>
-        public List<BanInfo> BanData;
+        public List<BanInfo> BanData ;
 
     }
 
@@ -3270,17 +3247,17 @@ namespace PlayFab.ServerModels
         /// The version that currently exists according to the caller. The call will return the data for all of the keys if the
         /// version in the system is greater than this.
         /// </summary>
-        public uint? IfChangedFromDataVersion;
+        public uint? IfChangedFromDataVersion ;
 
         /// <summary>
         /// Specific keys to search for in the custom user data.
         /// </summary>
-        public List<string> Keys;
+        public List<string> Keys ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3289,18 +3266,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// User specific data for this title.
         /// </summary>
-        public Dictionary<string,UserDataRecord> Data;
+        public Dictionary<string,UserDataRecord> Data ;
 
         /// <summary>
         /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
         /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
         /// </summary>
-        public uint DataVersion;
+        public uint DataVersion ;
 
         /// <summary>
         /// PlayFab unique identifier of the user whose custom data is being returned.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3315,7 +3292,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3325,22 +3302,22 @@ namespace PlayFab.ServerModels
         /// Array of inventory items belonging to the user.
         /// </summary>
         [Unordered(SortProperty="ItemInstanceId")]
-        public List<ItemInstance> Inventory;
+        public List<ItemInstance> Inventory ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Array of virtual currency balance(s) belonging to the user.
         /// </summary>
-        public Dictionary<string,int> VirtualCurrency;
+        public Dictionary<string,int> VirtualCurrency ;
 
         /// <summary>
         /// Array of remaining times and timestamps for virtual currencies.
         /// </summary>
-        public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
+        public Dictionary<string,VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes ;
 
     }
 
@@ -3352,17 +3329,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Non-unique display name of the character being granted (1-20 characters in length).
         /// </summary>
-        public string CharacterName;
+        public string CharacterName ;
 
         /// <summary>
         /// Type of the character being granted; statistics can be sliced based on this value.
         /// </summary>
-        public string CharacterType;
+        public string CharacterType ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3371,7 +3348,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier tagged to this character.
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
     }
 
@@ -3383,93 +3360,93 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Game specific comment associated with this instance when it was added to the user inventory.
         /// </summary>
-        public string Annotation;
+        public string Annotation ;
 
         /// <summary>
         /// Array of unique items that were awarded when this catalog item was purchased.
         /// </summary>
-        public List<string> BundleContents;
+        public List<string> BundleContents ;
 
         /// <summary>
         /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or
         /// container.
         /// </summary>
-        public string BundleParent;
+        public string BundleParent ;
 
         /// <summary>
         /// Catalog version for the inventory item, when this instance was created.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// A set of custom key-value pairs on the inventory item.
         /// </summary>
-        public Dictionary<string,string> CustomData;
+        public Dictionary<string,string> CustomData ;
 
         /// <summary>
         /// CatalogItem.DisplayName at the time this item was purchased.
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// Timestamp for when this instance will expire.
         /// </summary>
-        public DateTime? Expiration;
+        public DateTime? Expiration ;
 
         /// <summary>
         /// Class name for the inventory item, as defined in the catalog.
         /// </summary>
-        public string ItemClass;
+        public string ItemClass ;
 
         /// <summary>
         /// Unique identifier for the inventory item, as defined in the catalog.
         /// </summary>
-        public string ItemId;
+        public string ItemId ;
 
         /// <summary>
         /// Unique item identifier for this specific instance of the item.
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Timestamp for when this instance was purchased.
         /// </summary>
-        public DateTime? PurchaseDate;
+        public DateTime? PurchaseDate ;
 
         /// <summary>
         /// Total number of remaining uses, if this is a consumable item.
         /// </summary>
-        public int? RemainingUses;
+        public int? RemainingUses ;
 
         /// <summary>
         /// Result of this operation.
         /// </summary>
-        public bool Result;
+        public bool Result ;
 
         /// <summary>
         /// Currency type for the cost of the catalog item.
         /// </summary>
-        public string UnitCurrency;
+        public string UnitCurrency ;
 
         /// <summary>
         /// Cost of the catalog item in the given currency.
         /// </summary>
-        public uint UnitPrice;
+        public uint UnitPrice ;
 
         /// <summary>
         /// The number of uses that were added or removed to this item in this call.
         /// </summary>
-        public int? UsesIncrementedBy;
+        public int? UsesIncrementedBy ;
 
         public int CompareTo(GrantedItemInstance other)
         {
@@ -3491,27 +3468,27 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// String detailing any additional information concerning this operation.
         /// </summary>
-        public string Annotation;
+        public string Annotation ;
 
         /// <summary>
         /// Catalog version from which items are to be granted.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Array of itemIds to grant to the user.
         /// </summary>
-        public List<string> ItemIds;
+        public List<string> ItemIds ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3520,7 +3497,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of items granted to users.
         /// </summary>
-        public List<GrantedItemInstance> ItemGrantResults;
+        public List<GrantedItemInstance> ItemGrantResults ;
 
     }
 
@@ -3537,22 +3514,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// String detailing any additional information concerning this operation.
         /// </summary>
-        public string Annotation;
+        public string Annotation ;
 
         /// <summary>
         /// Catalog version from which items are to be granted.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Array of itemIds to grant to the user.
         /// </summary>
-        public List<string> ItemIds;
+        public List<string> ItemIds ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3564,7 +3541,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of items granted to users.
         /// </summary>
-        public List<GrantedItemInstance> ItemGrantResults;
+        public List<GrantedItemInstance> ItemGrantResults ;
 
     }
 
@@ -3581,13 +3558,13 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Catalog version from which items are to be granted.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Array of items to grant and the users to whom the items are to be granted.
         /// </summary>
         [Unordered]
-        public List<ItemGrant> ItemGrants;
+        public List<ItemGrant> ItemGrants ;
 
     }
 
@@ -3599,7 +3576,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of items granted to users.
         /// </summary>
-        public List<GrantedItemInstance> ItemGrantResults;
+        public List<GrantedItemInstance> ItemGrantResults ;
 
     }
 
@@ -3608,34 +3585,34 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// String detailing any additional information concerning this operation.
         /// </summary>
-        public string Annotation;
+        public string Annotation ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
         /// not begin with a '!' character or be null.
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
         /// <summary>
         /// Unique identifier of the catalog item to be granted to the user.
         /// </summary>
-        public string ItemId;
+        public string ItemId ;
 
         /// <summary>
         /// Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
         /// constraints. Use this to delete the keys directly.
         /// </summary>
-        public List<string> KeysToRemove;
+        public List<string> KeysToRemove ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3650,78 +3627,78 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Game specific comment associated with this instance when it was added to the user inventory.
         /// </summary>
-        public string Annotation;
+        public string Annotation ;
 
         /// <summary>
         /// Array of unique items that were awarded when this catalog item was purchased.
         /// </summary>
-        public List<string> BundleContents;
+        public List<string> BundleContents ;
 
         /// <summary>
         /// Unique identifier for the parent inventory item, as defined in the catalog, for object which were added from a bundle or
         /// container.
         /// </summary>
-        public string BundleParent;
+        public string BundleParent ;
 
         /// <summary>
         /// Catalog version for the inventory item, when this instance was created.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// A set of custom key-value pairs on the inventory item.
         /// </summary>
-        public Dictionary<string,string> CustomData;
+        public Dictionary<string,string> CustomData ;
 
         /// <summary>
         /// CatalogItem.DisplayName at the time this item was purchased.
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// Timestamp for when this instance will expire.
         /// </summary>
-        public DateTime? Expiration;
+        public DateTime? Expiration ;
 
         /// <summary>
         /// Class name for the inventory item, as defined in the catalog.
         /// </summary>
-        public string ItemClass;
+        public string ItemClass ;
 
         /// <summary>
         /// Unique identifier for the inventory item, as defined in the catalog.
         /// </summary>
-        public string ItemId;
+        public string ItemId ;
 
         /// <summary>
         /// Unique item identifier for this specific instance of the item.
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Timestamp for when this instance was purchased.
         /// </summary>
-        public DateTime? PurchaseDate;
+        public DateTime? PurchaseDate ;
 
         /// <summary>
         /// Total number of remaining uses, if this is a consumable item.
         /// </summary>
-        public int? RemainingUses;
+        public int? RemainingUses ;
 
         /// <summary>
         /// Currency type for the cost of the catalog item.
         /// </summary>
-        public string UnitCurrency;
+        public string UnitCurrency ;
 
         /// <summary>
         /// Cost of the catalog item in the given currency.
         /// </summary>
-        public uint UnitPrice;
+        public uint UnitPrice ;
 
         /// <summary>
         /// The number of uses that were added or removed to this item in this call.
         /// </summary>
-        public int? UsesIncrementedBy;
+        public int? UsesIncrementedBy ;
 
         public int CompareTo(ItemInstance other)
         {
@@ -3737,22 +3714,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Linked account email of the user on the platform, if available
         /// </summary>
-        public string Email;
+        public string Email ;
 
         /// <summary>
         /// Authentication platform
         /// </summary>
-        public LoginIdentityProvider? Platform;
+        public LoginIdentityProvider? Platform ;
 
         /// <summary>
         /// Unique account identifier of the user on the platform
         /// </summary>
-        public string PlatformUserId;
+        public string PlatformUserId ;
 
         /// <summary>
         /// Linked account username of the user on the platform, if available
         /// </summary>
-        public string Username;
+        public string Username ;
 
     }
 
@@ -3761,17 +3738,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// If another user is already linked to the account, unlink the other user and re-link.
         /// </summary>
-        public bool? ForceLink;
+        public bool? ForceLink ;
 
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Xbox Live identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
         /// </summary>
-        public string XboxToken;
+        public string XboxToken ;
 
     }
 
@@ -3787,7 +3764,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -3796,7 +3773,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The requested list of characters.
         /// </summary>
-        public List<CharacterResult> Characters;
+        public List<CharacterResult> Characters ;
 
     }
 
@@ -3805,27 +3782,27 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// City name.
         /// </summary>
-        public string City;
+        public string City ;
 
         /// <summary>
         /// The two-character continent code for this location
         /// </summary>
-        public ContinentCode? ContinentCode;
+        public ContinentCode? ContinentCode ;
 
         /// <summary>
         /// The two-character ISO 3166-1 country code for the country associated with the location
         /// </summary>
-        public CountryCode? CountryCode;
+        public CountryCode? CountryCode ;
 
         /// <summary>
         /// Latitude coordinate of the geographic location.
         /// </summary>
-        public double? Latitude;
+        public double? Latitude ;
 
         /// <summary>
         /// Longitude coordinate of the geographic location.
         /// </summary>
-        public double? Longitude;
+        public double? Longitude ;
 
     }
 
@@ -3857,22 +3834,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Automatically create a PlayFab account if one is not currently linked to this ID.
         /// </summary>
-        public bool? CreateAccount;
+        public bool? CreateAccount ;
 
         /// <summary>
         /// Flags for which pieces of info to return for the user.
         /// </summary>
-        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
 
         /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
-        public string PlayerSecret;
+        public string PlayerSecret ;
 
         /// <summary>
         /// The backend server identifier for this player.
         /// </summary>
-        public string ServerCustomId;
+        public string ServerCustomId ;
 
     }
 
@@ -3889,17 +3866,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Automatically create a PlayFab account if one is not currently linked to this ID.
         /// </summary>
-        public bool? CreateAccount;
+        public bool? CreateAccount ;
 
         /// <summary>
         /// Flags for which pieces of info to return for the user.
         /// </summary>
-        public GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
 
         /// <summary>
         /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
         /// </summary>
-        public string XboxToken;
+        public string XboxToken ;
 
     }
 
@@ -3908,14 +3885,14 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Optional object accompanying the message as contextual information
         /// </summary>
-        public object Data;
+        public object Data ;
 
         /// <summary>
         /// 'Debug', 'Info', or 'Error'
         /// </summary>
-        public string Level;
+        public string Level ;
 
-        public string Message;
+        public string Message ;
 
     }
 
@@ -3924,28 +3901,28 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Whether this membership is active. That is, whether the MembershipExpiration time has been reached.
         /// </summary>
-        public bool IsActive;
+        public bool IsActive ;
 
         /// <summary>
         /// The time this membership expires
         /// </summary>
-        public DateTime MembershipExpiration;
+        public DateTime MembershipExpiration ;
 
         /// <summary>
         /// The id of the membership
         /// </summary>
-        public string MembershipId;
+        public string MembershipId ;
 
         /// <summary>
         /// Membership expirations can be explicitly overridden (via game manager or the admin api). If this membership has been
         /// overridden, this will be the new expiration time.
         /// </summary>
-        public DateTime? OverrideExpiration;
+        public DateTime? OverrideExpiration ;
 
         /// <summary>
         /// The list of subscriptions that this player has for this membership
         /// </summary>
-        public List<SubscriptionModel> Subscriptions;
+        public List<SubscriptionModel> Subscriptions ;
 
     }
 
@@ -3954,12 +3931,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Balance of the virtual currency after modification.
         /// </summary>
-        public int Balance;
+        public int Balance ;
 
         /// <summary>
         /// Name of the virtual currency which was modified.
         /// </summary>
-        public string VirtualCurrency;
+        public string VirtualCurrency ;
 
     }
 
@@ -3972,17 +3949,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique instance identifier of the item to be modified.
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// PlayFab unique identifier of the user whose item is being modified.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Number of uses to add to the item. Can be negative to remove uses.
         /// </summary>
-        public int UsesToAdd;
+        public int UsesToAdd ;
 
     }
 
@@ -3991,12 +3968,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique instance identifier of the item with uses consumed.
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Number of uses remaining on the item.
         /// </summary>
-        public int RemainingUses;
+        public int RemainingUses ;
 
     }
 
@@ -4005,23 +3982,23 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Balance of the virtual currency after modification.
         /// </summary>
-        public int Balance;
+        public int Balance ;
 
         /// <summary>
         /// Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase
         /// over this value will be discarded.
         /// </summary>
-        public int BalanceChange;
+        public int BalanceChange ;
 
         /// <summary>
         /// User currency was subtracted from.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Name of the virtual currency which was modified.
         /// </summary>
-        public string VirtualCurrency;
+        public string VirtualCurrency ;
 
     }
 
@@ -4035,22 +4012,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the character that currently has the item.
         /// </summary>
-        public string GivingCharacterId;
+        public string GivingCharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned instance identifier of the item
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique identifier of the character that will be receiving the item.
         /// </summary>
-        public string ReceivingCharacterId;
+        public string ReceivingCharacterId ;
 
     }
 
@@ -4068,17 +4045,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned instance identifier of the item
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -4096,17 +4073,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned instance identifier of the item
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -4119,12 +4096,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique Nintendo Switch Device identifier for a user.
         /// </summary>
-        public string NintendoSwitchDeviceId;
+        public string NintendoSwitchDeviceId ;
 
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Nintendo Switch Device identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -4133,12 +4110,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the Game Instance the user is leaving.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -4147,7 +4124,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// State of user leaving the Game Server Instance.
         /// </summary>
-        public PlayerConnectionState? PlayerState;
+        public PlayerConnectionState? PlayerState ;
 
     }
 
@@ -4164,27 +4141,27 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Title-specific display name of the user for this leaderboard entry.
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// PlayFab unique identifier of the user for this leaderboard entry.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// User's overall position in the leaderboard.
         /// </summary>
-        public int Position;
+        public int Position ;
 
         /// <summary>
         /// The profile of the user, if requested.
         /// </summary>
-        public PlayerProfileModel Profile;
+        public PlayerProfileModel Profile ;
 
         /// <summary>
         /// Specific value of the user's statistic.
         /// </summary>
-        public int StatValue;
+        public int StatValue ;
 
     }
 
@@ -4193,22 +4170,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Linked account's email
         /// </summary>
-        public string Email;
+        public string Email ;
 
         /// <summary>
         /// Authentication platform
         /// </summary>
-        public LoginIdentityProvider? Platform;
+        public LoginIdentityProvider? Platform ;
 
         /// <summary>
         /// Platform user identifier
         /// </summary>
-        public string PlatformUserId;
+        public string PlatformUserId ;
 
         /// <summary>
         /// Linked account's username
         /// </summary>
-        public string Username;
+        public string Username ;
 
     }
 
@@ -4217,27 +4194,27 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// City of the player's geographic location.
         /// </summary>
-        public string City;
+        public string City ;
 
         /// <summary>
         /// The two-character continent code for this location
         /// </summary>
-        public ContinentCode ContinentCode;
+        public ContinentCode ContinentCode ;
 
         /// <summary>
         /// The two-character ISO 3166-1 country code for the country associated with the location
         /// </summary>
-        public CountryCode CountryCode;
+        public CountryCode CountryCode ;
 
         /// <summary>
         /// Latitude coordinate of the player's geographic location.
         /// </summary>
-        public double? Latitude;
+        public double? Latitude ;
 
         /// <summary>
         /// Longitude coordinate of the player's geographic location.
         /// </summary>
-        public double? Longitude;
+        public double? Longitude ;
 
     }
 
@@ -4246,102 +4223,102 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of ad campaigns player has been attributed to
         /// </summary>
-        public List<AdCampaignAttribution> AdCampaignAttributions;
+        public List<AdCampaignAttribution> AdCampaignAttributions ;
 
         /// <summary>
         /// Image URL of the player's avatar.
         /// </summary>
-        public string AvatarUrl;
+        public string AvatarUrl ;
 
         /// <summary>
         /// Banned until UTC Date. If permanent ban this is set for 20 years after the original ban date.
         /// </summary>
-        public DateTime? BannedUntil;
+        public DateTime? BannedUntil ;
 
         /// <summary>
         /// Array of contact email addresses associated with the player
         /// </summary>
-        public List<ContactEmailInfo> ContactEmailAddresses;
+        public List<ContactEmailInfo> ContactEmailAddresses ;
 
         /// <summary>
         /// Player record created
         /// </summary>
-        public DateTime? Created;
+        public DateTime? Created ;
 
         /// <summary>
         /// Player Display Name
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// Last login
         /// </summary>
-        public DateTime? LastLogin;
+        public DateTime? LastLogin ;
 
         /// <summary>
         /// Array of third party accounts linked to this player
         /// </summary>
-        public List<PlayerLinkedAccount> LinkedAccounts;
+        public List<PlayerLinkedAccount> LinkedAccounts ;
 
         /// <summary>
         /// Dictionary of player's locations by type.
         /// </summary>
-        public Dictionary<string,PlayerLocation> Locations;
+        public Dictionary<string,PlayerLocation> Locations ;
 
         /// <summary>
         /// Player account origination
         /// </summary>
-        public LoginIdentityProvider? Origination;
+        public LoginIdentityProvider? Origination ;
 
         /// <summary>
         /// PlayFab Player ID
         /// </summary>
-        public string PlayerId;
+        public string PlayerId ;
 
         /// <summary>
         /// Array of player statistics
         /// </summary>
-        public List<PlayerStatistic> PlayerStatistics;
+        public List<PlayerStatistic> PlayerStatistics ;
 
         /// <summary>
         /// Publisher this player belongs to
         /// </summary>
-        public string PublisherId;
+        public string PublisherId ;
 
         /// <summary>
         /// Array of configured push notification end points
         /// </summary>
-        public List<PushNotificationRegistration> PushNotificationRegistrations;
+        public List<PushNotificationRegistration> PushNotificationRegistrations ;
 
         /// <summary>
         /// Dictionary of player's statistics using only the latest version's value
         /// </summary>
-        public Dictionary<string,int> Statistics;
+        public Dictionary<string,int> Statistics ;
 
         /// <summary>
         /// List of player's tags for segmentation.
         /// </summary>
-        public List<string> Tags;
+        public List<string> Tags ;
 
         /// <summary>
         /// Title ID this profile applies to
         /// </summary>
-        public string TitleId;
+        public string TitleId ;
 
         /// <summary>
         /// A sum of player's total purchases in USD across all currencies.
         /// </summary>
-        public uint? TotalValueToDateInUSD;
+        public uint? TotalValueToDateInUSD ;
 
         /// <summary>
         /// Dictionary of player's total purchases by currency.
         /// </summary>
-        public Dictionary<string,uint> ValuesToDate;
+        public Dictionary<string,uint> ValuesToDate ;
 
         /// <summary>
         /// Dictionary of player's virtual currency balances
         /// </summary>
-        public Dictionary<string,int> VirtualCurrencyBalances;
+        public Dictionary<string,int> VirtualCurrencyBalances ;
 
     }
 
@@ -4350,98 +4327,98 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// List of advertising campaigns the player has been attributed to
         /// </summary>
-        public List<AdCampaignAttributionModel> AdCampaignAttributions;
+        public List<AdCampaignAttributionModel> AdCampaignAttributions ;
 
         /// <summary>
         /// URL of the player's avatar image
         /// </summary>
-        public string AvatarUrl;
+        public string AvatarUrl ;
 
         /// <summary>
         /// If the player is currently banned, the UTC Date when the ban expires
         /// </summary>
-        public DateTime? BannedUntil;
+        public DateTime? BannedUntil ;
 
         /// <summary>
         /// List of all contact email info associated with the player account
         /// </summary>
-        public List<ContactEmailInfoModel> ContactEmailAddresses;
+        public List<ContactEmailInfoModel> ContactEmailAddresses ;
 
         /// <summary>
         /// Player record created
         /// </summary>
-        public DateTime? Created;
+        public DateTime? Created ;
 
         /// <summary>
         /// Player display name
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// UTC time when the player most recently logged in to the title
         /// </summary>
-        public DateTime? LastLogin;
+        public DateTime? LastLogin ;
 
         /// <summary>
         /// List of all authentication systems linked to this player account
         /// </summary>
-        public List<LinkedPlatformAccountModel> LinkedAccounts;
+        public List<LinkedPlatformAccountModel> LinkedAccounts ;
 
         /// <summary>
         /// List of geographic locations from which the player has logged in to the title
         /// </summary>
-        public List<LocationModel> Locations;
+        public List<LocationModel> Locations ;
 
         /// <summary>
         /// List of memberships for the player, along with whether are expired.
         /// </summary>
-        public List<MembershipModel> Memberships;
+        public List<MembershipModel> Memberships ;
 
         /// <summary>
         /// Player account origination
         /// </summary>
-        public LoginIdentityProvider? Origination;
+        public LoginIdentityProvider? Origination ;
 
         /// <summary>
         /// PlayFab player account unique identifier
         /// </summary>
-        public string PlayerId;
+        public string PlayerId ;
 
         /// <summary>
         /// Publisher this player belongs to
         /// </summary>
-        public string PublisherId;
+        public string PublisherId ;
 
         /// <summary>
         /// List of configured end points registered for sending the player push notifications
         /// </summary>
-        public List<PushNotificationRegistrationModel> PushNotificationRegistrations;
+        public List<PushNotificationRegistrationModel> PushNotificationRegistrations ;
 
         /// <summary>
         /// List of leaderboard statistic values for the player
         /// </summary>
-        public List<StatisticModel> Statistics;
+        public List<StatisticModel> Statistics ;
 
         /// <summary>
         /// List of player's tags for segmentation
         /// </summary>
-        public List<TagModel> Tags;
+        public List<TagModel> Tags ;
 
         /// <summary>
         /// Title ID this player profile applies to
         /// </summary>
-        public string TitleId;
+        public string TitleId ;
 
         /// <summary>
         /// Sum of the player's purchases made with real-money currencies, converted to US dollars equivalent and represented as a
         /// whole number of cents (1/100 USD). For example, 999 indicates nine dollars and ninety-nine cents.
         /// </summary>
-        public uint? TotalValueToDateInUSD;
+        public uint? TotalValueToDateInUSD ;
 
         /// <summary>
         /// List of the player's lifetime purchase totals, summed by real-money currency
         /// </summary>
-        public List<ValueToDateModel> ValuesToDate;
+        public List<ValueToDateModel> ValuesToDate ;
 
     }
 
@@ -4450,82 +4427,82 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Whether to show player's avatar URL. Defaults to false
         /// </summary>
-        public bool ShowAvatarUrl;
+        public bool ShowAvatarUrl ;
 
         /// <summary>
         /// Whether to show the banned until time. Defaults to false
         /// </summary>
-        public bool ShowBannedUntil;
+        public bool ShowBannedUntil ;
 
         /// <summary>
         /// Whether to show campaign attributions. Defaults to false
         /// </summary>
-        public bool ShowCampaignAttributions;
+        public bool ShowCampaignAttributions ;
 
         /// <summary>
         /// Whether to show contact email addresses. Defaults to false
         /// </summary>
-        public bool ShowContactEmailAddresses;
+        public bool ShowContactEmailAddresses ;
 
         /// <summary>
         /// Whether to show the created date. Defaults to false
         /// </summary>
-        public bool ShowCreated;
+        public bool ShowCreated ;
 
         /// <summary>
         /// Whether to show the display name. Defaults to false
         /// </summary>
-        public bool ShowDisplayName;
+        public bool ShowDisplayName ;
 
         /// <summary>
         /// Whether to show the last login time. Defaults to false
         /// </summary>
-        public bool ShowLastLogin;
+        public bool ShowLastLogin ;
 
         /// <summary>
         /// Whether to show the linked accounts. Defaults to false
         /// </summary>
-        public bool ShowLinkedAccounts;
+        public bool ShowLinkedAccounts ;
 
         /// <summary>
         /// Whether to show player's locations. Defaults to false
         /// </summary>
-        public bool ShowLocations;
+        public bool ShowLocations ;
 
         /// <summary>
         /// Whether to show player's membership information. Defaults to false
         /// </summary>
-        public bool ShowMemberships;
+        public bool ShowMemberships ;
 
         /// <summary>
         /// Whether to show origination. Defaults to false
         /// </summary>
-        public bool ShowOrigination;
+        public bool ShowOrigination ;
 
         /// <summary>
         /// Whether to show push notification registrations. Defaults to false
         /// </summary>
-        public bool ShowPushNotificationRegistrations;
+        public bool ShowPushNotificationRegistrations ;
 
         /// <summary>
         /// Reserved for future development
         /// </summary>
-        public bool ShowStatistics;
+        public bool ShowStatistics ;
 
         /// <summary>
         /// Whether to show tags. Defaults to false
         /// </summary>
-        public bool ShowTags;
+        public bool ShowTags ;
 
         /// <summary>
         /// Whether to show the total value to date in usd. Defaults to false
         /// </summary>
-        public bool ShowTotalValueToDateInUsd;
+        public bool ShowTotalValueToDateInUsd ;
 
         /// <summary>
         /// Whether to show the values to date. Defaults to false
         /// </summary>
-        public bool ShowValuesToDate;
+        public bool ShowValuesToDate ;
 
     }
 
@@ -4534,22 +4511,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Statistic ID
         /// </summary>
-        public string Id;
+        public string Id ;
 
         /// <summary>
         /// Statistic name
         /// </summary>
-        public string Name;
+        public string Name ;
 
         /// <summary>
         /// Current statistic value
         /// </summary>
-        public int StatisticValue;
+        public int StatisticValue ;
 
         /// <summary>
         /// Statistic version (0 if not a versioned statistic)
         /// </summary>
-        public int StatisticVersion;
+        public int StatisticVersion ;
 
     }
 
@@ -4558,32 +4535,32 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// time when the statistic version became active
         /// </summary>
-        public DateTime ActivationTime;
+        public DateTime ActivationTime ;
 
         /// <summary>
         /// time when the statistic version became inactive due to statistic version incrementing
         /// </summary>
-        public DateTime? DeactivationTime;
+        public DateTime? DeactivationTime ;
 
         /// <summary>
         /// time at which the statistic version was scheduled to become active, based on the configured ResetInterval
         /// </summary>
-        public DateTime? ScheduledActivationTime;
+        public DateTime? ScheduledActivationTime ;
 
         /// <summary>
         /// time at which the statistic version was scheduled to become inactive, based on the configured ResetInterval
         /// </summary>
-        public DateTime? ScheduledDeactivationTime;
+        public DateTime? ScheduledDeactivationTime ;
 
         /// <summary>
         /// name of the statistic when the version became active
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
         /// <summary>
         /// version of the statistic
         /// </summary>
-        public uint Version;
+        public uint Version ;
 
     }
 
@@ -4592,12 +4569,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation Network identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique PlayStation Network identifier for a user.
         /// </summary>
-        public string PSNAccountId;
+        public string PSNAccountId ;
 
     }
 
@@ -4606,32 +4583,32 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Numerical badge to display on App icon (iOS only)
         /// </summary>
-        public int Badge;
+        public int Badge ;
 
         /// <summary>
         /// This must be a JSON formatted object. For use with developer-created custom Push Notification plugins
         /// </summary>
-        public string CustomData;
+        public string CustomData ;
 
         /// <summary>
         /// Icon file to display with the message (Not supported for iOS)
         /// </summary>
-        public string Icon;
+        public string Icon ;
 
         /// <summary>
         /// Content of the message (all platforms)
         /// </summary>
-        public string Message;
+        public string Message ;
 
         /// <summary>
         /// Sound file to play with the message (all platforms)
         /// </summary>
-        public string Sound;
+        public string Sound ;
 
         /// <summary>
         /// Title/Subject of the message. Not supported for iOS
         /// </summary>
-        public string Title;
+        public string Title ;
 
     }
 
@@ -4646,12 +4623,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Notification configured endpoint
         /// </summary>
-        public string NotificationEndpointARN;
+        public string NotificationEndpointARN ;
 
         /// <summary>
         /// Push notification platform
         /// </summary>
-        public PushNotificationPlatform? Platform;
+        public PushNotificationPlatform? Platform ;
 
     }
 
@@ -4660,12 +4637,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Notification configured endpoint
         /// </summary>
-        public string NotificationEndpointARN;
+        public string NotificationEndpointARN ;
 
         /// <summary>
         /// Push notification platform
         /// </summary>
-        public PushNotificationPlatform? Platform;
+        public PushNotificationPlatform? Platform ;
 
     }
 
@@ -4674,17 +4651,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Catalog version this table is associated with
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Child nodes that indicate what kind of drop table item this actually is.
         /// </summary>
-        public List<ResultTableNode> Nodes;
+        public List<ResultTableNode> Nodes ;
 
         /// <summary>
         /// Unique name for this drop table
         /// </summary>
-        public string TableId;
+        public string TableId ;
 
     }
 
@@ -4699,22 +4676,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Catalog version of the coupon.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Optional identifier for the Character that should receive the item. If null, item is added to the player
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Generated coupon code to redeem.
         /// </summary>
-        public string CouponCode;
+        public string CouponCode ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -4723,7 +4700,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Items granted to the player as a result of redeeming the coupon.
         /// </summary>
-        public List<ItemInstance> GrantedItems;
+        public List<ItemInstance> GrantedItems ;
 
     }
 
@@ -4744,12 +4721,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the Game Server Instance that is asking for validation of the authorization ticket.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
         /// <summary>
         /// Server authorization ticket passed back from a call to Matchmake or StartGame.
         /// </summary>
-        public string Ticket;
+        public string Ticket ;
 
     }
 
@@ -4758,17 +4735,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Error value if the ticket was not validated.
         /// </summary>
-        public string Error;
+        public string Error ;
 
         /// <summary>
         /// Boolean indicating whether the ticket was validated by the PlayFab service.
         /// </summary>
-        public bool TicketIsValid;
+        public bool TicketIsValid ;
 
         /// <summary>
         /// User account information for the user validated.
         /// </summary>
-        public UserAccountInfo UserInfo;
+        public UserAccountInfo UserInfo ;
 
     }
 
@@ -4777,7 +4754,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the Game Server Instance for which the heartbeat is updated.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
     }
 
@@ -4801,49 +4778,49 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the build running on the Game Server Instance.
         /// </summary>
-        public string Build;
+        public string Build ;
 
         /// <summary>
         /// Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game
         /// Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs).
         /// </summary>
-        public string GameMode;
+        public string GameMode ;
 
         /// <summary>
         /// Previous lobby id if re-registering an existing game.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
         /// <summary>
         /// Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS
         /// region and use Tags (below) to specify your custom region.
         /// </summary>
-        public Region Region;
+        public Region Region ;
 
         /// <summary>
         /// IPV4 address of the game server instance.
         /// </summary>
-        public string ServerIPV4Address;
+        public string ServerIPV4Address ;
 
         /// <summary>
         /// IPV6 address (if any) of the game server instance.
         /// </summary>
-        public string ServerIPV6Address;
+        public string ServerIPV6Address ;
 
         /// <summary>
         /// Port number for communication with the Game Server Instance.
         /// </summary>
-        public string ServerPort;
+        public string ServerPort ;
 
         /// <summary>
         /// Public DNS name (if any) of the server
         /// </summary>
-        public string ServerPublicDNSName;
+        public string ServerPublicDNSName ;
 
         /// <summary>
         /// Tags for the Game Server Instance
         /// </summary>
-        public Dictionary<string,string> Tags;
+        public Dictionary<string,string> Tags ;
 
     }
 
@@ -4853,7 +4830,7 @@ namespace PlayFab.ServerModels
         /// Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the
         /// game still exists in PlayFab, the LobbyId in request is returned. Otherwise a new lobby id will be returned.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
     }
 
@@ -4862,12 +4839,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// PlayFab identifier of the friend account which is to be removed.
         /// </summary>
-        public string FriendPlayFabId;
+        public string FriendPlayFabId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -4880,12 +4857,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique tag for player profile.
         /// </summary>
-        public string TagName;
+        public string TagName ;
 
     }
 
@@ -4898,12 +4875,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// An array of unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public List<string> PlayFabIds;
+        public List<string> PlayFabIds ;
 
         /// <summary>
         /// Unique identifier for the shared group.
         /// </summary>
-        public string SharedGroupId;
+        public string SharedGroupId ;
 
     }
 
@@ -4916,17 +4893,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Optional additional comment by reporting player.
         /// </summary>
-        public string Comment;
+        public string Comment ;
 
         /// <summary>
         /// Unique PlayFab identifier of the reported player.
         /// </summary>
-        public string ReporteeId;
+        public string ReporteeId ;
 
         /// <summary>
         /// PlayFabId of the reporting player.
         /// </summary>
-        public string ReporterId;
+        public string ReporterId ;
 
     }
 
@@ -4939,7 +4916,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The number of remaining reports which may be filed today by this reporting player.
         /// </summary>
-        public int SubmissionsRemaining;
+        public int SubmissionsRemaining ;
 
     }
 
@@ -4948,17 +4925,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Either an ItemId, or the TableId of another random result table
         /// </summary>
-        public string ResultItem;
+        public string ResultItem ;
 
         /// <summary>
         /// Whether this entry in the table is an item or a link to another table
         /// </summary>
-        public ResultTableNodeType ResultItemType;
+        public ResultTableNodeType ResultItemType ;
 
         /// <summary>
         /// How likely this is to be rolled - larger numbers add more weight
         /// </summary>
-        public int Weight;
+        public int Weight ;
 
     }
 
@@ -4977,7 +4954,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -4986,7 +4963,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Information on the bans that were revoked.
         /// </summary>
-        public List<BanInfo> BanData;
+        public List<BanInfo> BanData ;
 
     }
 
@@ -4999,7 +4976,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Ids of the bans to be revoked. Maximum 100.
         /// </summary>
-        public List<string> BanIds;
+        public List<string> BanIds ;
 
     }
 
@@ -5008,7 +4985,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Information on the bans that were revoked
         /// </summary>
-        public List<BanInfo> BanData;
+        public List<BanInfo> BanData ;
 
     }
 
@@ -5017,17 +4994,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned instance identifier of the item
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5040,17 +5017,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned instance identifier of the item
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5063,7 +5040,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Array of player items to revoke, between 1 and 25 items.
         /// </summary>
-        public List<RevokeInventoryItem> Items;
+        public List<RevokeInventoryItem> Items ;
 
     }
 
@@ -5072,7 +5049,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Collection of any errors that occurred during processing.
         /// </summary>
-        public List<RevokeItemError> Errors;
+        public List<RevokeItemError> Errors ;
 
     }
 
@@ -5085,12 +5062,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Specific error that was encountered.
         /// </summary>
-        public GenericErrorCodes? Error;
+        public GenericErrorCodes? Error ;
 
         /// <summary>
         /// Item information that failed to be revoked.
         /// </summary>
-        public RevokeInventoryItem Item;
+        public RevokeInventoryItem Item ;
 
     }
 
@@ -5100,17 +5077,17 @@ namespace PlayFab.ServerModels
         /// Error code, such as CloudScriptNotFound, JavascriptException, CloudScriptFunctionArgumentSizeExceeded,
         /// CloudScriptAPIRequestCountExceeded, CloudScriptAPIRequestError, or CloudScriptHTTPRequestError
         /// </summary>
-        public string Error;
+        public string Error ;
 
         /// <summary>
         /// Details about the error
         /// </summary>
-        public string Message;
+        public string Message ;
 
         /// <summary>
         /// Point during the execution of the script at which the error occurred, if any
         /// </summary>
-        public string StackTrace;
+        public string StackTrace ;
 
     }
 
@@ -5123,17 +5100,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// User email address attached to their account
         /// </summary>
-        public string Email;
+        public string Email ;
 
         /// <summary>
         /// The email template id of the account recovery email template to send.
         /// </summary>
-        public string EmailTemplateId;
+        public string EmailTemplateId ;
 
         /// <summary>
         /// The user's username requesting an account recovery.
         /// </summary>
-        public string Username;
+        public string Username ;
 
     }
 
@@ -5150,12 +5127,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The email template id of the email template to send.
         /// </summary>
-        public string EmailTemplateId;
+        public string EmailTemplateId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5169,33 +5146,33 @@ namespace PlayFab.ServerModels
         /// Allows you to provide precisely formatted json to target devices. This is an advanced feature, allowing you to deliver
         /// to custom plugin logic, fields, or functionality not natively supported by PlayFab.
         /// </summary>
-        public List<AdvancedPushPlatformMsg> AdvancedPlatformDelivery;
+        public List<AdvancedPushPlatformMsg> AdvancedPlatformDelivery ;
 
         /// <summary>
         /// Text of message to send.
         /// </summary>
-        public string Message;
+        public string Message ;
 
         /// <summary>
         /// Defines all possible push attributes like message, title, icon, etc. Some parameters are device specific - please see
         /// the PushNotificationPackage documentation for details.
         /// </summary>
-        public PushNotificationPackage Package;
+        public PushNotificationPackage Package ;
 
         /// <summary>
         /// PlayFabId of the recipient of the push notification.
         /// </summary>
-        public string Recipient;
+        public string Recipient ;
 
         /// <summary>
         /// Subject of message to send (may not be displayed in all platforms)
         /// </summary>
-        public string Subject;
+        public string Subject ;
 
         /// <summary>
         /// Target Platforms that should receive the Message or Package. If omitted, we will send to all available platforms.
         /// </summary>
-        public List<PushNotificationPlatform> TargetPlatforms;
+        public List<PushNotificationPlatform> TargetPlatforms ;
 
     }
 
@@ -5208,12 +5185,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique server custom identifier for this player.
         /// </summary>
-        public string ServerCustomId;
+        public string ServerCustomId ;
 
     }
 
@@ -5223,37 +5200,37 @@ namespace PlayFab.ServerModels
         /// If LoginTitlePlayerAccountEntity flag is set on the login request the title_player_account will also be logged in and
         /// returned.
         /// </summary>
-        public EntityTokenResponse EntityToken;
+        public EntityTokenResponse EntityToken ;
 
         /// <summary>
         /// Results for requested info.
         /// </summary>
-        public GetPlayerCombinedInfoResultPayload InfoResultPayload;
+        public GetPlayerCombinedInfoResultPayload InfoResultPayload ;
 
         /// <summary>
         /// The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue
         /// </summary>
-        public DateTime? LastLoginTime;
+        public DateTime? LastLoginTime ;
 
         /// <summary>
         /// True if the account was newly created on this login.
         /// </summary>
-        public bool NewlyCreated;
+        public bool NewlyCreated ;
 
         /// <summary>
         /// Player's unique PlayFabId.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique token authorizing the user and game at the server level, for the current session.
         /// </summary>
-        public string SessionTicket;
+        public string SessionTicket ;
 
         /// <summary>
         /// Settings specific to this user.
         /// </summary>
-        public UserSettings SettingsForUser;
+        public UserSettings SettingsForUser ;
 
     }
 
@@ -5268,17 +5245,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// PlayFab identifier of the friend account to which the tag(s) should be applied.
         /// </summary>
-        public string FriendPlayFabId;
+        public string FriendPlayFabId ;
 
         /// <summary>
         /// PlayFab identifier of the player whose friend is to be updated.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Array of tags to set on the friend account.
         /// </summary>
-        public List<string> Tags;
+        public List<string> Tags ;
 
     }
 
@@ -5287,12 +5264,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Custom data to set for the specified game server instance.
         /// </summary>
-        public string GameServerData;
+        public string GameServerData ;
 
         /// <summary>
         /// Unique identifier of the Game Instance to be updated, in decimal format.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
     }
 
@@ -5305,12 +5282,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the Game Instance to be updated, in decimal format.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
         /// <summary>
         /// State to set for the specified game server instance.
         /// </summary>
-        public GameInstanceState State;
+        public GameInstanceState State ;
 
     }
 
@@ -5323,13 +5300,13 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique identifier of the Game Server Instance to be updated.
         /// </summary>
-        public string LobbyId;
+        public string LobbyId ;
 
         /// <summary>
         /// Tags to set for the specified Game Server Instance. Note that this is the complete list of tags to be associated with
         /// the Game Server Instance.
         /// </summary>
-        public Dictionary<string,string> Tags;
+        public Dictionary<string,string> Tags ;
 
     }
 
@@ -5350,12 +5327,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Player secret that is used to verify API request signatures (Enterprise Only).
         /// </summary>
-        public string PlayerSecret;
+        public string PlayerSecret ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5378,12 +5355,12 @@ namespace PlayFab.ServerModels
         /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
         /// name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
         /// </summary>
-        public string Key;
+        public string Key ;
 
         /// <summary>
         /// new value to set. Set to null to remove a value
         /// </summary>
-        public string Value;
+        public string Value ;
 
     }
 
@@ -5406,12 +5383,12 @@ namespace PlayFab.ServerModels
         /// key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
         /// name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
         /// </summary>
-        public string Key;
+        public string Key ;
 
         /// <summary>
         /// new value to set. Set to null to remove a value
         /// </summary>
-        public string Value;
+        public string Value ;
 
     }
 
@@ -5424,22 +5401,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Timestamp for when this data was last updated.
         /// </summary>
-        public DateTime LastUpdated;
+        public DateTime LastUpdated ;
 
         /// <summary>
         /// PlayFabId of the user to last update this value.
         /// </summary>
-        public string LastUpdatedBy;
+        public string LastUpdatedBy ;
 
         /// <summary>
         /// Indicates whether this data can be read by all users (public) or only members of the group (private).
         /// </summary>
-        public UserDataPermission? Permission;
+        public UserDataPermission? Permission ;
 
         /// <summary>
         /// Data stored for the specified group data key.
         /// </summary>
-        public string Value;
+        public string Value ;
 
     }
 
@@ -5448,17 +5425,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Statistic name
         /// </summary>
-        public string Name;
+        public string Name ;
 
         /// <summary>
         /// Statistic value
         /// </summary>
-        public int Value;
+        public int Value ;
 
         /// <summary>
         /// Statistic version (0 if not a versioned statistic)
         /// </summary>
-        public int Version;
+        public int Version ;
 
     }
 
@@ -5467,12 +5444,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// unique name of the statistic
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
         /// <summary>
         /// the version of the statistic to be returned
         /// </summary>
-        public uint Version;
+        public uint Version ;
 
     }
 
@@ -5481,18 +5458,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// unique name of the statistic
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
         /// <summary>
         /// statistic value for the player
         /// </summary>
-        public int Value;
+        public int Value ;
 
         /// <summary>
         /// for updates to an existing statistic value for a player, the version of the statistic when it was loaded. Null when
         /// setting the statistic value for the first time.
         /// </summary>
-        public uint? Version;
+        public uint? Version ;
 
     }
 
@@ -5501,17 +5478,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// unique name of the statistic
         /// </summary>
-        public string StatisticName;
+        public string StatisticName ;
 
         /// <summary>
         /// statistic value for the player
         /// </summary>
-        public int Value;
+        public int Value ;
 
         /// <summary>
         /// for updates to an existing statistic value for a player, the version of the statistic when it was loaded
         /// </summary>
-        public uint Version;
+        public uint Version ;
 
     }
 
@@ -5520,12 +5497,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Steam identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique Steam identifier for a user.
         /// </summary>
-        public string SteamStringId;
+        public string SteamStringId ;
 
     }
 
@@ -5534,37 +5511,37 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// When this subscription expires.
         /// </summary>
-        public DateTime Expiration;
+        public DateTime Expiration ;
 
         /// <summary>
         /// The time the subscription was orignially purchased
         /// </summary>
-        public DateTime InitialSubscriptionTime;
+        public DateTime InitialSubscriptionTime ;
 
         /// <summary>
         /// Whether this subscription is currently active. That is, if Expiration > now.
         /// </summary>
-        public bool IsActive;
+        public bool IsActive ;
 
         /// <summary>
         /// The status of this subscription, according to the subscription provider.
         /// </summary>
-        public SubscriptionProviderStatus? Status;
+        public SubscriptionProviderStatus? Status ;
 
         /// <summary>
         /// The id for this subscription
         /// </summary>
-        public string SubscriptionId;
+        public string SubscriptionId ;
 
         /// <summary>
         /// The item id for this subscription from the primary catalog
         /// </summary>
-        public string SubscriptionItemId;
+        public string SubscriptionItemId ;
 
         /// <summary>
         /// The provider for this subscription. Apple or Google Play are supported today.
         /// </summary>
-        public string SubscriptionProvider;
+        public string SubscriptionProvider ;
 
     }
 
@@ -5585,22 +5562,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Amount to be subtracted from the user balance of the specified virtual currency.
         /// </summary>
-        public int Amount;
+        public int Amount ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Name of the virtual currency which is to be decremented.
         /// </summary>
-        public string VirtualCurrency;
+        public string VirtualCurrency ;
 
     }
 
@@ -5609,17 +5586,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Amount to be subtracted from the user balance of the specified virtual currency.
         /// </summary>
-        public int Amount;
+        public int Amount ;
 
         /// <summary>
         /// PlayFab unique identifier of the user whose virtual currency balance is to be decreased.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Name of the virtual currency which is to be decremented.
         /// </summary>
-        public string VirtualCurrency;
+        public string VirtualCurrency ;
 
     }
 
@@ -5628,7 +5605,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Full value of the tag, including namespace
         /// </summary>
-        public string TagValue;
+        public string TagValue ;
 
     }
 
@@ -5646,22 +5623,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// News item body.
         /// </summary>
-        public string Body;
+        public string Body ;
 
         /// <summary>
         /// Unique identifier of news item.
         /// </summary>
-        public string NewsId;
+        public string NewsId ;
 
         /// <summary>
         /// Date and time when the news item was posted.
         /// </summary>
-        public DateTime Timestamp;
+        public DateTime Timestamp ;
 
         /// <summary>
         /// Title of the news item.
         /// </summary>
-        public string Title;
+        public string Title ;
 
     }
 
@@ -5670,12 +5647,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Xbox Live identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
         /// </summary>
-        public string XboxToken;
+        public string XboxToken ;
 
     }
 
@@ -5692,28 +5669,28 @@ namespace PlayFab.ServerModels
         /// Specifies the catalog version that should be used to determine container contents. If unspecified, uses catalog
         /// associated with the item instance.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// ItemInstanceId of the container to unlock.
         /// </summary>
-        public string ContainerItemInstanceId;
+        public string ContainerItemInstanceId ;
 
         /// <summary>
         /// ItemInstanceId of the key that will be consumed by unlocking this container. If the container requires a key, this
         /// parameter is required.
         /// </summary>
-        public string KeyItemInstanceId;
+        public string KeyItemInstanceId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5726,22 +5703,22 @@ namespace PlayFab.ServerModels
         /// Specifies the catalog version that should be used to determine container contents. If unspecified, uses default/primary
         /// catalog.
         /// </summary>
-        public string CatalogVersion;
+        public string CatalogVersion ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Catalog ItemId of the container type to unlock.
         /// </summary>
-        public string ContainerItemId;
+        public string ContainerItemId ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5753,22 +5730,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Items granted to the player as a result of unlocking the container.
         /// </summary>
-        public List<ItemInstance> GrantedItems;
+        public List<ItemInstance> GrantedItems ;
 
         /// <summary>
         /// Unique instance identifier of the container unlocked.
         /// </summary>
-        public string UnlockedItemInstanceId;
+        public string UnlockedItemInstanceId ;
 
         /// <summary>
         /// Unique instance identifier of the key used to unlock the container, if applicable.
         /// </summary>
-        public string UnlockedWithItemInstanceId;
+        public string UnlockedWithItemInstanceId ;
 
         /// <summary>
         /// Virtual currency granted to the player as a result of unlocking the container.
         /// </summary>
-        public Dictionary<string,uint> VirtualCurrency;
+        public Dictionary<string,uint> VirtualCurrency ;
 
     }
 
@@ -5777,12 +5754,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// URL of the avatar image. If empty, it removes the existing avatar URL.
         /// </summary>
-        public string ImageUrl;
+        public string ImageUrl ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5794,37 +5771,37 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// The updated active state for the ban. Null for no change.
         /// </summary>
-        public bool? Active;
+        public bool? Active ;
 
         /// <summary>
         /// The id of the ban to be updated.
         /// </summary>
-        public string BanId;
+        public string BanId ;
 
         /// <summary>
         /// The updated expiration date for the ban. Null for no change.
         /// </summary>
-        public DateTime? Expires;
+        public DateTime? Expires ;
 
         /// <summary>
         /// The updated IP address for the ban. Null for no change.
         /// </summary>
-        public string IPAddress;
+        public string IPAddress ;
 
         /// <summary>
         /// The updated MAC address for the ban. Null for no change.
         /// </summary>
-        public string MACAddress;
+        public string MACAddress ;
 
         /// <summary>
         /// Whether to make this ban permanent. Set to true to make this ban permanent. This will not modify Active state.
         /// </summary>
-        public bool? Permanent;
+        public bool? Permanent ;
 
         /// <summary>
         /// The updated reason for the ban to be updated. Maximum 140 characters. Null for no change.
         /// </summary>
-        public string Reason;
+        public string Reason ;
 
     }
 
@@ -5837,7 +5814,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// List of bans to be updated. Maximum 100.
         /// </summary>
-        public List<UpdateBanRequest> Bans;
+        public List<UpdateBanRequest> Bans ;
 
     }
 
@@ -5846,7 +5823,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Information on the bans that were updated
         /// </summary>
-        public List<BanInfo> BanData;
+        public List<BanInfo> BanData ;
 
     }
 
@@ -5861,29 +5838,29 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
         /// not begin with a '!' character or be null.
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
         /// <summary>
         /// Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
         /// constraints. Use this to delete the keys directly.
         /// </summary>
-        public List<string> KeysToRemove;
+        public List<string> KeysToRemove ;
 
         /// <summary>
         /// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
         /// </summary>
-        public UserDataPermission? Permission;
+        public UserDataPermission? Permission ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5893,7 +5870,7 @@ namespace PlayFab.ServerModels
         /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
         /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
         /// </summary>
-        public uint DataVersion;
+        public uint DataVersion ;
 
     }
 
@@ -5907,17 +5884,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Statistics to be updated with the provided values.
         /// </summary>
-        public Dictionary<string,int> CharacterStatistics;
+        public Dictionary<string,int> CharacterStatistics ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -5935,17 +5912,17 @@ namespace PlayFab.ServerModels
         /// Indicates whether the statistics provided should be set, regardless of the aggregation method set on the statistic.
         /// Default is false.
         /// </summary>
-        public bool? ForceUpdate;
+        public bool? ForceUpdate ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Statistics to be updated with the provided values
         /// </summary>
-        public List<StatisticUpdate> Statistics;
+        public List<StatisticUpdate> Statistics ;
 
     }
 
@@ -5966,23 +5943,23 @@ namespace PlayFab.ServerModels
         /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
         /// not begin with a '!' character or be null.
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
         /// <summary>
         /// Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
         /// constraints. Use this to delete the keys directly.
         /// </summary>
-        public List<string> KeysToRemove;
+        public List<string> KeysToRemove ;
 
         /// <summary>
         /// Permission to be applied to all user data keys in this request.
         /// </summary>
-        public UserDataPermission? Permission;
+        public UserDataPermission? Permission ;
 
         /// <summary>
         /// Unique identifier for the shared group.
         /// </summary>
-        public string SharedGroupId;
+        public string SharedGroupId ;
 
     }
 
@@ -6002,23 +5979,23 @@ namespace PlayFab.ServerModels
         /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
         /// not begin with a '!' character or be null.
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
         /// <summary>
         /// Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
         /// constraints. Use this to delete the keys directly.
         /// </summary>
-        public List<string> KeysToRemove;
+        public List<string> KeysToRemove ;
 
         /// <summary>
         /// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
         /// </summary>
-        public UserDataPermission? Permission;
+        public UserDataPermission? Permission ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -6028,7 +6005,7 @@ namespace PlayFab.ServerModels
         /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
         /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
         /// </summary>
-        public uint DataVersion;
+        public uint DataVersion ;
 
     }
 
@@ -6044,18 +6021,18 @@ namespace PlayFab.ServerModels
         /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
         /// not begin with a '!' character or be null.
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
         /// <summary>
         /// Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
         /// constraints. Use this to delete the keys directly.
         /// </summary>
-        public List<string> KeysToRemove;
+        public List<string> KeysToRemove ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -6070,29 +6047,29 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
         /// not begin with a '!' character or be null.
         /// </summary>
-        public Dictionary<string,string> Data;
+        public Dictionary<string,string> Data ;
 
         /// <summary>
         /// Unique PlayFab assigned instance identifier of the item
         /// </summary>
-        public string ItemInstanceId;
+        public string ItemInstanceId ;
 
         /// <summary>
         /// Optional list of Data-keys to remove from UserData. Some SDKs cannot insert null-values into Data due to language
         /// constraints. Use this to delete the keys directly.
         /// </summary>
-        public List<string> KeysToRemove;
+        public List<string> KeysToRemove ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
     }
 
@@ -6101,102 +6078,102 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// User Android device information, if an Android device has been linked
         /// </summary>
-        public UserAndroidDeviceInfo AndroidDeviceInfo;
+        public UserAndroidDeviceInfo AndroidDeviceInfo ;
 
         /// <summary>
         /// Timestamp indicating when the user account was created
         /// </summary>
-        public DateTime Created;
+        public DateTime Created ;
 
         /// <summary>
         /// Custom ID information, if a custom ID has been assigned
         /// </summary>
-        public UserCustomIdInfo CustomIdInfo;
+        public UserCustomIdInfo CustomIdInfo ;
 
         /// <summary>
         /// User Facebook information, if a Facebook account has been linked
         /// </summary>
-        public UserFacebookInfo FacebookInfo;
+        public UserFacebookInfo FacebookInfo ;
 
         /// <summary>
         /// Facebook Instant Games account information, if a Facebook Instant Games account has been linked
         /// </summary>
-        public UserFacebookInstantGamesIdInfo FacebookInstantGamesIdInfo;
+        public UserFacebookInstantGamesIdInfo FacebookInstantGamesIdInfo ;
 
         /// <summary>
         /// User Gamecenter information, if a Gamecenter account has been linked
         /// </summary>
-        public UserGameCenterInfo GameCenterInfo;
+        public UserGameCenterInfo GameCenterInfo ;
 
         /// <summary>
         /// User Google account information, if a Google account has been linked
         /// </summary>
-        public UserGoogleInfo GoogleInfo;
+        public UserGoogleInfo GoogleInfo ;
 
         /// <summary>
         /// User iOS device information, if an iOS device has been linked
         /// </summary>
-        public UserIosDeviceInfo IosDeviceInfo;
+        public UserIosDeviceInfo IosDeviceInfo ;
 
         /// <summary>
         /// User Kongregate account information, if a Kongregate account has been linked
         /// </summary>
-        public UserKongregateInfo KongregateInfo;
+        public UserKongregateInfo KongregateInfo ;
 
         /// <summary>
         /// Nintendo Switch account information, if a Nintendo Switch account has been linked
         /// </summary>
-        public UserNintendoSwitchDeviceIdInfo NintendoSwitchDeviceIdInfo;
+        public UserNintendoSwitchDeviceIdInfo NintendoSwitchDeviceIdInfo ;
 
         /// <summary>
         /// OpenID Connect information, if any OpenID Connect accounts have been linked
         /// </summary>
-        public List<UserOpenIdInfo> OpenIdInfo;
+        public List<UserOpenIdInfo> OpenIdInfo ;
 
         /// <summary>
         /// Unique identifier for the user account
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Personal information for the user which is considered more sensitive
         /// </summary>
-        public UserPrivateAccountInfo PrivateInfo;
+        public UserPrivateAccountInfo PrivateInfo ;
 
         /// <summary>
         /// User PSN account information, if a PSN account has been linked
         /// </summary>
-        public UserPsnInfo PsnInfo;
+        public UserPsnInfo PsnInfo ;
 
         /// <summary>
         /// User Steam information, if a Steam account has been linked
         /// </summary>
-        public UserSteamInfo SteamInfo;
+        public UserSteamInfo SteamInfo ;
 
         /// <summary>
         /// Title-specific information for the user account
         /// </summary>
-        public UserTitleInfo TitleInfo;
+        public UserTitleInfo TitleInfo ;
 
         /// <summary>
         /// User Twitch account information, if a Twitch account has been linked
         /// </summary>
-        public UserTwitchInfo TwitchInfo;
+        public UserTwitchInfo TwitchInfo ;
 
         /// <summary>
         /// User account name in the PlayFab service
         /// </summary>
-        public string Username;
+        public string Username ;
 
         /// <summary>
         /// Windows Hello account information, if a Windows Hello account has been linked
         /// </summary>
-        public UserWindowsHelloInfo WindowsHelloInfo;
+        public UserWindowsHelloInfo WindowsHelloInfo ;
 
         /// <summary>
         /// User XBox account information, if a XBox account has been linked
         /// </summary>
-        public UserXboxInfo XboxInfo;
+        public UserXboxInfo XboxInfo ;
 
     }
 
@@ -6205,7 +6182,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Android device ID
         /// </summary>
-        public string AndroidDeviceId;
+        public string AndroidDeviceId ;
 
     }
 
@@ -6214,7 +6191,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Custom ID
         /// </summary>
-        public string CustomId;
+        public string CustomId ;
 
     }
 
@@ -6233,18 +6210,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Timestamp for when this data was last updated.
         /// </summary>
-        public DateTime LastUpdated;
+        public DateTime LastUpdated ;
 
         /// <summary>
         /// Indicates whether this data can be read by all users (public) or only the user (private). This is used for GetUserData
         /// requests being made by one player about another player.
         /// </summary>
-        public UserDataPermission? Permission;
+        public UserDataPermission? Permission ;
 
         /// <summary>
         /// Data stored for the specified user data key.
         /// </summary>
-        public string Value;
+        public string Value ;
 
     }
 
@@ -6253,12 +6230,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Facebook identifier
         /// </summary>
-        public string FacebookId;
+        public string FacebookId ;
 
         /// <summary>
         /// Facebook full name
         /// </summary>
-        public string FullName;
+        public string FullName ;
 
     }
 
@@ -6267,7 +6244,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Facebook Instant Games ID
         /// </summary>
-        public string FacebookInstantGamesId;
+        public string FacebookInstantGamesId ;
 
     }
 
@@ -6276,7 +6253,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Gamecenter identifier
         /// </summary>
-        public string GameCenterId;
+        public string GameCenterId ;
 
     }
 
@@ -6285,22 +6262,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Email address of the Google account
         /// </summary>
-        public string GoogleEmail;
+        public string GoogleEmail ;
 
         /// <summary>
         /// Gender information of the Google account
         /// </summary>
-        public string GoogleGender;
+        public string GoogleGender ;
 
         /// <summary>
         /// Google ID
         /// </summary>
-        public string GoogleId;
+        public string GoogleId ;
 
         /// <summary>
         /// Locale of the Google account
         /// </summary>
-        public string GoogleLocale;
+        public string GoogleLocale ;
 
     }
 
@@ -6309,7 +6286,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// iOS device ID
         /// </summary>
-        public string IosDeviceId;
+        public string IosDeviceId ;
 
     }
 
@@ -6318,12 +6295,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Kongregate ID
         /// </summary>
-        public string KongregateId;
+        public string KongregateId ;
 
         /// <summary>
         /// Kongregate Username
         /// </summary>
-        public string KongregateName;
+        public string KongregateName ;
 
     }
 
@@ -6332,7 +6309,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Nintendo Switch Device ID
         /// </summary>
-        public string NintendoSwitchDeviceId;
+        public string NintendoSwitchDeviceId ;
 
     }
 
@@ -6341,17 +6318,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// OpenID Connection ID
         /// </summary>
-        public string ConnectionId;
+        public string ConnectionId ;
 
         /// <summary>
         /// OpenID Issuer
         /// </summary>
-        public string Issuer;
+        public string Issuer ;
 
         /// <summary>
         /// OpenID Subject
         /// </summary>
-        public string Subject;
+        public string Subject ;
 
     }
 
@@ -6386,7 +6363,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// user email address
         /// </summary>
-        public string Email;
+        public string Email ;
 
     }
 
@@ -6395,12 +6372,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// PSN account ID
         /// </summary>
-        public string PsnAccountId;
+        public string PsnAccountId ;
 
         /// <summary>
         /// PSN online ID
         /// </summary>
-        public string PsnOnlineId;
+        public string PsnOnlineId ;
 
     }
 
@@ -6409,17 +6386,17 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Boolean for whether this player is eligible for gathering device info.
         /// </summary>
-        public bool GatherDeviceInfo;
+        public bool GatherDeviceInfo ;
 
         /// <summary>
         /// Boolean for whether this player should report OnFocus play-time tracking.
         /// </summary>
-        public bool GatherFocusInfo;
+        public bool GatherFocusInfo ;
 
         /// <summary>
         /// Boolean for whether this player is eligible for ad tracking.
         /// </summary>
-        public bool NeedsAttribution;
+        public bool NeedsAttribution ;
 
     }
 
@@ -6428,22 +6405,22 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// what stage of game ownership the user is listed as being in, from Steam
         /// </summary>
-        public TitleActivationStatus? SteamActivationStatus;
+        public TitleActivationStatus? SteamActivationStatus ;
 
         /// <summary>
         /// the country in which the player resides, from Steam data
         /// </summary>
-        public string SteamCountry;
+        public string SteamCountry ;
 
         /// <summary>
         /// currency type set in the user Steam account
         /// </summary>
-        public Currency? SteamCurrency;
+        public Currency? SteamCurrency ;
 
         /// <summary>
         /// Steam identifier
         /// </summary>
-        public string SteamId;
+        public string SteamId ;
 
     }
 
@@ -6452,44 +6429,44 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// URL to the player's avatar.
         /// </summary>
-        public string AvatarUrl;
+        public string AvatarUrl ;
 
         /// <summary>
         /// timestamp indicating when the user was first associated with this game (this can differ significantly from when the user
         /// first registered with PlayFab)
         /// </summary>
-        public DateTime Created;
+        public DateTime Created ;
 
         /// <summary>
         /// name of the user, as it is displayed in-game
         /// </summary>
-        public string DisplayName;
+        public string DisplayName ;
 
         /// <summary>
         /// timestamp indicating when the user first signed into this game (this can differ from the Created timestamp, as other
         /// events, such as issuing a beta key to the user, can associate the title to the user)
         /// </summary>
-        public DateTime? FirstLogin;
+        public DateTime? FirstLogin ;
 
         /// <summary>
         /// boolean indicating whether or not the user is currently banned for a title
         /// </summary>
-        public bool? isBanned;
+        public bool? isBanned ;
 
         /// <summary>
         /// timestamp for the last user login for this title
         /// </summary>
-        public DateTime? LastLogin;
+        public DateTime? LastLogin ;
 
         /// <summary>
         /// source by which the user first joined the game, if known
         /// </summary>
-        public UserOrigination? Origination;
+        public UserOrigination? Origination ;
 
         /// <summary>
         /// Title player account entity for this user
         /// </summary>
-        public EntityKey TitlePlayerAccount;
+        public EntityKey TitlePlayerAccount ;
 
     }
 
@@ -6498,12 +6475,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Twitch ID
         /// </summary>
-        public string TwitchId;
+        public string TwitchId ;
 
         /// <summary>
         /// Twitch Username
         /// </summary>
-        public string TwitchUserName;
+        public string TwitchUserName ;
 
     }
 
@@ -6512,12 +6489,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Windows Hello Device Name
         /// </summary>
-        public string WindowsHelloDeviceName;
+        public string WindowsHelloDeviceName ;
 
         /// <summary>
         /// Windows Hello Public Key Hash
         /// </summary>
-        public string WindowsHelloPublicKeyHash;
+        public string WindowsHelloPublicKeyHash ;
 
     }
 
@@ -6526,7 +6503,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// XBox user ID
         /// </summary>
-        public string XboxUserId;
+        public string XboxUserId ;
 
     }
 
@@ -6535,19 +6512,19 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// ISO 4217 code of the currency used in the purchases
         /// </summary>
-        public string Currency;
+        public string Currency ;
 
         /// <summary>
         /// Total value of the purchases in a whole number of 1/100 monetary units. For example, 999 indicates nine dollars and
         /// ninety-nine cents when Currency is 'USD')
         /// </summary>
-        public uint TotalValue;
+        public uint TotalValue ;
 
         /// <summary>
         /// Total value of the purchases in a string representation of decimal monetary units. For example, '9.99' indicates nine
         /// dollars and ninety-nine cents when Currency is 'USD'.
         /// </summary>
-        public string TotalValueAsDecimal;
+        public string TotalValueAsDecimal ;
 
     }
 
@@ -6558,17 +6535,17 @@ namespace PlayFab.ServerModels
         /// through use of the AddUserVirtualCurrency API call. However, it will not regenerate automatically until it has fallen
         /// below this value.
         /// </summary>
-        public int RechargeMax;
+        public int RechargeMax ;
 
         /// <summary>
         /// Server timestamp in UTC indicating the next time the virtual currency will be incremented.
         /// </summary>
-        public DateTime RechargeTime;
+        public DateTime RechargeTime ;
 
         /// <summary>
         /// Time remaining (in seconds) before the next recharge increment of the virtual currency.
         /// </summary>
-        public int SecondsToRecharge;
+        public int SecondsToRecharge ;
 
     }
 
@@ -6578,7 +6555,7 @@ namespace PlayFab.ServerModels
         /// The unique identifier of the event. The values of this identifier consist of ASCII characters and are not constrained to
         /// any particular format.
         /// </summary>
-        public string EventId;
+        public string EventId ;
 
     }
 
@@ -6592,28 +6569,28 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Custom event properties. Each property consists of a name (string) and a value (JSON object).
         /// </summary>
-        public Dictionary<string,object> Body;
+        public Dictionary<string,object> Body ;
 
         /// <summary>
         /// Unique PlayFab assigned ID for a specific character owned by a user
         /// </summary>
-        public string CharacterId;
+        public string CharacterId ;
 
         /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
         /// commonly follows the subject_verb_object pattern (e.g. player_logged_in).
         /// </summary>
-        public string EventName;
+        public string EventName ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// The time (in UTC) associated with this event. The value dafaults to the current time.
         /// </summary>
-        public DateTime? Timestamp;
+        public DateTime? Timestamp ;
 
     }
 
@@ -6627,23 +6604,23 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Custom data properties associated with the event. Each property consists of a name (string) and a value (JSON object).
         /// </summary>
-        public Dictionary<string,object> Body;
+        public Dictionary<string,object> Body ;
 
         /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
         /// commonly follows the subject_verb_object pattern (e.g. player_logged_in).
         /// </summary>
-        public string EventName;
+        public string EventName ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// The time (in UTC) associated with this event. The value dafaults to the current time.
         /// </summary>
-        public DateTime? Timestamp;
+        public DateTime? Timestamp ;
 
     }
 
@@ -6657,18 +6634,18 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Custom event properties. Each property consists of a name (string) and a value (JSON object).
         /// </summary>
-        public Dictionary<string,object> Body;
+        public Dictionary<string,object> Body ;
 
         /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
         /// commonly follows the subject_verb_object pattern (e.g. player_logged_in).
         /// </summary>
-        public string EventName;
+        public string EventName ;
 
         /// <summary>
         /// The time (in UTC) associated with this event. The value dafaults to the current time.
         /// </summary>
-        public DateTime? Timestamp;
+        public DateTime? Timestamp ;
 
     }
 
@@ -6677,12 +6654,12 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Xbox Live identifier.
         /// </summary>
-        public string PlayFabId;
+        public string PlayFabId ;
 
         /// <summary>
         /// Unique Xbox Live identifier for a user.
         /// </summary>
-        public string XboxLiveAccountId;
+        public string XboxLiveAccountId ;
 
     }
 }

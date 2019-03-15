@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;portable45-net45+win8+wpa81</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard1.1;net45;portable45-net45+win8+wpa81</TargetFrameworks>
     <RootNamespace>PlayFabServerSDK</RootNamespace>
     <AssemblyName>PlayFabServerSDK</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
 
     <PackageId>PlayFabAllSDK</PackageId>
-    <Version>1.45.190219</Version>
+    <Version>1.47.190312</Version>
     <Title>PlayFab CSharp Sdk</Title>
     <Authors>PlayFab Inc.</Authors>
     <Owners>PlayFab Inc.</Owners>
@@ -21,7 +21,7 @@
     <Product>PlayFabSDK</Product>
     <Copyright>Copyright 2019</Copyright>
     <PackageTags>PlayFab, Baas, Paas, JSON, REST, HTTP, SSL, API, cloud, liveops, game, gamedev, native</PackageTags>
-    <PackageReleaseNotes>https://api.playfab.com/releaseNotes/#190219</PackageReleaseNotes>
+    <PackageReleaseNotes>https://api.playfab.com/releaseNotes/#190312</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>1</AssemblyVersion>
     <FileVersion>1</FileVersion>

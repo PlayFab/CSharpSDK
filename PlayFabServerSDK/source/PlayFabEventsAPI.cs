@@ -1,3 +1,5 @@
+#if !DISABLE_PLAYFABENTITY_API
+
 using PlayFab.EventsModels;
 using PlayFab.Internal;
 using PlayFab.Json;
@@ -18,9 +20,9 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<WriteEventsResponse>> WriteEventsAsync(WriteEventsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Event/WriteEvents", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Event/WriteEvents", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -37,3 +39,4 @@ namespace PlayFab
 
     }
 }
+#endif

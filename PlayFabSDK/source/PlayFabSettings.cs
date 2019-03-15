@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -5,56 +6,68 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.45.190219";
-        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-3_0";
-        public const string SdkVersionString = "CSharpSDK-1.45.190219";
-        public static readonly Dictionary<string, string> RequestGetParams = new Dictionary<string, string> {
-            { "sdk", SdkVersionString }
-        };
-
+        public const string SdkVersion = "1.47.190312";
+        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-2_0";
+        public const string SdkVersionString = "CSharpSDK-1.47.190312";
+        public const string AD_TYPE_IDFA = "Idfa";
+        public const string AD_TYPE_ANDROID_ID = "Adid";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
-        public static string ProductionEnvironmentUrl = ".playfabapi.com";
-        /// <summary> The name of a customer vertical. This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
-        public static string VerticalName = null;
-        /// <summary> Session token for Entity API. Auto-Populated by GetEntityToken method. </summary>
-        internal static string EntityToken = null;
-        /// <summary> Session ticket for Client API. Auto-Populated by any login or registration call. </summary>
-        internal static string ClientSessionTicket = null;
-        /// <summary> You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website) </summary>
-        public static string DeveloperSecretKey = null;
-        /// <summary> You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website) </summary>
-        public static string TitleId;
+        public static string DefaultProductionEnvironmentUrl = "playfabapi.com";
+
         public static ErrorCallback GlobalErrorHandler;
-        /// <summary> Set this to the appropriate AD_TYPE_X constant below </summary>
-        public static string AdvertisingIdType = null;
-        /// <summary> Set this to corresponding device value </summary>
-        public static string AdvertisingIdValue = null;
 
-        // DisableAdvertising is provided for completeness, but changing it is not suggested
-        // Disabling this may prevent your advertising-related PlayFab marketplace partners from working correctly
-        public static bool DisableAdvertising = false;
-        public static readonly string AD_TYPE_IDFA = "Idfa";
-        public static readonly string AD_TYPE_ANDROID_ID = "Adid";
+        public readonly static PlayFabApiSettings staticSettings = new PlayFabApiSettings();
+        // This field will likely be removed someday
+        internal readonly static PlayFabAuthenticationContext staticPlayer = new PlayFabAuthenticationContext();
 
-        public static string GetFullUrl(string apiCall, Dictionary<string, string> getParams, PlayFabApiSettings apiSettings = null)
+        #region Deprecated staticSettings redirect properties
+        [Obsolete("Moved to PlayFabSettings.staticSettings.RequestGetParams")]
+        public static Dictionary<string, string> RequestGetParams { get { return staticSettings.RequestGetParams; } }
+
+        [Obsolete("Moved to PlayFabSettings.staticSettings.ProductionEnvironmentUrl")]
+        public static string ProductionEnvironmentUrl { get { return staticSettings.ProductionEnvironmentUrl; } set { staticSettings.ProductionEnvironmentUrl = value; } }
+
+        [Obsolete("Moved to PlayFabSettings.staticSettings.VerticalName")]
+        public static string VerticalName { get { return staticSettings.VerticalName; } set { staticSettings.VerticalName = value; } }
+
+        [Obsolete("Moved to PlayFabSettings.staticSettings.DeveloperSecretKey")]
+        public static string DeveloperSecretKey { get { return staticSettings.DeveloperSecretKey; } set { staticSettings.DeveloperSecretKey = value; } }
+
+        [Obsolete("Moved to PlayFabSettings.staticSettings.TitleId")]
+        public static string TitleId { get { return staticSettings.TitleId; } set { staticSettings.TitleId = value; } }
+
+        [Obsolete("Moved to PlayFabSettings.staticSettings.AdvertisingIdType")]
+        public static string AdvertisingIdType { get { return staticSettings.AdvertisingIdType; } set { staticSettings.AdvertisingIdType = value; } }
+
+        [Obsolete("Moved to PlayFabSettings.staticSettings.AdvertisingIdValue")]
+        public static string AdvertisingIdValue { get { return staticSettings.AdvertisingIdValue; } set { staticSettings.AdvertisingIdValue = value; } }
+
+        [Obsolete("Moved to PlayFabSettings.staticSettings.DisableAdvertising")]
+        public static bool DisableAdvertising { get { return staticSettings.DisableAdvertising; } set { staticSettings.DisableAdvertising = value; } }
+        #endregion Deprecated staticSettingsredirect properties
+
+        public static string GetFullUrl(string apiCall, Dictionary<string, string> getParams, PlayFabApiSettings instanceSettings = null)
         {
             StringBuilder sb = new StringBuilder(1000);
-        
-            var baseUrl = apiSettings?.ProductionEnvironmentUrl ?? ProductionEnvironmentUrl;
+
+            var apiSettings = instanceSettings ?? staticSettings;
+
+            var baseUrl = apiSettings?.ProductionEnvironmentUrl;
             if (!baseUrl.StartsWith("http"))
             {
-                if ((apiSettings?.VerticalName ?? VerticalName) != null)
+                sb.Append("https://");
+                if (!string.IsNullOrEmpty(apiSettings?.TitleId))
                 {
-                    sb.Append("https://").Append(apiSettings?.VerticalName ?? VerticalName);
+                    sb.Append(apiSettings.TitleId).Append(".");
                 }
-                else
+                if (!string.IsNullOrEmpty(apiSettings?.VerticalName))
                 {
-                    sb.Append("https://").Append(apiSettings?.TitleId ?? TitleId);
+                    sb.Append(apiSettings?.VerticalName).Append(".");
                 }
             }
-                
+
             sb.Append(baseUrl).Append(apiCall);
-        
+
             if (getParams != null)
             {
                 bool firstParam = true;
@@ -72,7 +85,7 @@ namespace PlayFab
                     sb.Append(paramPair.Key).Append("=").Append(paramPair.Value);
                 }
             }
-        
+
             return sb.ToString();
         }
     }
