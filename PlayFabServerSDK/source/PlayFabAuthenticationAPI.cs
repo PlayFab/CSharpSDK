@@ -1,3 +1,5 @@
+#if !DISABLE_PLAYFABENTITY_API
+
 using PlayFab.AuthenticationModels;
 using PlayFab.Internal;
 using PlayFab.Json;
@@ -20,9 +22,20 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetEntityTokenResponse>> GetEntityTokenAsync(GetEntityTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             string authKey = null, authValue = null;
-            if (PlayFabSettings.ClientSessionTicket != null) { authKey = "X-Authorization"; authValue = PlayFabSettings.ClientSessionTicket; }
-            if (PlayFabSettings.DeveloperSecretKey != null) { authKey = "X-SecretKey"; authValue = PlayFabSettings.DeveloperSecretKey; }
-            if (PlayFabSettings.EntityToken != null) { authKey = "X-EntityToken"; authValue = PlayFabSettings.EntityToken; }
+#if !DISABLE_PLAYFABCLIENT_API
+            var context = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer; var clientSessionTicket = context.ClientSessionTicket;
+            if (clientSessionTicket != null) { authKey = "X-Authorization"; authValue = clientSessionTicket; }
+#endif
+
+#if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API
+            var developerSecretKey = PlayFabSettings.staticSettings.DeveloperSecretKey;
+            if (developerSecretKey != null) { authKey = "X-SecretKey"; authValue = developerSecretKey; }
+#endif
+
+#if !DISABLE_PLAYFABENTITY_API
+            var entityToken = request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken;
+            if (entityToken != null) { authKey = "X-EntityToken"; authValue = entityToken; }
+#endif
 
             var httpResult = await PlayFabHttp.DoPost("/Authentication/GetEntityToken", request, authKey, authValue, extraHeaders);
             if (httpResult is PlayFabError)
@@ -35,10 +48,11 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetEntityTokenResponse>>(resultRawJson);
             var result = resultData.data;
-            PlayFabSettings.EntityToken = result.EntityToken;
+            PlayFabSettings.staticPlayer.EntityToken = result.EntityToken;
 
             return new PlayFabResult<GetEntityTokenResponse> { Result = result, CustomData = customData };
         }
 
     }
 }
+#endif

@@ -12,12 +12,12 @@ namespace PlayFab.AuthenticationModels
         /// <summary>
         /// Unique ID of the entity.
         /// </summary>
-        public string Id;
+        public string Id { get; set; }
 
         /// <summary>
         /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
         /// </summary>
-        public string Type;
+        public string Type { get; set; }
 
     }
 
@@ -33,7 +33,7 @@ namespace PlayFab.AuthenticationModels
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
-        public EntityKey Entity;
+        public EntityKey Entity ;
 
     }
 
@@ -42,17 +42,17 @@ namespace PlayFab.AuthenticationModels
         /// <summary>
         /// The entity id and type.
         /// </summary>
-        public EntityKey Entity;
+        public EntityKey Entity ;
 
         /// <summary>
         /// The token used to set X-EntityToken for all entity based API calls.
         /// </summary>
-        public string EntityToken;
+        public string EntityToken ;
 
         /// <summary>
         /// The time the token will expire, if it is an expiring token, in UTC.
         /// </summary>
-        public DateTime? TokenExpiration;
+        public DateTime? TokenExpiration ;
 
     }
 }

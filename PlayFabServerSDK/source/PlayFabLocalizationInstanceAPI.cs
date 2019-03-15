@@ -1,3 +1,5 @@
+#if !DISABLE_PLAYFABENTITY_API
+
 using PlayFab.LocalizationModels;
 using PlayFab.Internal;
 using PlayFab.Json;
@@ -12,10 +14,10 @@ namespace PlayFab
     /// </summary>
     public class PlayFabLocalizationInstanceAPI
     {
-	    private PlayFabApiSettings apiSettings = null;
+        private PlayFabApiSettings apiSettings = null;
         private PlayFabAuthenticationContext authenticationContext = null;
-		
-		public PlayFabLocalizationInstanceAPI()
+
+        public PlayFabLocalizationInstanceAPI()
         {
 
         }
@@ -29,14 +31,14 @@ namespace PlayFab
         {
             authenticationContext = context;
         }
-		
-		public PlayFabLocalizationInstanceAPI(PlayFabApiSettings settings = null, PlayFabAuthenticationContext context = null)
+
+        public PlayFabLocalizationInstanceAPI(PlayFabApiSettings settings = null, PlayFabAuthenticationContext context = null)
         {
             apiSettings = settings;
             authenticationContext = context;
         }
-		
-		public void SetSettings(PlayFabApiSettings settings)
+
+        public void SetSettings(PlayFabApiSettings settings)
         {
             apiSettings = settings;
         }
@@ -55,15 +57,15 @@ namespace PlayFab
         {
             return authenticationContext;
         }
-		
+
         /// <summary>
         /// Retrieves the list of allowed languages, only accessible by title entities
         /// </summary>
         public async Task<PlayFabResult<GetLanguageListResponse>> GetLanguageListAsync(GetLanguageListRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if (PlayFabSettings.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Locale/GetLanguageList", request, "X-EntityToken", PlayFabSettings.EntityToken, extraHeaders, apiSettings);
+            var httpResult = await PlayFabHttp.DoPost("/Locale/GetLanguageList", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders, apiSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -80,3 +82,4 @@ namespace PlayFab
 
     }
 }
+#endif
