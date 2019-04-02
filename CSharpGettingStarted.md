@@ -65,7 +65,7 @@ public static class Program
     private static bool _running = true;
     static void Main(string[] args)
     {
-        PlayFabSettings.TitleId = "144"; // Please change this value to your own titleId from PlayFab Game Manager
+        PlayFabSettings.staticSettings.TitleId = "144"; // Please change this value to your own titleId from PlayFab Game Manager
 
         var request = new LoginWithCustomIDRequest { CustomId = "GettingStartedGuide", CreateAccount = true };
         var loginTask = PlayFabClientAPI.LoginWithCustomIDAsync(request);
@@ -96,7 +96,7 @@ public static class Program
             Console.ForegroundColor = ConsoleColor.Red; // Make the error more visible
             Console.WriteLine("Something went wrong with your first API call.  :(");
             Console.WriteLine("Here's some debug information:");
-            Console.WriteLine(PlayFabUtil.GetErrorReport(apiError));
+            Console.WriteLine(PlayFabUtil.GenerateErrorReport(apiError));
             Console.ForegroundColor = ConsoleColor.Gray; // Reset to normal
         }
         else if (apiResult != null)
