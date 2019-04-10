@@ -167,6 +167,11 @@ namespace PlayFab.ProfilesModels
         public List<EntityPermissionStatement> Permissions ;
 
         /// <summary>
+        /// The statistics on this profile.
+        /// </summary>
+        public Dictionary<string,EntityStatisticValue> Statistics ;
+
+        /// <summary>
         /// The version number of the profile in persistent storage at the time of the read. Used for optional optimistic
         /// concurrency during update.
         /// </summary>
@@ -198,6 +203,54 @@ namespace PlayFab.ProfilesModels
         /// Storage service's reported byte count
         /// </summary>
         public int Size ;
+
+    }
+
+    public class EntityStatisticChildValue
+    {
+        /// <summary>
+        /// Child name value, if child statistic
+        /// </summary>
+        public string ChildName ;
+
+        /// <summary>
+        /// Child statistic metadata
+        /// </summary>
+        public string Metadata ;
+
+        /// <summary>
+        /// Child statistic value
+        /// </summary>
+        public int Value ;
+
+    }
+
+    public class EntityStatisticValue
+    {
+        /// <summary>
+        /// Child statistic values
+        /// </summary>
+        public Dictionary<string,EntityStatisticChildValue> ChildStatistics ;
+
+        /// <summary>
+        /// Statistic metadata
+        /// </summary>
+        public string Metadata ;
+
+        /// <summary>
+        /// Statistic name
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// Statistic value
+        /// </summary>
+        public int? Value ;
+
+        /// <summary>
+        /// Statistic version
+        /// </summary>
+        public int Version ;
 
     }
 

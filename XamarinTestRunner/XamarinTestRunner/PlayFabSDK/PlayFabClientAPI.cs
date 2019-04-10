@@ -2032,12 +2032,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2062,12 +2062,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2094,12 +2094,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2124,12 +2124,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2154,12 +2154,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2184,12 +2184,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2213,12 +2213,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2243,12 +2243,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2272,12 +2272,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2302,12 +2302,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2332,12 +2332,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2364,12 +2364,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2394,12 +2394,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2424,12 +2424,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2453,12 +2453,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2485,12 +2485,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2515,12 +2515,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2713,12 +2713,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RegisterPlayFabUserResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<RegisterPlayFabUserResult> { Result = result, CustomData = customData };
         }
@@ -2743,12 +2743,12 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
             var result = resultData.data;
-            var newContext = new PlayFabAuthenticationContext(); 
-            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId; 
-            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket; 
-            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken; 
-            result.AuthenticationContext = newContext; 
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution); 
+            var newContext = new PlayFabAuthenticationContext();
+            PlayFabSettings.staticPlayer.PlayFabId = newContext.PlayFabId = result.PlayFabId;
+            PlayFabSettings.staticPlayer.ClientSessionTicket = newContext.ClientSessionTicket = result.SessionTicket;
+            PlayFabSettings.staticPlayer.EntityToken = newContext.EntityToken = result.EntityToken.EntityToken;
+            result.AuthenticationContext = newContext;
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
