@@ -2183,6 +2183,9 @@ namespace PlayFab.AdminModels
         WriteAttemptedDuringExport,
         MultiplayerServerTitleQuotaCoresExceeded,
         AutomationRuleNotFound,
+        EntityAPIKeyLimitExceeded,
+        EntityAPIKeyNotFound,
+        EntityAPIKeyOrSecretInvalid,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2214,18 +2217,7 @@ namespace PlayFab.AdminModels
         CatalogItemIdInvalid,
         CatalogSearchParameterInvalid,
         CatalogFeatureDisabled,
-        CatalogConfigMissing,
-        CatalogConfigTooManyContentTypes,
-        CatalogConfigContentTypeTooLong,
-        CatalogConfigTooManyTags,
-        CatalogConfigTagTooLong,
-        CatalogConfigInvalidDeepLinkObject,
-        CatalogConfigInvalidDeepLinkPlatform,
-        CatalogConfigInvalidDeepLinkFormat,
-        CatalogConfigInvalidDisplayPropertyObject,
-        CatalogConfigInvalidDisplayPropertyName,
-        CatalogConfigInvalidDisplayPropertyType,
-        CatalogConfigDisplayPropertyMappingLimit,
+        CatalogConfigInvalid,
         ExportInvalidStatusUpdate,
         ExportInvalidPrefix,
         ExportBlobContainerDoesNotExist,
@@ -2239,7 +2231,10 @@ namespace PlayFab.AdminModels
         ExportKustoExceptionNew_SomeResources,
         ExportKustoExceptionEdit,
         ExportKustoConnectionFailed,
-        ExportUnknownError
+        ExportUnknownError,
+        ExportCantEditPendingExport,
+        ExportLimitExports,
+        ExportLimitEvents
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
