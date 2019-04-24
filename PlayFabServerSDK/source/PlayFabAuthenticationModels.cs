@@ -4,6 +4,112 @@ using System.Collections.Generic;
 
 namespace PlayFab.AuthenticationModels
 {
+    public class ActivateAPIKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique identifier for the entity API key to activate.
+        /// </summary>
+        public string APIKeyId ;
+
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity ;
+
+    }
+
+    public class ActivateAPIKeyResponse : PlayFabResultCommon
+    {
+    }
+
+    public class CreateAPIKeyDetails
+    {
+        /// <summary>
+        /// Whether the key is active for authentication. Inactive keys cannot be used to authenticate.Keys can be activated or
+        /// deactivate using the ActivateKey and DeactivateKey APIs.Deactivating a key is a way to verify that the key is not in use
+        /// before deleting it.
+        /// </summary>
+        public bool Active ;
+
+        /// <summary>
+        /// Unique identifier for the entity API key. Set in the "X - EntityAPIKeyId" in authentication requests.
+        /// </summary>
+        public string APIKeyId ;
+
+        /// <summary>
+        /// Secret used to authenticate requests with the key. Set in the "X - EntityAPIKeyId" in authentication requests.The secret
+        /// value is returned only once in this response and cannot be retrieved afterward, either via API or in Game Manager.API
+        /// key secrets should be stored securely only on trusted servers and never distributed in code or configuration to
+        /// untrusted clients.
+        /// </summary>
+        public string APIKeySecret ;
+
+        /// <summary>
+        /// The time the API key was generated, in UTC.
+        /// </summary>
+        public DateTime Created ;
+
+    }
+
+    public class CreateAPIKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity ;
+
+    }
+
+    public class CreateAPIKeyResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The entity id and type.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The created API key
+        /// </summary>
+        public CreateAPIKeyDetails Key ;
+
+    }
+
+    public class DeactivateAPIKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique identifier for the entity API key to activate.
+        /// </summary>
+        public string APIKeyId ;
+
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity ;
+
+    }
+
+    public class DeactivateAPIKeyResponse : PlayFabResultCommon
+    {
+    }
+
+    public class DeleteAPIKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique identifier for the entity API key to delete.
+        /// </summary>
+        public string APIKeyId ;
+
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity ;
+
+    }
+
+    public class DeleteAPIKeyResponse : PlayFabResultCommon
+    {
+    }
+
     /// <summary>
     /// Combined entity type and ID structure which uniquely identifies a single entity.
     /// </summary>
@@ -18,6 +124,50 @@ namespace PlayFab.AuthenticationModels
         /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
         /// </summary>
         public string Type { get; set; }
+
+    }
+
+    public class GetAPIKeyDetails
+    {
+        /// <summary>
+        /// Whether the key is active for authentication. Inactive keys cannot be used to authenticate.Keys can be activated or
+        /// deactivate using the SetAPIActivation API.Deactivating a key is a way to verify that the key is not in use be before
+        /// deleting it.
+        /// </summary>
+        public bool Active ;
+
+        /// <summary>
+        /// Unique identifier for the entity API key. Set in the "X - EntityAPIKeyId" in authentication requests.
+        /// </summary>
+        public string APIKeyId ;
+
+        /// <summary>
+        /// The time the API key was generated, in UTC.
+        /// </summary>
+        public DateTime Created ;
+
+    }
+
+    public class GetAPIKeysRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity ;
+
+    }
+
+    public class GetAPIKeysResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The entity id and type.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The API keys associated with the given entity.
+        /// </summary>
+        public List<GetAPIKeyDetails> Keys ;
 
     }
 
