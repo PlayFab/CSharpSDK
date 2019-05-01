@@ -19,7 +19,7 @@
             _logAction = logAction;
         }
 
-        public async Task<QosResult> GetQoSResultAsync(int timeoutMs = DefaultTimeoutMs)
+        public async Task<QosResult> GetQosResultAsync(int timeoutMs = DefaultTimeoutMs)
         {
             QosResult result = await GetResultAsync(timeoutMs);
             if (result.ErrorCode != 0)
