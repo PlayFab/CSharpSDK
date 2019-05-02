@@ -107,7 +107,7 @@
             var eventContents = new EventContents
             {
                 Name = "qos_result",
-                EventNamespace = "playfab.servers.qos",
+                EventNamespace = "playfab.servers",
                 Payload = result
             };
 
