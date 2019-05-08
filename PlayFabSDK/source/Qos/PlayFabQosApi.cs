@@ -27,12 +27,7 @@
                 return result;
             }
 
-            bool eventSent = await SendResultsToPlayFab(result);
-            if (!eventSent)
-            {
-                result.ErrorCode = (int)QosErrorCode.FailedToUploadQosResult;
-            }
-
+            Task.Factory.StartNew(() => SendResultsToPlayFab(result));
             return result;
         }
 
@@ -51,7 +46,7 @@
             await GetQoSServerList();
 
             int serverCount = _dataCenterMap.Count;
-            if (serverCount < 0)
+            if (serverCount <= 0)
             {
                 result.ErrorCode = (int)QosErrorCode.FailedToRetrieveServerList;
                 return result;
@@ -76,7 +71,7 @@
             
             if (response == null || response.Error != null)
             {
-                LogQos("Could not get the server list from thunderhead\n Error : " + response?.Error.ErrorMessage);
+                LogQos("Could not get the server list from thunderhead\n Error : " + response?.Error.GenerateErrorReport());
                 return;
             }
 
@@ -100,10 +95,18 @@
             }).ToList();
 
             await Task.WhenAll(asyncPingResults);
-            return asyncPingResults.Select(t => t.Result).OrderBy(t => t.LatencyMs).ToList();
+            List<QosRegionResult> results = new List<QosRegionResult>(asyncPingResults.Count);
+            foreach (Task<QosRegionResult> asyncPingResult in asyncPingResults)
+            {
+                results.Add(asyncPingResult.Result);
+            }
+
+            results.Sort((x,y) => x.LatencyMs.CompareTo(y.LatencyMs));
+
+            return results;
         }
 
-        private async Task<bool> SendResultsToPlayFab(QosResult result)
+        private async Task SendResultsToPlayFab(QosResult result)
         {
             var eventContents = new EventContents
             {
@@ -125,16 +128,12 @@
             catch (Exception exception)
             {
                 LogQos(exception.ToString());
-                return false;
             }
 
             if (response == null || response.Error != null)
             {
-                LogQos(response?.Error.ErrorMessage);
-                return false;
+                LogQos(response?.Error.GenerateErrorReport());
             }
-
-            return true;
         }
 
         private static async Task<PlayFabResult<WriteEventsResponse>> WriteTelemetryAsync(WriteEventsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)

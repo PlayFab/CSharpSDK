@@ -38,7 +38,7 @@
             {
                 Region = _region,
                 LatencyMs = latencies.Any()? (int) latencies.Average() : UnknownLatencyValue,
-                ErrorCode = latencyMeasures.All(t => t.IsCompleted) ? 0 : -1
+                ErrorCode = latencyMeasures.All(t => t.IsCompleted) ? 0 : (int)QosErrorCode.Timeout
             };
         }
 
