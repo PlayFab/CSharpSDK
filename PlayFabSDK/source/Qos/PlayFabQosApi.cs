@@ -22,7 +22,7 @@
         public async Task<QosResult> GetQosResultAsync(int timeoutMs = DefaultTimeoutMs)
         {
             QosResult result = await GetResultAsync(timeoutMs);
-            if (result.ErrorCode != 0)
+            if (result.ErrorCode != (int)QosErrorCode.Success)
             {
                 return result;
             }
@@ -30,7 +30,7 @@
             bool eventSent = await SendResultsToPlayFab(result);
             if (!eventSent)
             {
-                result.ErrorCode = -3;
+                result.ErrorCode = (int)QosErrorCode.FailedToUploadQosResult;
             }
 
             return result;
@@ -43,7 +43,7 @@
             if (!PlayFabClientAPI.IsClientLoggedIn())
             {
                 LogQos("Client is not logged in");
-                result.ErrorCode = -1;
+                result.ErrorCode = (int)QosErrorCode.NotLoggedIn;
                 return result;
             }
 
@@ -53,13 +53,13 @@
             int serverCount = _dataCenterMap.Count;
             if (serverCount < 0)
             {
-                result.ErrorCode = -2;
+                result.ErrorCode = (int)QosErrorCode.FailedToRetrieveServerList;
                 return result;
             }
 
             // ping servers
             result.RegionResults = await GetSortedRegionLatencies(timeoutMs);
-            result.ErrorCode = 0;
+            result.ErrorCode = (int)QosErrorCode.Success;
             return result;
         }
 
@@ -74,9 +74,10 @@
             var request = new ListQosServersRequest();
             PlayFabResult<ListQosServersResponse> response = await PlayFabMultiplayerAPI.ListQosServersAsync(request);
             
-            if (response?.Error != null)
+            if (response == null || response.Error != null)
             {
-                LogQos("Could not get the server list from thunderhead\n Error : " + response.Error.ErrorMessage);
+                LogQos("Could not get the server list from thunderhead\n Error : " + response?.Error.ErrorMessage);
+                return;
             }
 
             foreach (QosServer qosServer in response.Result.QosServers)
