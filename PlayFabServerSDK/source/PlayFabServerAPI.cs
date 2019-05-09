@@ -22,6 +22,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/AddCharacterVirtualCurrency", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -45,6 +46,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/AddFriend", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -61,11 +63,37 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab
+        /// ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as
+        /// authentication credentials, as the intent is that it is easily accessible by other players.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> AddGenericIDAsync(AddGenericIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/AddGenericID", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag.
         /// </summary>
         public static async Task<PlayFabResult<AddPlayerTagResult>> AddPlayerTagAsync(AddPlayerTagRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/AddPlayerTag", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -91,6 +119,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/AddSharedGroupMembers", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -112,6 +141,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> AddUserVirtualCurrencyAsync(AddUserVirtualCurrencyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/AddUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -135,6 +165,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/AuthenticateSessionTicket", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -156,6 +187,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<AwardSteamAchievementResult>> AwardSteamAchievementAsync(AwardSteamAchievementRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/AwardSteamAchievement", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -179,6 +211,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/BanUsers", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -200,6 +233,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ConsumeItemResult>> ConsumeItemAsync(ConsumeItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/ConsumeItem", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -226,6 +260,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/CreateSharedGroup", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -247,6 +282,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<DeleteCharacterFromUserResult>> DeleteCharacterFromUserAsync(DeleteCharacterFromUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/DeleteCharacterFromUser", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -270,6 +306,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/DeletePlayer", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -286,6 +323,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes push notification template for title
+        /// </summary>
+        public static async Task<PlayFabResult<DeletePushNotificationTemplateResult>> DeletePushNotificationTemplateAsync(DeletePushNotificationTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/DeletePushNotificationTemplate", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeletePushNotificationTemplateResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeletePushNotificationTemplateResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeletePushNotificationTemplateResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Deletes a shared group, freeing up the shared group ID to be reused for a new group. Shared Groups are designed for
         /// sharing data between a very small number of players, please see our guide:
         /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
@@ -293,6 +353,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> DeleteSharedGroupAsync(DeleteSharedGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/DeleteSharedGroup", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -315,6 +376,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<DeregisterGameResponse>> DeregisterGameAsync(DeregisterGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/DeregisterGame", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -339,6 +401,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/EvaluateRandomResultTable", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -360,6 +423,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ExecuteCloudScriptResult>> ExecuteCloudScriptAsync(ExecuteCloudScriptServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/ExecuteCloudScript", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -384,6 +448,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetAllSegments", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -407,6 +472,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetAllUsersCharacters", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -428,6 +494,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetCatalogItemsResult>> GetCatalogItemsAsync(GetCatalogItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetCatalogItems", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -451,6 +518,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetCharacterData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -472,6 +540,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetCharacterDataResult>> GetCharacterInternalDataAsync(GetCharacterDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetCharacterInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -495,6 +564,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetCharacterInventory", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -516,6 +586,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetCharacterLeaderboardResult>> GetCharacterLeaderboardAsync(GetCharacterLeaderboardRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetCharacterLeaderboard", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -539,6 +610,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetCharacterReadOnlyData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -560,6 +632,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetCharacterStatisticsResult>> GetCharacterStatisticsAsync(GetCharacterStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetCharacterStatistics", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -588,6 +661,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetContentDownloadUrl", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -610,6 +684,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetLeaderboardResult>> GetFriendLeaderboardAsync(GetFriendLeaderboardRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetFriendLeaderboard", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -634,6 +709,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetFriendsList", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -655,6 +731,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetLeaderboardResult>> GetLeaderboardAsync(GetLeaderboardRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetLeaderboard", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -678,6 +755,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetLeaderboardAroundCharacter", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -700,6 +778,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetLeaderboardAroundUser", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -721,6 +800,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetLeaderboardForUsersCharactersResult>> GetLeaderboardForUserCharactersAsync(GetLeaderboardForUsersCharactersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetLeaderboardForUserCharacters", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -745,6 +825,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayerCombinedInfo", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -767,6 +848,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayerProfile", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -788,6 +870,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetPlayerSegmentsResult>> GetPlayerSegmentsAsync(GetPlayersSegmentsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayerSegments", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -814,6 +897,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayersInSegment", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -835,6 +919,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetPlayerStatisticsResult>> GetPlayerStatisticsAsync(GetPlayerStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayerStatistics", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -858,6 +943,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayerStatisticVersions", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -879,6 +965,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetPlayerTagsResult>> GetPlayerTagsAsync(GetPlayerTagsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayerTags", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -902,6 +989,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromFacebookIDs", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -924,6 +1012,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromFacebookInstantGamesIds", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -940,11 +1029,37 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the
+        /// service name plus the service-specific ID for the player, as specified by the title when the generic identifier was
+        /// added to the player account.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromGenericIDsResult>> GetPlayFabIDsFromGenericIDsAsync(GetPlayFabIDsFromGenericIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromGenericIDs", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromGenericIDsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromGenericIDsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromGenericIDsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of Nintendo Switch Device identifiers.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult>> GetPlayFabIDsFromNintendoSwitchDeviceIdsAsync(GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromNintendoSwitchDeviceIds", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -967,6 +1082,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromPSNAccountIDs", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -991,6 +1107,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromSteamIDs", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1013,6 +1130,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromXboxLiveIDs", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1034,6 +1152,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetPublisherDataResult>> GetPublisherDataAsync(GetPublisherDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetPublisherData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1058,6 +1177,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetRandomResultTables", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1079,6 +1199,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetServerCustomIDsFromPlayFabIDsResult>> GetServerCustomIDsFromPlayFabIDsAsync(GetServerCustomIDsFromPlayFabIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetServerCustomIDsFromPlayFabIDs", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1104,6 +1225,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetSharedGroupData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1125,6 +1247,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetTimeResult>> GetTimeAsync(GetTimeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetTime", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1148,6 +1271,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetTitleData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1169,6 +1293,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetTitleDataResult>> GetTitleInternalDataAsync(GetTitleDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetTitleInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1192,6 +1317,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetTitleNews", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1213,6 +1339,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetUserAccountInfoResult>> GetUserAccountInfoAsync(GetUserAccountInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserAccountInfo", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1236,6 +1363,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserBans", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1257,6 +1385,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetUserDataResult>> GetUserDataAsync(GetUserDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1280,6 +1409,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1301,6 +1431,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetUserInventoryResult>> GetUserInventoryAsync(GetUserInventoryRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserInventory", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1324,6 +1455,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserPublisherData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1345,6 +1477,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetUserDataResult>> GetUserPublisherInternalDataAsync(GetUserDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserPublisherInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1368,6 +1501,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserPublisherReadOnlyData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1389,6 +1523,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetUserDataResult>> GetUserReadOnlyDataAsync(GetUserDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GetUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1413,6 +1548,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GrantCharacterToUser", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1434,6 +1570,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GrantItemsToCharacterResult>> GrantItemsToCharacterAsync(GrantItemsToCharacterRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/GrantItemsToCharacter", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1457,6 +1594,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GrantItemsToUser", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1479,6 +1617,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/GrantItemsToUsers", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1495,11 +1634,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the custom server identifier, generated by the title, to the user's PlayFab account.
+        /// </summary>
+        public static async Task<PlayFabResult<LinkServerCustomIdResult>> LinkServerCustomIdAsync(LinkServerCustomIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LinkServerCustomId", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkServerCustomIdResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkServerCustomIdResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkServerCustomIdResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/LinkXboxAccount", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1524,6 +1687,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithServerCustomId", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1547,6 +1711,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithXbox", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1568,6 +1733,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ModifyItemUsesResult>> ModifyItemUsesAsync(ModifyItemUsesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/ModifyItemUses", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1591,6 +1757,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/MoveItemToCharacterFromCharacter", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1612,6 +1779,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<MoveItemToCharacterFromUserResult>> MoveItemToCharacterFromUserAsync(MoveItemToCharacterFromUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/MoveItemToCharacterFromUser", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1635,6 +1803,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/MoveItemToUserFromCharacter", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1656,6 +1825,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<NotifyMatchmakerPlayerLeftResult>> NotifyMatchmakerPlayerLeftAsync(NotifyMatchmakerPlayerLeftRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/NotifyMatchmakerPlayerLeft", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1680,6 +1850,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/RedeemCoupon", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1701,6 +1872,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<RedeemMatchmakerTicketResult>> RedeemMatchmakerTicketAsync(RedeemMatchmakerTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/RedeemMatchmakerTicket", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1724,6 +1896,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/RefreshGameServerInstanceHeartbeat", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1745,6 +1918,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<RegisterGameResponse>> RegisterGameAsync(RegisterGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/RegisterGame", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1768,6 +1942,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/RemoveFriend", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1784,11 +1959,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Removes the specified generic service identifier from the player's PlayFab account.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResult>> RemoveGenericIDAsync(RemoveGenericIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/RemoveGenericID", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Remove a given tag from a player profile. The tag's namespace is automatically generated based on the source of the tag.
         /// </summary>
         public static async Task<PlayFabResult<RemovePlayerTagResult>> RemovePlayerTagAsync(RemovePlayerTagRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/RemovePlayerTag", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1815,6 +2014,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/RemoveSharedGroupMembers", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1838,6 +2038,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/ReportPlayer", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1859,6 +2060,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<RevokeAllBansForUserResult>> RevokeAllBansForUserAsync(RevokeAllBansForUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/RevokeAllBansForUser", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1882,6 +2084,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/RevokeBans", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1903,6 +2106,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<RevokeInventoryResult>> RevokeInventoryItemAsync(RevokeInventoryItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/RevokeInventoryItem", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1926,6 +2130,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/RevokeInventoryItems", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -1942,12 +2147,36 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Saves push notification template for title
+        /// </summary>
+        public static async Task<PlayFabResult<SavePushNotificationTemplateResult>> SavePushNotificationTemplateAsync(SavePushNotificationTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SavePushNotificationTemplate", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SavePushNotificationTemplateResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SavePushNotificationTemplateResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SavePushNotificationTemplateResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Forces an email to be sent to the registered contact email address for the user's account based on an account recovery
         /// email template
         /// </summary>
         public static async Task<PlayFabResult<SendCustomAccountRecoveryEmailResult>> SendCustomAccountRecoveryEmailAsync(SendCustomAccountRecoveryEmailRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/SendCustomAccountRecoveryEmail", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1970,6 +2199,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<SendEmailFromTemplateResult>> SendEmailFromTemplateAsync(SendEmailFromTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/SendEmailFromTemplate", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -1994,7 +2224,32 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/SendPushNotification", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SendPushNotificationResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SendPushNotificationResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SendPushNotificationResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Sends an iOS/Android Push Notification template to a specific user, if that user's device has been configured for Push
+        /// Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified.
+        /// </summary>
+        public static async Task<PlayFabResult<SendPushNotificationResult>> SendPushNotificationFromTemplateAsync(SendPushNotificationFromTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SendPushNotificationFromTemplate", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -2015,6 +2270,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> SetFriendTagsAsync(SetFriendTagsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/SetFriendTags", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2038,6 +2294,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/SetGameServerInstanceData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2060,6 +2317,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/SetGameServerInstanceState", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2081,6 +2339,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<SetGameServerInstanceTagsResult>> SetGameServerInstanceTagsAsync(SetGameServerInstanceTagsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/SetGameServerInstanceTags", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2105,6 +2364,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/SetPlayerSecret", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2126,6 +2386,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<SetPublisherDataResult>> SetPublisherDataAsync(SetPublisherDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/SetPublisherData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2149,6 +2410,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/SetTitleData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2170,6 +2432,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<SetTitleDataResult>> SetTitleInternalDataAsync(SetTitleDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/SetTitleInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2194,6 +2457,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/SubtractCharacterVirtualCurrency", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2217,6 +2481,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/SubtractUserVirtualCurrency", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2233,11 +2498,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks the custom server identifier from the user's PlayFab account.
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkServerCustomIdResult>> UnlinkServerCustomIdAsync(UnlinkServerCustomIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkServerCustomId", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkServerCustomIdResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkServerCustomIdResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkServerCustomIdResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Unlinks the related Xbox Live account from the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<UnlinkXboxAccountResult>> UnlinkXboxAccountAsync(UnlinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkXboxAccount", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2262,6 +2551,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UnlockContainerItemResult>> UnlockContainerInstanceAsync(UnlockContainerInstanceRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UnlockContainerInstance", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2288,6 +2578,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UnlockContainerItem", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2309,6 +2600,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> UpdateAvatarUrlAsync(UpdateAvatarUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateAvatarUrl", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2332,6 +2624,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateBans", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2353,6 +2646,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UpdateCharacterDataResult>> UpdateCharacterDataAsync(UpdateCharacterDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateCharacterData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2376,6 +2670,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateCharacterInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2397,6 +2692,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UpdateCharacterDataResult>> UpdateCharacterReadOnlyDataAsync(UpdateCharacterDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateCharacterReadOnlyData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2420,6 +2716,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateCharacterStatistics", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2441,6 +2738,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UpdatePlayerStatisticsResult>> UpdatePlayerStatisticsAsync(UpdatePlayerStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdatePlayerStatistics", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2468,6 +2766,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateSharedGroupData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2489,6 +2788,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserDataAsync(UpdateUserDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateUserData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2512,6 +2812,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateUserInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2533,6 +2834,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> UpdateUserInventoryItemCustomDataAsync(UpdateUserInventoryItemDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateUserInventoryItemCustomData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2556,6 +2858,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateUserPublisherData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2577,6 +2880,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserPublisherInternalDataAsync(UpdateUserInternalDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateUserPublisherInternalData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2600,6 +2904,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateUserPublisherReadOnlyData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2621,6 +2926,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UpdateUserDataResult>> UpdateUserReadOnlyDataAsync(UpdateUserDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/UpdateUserReadOnlyData", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
@@ -2644,6 +2950,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/WriteCharacterEvent", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2666,6 +2973,7 @@ namespace PlayFab
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Server/WritePlayerEvent", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -2687,6 +2995,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<WriteEventResponse>> WriteTitleEventAsync(WriteTitleEventRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if (PlayFabSettings.staticSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "Must have PlayFabSettings.staticSettings.DeveloperSecretKey set to call this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Server/WriteTitleEvent", request, "X-SecretKey", PlayFabSettings.staticSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)

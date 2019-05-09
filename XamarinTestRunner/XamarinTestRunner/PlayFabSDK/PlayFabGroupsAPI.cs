@@ -23,6 +23,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/AcceptGroupApplication", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -44,6 +45,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> AcceptGroupInvitationAsync(AcceptGroupInvitationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/AcceptGroupInvitation", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -67,6 +69,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/AddMembers", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -88,6 +91,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ApplyToGroupResponse>> ApplyToGroupAsync(ApplyToGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/ApplyToGroup", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -111,6 +115,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/BlockEntity", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -132,6 +137,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> ChangeMemberRoleAsync(ChangeMemberRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/ChangeMemberRole", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -155,6 +161,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/CreateGroup", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -176,6 +183,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<CreateGroupRoleResponse>> CreateRoleAsync(CreateGroupRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/CreateRole", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -199,6 +207,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/DeleteGroup", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -220,6 +229,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> DeleteRoleAsync(DeleteRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/DeleteRole", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -243,6 +253,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/GetGroup", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -264,6 +275,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<InviteToGroupResponse>> InviteToGroupAsync(InviteToGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/InviteToGroup", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -287,6 +299,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/IsMember", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -308,6 +321,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ListGroupApplicationsResponse>> ListGroupApplicationsAsync(ListGroupApplicationsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/ListGroupApplications", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -331,6 +345,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/ListGroupBlocks", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -352,6 +367,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ListGroupInvitationsResponse>> ListGroupInvitationsAsync(ListGroupInvitationsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/ListGroupInvitations", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -375,6 +391,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/ListGroupMembers", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -396,6 +413,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ListMembershipResponse>> ListMembershipAsync(ListMembershipRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/ListMembership", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -419,6 +437,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/ListMembershipOpportunities", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -440,6 +459,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> RemoveGroupApplicationAsync(RemoveGroupApplicationRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/RemoveGroupApplication", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -463,6 +483,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/RemoveGroupInvitation", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -484,6 +505,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> RemoveMembersAsync(RemoveMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/RemoveMembers", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -507,6 +529,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/UnblockEntity", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -529,6 +552,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Group/UpdateGroup", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -550,6 +574,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<UpdateGroupRoleResponse>> UpdateRoleAsync(UpdateGroupRoleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Group/UpdateRole", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)

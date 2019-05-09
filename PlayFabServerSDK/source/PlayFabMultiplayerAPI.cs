@@ -21,6 +21,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Match/CancelAllMatchmakingTicketsForPlayer", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -42,6 +43,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<CancelMatchmakingTicketResult>> CancelMatchmakingTicketAsync(CancelMatchmakingTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Match/CancelMatchmakingTicket", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -65,6 +67,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/CreateBuildWithCustomContainer", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -86,6 +89,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<CreateBuildWithManagedContainerResponse>> CreateBuildWithManagedContainerAsync(CreateBuildWithManagedContainerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/CreateBuildWithManagedContainer", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -109,6 +113,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Match/CreateMatchmakingTicket", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -130,6 +135,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<CreateRemoteUserResponse>> CreateRemoteUserAsync(CreateRemoteUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/CreateRemoteUser", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -154,6 +160,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Match/CreateServerMatchmakingTicket", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -175,6 +182,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> DeleteAssetAsync(DeleteAssetRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/DeleteAsset", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -198,6 +206,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/DeleteBuild", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -219,6 +228,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> DeleteCertificateAsync(DeleteCertificateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/DeleteCertificate", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -242,6 +252,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/DeleteRemoteUser", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -263,6 +274,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EnableMultiplayerServersForTitleResponse>> EnableMultiplayerServersForTitleAsync(EnableMultiplayerServersForTitleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/EnableMultiplayerServersForTitle", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -286,6 +298,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetAssetUploadUrl", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -307,6 +320,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetBuildResponse>> GetBuildAsync(GetBuildRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetBuild", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -330,6 +344,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetContainerRegistryCredentials", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -352,6 +367,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/Match/GetMatch", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -368,33 +384,12 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Get a matchmaking queue configuration.
-        /// </summary>
-        public static async Task<PlayFabResult<GetMatchmakingQueueResult>> GetMatchmakingQueueAsync(GetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Match/GetMatchmakingQueue", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetMatchmakingQueueResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetMatchmakingQueueResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetMatchmakingQueueResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Get a matchmaking ticket by ticket Id.
         /// </summary>
         public static async Task<PlayFabResult<GetMatchmakingTicketResult>> GetMatchmakingTicketAsync(GetMatchmakingTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Match/GetMatchmakingTicket", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -418,6 +413,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetMultiplayerServerDetails", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -439,6 +435,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<GetQueueStatisticsResult>> GetQueueStatisticsAsync(GetQueueStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Match/GetQueueStatistics", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -462,6 +459,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetRemoteLoginEndpoint", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -484,6 +482,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetTitleEnabledForMultiplayerServersStatus", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -500,11 +499,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Gets the quotas for a title in relation to multiplayer servers.
+        /// </summary>
+        public static async Task<PlayFabResult<GetTitleMultiplayerServersQuotasResponse>> GetTitleMultiplayerServersQuotasAsync(GetTitleMultiplayerServersQuotasRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetTitleMultiplayerServersQuotas", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetTitleMultiplayerServersQuotasResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTitleMultiplayerServersQuotasResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetTitleMultiplayerServersQuotasResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Join a matchmaking ticket.
         /// </summary>
         public static async Task<PlayFabResult<JoinMatchmakingTicketResult>> JoinMatchmakingTicketAsync(JoinMatchmakingTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Match/JoinMatchmakingTicket", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -528,6 +551,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListArchivedMultiplayerServers", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -549,6 +573,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ListAssetSummariesResponse>> ListAssetSummariesAsync(ListAssetSummariesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListAssetSummaries", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -572,6 +597,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListBuildSummaries", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -593,6 +619,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<ListCertificateSummariesResponse>> ListCertificateSummariesAsync(ListCertificateSummariesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListCertificateSummaries", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -616,6 +643,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListContainerImages", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -638,6 +666,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListContainerImageTags", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -654,33 +683,12 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// List all matchmaking queue configs.
-        /// </summary>
-        public static async Task<PlayFabResult<ListMatchmakingQueuesResult>> ListMatchmakingQueuesAsync(ListMatchmakingQueuesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Match/ListMatchmakingQueues", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<ListMatchmakingQueuesResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListMatchmakingQueuesResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ListMatchmakingQueuesResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// List all matchmaking ticket Ids the user is a member of.
         /// </summary>
         public static async Task<PlayFabResult<ListMatchmakingTicketsForPlayerResult>> ListMatchmakingTicketsForPlayerAsync(ListMatchmakingTicketsForPlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/Match/ListMatchmakingTicketsForPlayer", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -704,6 +712,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListMultiplayerServers", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -724,6 +733,7 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<ListQosServersResponse>> ListQosServersAsync(ListQosServersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListQosServers", request, null, null, extraHeaders);
             if (httpResult is PlayFabError)
@@ -747,6 +757,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListVirtualMachineSummaries", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -763,34 +774,13 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Remove a matchmaking queue config.
-        /// </summary>
-        public static async Task<PlayFabResult<RemoveMatchmakingQueueResult>> RemoveMatchmakingQueueAsync(RemoveMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Match/RemoveMatchmakingQueue", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<RemoveMatchmakingQueueResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RemoveMatchmakingQueueResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<RemoveMatchmakingQueueResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Request a multiplayer server session. Accepts tokens for title and if game client accesss is enabled, allows game client
         /// to request a server with player entity token.
         /// </summary>
         public static async Task<PlayFabResult<RequestMultiplayerServerResponse>> RequestMultiplayerServerAsync(RequestMultiplayerServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/RequestMultiplayerServer", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -814,6 +804,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/RolloverContainerRegistryCredentials", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -830,33 +821,12 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Create or update a matchmaking queue configuration.
-        /// </summary>
-        public static async Task<PlayFabResult<SetMatchmakingQueueResult>> SetMatchmakingQueueAsync(SetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Match/SetMatchmakingQueue", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<SetMatchmakingQueueResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetMatchmakingQueueResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<SetMatchmakingQueueResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Shuts down a multiplayer server session.
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> ShutdownMultiplayerServerAsync(ShutdownMultiplayerServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ShutdownMultiplayerServer", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
@@ -880,6 +850,7 @@ namespace PlayFab
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
+
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/UpdateBuildRegions", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
@@ -901,6 +872,7 @@ namespace PlayFab
         public static async Task<PlayFabResult<EmptyResponse>> UploadCertificateAsync(UploadCertificateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/UploadCertificate", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)

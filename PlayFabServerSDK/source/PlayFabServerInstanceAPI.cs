@@ -107,6 +107,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab
+        /// ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as
+        /// authentication credentials, as the intent is that it is easily accessible by other players.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResult>> AddGenericIDAsync(AddGenericIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/AddGenericID", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag.
         /// </summary>
         public async Task<PlayFabResult<AddPlayerTagResult>> AddPlayerTagAsync(AddPlayerTagRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -339,6 +364,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<DeletePlayerResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Deletes push notification template for title
+        /// </summary>
+        public async Task<PlayFabResult<DeletePushNotificationTemplateResult>> DeletePushNotificationTemplateAsync(DeletePushNotificationTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/DeletePushNotificationTemplate", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeletePushNotificationTemplateResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeletePushNotificationTemplateResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeletePushNotificationTemplateResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1025,6 +1073,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the
+        /// service name plus the service-specific ID for the player, as specified by the title when the generic identifier was
+        /// added to the player account.
+        /// </summary>
+        public async Task<PlayFabResult<GetPlayFabIDsFromGenericIDsResult>> GetPlayFabIDsFromGenericIDsAsync(GetPlayFabIDsFromGenericIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromGenericIDs", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromGenericIDsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromGenericIDsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromGenericIDsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of Nintendo Switch Device identifiers.
         /// </summary>
         public async Task<PlayFabResult<GetPlayFabIDsFromNintendoSwitchDeviceIdsResult>> GetPlayFabIDsFromNintendoSwitchDeviceIdsAsync(GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1605,6 +1678,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the custom server identifier, generated by the title, to the user's PlayFab account.
+        /// </summary>
+        public async Task<PlayFabResult<LinkServerCustomIdResult>> LinkServerCustomIdAsync(LinkServerCustomIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LinkServerCustomId", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkServerCustomIdResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkServerCustomIdResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkServerCustomIdResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1907,6 +2003,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Removes the specified generic service identifier from the player's PlayFab account.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResult>> RemoveGenericIDAsync(RemoveGenericIDRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/RemoveGenericID", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Remove a given tag from a player profile. The tag's namespace is automatically generated based on the source of the tag.
         /// </summary>
         public async Task<PlayFabResult<RemovePlayerTagResult>> RemovePlayerTagAsync(RemovePlayerTagRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2072,6 +2191,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Saves push notification template for title
+        /// </summary>
+        public async Task<PlayFabResult<SavePushNotificationTemplateResult>> SavePushNotificationTemplateAsync(SavePushNotificationTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SavePushNotificationTemplate", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SavePushNotificationTemplateResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SavePushNotificationTemplateResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SavePushNotificationTemplateResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Forces an email to be sent to the registered contact email address for the user's account based on an account recovery
         /// email template
         /// </summary>
@@ -2128,6 +2270,30 @@ namespace PlayFab
             if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
 
             var httpResult = await PlayFabHttp.DoPost("/Server/SendPushNotification", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SendPushNotificationResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SendPushNotificationResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SendPushNotificationResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Sends an iOS/Android Push Notification template to a specific user, if that user's device has been configured for Push
+        /// Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified.
+        /// </summary>
+        public async Task<PlayFabResult<SendPushNotificationResult>> SendPushNotificationFromTemplateAsync(SendPushNotificationFromTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/SendPushNotificationFromTemplate", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -2373,6 +2539,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ModifyUserVirtualCurrencyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlinks the custom server identifier from the user's PlayFab account.
+        /// </summary>
+        public async Task<PlayFabResult<UnlinkServerCustomIdResult>> UnlinkServerCustomIdAsync(UnlinkServerCustomIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkServerCustomId", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkServerCustomIdResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkServerCustomIdResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkServerCustomIdResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
