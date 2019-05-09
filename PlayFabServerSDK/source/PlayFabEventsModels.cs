@@ -29,7 +29,7 @@ namespace PlayFab.EventsModels
         public EntityKey Entity ;
 
         /// <summary>
-        /// The namespace in which the event is defined. It must be prepended with 'com.playfab.events.'
+        /// The namespace in which the event is defined. It must begin with 'com.playfab.events.'
         /// </summary>
         public string EventNamespace ;
 

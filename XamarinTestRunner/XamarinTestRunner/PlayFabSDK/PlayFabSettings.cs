@@ -6,9 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.49.190424";
-        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-1_1";
-        public const string SdkVersionString = "CSharpSDK-1.49.190424";
+        public const string SdkVersion = "1.50.190509";
+        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-2_0";
+        public const string SdkVersionString = "CSharpSDK-1.50.190509";
         public const string AD_TYPE_IDFA = "Idfa";
         public const string AD_TYPE_ANDROID_ID = "Adid";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
@@ -30,12 +30,15 @@ namespace PlayFab
         [Obsolete("Moved to PlayFabSettings.staticSettings.VerticalName")]
         public static string VerticalName { get { return staticSettings.VerticalName; } set { staticSettings.VerticalName = value; } }
 
+#if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API
         [Obsolete("Moved to PlayFabSettings.staticSettings.DeveloperSecretKey")]
         public static string DeveloperSecretKey { get { return staticSettings.DeveloperSecretKey; } set { staticSettings.DeveloperSecretKey = value; } }
+#endif
 
         [Obsolete("Moved to PlayFabSettings.staticSettings.TitleId")]
         public static string TitleId { get { return staticSettings.TitleId; } set { staticSettings.TitleId = value; } }
 
+#if !DISABLE_PLAYFABCLIENT_API
         [Obsolete("Moved to PlayFabSettings.staticSettings.AdvertisingIdType")]
         public static string AdvertisingIdType { get { return staticSettings.AdvertisingIdType; } set { staticSettings.AdvertisingIdType = value; } }
 
@@ -44,7 +47,28 @@ namespace PlayFab
 
         [Obsolete("Moved to PlayFabSettings.staticSettings.DisableAdvertising")]
         public static bool DisableAdvertising { get { return staticSettings.DisableAdvertising; } set { staticSettings.DisableAdvertising = value; } }
+#endif
         #endregion Deprecated staticSettingsredirect properties
+
+        private static string _localApiServer;
+
+        public static string LocalApiServer
+        {
+            get
+            {
+#if NET45 || NETCOREAPP2_0
+                return PlayFabUtil.GetLocalSettingsFileProperty("LocalApiServer");
+#else
+                return _localApiServer;
+#endif
+            }
+#if !NET45 && !NETCOREAPP2_0
+            set
+            {
+                _localApiServer = value;
+            }
+#endif
+        }
 
         public static string GetFullUrl(string apiCall, Dictionary<string, string> getParams, PlayFabApiSettings instanceSettings = null)
         {
