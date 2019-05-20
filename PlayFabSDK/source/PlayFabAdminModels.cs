@@ -4963,7 +4963,8 @@ namespace PlayFab.AdminModels
     public enum ScheduledTaskType
     {
         CloudScript,
-        ActionsOnPlayerSegment
+        ActionsOnPlayerSegment,
+        CloudScriptAzureFunctions
     }
 
     public class ScriptExecutionError
