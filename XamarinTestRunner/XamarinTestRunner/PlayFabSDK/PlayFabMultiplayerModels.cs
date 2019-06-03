@@ -351,7 +351,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The name of the container repository.
         /// </summary>
-        [Obsolete("Use 'ContainerImageReference' instead", false)]
+        [Obsolete("Use 'ContainerImageReference' instead", true)]
         public string ContainerRepositoryName ;
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The tag for the container.
         /// </summary>
-        [Obsolete("Use 'ContainerImageReference' instead", false)]
+        [Obsolete("Use 'ContainerImageReference' instead", true)]
         public string ContainerTag ;
 
         /// <summary>
