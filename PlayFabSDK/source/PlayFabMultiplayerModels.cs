@@ -64,7 +64,8 @@ namespace PlayFab.MultiplayerModels
         WestEurope,
         WestUs,
         ChinaEast2,
-        ChinaNorth2
+        ChinaNorth2,
+        SouthAfricaNorth
     }
 
     public enum AzureVmFamily
@@ -208,7 +209,8 @@ namespace PlayFab.MultiplayerModels
     {
         Requested,
         Internal,
-        Timeout
+        Timeout,
+        ServerAllocationFailed
     }
 
     /// <summary>

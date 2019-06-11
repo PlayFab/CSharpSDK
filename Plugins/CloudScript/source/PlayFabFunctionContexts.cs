@@ -1,9 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////////////////////////
-/// THIS PLUGIN IS CURRENTLY IN A BETA STATE MEANT TO ONLY BE USED BY PRIVATE PREVIEW CUSTOMERS.
-/// DO NOT RELY ON THE FOLLOWING CODE FOR USE ALONGSIDE PRODUCTION READY CODE.
-/// THIS FILE IS SUBJECT TO CHANGE AT ANY TIME.
-/////////////////////////////////////////////////////////////////////////////////////////////////
-#if NETSTANDARD2_0
+﻿#if NETSTANDARD2_0
 namespace PlayFab.Plugins.CloudScript
 {
     using PlayFab.Json;

@@ -6596,7 +6596,7 @@ namespace PlayFab.ClientModels
         public string CharacterId ;
 
         /// <summary>
-        /// Statistics to be updated with the provided values.
+        /// Statistics to be updated with the provided values, in the Key(string), Value(int) pattern.
         /// </summary>
         public Dictionary<string,int> CharacterStatistics ;
 
