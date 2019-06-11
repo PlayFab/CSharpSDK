@@ -6,9 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.51.190520";
-        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-2_1";
-        public const string SdkVersionString = "CSharpSDK-1.51.190520";
+        public const string SdkVersion = "1.52.190610";
+        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-2_2";
+        public const string SdkVersionString = "CSharpSDK-1.52.190610";
         public const string AD_TYPE_IDFA = "Idfa";
         public const string AD_TYPE_ANDROID_ID = "Adid";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
@@ -50,19 +50,21 @@ namespace PlayFab
 #endif
         #endregion Deprecated staticSettingsredirect properties
 
+#if !NET45 && !NETSTANDARD2_0
         private static string _localApiServer;
+#endif
 
         public static string LocalApiServer
         {
             get
             {
-#if NET45 || NETCOREAPP2_0
-                return PlayFabUtil.GetLocalSettingsFileProperty("LocalApiServer");
+#if NET45 || NETSTANDARD2_0
+                return PlayFabUtil.GetLocalSettingsFile().LocalApiServer;
 #else
                 return _localApiServer;
 #endif
             }
-#if !NET45 && !NETCOREAPP2_0
+#if !NET45 && !NETSTANDARD2_0
             set
             {
                 _localApiServer = value;

@@ -1,4 +1,4 @@
-using System.Resources;
+﻿using System.Resources;
 using System.Reflection;
 
 [assembly: AssemblyTitle("PlayFab CSharp Sdk")]

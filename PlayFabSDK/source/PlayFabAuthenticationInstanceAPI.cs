@@ -98,6 +98,28 @@ namespace PlayFab
             return new PlayFabResult<GetEntityTokenResponse> { Result = result, CustomData = customData };
         }
 
+        /// <summary>
+        /// Method for a server to validate a client provided EntityToken. Only callable by the title entity.
+        /// </summary>
+        public async Task<PlayFabResult<ValidateEntityTokenResponse>> ValidateEntityTokenAsync(ValidateEntityTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Authentication/ValidateEntityToken", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, apiSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ValidateEntityTokenResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ValidateEntityTokenResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ValidateEntityTokenResponse> { Result = result, CustomData = customData };
+        }
+
     }
 }
 #endif
