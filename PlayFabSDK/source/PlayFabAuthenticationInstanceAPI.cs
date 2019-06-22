@@ -93,7 +93,10 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetEntityTokenResponse>>(resultRawJson);
             var result = resultData.data;
-            PlayFabSettings.staticPlayer.EntityToken = result.EntityToken;
+            var updateContext = authenticationContext;
+            updateContext.EntityToken = result.EntityToken;
+            updateContext.EntityId = result.Entity.Id;
+            updateContext.EntityType = result.Entity.Type;
 
             return new PlayFabResult<GetEntityTokenResponse> { Result = result, CustomData = customData };
         }
