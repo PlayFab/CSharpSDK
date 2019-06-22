@@ -13,8 +13,25 @@ namespace PlayFab
     /// Write custom PlayStream events for any PlayFab entity. PlayStream events can be used for analytics, reporting,
     /// debugging, or to trigger custom actions in near real-time.
     /// </summary>
-    public class PlayFabEventsAPI
+    public static class PlayFabEventsAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Write batches of entity based events to PlayStream.
         /// </summary>
@@ -37,7 +54,6 @@ namespace PlayFab
 
             return new PlayFabResult<WriteEventsResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

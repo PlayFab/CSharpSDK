@@ -12,8 +12,17 @@ namespace PlayFab
     /// <summary>
     /// APIs for managing title configurations, uploaded Game Server code executables, and user data
     /// </summary>
-    public class PlayFabAdminAPI
+    public static class PlayFabAdminAPI
     {
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Abort an ongoing task instance.
         /// </summary>
@@ -2564,7 +2573,6 @@ namespace PlayFab
 
             return new PlayFabResult<UpdateUserTitleDisplayNameResult> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

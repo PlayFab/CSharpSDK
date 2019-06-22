@@ -13,8 +13,25 @@ namespace PlayFab
     /// All PlayFab entities have profiles, which hold top-level properties about the entity. These APIs give you the tools
     /// needed to manage entity profiles.
     /// </summary>
-    public class PlayFabProfilesAPI
+    public static class PlayFabProfilesAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Gets the global title access policy
         /// </summary>
@@ -153,7 +170,6 @@ namespace PlayFab
 
             return new PlayFabResult<SetEntityProfilePolicyResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif
