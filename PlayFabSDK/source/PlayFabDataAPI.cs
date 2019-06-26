@@ -15,8 +15,25 @@ namespace PlayFab
     /// and CloudScript functions. Files can efficiently store data of any size or format. Both objects and files support a
     /// flexible permissions system to control read and write access by other entities.
     /// </summary>
-    public class PlayFabDataAPI
+    public static class PlayFabDataAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Abort pending file uploads to an entity's profile.
         /// </summary>
@@ -177,7 +194,6 @@ namespace PlayFab
 
             return new PlayFabResult<SetObjectsResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

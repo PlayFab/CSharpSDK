@@ -14,8 +14,25 @@ namespace PlayFab
     /// want to make Guilds/Clans/Corporations/etc., then you should use groups. Groups can also be used to make chatrooms,
     /// parties, or any other persistent collection of entities.
     /// </summary>
-    public class PlayFabGroupsAPI
+    public static class PlayFabGroupsAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Accepts an outstanding invitation to to join a group
         /// </summary>
@@ -590,7 +607,6 @@ namespace PlayFab
 
             return new PlayFabResult<UpdateGroupRoleResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

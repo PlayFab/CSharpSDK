@@ -12,8 +12,17 @@ namespace PlayFab
     /// <summary>
     /// Enables the use of an external match-making service in conjunction with PlayFab hosted Game Server instances
     /// </summary>
-    public class PlayFabMatchmakerAPI
+    public static class PlayFabMatchmakerAPI
     {
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Validates a user with the PlayFab service
         /// </summary>
@@ -129,7 +138,6 @@ namespace PlayFab
 
             return new PlayFabResult<UserInfoResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

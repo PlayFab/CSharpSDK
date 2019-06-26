@@ -14,48 +14,39 @@ namespace PlayFab
     /// </summary>
     public class PlayFabLocalizationInstanceAPI
     {
-        private PlayFabApiSettings apiSettings = null;
-        private PlayFabAuthenticationContext authenticationContext = null;
+        public readonly PlayFabApiSettings apiSettings = null;
+        public readonly PlayFabAuthenticationContext authenticationContext = null;
 
-        public PlayFabLocalizationInstanceAPI()
+        public PlayFabLocalizationInstanceAPI(PlayFabAuthenticationContext context)
         {
-
-        }
-
-        public PlayFabLocalizationInstanceAPI(PlayFabApiSettings settings = null)
-        {
-            apiSettings = settings;
-        }
-
-        public PlayFabLocalizationInstanceAPI(PlayFabAuthenticationContext context = null)
-        {
+            if (context == null)
+                throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, "Context cannot be null, create a PlayFabAuthenticationContext for each player in advance, or get <PlayFabClientInstanceAPI>.authenticationContext");
             authenticationContext = context;
         }
 
-        public PlayFabLocalizationInstanceAPI(PlayFabApiSettings settings = null, PlayFabAuthenticationContext context = null)
+        public PlayFabLocalizationInstanceAPI(PlayFabApiSettings settings, PlayFabAuthenticationContext context)
         {
+            if (context == null)
+                throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, "Context cannot be null, create a PlayFabAuthenticationContext for each player in advance, or get <PlayFabClientInstanceAPI>.authenticationContext");
             apiSettings = settings;
             authenticationContext = context;
         }
 
-        public void SetSettings(PlayFabApiSettings settings)
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public bool IsEntityLoggedIn()
         {
-            apiSettings = settings;
+            return authenticationContext == null ? false : authenticationContext.IsEntityLoggedIn();
         }
 
-        public PlayFabApiSettings GetSettings()
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public void ForgetAllCredentials()
         {
-            return apiSettings;
-        }
-
-        public void SetAuthenticationContext(PlayFabAuthenticationContext context)
-        {
-            authenticationContext = context;
-        }
-
-        public PlayFabAuthenticationContext GetAuthenticationContext()
-        {
-            return authenticationContext;
+            authenticationContext?.ForgetAllCredentials();
         }
 
         /// <summary>
@@ -63,9 +54,10 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetLanguageListResponse>> GetLanguageListAsync(GetLanguageListRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
             if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/Locale/GetLanguageList", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, apiSettings);
+            var httpResult = await PlayFabHttp.DoPost("/Locale/GetLanguageList", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

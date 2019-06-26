@@ -526,7 +526,9 @@ namespace PlayFab
         ExportUnknownError = 5013,
         ExportCantEditPendingExport = 5014,
         ExportLimitExports = 5015,
-        ExportLimitEvents = 5016
+        ExportLimitEvents = 5016,
+        TitleNotEnabledForParty = 6000,
+        PartyVersionNotFound = 6001
     }
 
     public class PlayFabError
@@ -538,11 +540,23 @@ namespace PlayFab
         public Dictionary<string, string[]> ErrorDetails;
 
         private static readonly StringBuilder Sb = new StringBuilder();
+        /// <summary>
+        /// This converts the PlayFabError into a human readable string describing the error.
+        /// If error is not found, it will return the http code, status, and error
+        /// </summary>
+        /// <returns>A description of the error that we just incur.</returns>
         public string GenerateErrorReport()
         {
             Sb.Length = 0;
             if (ErrorMessage != null)
+            {
                 Sb.Append(ErrorMessage);
+            }
+            else
+            {
+                Sb.Append("Http Code: " + HttpCode.ToString() + "\nHttp Status: " + HttpStatus + "\nError: " + Error.ToString() + "\n");
+            }
+
             if (ErrorDetails == null)
                 return Sb.ToString();
 
@@ -579,6 +593,7 @@ namespace PlayFab
 
     public enum PlayFabExceptionCode
     {
+        AuthContextRequired,
         DeveloperKeyNotSet,
         EntityTokenNotSet,
         NotLoggedIn,
