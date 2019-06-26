@@ -2260,7 +2260,9 @@ namespace PlayFab.AdminModels
         ExportUnknownError,
         ExportCantEditPendingExport,
         ExportLimitExports,
-        ExportLimitEvents
+        ExportLimitEvents,
+        TitleNotEnabledForParty,
+        PartyVersionNotFound
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon

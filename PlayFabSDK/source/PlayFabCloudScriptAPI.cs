@@ -12,8 +12,25 @@ namespace PlayFab
     /// <summary>
     /// API methods for executing CloudScript using an Entity Profile
     /// </summary>
-    public class PlayFabCloudScriptAPI
+    public static class PlayFabCloudScriptAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Cloud Script is one of PlayFab's most versatile features. It allows client code to request execution of any kind of
         /// custom server-side functionality you can implement, and it can be used in conjunction with virtually anything.
@@ -37,7 +54,6 @@ namespace PlayFab
 
             return new PlayFabResult<ExecuteCloudScriptResult> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif
