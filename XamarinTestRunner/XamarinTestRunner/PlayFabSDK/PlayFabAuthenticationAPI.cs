@@ -14,8 +14,25 @@ namespace PlayFab
     /// models. These APIs will provide you with the entity authentication token needed for subsequent Entity API calls. Manage
     /// API keys for authenticating any entity.
     /// </summary>
-    public class PlayFabAuthenticationAPI
+    public static class PlayFabAuthenticationAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Method to exchange a legacy AuthenticationTicket or title SecretKey for an Entity Token or to refresh a still valid
         /// Entity Token.
@@ -50,7 +67,10 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetEntityTokenResponse>>(resultRawJson);
             var result = resultData.data;
-            PlayFabSettings.staticPlayer.EntityToken = result.EntityToken;
+            var updateContext = PlayFabSettings.staticPlayer;
+            updateContext.EntityToken = result.EntityToken;
+            updateContext.EntityId = result.Entity.Id;
+            updateContext.EntityType = result.Entity.Type;
 
             return new PlayFabResult<GetEntityTokenResponse> { Result = result, CustomData = customData };
         }
@@ -77,7 +97,6 @@ namespace PlayFab
 
             return new PlayFabResult<ValidateEntityTokenResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

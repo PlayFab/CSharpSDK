@@ -12,8 +12,25 @@ namespace PlayFab
     /// <summary>
     /// API methods for managing multiplayer servers. API methods for managing parties.
     /// </summary>
-    public class PlayFabMultiplayerAPI
+    public static class PlayFabMultiplayerAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Cancel all active tickets the player is a member of in a given queue.
         /// </summary>
@@ -888,7 +905,6 @@ namespace PlayFab
 
             return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif
