@@ -13,8 +13,25 @@ namespace PlayFab
     /// All PlayFab entities have profiles, which hold top-level properties about the entity. These APIs give you the tools
     /// needed to manage entity profiles.
     /// </summary>
-    public class PlayFabProfilesAPI
+    public static class PlayFabProfilesAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Gets the global title access policy
         /// </summary>
@@ -82,6 +99,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetEntityProfilesResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves the title player accounts associated with the given master player account.
+        /// </summary>
+        public static async Task<PlayFabResult<GetTitlePlayersFromMasterPlayerAccountIdsResponse>> GetTitlePlayersFromMasterPlayerAccountIdsAsync(GetTitlePlayersFromMasterPlayerAccountIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/GetTitlePlayersFromMasterPlayerAccountIds", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetTitlePlayersFromMasterPlayerAccountIdsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTitlePlayersFromMasterPlayerAccountIdsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetTitlePlayersFromMasterPlayerAccountIdsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -153,7 +193,6 @@ namespace PlayFab
 
             return new PlayFabResult<SetEntityProfilePolicyResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

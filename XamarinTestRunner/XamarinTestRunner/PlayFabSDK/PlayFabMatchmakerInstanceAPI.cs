@@ -14,48 +14,31 @@ namespace PlayFab
     /// </summary>
     public class PlayFabMatchmakerInstanceAPI
     {
-        private PlayFabApiSettings apiSettings = null;
-        private PlayFabAuthenticationContext authenticationContext = null;
+        public readonly PlayFabApiSettings apiSettings = null;
+        public readonly PlayFabAuthenticationContext authenticationContext = null;
 
-        public PlayFabMatchmakerInstanceAPI()
+        public PlayFabMatchmakerInstanceAPI(PlayFabAuthenticationContext context)
         {
-
-        }
-
-        public PlayFabMatchmakerInstanceAPI(PlayFabApiSettings settings = null)
-        {
-            apiSettings = settings;
-        }
-
-        public PlayFabMatchmakerInstanceAPI(PlayFabAuthenticationContext context = null)
-        {
+            if (context == null)
+                throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, "Context cannot be null, create a PlayFabAuthenticationContext for each player in advance, or get <PlayFabClientInstanceAPI>.authenticationContext");
             authenticationContext = context;
         }
 
-        public PlayFabMatchmakerInstanceAPI(PlayFabApiSettings settings = null, PlayFabAuthenticationContext context = null)
+        public PlayFabMatchmakerInstanceAPI(PlayFabApiSettings settings, PlayFabAuthenticationContext context)
         {
+            if (context == null)
+                throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, "Context cannot be null, create a PlayFabAuthenticationContext for each player in advance, or get <PlayFabClientInstanceAPI>.authenticationContext");
             apiSettings = settings;
             authenticationContext = context;
         }
 
-        public void SetSettings(PlayFabApiSettings settings)
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public void ForgetAllCredentials()
         {
-            apiSettings = settings;
-        }
-
-        public PlayFabApiSettings GetSettings()
-        {
-            return apiSettings;
-        }
-
-        public void SetAuthenticationContext(PlayFabAuthenticationContext context)
-        {
-            authenticationContext = context;
-        }
-
-        public PlayFabAuthenticationContext GetAuthenticationContext()
-        {
-            return authenticationContext;
+            authenticationContext?.ForgetAllCredentials();
         }
 
         /// <summary>
@@ -63,10 +46,11 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<AuthUserResponse>> AuthUserAsync(AuthUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
             var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
             if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/AuthUser", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/AuthUser", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -86,10 +70,11 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<PlayerJoinedResponse>> PlayerJoinedAsync(PlayerJoinedRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
             var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
             if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerJoined", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerJoined", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -109,10 +94,11 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<PlayerLeftResponse>> PlayerLeftAsync(PlayerLeftRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
             var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
             if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerLeft", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/PlayerLeft", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -132,10 +118,11 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<StartGameResponse>> StartGameAsync(StartGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
             var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
             if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/StartGame", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/StartGame", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -156,10 +143,11 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<UserInfoResponse>> UserInfoAsync(UserInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
             var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
             if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
 
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/UserInfo", request, "X-SecretKey", developerSecretKey, extraHeaders, apiSettings);
+            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/UserInfo", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

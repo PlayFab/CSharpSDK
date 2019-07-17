@@ -13,8 +13,17 @@ namespace PlayFab
     /// Provides functionality to allow external (developer-controlled) servers to interact with user inventories and data in a
     /// trusted manner, and to handle matchmaking and client connection orchestration
     /// </summary>
-    public class PlayFabServerAPI
+    public static class PlayFabServerAPI
     {
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Increments the character's balance of the specified virtual currency by the stated amount
         /// </summary>
@@ -3011,7 +3020,6 @@ namespace PlayFab
 
             return new PlayFabResult<WriteEventResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

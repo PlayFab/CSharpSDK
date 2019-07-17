@@ -120,6 +120,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the title player accounts associated with the given master player account.
+        /// </summary>
+        public async Task<PlayFabResult<GetTitlePlayersFromMasterPlayerAccountIdsResponse>> GetTitlePlayersFromMasterPlayerAccountIdsAsync(GetTitlePlayersFromMasterPlayerAccountIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/GetTitlePlayersFromMasterPlayerAccountIds", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetTitlePlayersFromMasterPlayerAccountIdsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTitlePlayersFromMasterPlayerAccountIdsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetTitlePlayersFromMasterPlayerAccountIdsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Sets the global title access policy
         /// </summary>
         public async Task<PlayFabResult<SetGlobalPolicyResponse>> SetGlobalPolicyAsync(SetGlobalPolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)

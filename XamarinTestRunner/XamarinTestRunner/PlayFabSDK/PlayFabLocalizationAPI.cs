@@ -12,8 +12,25 @@ namespace PlayFab
     /// <summary>
     /// The Localization APIs give you the tools needed to manage language setup in your title.
     /// </summary>
-    public class PlayFabLocalizationAPI
+    public static class PlayFabLocalizationAPI
     {
+        /// <summary>
+        /// Verify entity login.
+        /// </summary>
+        public static bool IsEntityLoggedIn()
+        {
+            return PlayFabSettings.staticPlayer.IsEntityLoggedIn();
+        }
+
+        /// <summary>
+        /// Clear the Client SessionToken which allows this Client to call API calls requiring login.
+        /// A new/fresh login will be required after calling this.
+        /// </summary>
+        public static void ForgetAllCredentials()
+        {
+            PlayFabSettings.staticPlayer.ForgetAllCredentials();
+        }
+
         /// <summary>
         /// Retrieves the list of allowed languages, only accessible by title entities
         /// </summary>
@@ -36,7 +53,6 @@ namespace PlayFab
 
             return new PlayFabResult<GetLanguageListResponse> { Result = result, CustomData = customData };
         }
-
     }
 }
 #endif

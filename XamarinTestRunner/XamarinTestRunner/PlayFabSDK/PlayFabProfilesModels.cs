@@ -156,6 +156,11 @@ namespace PlayFab.ProfilesModels
         public string Language ;
 
         /// <summary>
+        /// Leaderboard metadata for the entity.
+        /// </summary>
+        public string LeaderboardMetadata ;
+
+        /// <summary>
         /// The lineage of this profile.
         /// </summary>
         public EntityLineage Lineage ;
@@ -335,6 +340,32 @@ namespace PlayFab.ProfilesModels
 
     }
 
+    /// <summary>
+    /// Given a master player account id (PlayFab ID), returns all title player accounts associated with it.
+    /// </summary>
+    public class GetTitlePlayersFromMasterPlayerAccountIdsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Master player account ids.
+        /// </summary>
+        public List<string> MasterPlayerAccountIds ;
+
+        /// <summary>
+        /// Id of title to get players from.
+        /// </summary>
+        public string TitleId ;
+
+    }
+
+    public class GetTitlePlayersFromMasterPlayerAccountIdsResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Dictionary of master player ids mapped to title player entity keys and id pairs
+        /// </summary>
+        public Dictionary<string,EntityKey> TitlePlayerAccounts ;
+
+    }
+
     public enum OperationTypes
     {
         Created,
@@ -402,7 +433,7 @@ namespace PlayFab.ProfilesModels
         /// <summary>
         /// The expected version of a profile to perform this update on
         /// </summary>
-        public int ExpectedVersion ;
+        public int? ExpectedVersion ;
 
         /// <summary>
         /// The language to set on the given entity. Deletes the profile's language if passed in a null string.

@@ -209,8 +209,7 @@ namespace PlayFab.MultiplayerModels
     {
         Requested,
         Internal,
-        Timeout,
-        ServerAllocationFailed
+        Timeout
     }
 
     /// <summary>
@@ -351,21 +350,9 @@ namespace PlayFab.MultiplayerModels
         public ContainerImageReference ContainerImageReference ;
 
         /// <summary>
-        /// The name of the container repository.
-        /// </summary>
-        [Obsolete("Use 'ContainerImageReference' instead", true)]
-        public string ContainerRepositoryName ;
-
-        /// <summary>
         /// The container command to run when the multiplayer server has been allocated, including any arguments.
         /// </summary>
         public string ContainerRunCommand ;
-
-        /// <summary>
-        /// The tag for the container.
-        /// </summary>
-        [Obsolete("Use 'ContainerImageReference' instead", true)]
-        public string ContainerTag ;
 
         /// <summary>
         /// The list of game assets related to the build.
@@ -1043,7 +1030,13 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state.
         /// </summary>
+        [Obsolete("Use 'CancellationReasonString' instead", false)]
         public CancellationReason? CancellationReason ;
+
+        /// <summary>
+        /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state.
+        /// </summary>
+        public string CancellationReasonString ;
 
         /// <summary>
         /// The server date and time at which ticket was created.
