@@ -694,7 +694,7 @@ namespace PlayFab.ClientModels
         public string CatalogVersion ;
 
         /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
         public string XboxToken ;
 
@@ -3264,10 +3264,11 @@ namespace PlayFab.ClientModels
     }
 
     /// <summary>
-    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such
-    /// as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The
-    /// Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note
-    /// that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
+    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item such as Tags,
+    /// Description that are the same across all instances of the item, a call to GetCatalogItems is required. The ItemID of can
+    /// be matched to a catalog entry, which contains the additional information. Also note that Custom Data is only set when
+    /// the User's specific instance has updated the CustomData via a call to UpdateUserInventoryItemCustomData. Other fields
+    /// such as UnitPrice and UnitCurrency are only set when the item was granted via a purchase.
     /// </summary>
     public class ItemInstance : IComparable<ItemInstance>
     {
@@ -3333,12 +3334,12 @@ namespace PlayFab.ClientModels
         public int? RemainingUses ;
 
         /// <summary>
-        /// Currency type for the cost of the catalog item.
+        /// Currency type for the cost of the catalog item. Not available when granting items.
         /// </summary>
         public string UnitCurrency ;
 
         /// <summary>
-        /// Cost of the catalog item in the given currency.
+        /// Cost of the catalog item in the given currency. Not available when granting items.
         /// </summary>
         public uint UnitPrice ;
 
@@ -3771,7 +3772,7 @@ namespace PlayFab.ClientModels
         public bool? ForceLink ;
 
         /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
         public string XboxToken ;
 
@@ -4641,7 +4642,7 @@ namespace PlayFab.ClientModels
         public string TitleId ;
 
         /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
         public string XboxToken ;
 
@@ -5283,6 +5284,33 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class PurchaseReceiptFulfillment
+    {
+        /// <summary>
+        /// Items granted to the player in fulfillment of the validated receipt.
+        /// </summary>
+        public List<ItemInstance> FulfilledItems ;
+
+        /// <summary>
+        /// Source of the payment price information for the recorded purchase transaction. A value of 'Request' indicates that the
+        /// price specified in the request was used, whereas a value of 'Catalog' indicates that the real-money price of the catalog
+        /// item matching the product ID in the validated receipt transaction and the currency specified in the request (defaulting
+        /// to USD) was used.
+        /// </summary>
+        public string RecordedPriceSource ;
+
+        /// <summary>
+        /// Currency used to purchase the items (ISO 4217 currency code).
+        /// </summary>
+        public string RecordedTransactionCurrency ;
+
+        /// <summary>
+        /// Amount of the stated currency paid for the items, in centesimal units
+        /// </summary>
+        public uint? RecordedTransactionTotal ;
+
+    }
+
     public enum PushNotificationPlatform
     {
         ApplePushNotificationService,
@@ -5638,6 +5666,11 @@ namespace PlayFab.ClientModels
     public class RestoreIOSPurchasesRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// Catalog version of the restored items. If null, defaults to primary catalog.
+        /// </summary>
+        public string CatalogVersion ;
+
+        /// <summary>
         /// Base64 encoded receipt data, passed back by the App Store as a result of a successful purchase.
         /// </summary>
         public string ReceiptData ;
@@ -5649,6 +5682,11 @@ namespace PlayFab.ClientModels
     /// </summary>
     public class RestoreIOSPurchasesResult : PlayFabResultCommon
     {
+        /// <summary>
+        /// Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions.
+        /// </summary>
+        public List<PurchaseReceiptFulfillment> Fulfillments ;
+
     }
 
     public class ScriptExecutionError
@@ -6441,7 +6479,7 @@ namespace PlayFab.ClientModels
     public class UnlinkXboxAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
         public string XboxToken ;
 
@@ -7171,17 +7209,17 @@ namespace PlayFab.ClientModels
     public class ValidateAmazonReceiptRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Catalog version to use when granting receipt item. If null, defaults to primary catalog.
+        /// Catalog version of the fulfilled items. If null, defaults to the primary catalog.
         /// </summary>
         public string CatalogVersion ;
 
         /// <summary>
-        /// Currency used for the purchase.
+        /// Currency used to pay for the purchase (ISO 4217 currency code).
         /// </summary>
         public string CurrencyCode ;
 
         /// <summary>
-        /// Amount of the stated currency paid for the object.
+        /// Amount of the stated currency paid, in centesimal units.
         /// </summary>
         public int PurchasePrice ;
 
@@ -7202,6 +7240,11 @@ namespace PlayFab.ClientModels
     /// </summary>
     public class ValidateAmazonReceiptResult : PlayFabResultCommon
     {
+        /// <summary>
+        /// Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions.
+        /// </summary>
+        public List<PurchaseReceiptFulfillment> Fulfillments ;
+
     }
 
     /// <summary>
@@ -7214,12 +7257,17 @@ namespace PlayFab.ClientModels
     public class ValidateGooglePlayPurchaseRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Currency used for the purchase.
+        /// Catalog version of the fulfilled items. If null, defaults to the primary catalog.
+        /// </summary>
+        public string CatalogVersion ;
+
+        /// <summary>
+        /// Currency used to pay for the purchase (ISO 4217 currency code).
         /// </summary>
         public string CurrencyCode ;
 
         /// <summary>
-        /// Amount of the stated currency paid for the object.
+        /// Amount of the stated currency paid, in centesimal units.
         /// </summary>
         public uint? PurchasePrice ;
 
@@ -7241,6 +7289,11 @@ namespace PlayFab.ClientModels
     /// </summary>
     public class ValidateGooglePlayPurchaseResult : PlayFabResultCommon
     {
+        /// <summary>
+        /// Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions.
+        /// </summary>
+        public List<PurchaseReceiptFulfillment> Fulfillments ;
+
     }
 
     /// <summary>
@@ -7253,12 +7306,17 @@ namespace PlayFab.ClientModels
     public class ValidateIOSReceiptRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Currency used for the purchase.
+        /// Catalog version of the fulfilled items. If null, defaults to the primary catalog.
+        /// </summary>
+        public string CatalogVersion ;
+
+        /// <summary>
+        /// Currency used to pay for the purchase (ISO 4217 currency code).
         /// </summary>
         public string CurrencyCode ;
 
         /// <summary>
-        /// Amount of the stated currency paid for the object.
+        /// Amount of the stated currency paid, in centesimal units.
         /// </summary>
         public int PurchasePrice ;
 
@@ -7274,22 +7332,27 @@ namespace PlayFab.ClientModels
     /// </summary>
     public class ValidateIOSReceiptResult : PlayFabResultCommon
     {
+        /// <summary>
+        /// Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions.
+        /// </summary>
+        public List<PurchaseReceiptFulfillment> Fulfillments ;
+
     }
 
     public class ValidateWindowsReceiptRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Catalog version to use when granting receipt item. If null, defaults to primary catalog.
+        /// Catalog version of the fulfilled items. If null, defaults to the primary catalog.
         /// </summary>
         public string CatalogVersion ;
 
         /// <summary>
-        /// Currency used for the purchase.
+        /// Currency used to pay for the purchase (ISO 4217 currency code).
         /// </summary>
         public string CurrencyCode ;
 
         /// <summary>
-        /// Amount of the stated currency paid for the object.
+        /// Amount of the stated currency paid, in centesimal units.
         /// </summary>
         public uint PurchasePrice ;
 
@@ -7305,6 +7368,11 @@ namespace PlayFab.ClientModels
     /// </summary>
     public class ValidateWindowsReceiptResult : PlayFabResultCommon
     {
+        /// <summary>
+        /// Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions.
+        /// </summary>
+        public List<PurchaseReceiptFulfillment> Fulfillments ;
+
     }
 
     public class ValueToDateModel
