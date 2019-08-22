@@ -90,6 +90,29 @@ namespace PlayFab.AuthenticationModels
 
     }
 
+    public enum LoginIdentityProvider
+    {
+        Unknown,
+        PlayFab,
+        Custom,
+        GameCenter,
+        GooglePlay,
+        Steam,
+        XBoxLive,
+        PSN,
+        Kongregate,
+        Facebook,
+        IOSDevice,
+        AndroidDevice,
+        Twitch,
+        WindowsHello,
+        GameServer,
+        CustomServer,
+        NintendoSwitch,
+        FacebookInstantGames,
+        OpenIdConnect
+    }
+
     /// <summary>
     /// Given an entity token, validates that it hasn't exipired or been revoked and will return details of the owner.
     /// </summary>
@@ -108,6 +131,11 @@ namespace PlayFab.AuthenticationModels
         /// The entity id and type.
         /// </summary>
         public EntityKey Entity ;
+
+        /// <summary>
+        /// The identity provider for this entity, for the given login
+        /// </summary>
+        public LoginIdentityProvider? IdentityProvider ;
 
         /// <summary>
         /// The lineage of this profile.

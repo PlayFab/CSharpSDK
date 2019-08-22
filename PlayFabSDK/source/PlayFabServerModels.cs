@@ -3466,7 +3466,11 @@ namespace PlayFab.ServerModels
     }
 
     /// <summary>
-    /// Result of granting an item to a user
+    /// Result of granting an item to a user. Note, to retrieve additional information for an item such as Tags, Description
+    /// that are the same across all instances of the item, a call to GetCatalogItems is required. The ItemID of can be matched
+    /// to a catalog entry, which contains the additional information. Also note that Custom Data is only set when the User's
+    /// specific instance has updated the CustomData via a call to UpdateUserInventoryItemCustomData. Other fields such as
+    /// UnitPrice and UnitCurrency are only set when the item was granted via a purchase.
     /// </summary>
     public class GrantedItemInstance : IComparable<GrantedItemInstance>
     {
@@ -3547,12 +3551,12 @@ namespace PlayFab.ServerModels
         public bool Result ;
 
         /// <summary>
-        /// Currency type for the cost of the catalog item.
+        /// Currency type for the cost of the catalog item. Not available when granting items.
         /// </summary>
         public string UnitCurrency ;
 
         /// <summary>
-        /// Cost of the catalog item in the given currency.
+        /// Cost of the catalog item in the given currency. Not available when granting items.
         /// </summary>
         public uint UnitPrice ;
 
@@ -3726,10 +3730,11 @@ namespace PlayFab.ServerModels
     }
 
     /// <summary>
-    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item instance (such
-    /// as Tags, Description, or Custom Data that are set on the root catalog item), a call to GetCatalogItems is required. The
-    /// Item ID of the instance can then be matched to a catalog entry, which contains the additional information. Also note
-    /// that Custom Data is only set here from a call to UpdateUserInventoryItemCustomData.
+    /// A unique instance of an item in a user's inventory. Note, to retrieve additional information for an item such as Tags,
+    /// Description that are the same across all instances of the item, a call to GetCatalogItems is required. The ItemID of can
+    /// be matched to a catalog entry, which contains the additional information. Also note that Custom Data is only set when
+    /// the User's specific instance has updated the CustomData via a call to UpdateUserInventoryItemCustomData. Other fields
+    /// such as UnitPrice and UnitCurrency are only set when the item was granted via a purchase.
     /// </summary>
     public class ItemInstance : IComparable<ItemInstance>
     {
@@ -3795,12 +3800,12 @@ namespace PlayFab.ServerModels
         public int? RemainingUses ;
 
         /// <summary>
-        /// Currency type for the cost of the catalog item.
+        /// Currency type for the cost of the catalog item. Not available when granting items.
         /// </summary>
         public string UnitCurrency ;
 
         /// <summary>
-        /// Cost of the catalog item in the given currency.
+        /// Cost of the catalog item in the given currency. Not available when granting items.
         /// </summary>
         public uint UnitPrice ;
 
@@ -3878,7 +3883,7 @@ namespace PlayFab.ServerModels
         public string PlayFabId ;
 
         /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
         public string XboxToken ;
 
@@ -4021,7 +4026,7 @@ namespace PlayFab.ServerModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
 
         /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
         public string XboxToken ;
 
@@ -5879,7 +5884,7 @@ namespace PlayFab.ServerModels
         public string PlayFabId ;
 
         /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", "").
+        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
         public string XboxToken ;
 
