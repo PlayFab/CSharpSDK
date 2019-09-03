@@ -1324,6 +1324,30 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the set of items defined for the specified store, including all prices defined, for the specified player
+        /// </summary>
+        public async Task<PlayFabResult<GetStoreItemsResult>> GetStoreItemsAsync(GetStoreItemsServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetStoreItems", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetStoreItemsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetStoreItemsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetStoreItemsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the current server time
         /// </summary>
         public async Task<PlayFabResult<GetTimeResult>> GetTimeAsync(GetTimeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1816,6 +1840,31 @@ namespace PlayFab
             if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
 
             var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithXbox", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ServerLoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ServerLoginResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ServerLoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Signs the user in using an Xbox ID and Sandbox ID, returning a session identifier that can subsequently be used for API
+        /// calls which require an authenticated user
+        /// </summary>
+        public async Task<PlayFabResult<ServerLoginResult>> LoginWithXboxIdAsync(LoginWithXboxIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
+            if (developerSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey is not found in Request, Server Instance or PlayFabSettings");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithXboxId", request, "X-SecretKey", developerSecretKey, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
