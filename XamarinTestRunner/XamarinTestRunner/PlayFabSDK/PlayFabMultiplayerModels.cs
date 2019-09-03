@@ -487,6 +487,11 @@ namespace PlayFab.MultiplayerModels
         public List<GameCertificateReferenceParams> GameCertificateReferences ;
 
         /// <summary>
+        /// The instrumentation configuration for the build.
+        /// </summary>
+        public InstrumentationConfiguration InstrumentationConfiguration ;
+
+        /// <summary>
         /// Metadata to tag the build. The keys are case insensitive. The build metadata is made available to the server through
         /// Game Server SDK (GSDK).
         /// </summary>
@@ -550,6 +555,11 @@ namespace PlayFab.MultiplayerModels
         /// The game certificates for the build.
         /// </summary>
         public List<GameCertificateReference> GameCertificateReferences ;
+
+        /// <summary>
+        /// The instrumentation configuration for this build.
+        /// </summary>
+        public InstrumentationConfiguration InstrumentationConfiguration ;
 
         /// <summary>
         /// The metadata of the build.
@@ -941,6 +951,11 @@ namespace PlayFab.MultiplayerModels
         public List<GameCertificateReference> GameCertificateReferences ;
 
         /// <summary>
+        /// The instrumentation configuration of the build.
+        /// </summary>
+        public InstrumentationConfiguration InstrumentationConfiguration ;
+
+        /// <summary>
         /// Metadata of the build. The keys are case insensitive. The build metadata is made available to the server through Game
         /// Server SDK (GSDK).
         /// </summary>
@@ -1317,6 +1332,17 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class InstrumentationConfiguration
+    {
+        /// <summary>
+        /// The list of processes to be monitored on a VM for this build. Providing processes will turn on performance metrics
+        /// collection for this build. Process names should not include extensions. If the game server process is: GameServer.exe;
+        /// then, ProcessesToMonitor = [ GameServer ]
+        /// </summary>
+        public List<string> ProcessesToMonitor ;
+
+    }
+
     /// <summary>
     /// Add the player to a matchmaking ticket and specify all of its matchmaking attributes. Players can join a ticket if and
     /// only if their EntityKeys are already listed in the ticket's Members list. The matchmaking service automatically starts
@@ -1597,6 +1623,32 @@ namespace PlayFab.MultiplayerModels
     }
 
     public class ListPartyQosServersResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The page size on the response.
+        /// </summary>
+        public int PageSize ;
+
+        /// <summary>
+        /// The list of QoS servers.
+        /// </summary>
+        public List<QosServer> QosServers ;
+
+        /// <summary>
+        /// The skip token for the paged response.
+        /// </summary>
+        public string SkipToken ;
+
+    }
+
+    /// <summary>
+    /// Returns a list of quality of service servers for a title.
+    /// </summary>
+    public class ListQosServersForTitleRequest : PlayFabRequestCommon
+    {
+    }
+
+    public class ListQosServersForTitleResponse : PlayFabResultCommon
     {
         /// <summary>
         /// The page size on the response.
