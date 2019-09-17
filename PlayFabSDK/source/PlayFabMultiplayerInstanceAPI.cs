@@ -419,6 +419,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Get a matchmaking queue configuration.
+        /// </summary>
+        public async Task<PlayFabResult<GetMatchmakingQueueResult>> GetMatchmakingQueueAsync(GetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/GetMatchmakingQueue", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetMatchmakingQueueResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetMatchmakingQueueResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetMatchmakingQueueResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Get a matchmaking ticket by ticket Id.
         /// </summary>
         public async Task<PlayFabResult<GetMatchmakingTicketResult>> GetMatchmakingTicketAsync(GetMatchmakingTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -718,6 +741,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// List all matchmaking queue configs.
+        /// </summary>
+        public async Task<PlayFabResult<ListMatchmakingQueuesResult>> ListMatchmakingQueuesAsync(ListMatchmakingQueuesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/ListMatchmakingQueues", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListMatchmakingQueuesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListMatchmakingQueuesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListMatchmakingQueuesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// List all matchmaking ticket Ids the user is a member of.
         /// </summary>
         public async Task<PlayFabResult<ListMatchmakingTicketsForPlayerResult>> ListMatchmakingTicketsForPlayerAsync(ListMatchmakingTicketsForPlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -855,6 +901,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Remove a matchmaking queue config.
+        /// </summary>
+        public async Task<PlayFabResult<RemoveMatchmakingQueueResult>> RemoveMatchmakingQueueAsync(RemoveMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/RemoveMatchmakingQueue", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RemoveMatchmakingQueueResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RemoveMatchmakingQueueResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RemoveMatchmakingQueueResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Request a multiplayer server session. Accepts tokens for title and if game client accesss is enabled, allows game client
         /// to request a server with player entity token.
         /// </summary>
@@ -899,6 +968,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<RolloverContainerRegistryCredentialsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Create or update a matchmaking queue configuration.
+        /// </summary>
+        public async Task<PlayFabResult<SetMatchmakingQueueResult>> SetMatchmakingQueueAsync(SetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/SetMatchmakingQueue", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SetMatchmakingQueueResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetMatchmakingQueueResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SetMatchmakingQueueResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
