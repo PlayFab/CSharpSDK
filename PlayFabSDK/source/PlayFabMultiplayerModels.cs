@@ -46,6 +46,25 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public enum AttributeMergeFunction
+    {
+        Min,
+        Max,
+        Average
+    }
+
+    public enum AttributeNotSpecifiedBehavior
+    {
+        UseDefault,
+        MatchAny
+    }
+
+    public enum AttributeSource
+    {
+        User,
+        PlayerEntity
+    }
+
     public enum AzureRegion
     {
         AustraliaEast,
@@ -727,6 +746,76 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class CustomDifferenceRuleExpansion
+    {
+        /// <summary>
+        /// Manually specify the values to use for each expansion interval (this overrides Difference, Delta, and MaxDifference).
+        /// </summary>
+        public List<OverrideDouble> DifferenceOverrides ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class CustomRegionSelectionRuleExpansion
+    {
+        /// <summary>
+        /// Manually specify the maximum latency to use for each expansion interval.
+        /// </summary>
+        public List<OverrideUnsignedInt> MaxLatencyOverrides ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class CustomSetIntersectionRuleExpansion
+    {
+        /// <summary>
+        /// Manually specify the values to use for each expansion interval.
+        /// </summary>
+        public List<OverrideUnsignedInt> MinIntersectionSizeOverrides ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class CustomTeamDifferenceRuleExpansion
+    {
+        /// <summary>
+        /// Manually specify the team difference value to use for each expansion interval.
+        /// </summary>
+        public List<OverrideDouble> DifferenceOverrides ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class CustomTeamSizeBalanceRuleExpansion
+    {
+        /// <summary>
+        /// Manually specify the team size difference to use for each expansion interval.
+        /// </summary>
+        public List<OverrideUnsignedInt> DifferenceOverrides ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
     /// <summary>
     /// Deletes a multiplayer server game asset for a title.
     /// </summary>
@@ -791,6 +880,64 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class DifferenceRule
+    {
+        /// <summary>
+        /// Description of the attribute used by this rule to match tickets.
+        /// </summary>
+        public QueueRuleAttribute Attribute ;
+
+        /// <summary>
+        /// Describes the behavior when an attribute is not specified in the ticket creation request or in the user's entity
+        /// profile.
+        /// </summary>
+        public AttributeNotSpecifiedBehavior AttributeNotSpecifiedBehavior ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals. Only one expansion can be set per rule. When this
+        /// is set, Difference is ignored.
+        /// </summary>
+        public CustomDifferenceRuleExpansion CustomExpansion ;
+
+        /// <summary>
+        /// The default value assigned to tickets that are missing the attribute specified by AttributePath (assuming that
+        /// AttributeNotSpecifiedBehavior is false). Optional.
+        /// </summary>
+        public double? DefaultAttributeValue ;
+
+        /// <summary>
+        /// The allowed difference between any two tickets at the start of matchmaking.
+        /// </summary>
+        public double Difference ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals. Only one expansion can be set per rule.
+        /// </summary>
+        public LinearDifferenceRuleExpansion LinearExpansion ;
+
+        /// <summary>
+        /// How values are treated when there are multiple players in a single ticket.
+        /// </summary>
+        public AttributeMergeFunction MergeFunction ;
+
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
+
+        /// <summary>
+        /// The relative weight of this rule compared to others.
+        /// </summary>
+        public double Weight ;
+
+    }
+
     public class EmptyResponse : PlayFabResultCommon
     {
     }
@@ -824,7 +971,7 @@ namespace PlayFab.MultiplayerModels
         public string Id { get; set; }
 
         /// <summary>
-        /// Entity type. See https://api.playfab.com/docs/tutorials/entities/entitytypes
+        /// Entity type. See https://docs.microsoft.com/gaming/playfab/features/data/entities/available-built-in-entity-types
         /// </summary>
         public string Type { get; set; }
 
@@ -1013,6 +1160,27 @@ namespace PlayFab.MultiplayerModels
         /// The username for accessing the container registry.
         /// </summary>
         public string Username ;
+
+    }
+
+    /// <summary>
+    /// Gets the current configuration for a queue.
+    /// </summary>
+    public class GetMatchmakingQueueRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The Id of the matchmaking queue to retrieve.
+        /// </summary>
+        public string QueueName ;
+
+    }
+
+    public class GetMatchmakingQueueResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The matchmaking queue config.
+        /// </summary>
+        public MatchmakingQueueConfig MatchmakingQueue ;
 
     }
 
@@ -1372,6 +1540,96 @@ namespace PlayFab.MultiplayerModels
     {
     }
 
+    public class LinearDifferenceRuleExpansion
+    {
+        /// <summary>
+        /// This value gets added to Difference at every expansion interval.
+        /// </summary>
+        public double Delta ;
+
+        /// <summary>
+        /// Once the total difference reaches this value, expansion stops. Optional.
+        /// </summary>
+        public double? Limit ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class LinearRegionSelectionRuleExpansion
+    {
+        /// <summary>
+        /// This value gets added to MaxLatency at every expansion interval.
+        /// </summary>
+        public uint Delta ;
+
+        /// <summary>
+        /// Once the max Latency reaches this value, expansion stops.
+        /// </summary>
+        public uint Limit ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class LinearSetIntersectionRuleExpansion
+    {
+        /// <summary>
+        /// This value gets added to MinIntersectionSize at every expansion interval.
+        /// </summary>
+        public uint Delta ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class LinearTeamDifferenceRuleExpansion
+    {
+        /// <summary>
+        /// This value gets added to Difference at every expansion interval.
+        /// </summary>
+        public double Delta ;
+
+        /// <summary>
+        /// Once the total difference reaches this value, expansion stops. Optional.
+        /// </summary>
+        public double? Limit ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class LinearTeamSizeBalanceRuleExpansion
+    {
+        /// <summary>
+        /// This value gets added to Difference at every expansion interval.
+        /// </summary>
+        public uint Delta ;
+
+        /// <summary>
+        /// Once the total difference reaches this value, expansion stops. Optional.
+        /// </summary>
+        public uint? Limit ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
     /// <summary>
     /// Returns a list of multiplayer server game asset summaries for a title.
     /// </summary>
@@ -1534,6 +1792,22 @@ namespace PlayFab.MultiplayerModels
         /// The list of tags for a particular container image.
         /// </summary>
         public List<string> Tags ;
+
+    }
+
+    /// <summary>
+    /// Gets a list of all the matchmaking queue configurations for the title.
+    /// </summary>
+    public class ListMatchmakingQueuesRequest : PlayFabRequestCommon
+    {
+    }
+
+    public class ListMatchmakingQueuesResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The list of matchmaking queue configs for this title.
+        /// </summary>
+        public List<MatchmakingQueueConfig> MatchMakingQueues ;
 
     }
 
@@ -1796,6 +2070,168 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class MatchmakingQueueConfig
+    {
+        /// <summary>
+        /// This is the buildId that will be used to allocate the multiplayer server for the match.
+        /// </summary>
+        public string BuildId ;
+
+        /// <summary>
+        /// List of difference rules used to find an optimal match.
+        /// </summary>
+        public List<DifferenceRule> DifferenceRules ;
+
+        /// <summary>
+        /// List of match total rules used to find an optimal match.
+        /// </summary>
+        public List<MatchTotalRule> MatchTotalRules ;
+
+        /// <summary>
+        /// Maximum number of players in a match.
+        /// </summary>
+        public uint MaxMatchSize ;
+
+        /// <summary>
+        /// Maximum number of players in a ticket. Optional.
+        /// </summary>
+        public uint? MaxTicketSize ;
+
+        /// <summary>
+        /// Minimum number of players in a match.
+        /// </summary>
+        public uint MinMatchSize ;
+
+        /// <summary>
+        /// Unique identifier for a Queue. Chosen by the developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// Region selection rule used to find an optimal match.
+        /// </summary>
+        public RegionSelectionRule RegionSelectionRule ;
+
+        /// <summary>
+        /// Boolean flag to enable server allocation for the queue.
+        /// </summary>
+        public bool ServerAllocationEnabled ;
+
+        /// <summary>
+        /// List of set intersection rules used to find an optimal match.
+        /// </summary>
+        public List<SetIntersectionRule> SetIntersectionRules ;
+
+        /// <summary>
+        /// Controls which statistics are visible to players.
+        /// </summary>
+        public StatisticsVisibilityToPlayers StatisticsVisibilityToPlayers ;
+
+        /// <summary>
+        /// List of string equality rules used to find an optimal match.
+        /// </summary>
+        public List<StringEqualityRule> StringEqualityRules ;
+
+        /// <summary>
+        /// List of team difference rules used to find an optimal match.
+        /// </summary>
+        public List<TeamDifferenceRule> TeamDifferenceRules ;
+
+        /// <summary>
+        /// The team configuration for a match. This may be null if there are no teams.
+        /// </summary>
+        public List<MatchmakingQueueTeam> Teams ;
+
+        /// <summary>
+        /// Team size balance rule used to find an optimal match.
+        /// </summary>
+        public TeamSizeBalanceRule TeamSizeBalanceRule ;
+
+        /// <summary>
+        /// Team ticket size similarity rule used to find an optimal match.
+        /// </summary>
+        public TeamTicketSizeSimilarityRule TeamTicketSizeSimilarityRule ;
+
+    }
+
+    public class MatchmakingQueueTeam
+    {
+        /// <summary>
+        /// The maximum number of players required for the team.
+        /// </summary>
+        public uint MaxTeamSize ;
+
+        /// <summary>
+        /// The minimum number of players required for the team.
+        /// </summary>
+        public uint MinTeamSize ;
+
+        /// <summary>
+        /// A name to identify the team. This is case insensitive.
+        /// </summary>
+        public string Name ;
+
+    }
+
+    public class MatchTotalRule
+    {
+        /// <summary>
+        /// Description of the attribute used by this rule to match tickets.
+        /// </summary>
+        public QueueRuleAttribute Attribute ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals.
+        /// </summary>
+        public MatchTotalRuleExpansion Expansion ;
+
+        /// <summary>
+        /// The maximum total value for a group. Must be >= Min.
+        /// </summary>
+        public double Max ;
+
+        /// <summary>
+        /// The minimum total value for a group. Must be >=2.
+        /// </summary>
+        public double Min ;
+
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
+
+        /// <summary>
+        /// The relative weight of this rule compared to others.
+        /// </summary>
+        public double Weight ;
+
+    }
+
+    public class MatchTotalRuleExpansion
+    {
+        /// <summary>
+        /// Manually specify the values to use for each expansion interval. When this is set, Max is ignored.
+        /// </summary>
+        public List<OverrideDouble> MaxOverrides ;
+
+        /// <summary>
+        /// Manually specify the values to use for each expansion interval. When this is set, Min is ignored.
+        /// </summary>
+        public List<OverrideDouble> MinOverrides ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
     public class MultiplayerServerSummary
     {
         /// <summary>
@@ -1832,6 +2268,24 @@ namespace PlayFab.MultiplayerModels
         /// The virtual machine ID that the multiplayer server is located on.
         /// </summary>
         public string VmId ;
+
+    }
+
+    public class OverrideDouble
+    {
+        /// <summary>
+        /// The custom expansion value.
+        /// </summary>
+        public double Value ;
+
+    }
+
+    public class OverrideUnsignedInt
+    {
+        /// <summary>
+        /// The custom expansion value.
+        /// </summary>
+        public uint Value ;
 
     }
 
@@ -1872,6 +2326,78 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string ServerUrl ;
 
+    }
+
+    public class QueueRuleAttribute
+    {
+        /// <summary>
+        /// Specifies which attribute in a ticket to use.
+        /// </summary>
+        public string Path ;
+
+        /// <summary>
+        /// Specifies which source the attribute comes from.
+        /// </summary>
+        public AttributeSource Source ;
+
+    }
+
+    public class RegionSelectionRule
+    {
+        /// <summary>
+        /// Controls how the Max Latency parameter expands over time. Only one expansion can be set per rule. When this is set,
+        /// MaxLatency is ignored.
+        /// </summary>
+        public CustomRegionSelectionRuleExpansion CustomExpansion ;
+
+        /// <summary>
+        /// Controls how the Max Latency parameter expands over time. Only one expansion can be set per rule.
+        /// </summary>
+        public LinearRegionSelectionRuleExpansion LinearExpansion ;
+
+        /// <summary>
+        /// Specifies the maximum latency that is allowed between the client and the selected server. The value is in milliseconds.
+        /// </summary>
+        public uint MaxLatency ;
+
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// Specifies which attribute in a ticket to use.
+        /// </summary>
+        public string Path ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
+
+        /// <summary>
+        /// The relative weight of this rule compared to others.
+        /// </summary>
+        public double Weight ;
+
+    }
+
+    /// <summary>
+    /// Deletes the configuration for a queue. This will permanently delete the configuration and players will no longer be able
+    /// to match in the queue. All outstanding matchmaking tickets will be cancelled.
+    /// </summary>
+    public class RemoveMatchmakingQueueRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The Id of the matchmaking queue to remove.
+        /// </summary>
+        public string QueueName ;
+
+    }
+
+    public class RemoveMatchmakingQueueResult : PlayFabResultCommon
+    {
     }
 
     /// <summary>
@@ -2009,6 +2535,77 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class SetIntersectionRule
+    {
+        /// <summary>
+        /// Description of the attribute used by this rule to match tickets.
+        /// </summary>
+        public QueueRuleAttribute Attribute ;
+
+        /// <summary>
+        /// Describes the behavior when an attribute is not specified in the ticket creation request or in the user's entity
+        /// profile.
+        /// </summary>
+        public AttributeNotSpecifiedBehavior AttributeNotSpecifiedBehavior ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals. Only one expansion can be set per rule. When this
+        /// is set, MinIntersectionSize is ignored.
+        /// </summary>
+        public CustomSetIntersectionRuleExpansion CustomExpansion ;
+
+        /// <summary>
+        /// The default value assigned to tickets that are missing the attribute specified by AttributePath (assuming that
+        /// AttributeNotSpecifiedBehavior is UseDefault). Values must be unique.
+        /// </summary>
+        public List<string> DefaultAttributeValue ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals. Only one expansion can be set per rule.
+        /// </summary>
+        public LinearSetIntersectionRuleExpansion LinearExpansion ;
+
+        /// <summary>
+        /// The minimum number of values that must match between sets.
+        /// </summary>
+        public uint MinIntersectionSize ;
+
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
+
+        /// <summary>
+        /// The relative weight of this rule compared to others.
+        /// </summary>
+        public double Weight ;
+
+    }
+
+    /// <summary>
+    /// Use this API to create or update matchmaking queue configurations. The queue configuration defines the matchmaking
+    /// rules. The matchmaking service will match tickets together according to the configured rules. Queue resources are not
+    /// spun up by calling this API. Queues are created when the first ticket is submitted.
+    /// </summary>
+    public class SetMatchmakingQueueRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The matchmaking queue config.
+        /// </summary>
+        public MatchmakingQueueConfig MatchmakingQueue ;
+
+    }
+
+    public class SetMatchmakingQueueResult : PlayFabResultCommon
+    {
+    }
+
     /// <summary>
     /// Executes the shutdown callback from the GSDK and terminates the multiplayer server session. The callback in the GSDK
     /// will allow for graceful shutdown with a 15 minute timeoutIf graceful shutdown has not been completed before 15 minutes
@@ -2054,6 +2651,165 @@ namespace PlayFab.MultiplayerModels
         /// The 99th percentile.
         /// </summary>
         public double Percentile99 ;
+
+    }
+
+    public class StatisticsVisibilityToPlayers
+    {
+        /// <summary>
+        /// Whether to allow players to view the current number of players in the matchmaking queue.
+        /// </summary>
+        public bool ShowNumberOfPlayersMatching ;
+
+        /// <summary>
+        /// Whether to allow players to view statistics representing the time it takes for tickets to find a match.
+        /// </summary>
+        public bool ShowTimeToMatch ;
+
+    }
+
+    public class StringEqualityRule
+    {
+        /// <summary>
+        /// Description of the attribute used by this rule to match tickets.
+        /// </summary>
+        public QueueRuleAttribute Attribute ;
+
+        /// <summary>
+        /// Describes the behavior when an attribute is not specified in the ticket creation request or in the user's entity
+        /// profile.
+        /// </summary>
+        public AttributeNotSpecifiedBehavior AttributeNotSpecifiedBehavior ;
+
+        /// <summary>
+        /// The default value assigned to tickets that are missing the attribute specified by AttributePath (assuming that
+        /// AttributeNotSpecifiedBehavior is false).
+        /// </summary>
+        public string DefaultAttributeValue ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals. For StringEqualityRules, this is limited to
+        /// turning the rule off or on during different intervals.
+        /// </summary>
+        public StringEqualityRuleExpansion Expansion ;
+
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
+
+        /// <summary>
+        /// The relative weight of this rule compared to others.
+        /// </summary>
+        public double Weight ;
+
+    }
+
+    public class StringEqualityRuleExpansion
+    {
+        /// <summary>
+        /// List of bools specifying whether the rule is applied during this expansion.
+        /// </summary>
+        public List<bool> EnabledOverrides ;
+
+        /// <summary>
+        /// How many seconds before this rule is expanded.
+        /// </summary>
+        public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class TeamDifferenceRule
+    {
+        /// <summary>
+        /// Description of the attribute used by this rule to match teams.
+        /// </summary>
+        public QueueRuleAttribute Attribute ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals. Only one expansion can be set per rule. When this
+        /// is set, Difference is ignored.
+        /// </summary>
+        public CustomTeamDifferenceRuleExpansion CustomExpansion ;
+
+        /// <summary>
+        /// The default value assigned to tickets that are missing the attribute specified by AttributePath (assuming that
+        /// AttributeNotSpecifiedBehavior is false).
+        /// </summary>
+        public double DefaultAttributeValue ;
+
+        /// <summary>
+        /// The allowed difference between any two teams at the start of matchmaking.
+        /// </summary>
+        public double Difference ;
+
+        /// <summary>
+        /// Collection of fields relating to expanding this rule at set intervals. Only one expansion can be set per rule.
+        /// </summary>
+        public LinearTeamDifferenceRuleExpansion LinearExpansion ;
+
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
+
+    }
+
+    public class TeamSizeBalanceRule
+    {
+        /// <summary>
+        /// Controls how the Difference parameter expands over time. Only one expansion can be set per rule. When this is set,
+        /// Difference is ignored.
+        /// </summary>
+        public CustomTeamSizeBalanceRuleExpansion CustomExpansion ;
+
+        /// <summary>
+        /// The allowed difference in team size between any two teams.
+        /// </summary>
+        public uint Difference ;
+
+        /// <summary>
+        /// Controls how the Difference parameter expands over time. Only one expansion can be set per rule.
+        /// </summary>
+        public LinearTeamSizeBalanceRuleExpansion LinearExpansion ;
+
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
+
+    }
+
+    public class TeamTicketSizeSimilarityRule
+    {
+        /// <summary>
+        /// Friendly name chosen by developer.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// How many seconds before this rule is no longer enforced (but tickets that comply with this rule will still be
+        /// prioritized over those that don't). Leave blank if this rule is always enforced.
+        /// </summary>
+        public uint? SecondsUntilOptional ;
 
     }
 
