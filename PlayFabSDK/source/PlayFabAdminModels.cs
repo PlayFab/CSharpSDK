@@ -2494,7 +2494,8 @@ namespace PlayFab.AdminModels
     public class GetDataReportResult : PlayFabResultCommon
     {
         /// <summary>
-        /// The URL where the requested report can be downloaded.
+        /// The URL where the requested report can be downloaded. This can be any PlayFab generated reports. The full list of
+        /// reports can be found at: https://docs.microsoft.com/en-us/gaming/playfab/features/analytics/reports/quickstart.
         /// </summary>
         public string DownloadUrl ;
 
@@ -3319,7 +3320,8 @@ namespace PlayFab.AdminModels
         public string CharacterId ;
 
         /// <summary>
-        /// A set of custom key-value pairs on the inventory item.
+        /// A set of custom key-value pairs on the instance of the inventory item, which is not to be confused with the catalog
+        /// item's custom data.
         /// </summary>
         public Dictionary<string,string> CustomData ;
 
@@ -3549,7 +3551,8 @@ namespace PlayFab.AdminModels
         public string CatalogVersion ;
 
         /// <summary>
-        /// A set of custom key-value pairs on the inventory item.
+        /// A set of custom key-value pairs on the instance of the inventory item, which is not to be confused with the catalog
+        /// item's custom data.
         /// </summary>
         public Dictionary<string,string> CustomData ;
 

@@ -631,7 +631,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Lists summarized details of all multiplayer server builds for a title.
+        /// Lists summarized details of all multiplayer server builds for a title. Accepts tokens for title and if game client
+        /// access is enabled, allows game client to request list of builds with player entity token.
         /// </summary>
         public static async Task<PlayFabResult<ListBuildSummariesResponse>> ListBuildSummariesAsync(ListBuildSummariesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -906,7 +907,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Request a multiplayer server session. Accepts tokens for title and if game client accesss is enabled, allows game client
+        /// Request a multiplayer server session. Accepts tokens for title and if game client access is enabled, allows game client
         /// to request a server with player entity token.
         /// </summary>
         public static async Task<PlayFabResult<RequestMultiplayerServerResponse>> RequestMultiplayerServerAsync(RequestMultiplayerServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
