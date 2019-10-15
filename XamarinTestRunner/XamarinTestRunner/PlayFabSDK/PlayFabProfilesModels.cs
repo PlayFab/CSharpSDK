@@ -146,6 +146,11 @@ namespace PlayFab.ProfilesModels
         public string EntityChain ;
 
         /// <summary>
+        /// The experiment variants of this profile.
+        /// </summary>
+        public List<string> ExperimentVariants ;
+
+        /// <summary>
         /// The files on this profile.
         /// </summary>
         public Dictionary<string,EntityProfileFileMetadata> Files ;
