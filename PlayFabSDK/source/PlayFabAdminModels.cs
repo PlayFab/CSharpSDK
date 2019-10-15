@@ -4180,6 +4180,11 @@ namespace PlayFab.AdminModels
         public LoginIdentityProvider? Origination ;
 
         /// <summary>
+        /// List of player variants for experimentation
+        /// </summary>
+        public List<string> PlayerExperimentVariants ;
+
+        /// <summary>
         /// PlayFab Player ID
         /// </summary>
         public string PlayerId ;

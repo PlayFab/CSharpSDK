@@ -78,6 +78,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Creates a multiplayer server build alias.
+        /// </summary>
+        public static async Task<PlayFabResult<BuildAliasDetailsResponse>> CreateBuildAliasAsync(CreateBuildAliasRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/CreateBuildAlias", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<BuildAliasDetailsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<BuildAliasDetailsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<BuildAliasDetailsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Creates a multiplayer server build with a custom container.
         /// </summary>
         public static async Task<PlayFabResult<CreateBuildWithCustomContainerResponse>> CreateBuildWithCustomContainerAsync(CreateBuildWithCustomContainerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -240,6 +263,29 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes a multiplayer server build alias.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResponse>> DeleteBuildAliasAsync(DeleteBuildAliasRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/DeleteBuildAlias", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Deletes a multiplayer server game certificate.
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> DeleteCertificateAsync(DeleteCertificateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -352,6 +398,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetBuildResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Gets a multiplayer server build alias.
+        /// </summary>
+        public static async Task<PlayFabResult<BuildAliasDetailsResponse>> GetBuildAliasAsync(GetBuildAliasRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetBuildAlias", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<BuildAliasDetailsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<BuildAliasDetailsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<BuildAliasDetailsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -628,6 +697,30 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ListAssetSummariesResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Lists details of all build aliases for a title. Accepts tokens for title and if game client access is enabled, allows
+        /// game client to request list of builds with player entity token.
+        /// </summary>
+        public static async Task<PlayFabResult<ListBuildAliasesForTitleResponse>> ListBuildAliasesAsync(MultiplayerEmptyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListBuildAliases", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListBuildAliasesForTitleResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListBuildAliasesForTitleResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListBuildAliasesForTitleResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -997,6 +1090,29 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Creates a multiplayer server build alias.
+        /// </summary>
+        public static async Task<PlayFabResult<BuildAliasDetailsResponse>> UpdateBuildAliasAsync(UpdateBuildAliasRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/UpdateBuildAlias", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<BuildAliasDetailsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<BuildAliasDetailsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<BuildAliasDetailsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
