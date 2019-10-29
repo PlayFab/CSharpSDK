@@ -2225,6 +2225,8 @@ namespace PlayFab.AdminModels
         InsightsManagementSetStorageRetentionInvalidParameter,
         InsightsManagementGetStorageUsageInvalidParameter,
         InsightsManagementGetOperationStatusInvalidParameter,
+        DuplicatePurchaseTransactionId,
+        EvaluationModePlayerCountExceeded,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2261,6 +2263,8 @@ namespace PlayFab.AdminModels
         CatalogConfigInvalid,
         CatalogUnauthorized,
         CatalogItemTypeInvalid,
+        CatalogBadRequest,
+        CatalogTooManyRequests,
         ExportInvalidStatusUpdate,
         ExportInvalidPrefix,
         ExportBlobContainerDoesNotExist,
@@ -2287,6 +2291,7 @@ namespace PlayFab.AdminModels
         ExperimentationExceededVariantNameLength,
         ExperimentationExceededMaxVariantLength,
         ExperimentInvalidId,
+        ExperimentationNoScorecard,
         MaxActionDepthExceeded,
         SnapshotNotFound
     }
@@ -4269,6 +4274,11 @@ namespace PlayFab.AdminModels
         public string DisplayName ;
 
         /// <summary>
+        /// List of experiment variants for the player.
+        /// </summary>
+        public List<string> ExperimentVariants ;
+
+        /// <summary>
         /// UTC time when the player most recently logged in to the title
         /// </summary>
         public DateTime? LastLogin ;
@@ -4367,6 +4377,11 @@ namespace PlayFab.AdminModels
         /// Whether to show the display name. Defaults to false
         /// </summary>
         public bool ShowDisplayName ;
+
+        /// <summary>
+        /// Whether to show player's experiment variants. Defaults to false
+        /// </summary>
+        public bool ShowExperimentVariants ;
 
         /// <summary>
         /// Whether to show the last login time. Defaults to false
