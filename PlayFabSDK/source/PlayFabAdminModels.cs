@@ -2227,6 +2227,10 @@ namespace PlayFab.AdminModels
         InsightsManagementGetOperationStatusInvalidParameter,
         DuplicatePurchaseTransactionId,
         EvaluationModePlayerCountExceeded,
+        GetPlayersInSegmentRateLimitExceeded,
+        CloudScriptFunctionNameSizeExceeded,
+        InsightsManagementTitleInEvaluationMode,
+        CloudScriptAzureFunctionsQueueRequestError,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2279,6 +2283,7 @@ namespace PlayFab.AdminModels
         ExportCantEditPendingExport,
         ExportLimitExports,
         ExportLimitEvents,
+        ExportInvalidPartitionStatusModification,
         TitleNotEnabledForParty,
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
@@ -2292,6 +2297,8 @@ namespace PlayFab.AdminModels
         ExperimentationExceededMaxVariantLength,
         ExperimentInvalidId,
         ExperimentationNoScorecard,
+        ExperimentationTreatmentAssignmentFailed,
+        ExperimentationTreatmentAssignmentDisabled,
         MaxActionDepthExceeded,
         SnapshotNotFound
     }
