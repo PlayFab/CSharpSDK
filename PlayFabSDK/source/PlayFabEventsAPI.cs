@@ -35,10 +35,14 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<WriteEventsResponse>> WriteEventsAsync(WriteEventsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/Event/WriteEvents", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Event/WriteEvents", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -59,10 +63,14 @@ namespace PlayFab
         /// </summary>
         public static async Task<PlayFabResult<WriteEventsResponse>> WriteTelemetryEventsAsync(WriteEventsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            if ((request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/Event/WriteTelemetryEvents", request, "X-EntityToken", PlayFabSettings.staticPlayer.EntityToken, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Event/WriteTelemetryEvents", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

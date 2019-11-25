@@ -53,10 +53,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetGlobalPolicyResponse>> GetGlobalPolicyAsync(GetGlobalPolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Profile/GetGlobalPolicy", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/GetGlobalPolicy", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -76,10 +79,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetEntityProfileResponse>> GetProfileAsync(GetEntityProfileRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Profile/GetProfile", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/GetProfile", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -99,10 +105,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetEntityProfilesResponse>> GetProfilesAsync(GetEntityProfilesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Profile/GetProfiles", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/GetProfiles", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -122,10 +131,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetTitlePlayersFromMasterPlayerAccountIdsResponse>> GetTitlePlayersFromMasterPlayerAccountIdsAsync(GetTitlePlayersFromMasterPlayerAccountIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Profile/GetTitlePlayersFromMasterPlayerAccountIds", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/GetTitlePlayersFromMasterPlayerAccountIds", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -145,10 +157,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<SetGlobalPolicyResponse>> SetGlobalPolicyAsync(SetGlobalPolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Profile/SetGlobalPolicy", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/SetGlobalPolicy", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -169,10 +184,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<SetProfileLanguageResponse>> SetProfileLanguageAsync(SetProfileLanguageRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Profile/SetProfileLanguage", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/SetProfileLanguage", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -192,10 +210,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<SetEntityProfilePolicyResponse>> SetProfilePolicyAsync(SetEntityProfilePolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Profile/SetProfilePolicy", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Profile/SetProfilePolicy", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
