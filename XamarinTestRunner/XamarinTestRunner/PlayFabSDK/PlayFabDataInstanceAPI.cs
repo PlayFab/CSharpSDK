@@ -55,10 +55,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<AbortFileUploadsResponse>> AbortFileUploadsAsync(AbortFileUploadsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/File/AbortFileUploads", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/File/AbortFileUploads", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -78,10 +81,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<DeleteFilesResponse>> DeleteFilesAsync(DeleteFilesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/File/DeleteFiles", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/File/DeleteFiles", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -101,10 +107,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<FinalizeFileUploadsResponse>> FinalizeFileUploadsAsync(FinalizeFileUploadsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/File/FinalizeFileUploads", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/File/FinalizeFileUploads", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -124,10 +133,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetFilesResponse>> GetFilesAsync(GetFilesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/File/GetFiles", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/File/GetFiles", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -147,10 +159,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetObjectsResponse>> GetObjectsAsync(GetObjectsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Object/GetObjects", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Object/GetObjects", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -170,10 +185,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<InitiateFileUploadsResponse>> InitiateFileUploadsAsync(InitiateFileUploadsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/File/InitiateFileUploads", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/File/InitiateFileUploads", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -193,10 +211,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<SetObjectsResponse>> SetObjectsAsync(SetObjectsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Object/SetObjects", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Object/SetObjects", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

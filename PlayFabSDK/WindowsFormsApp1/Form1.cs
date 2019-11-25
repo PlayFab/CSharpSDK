@@ -4,13 +4,18 @@ using PlayFab.UUnit;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-#pragma warning disable 0649, 0414
-namespace UnittestRunner
+namespace WindowsFormsApp1
 {
-    static class UUnitTestRunner
+    public partial class Form1 : Form
     {
         private const int MAX_TEST_DURATION_MS = 120000;
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
 
         public class CsSaveRequest
         {
@@ -18,7 +23,7 @@ namespace UnittestRunner
             public TestSuiteReport[] testReport;
         }
 
-        public static int Main(string[] args)
+        public int Main2(string[] args)
         {
             int result = 1;
             bool taskFinished = false;
@@ -35,12 +40,16 @@ namespace UnittestRunner
             return Pause(taskFinished ? result : 1);
         }
 
-        public static async Task<int> MainTask(string[] args)
+        public async Task<int> MainTask(string[] args)
         {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
             var testInputs = GetTestTitleData(args);
             UUnitIncrementalTestRunner.Start(true, null, testInputs, OnComplete);
             while (!UUnitIncrementalTestRunner.SuiteFinished)
-                await UUnitIncrementalTestRunner.Tick();
+            {
+                label1.Text = await UUnitIncrementalTestRunner.Tick();
+            }
 
             WriteConsoleColor(UUnitIncrementalTestRunner.Summary);
 
@@ -99,6 +108,10 @@ namespace UnittestRunner
             else if (result.Result != null)
                 WriteConsoleColor("Successful!", ConsoleColor.Green);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Main2(new string[] { });
+        }
     }
 }
-#pragma warning restore 0649, 0414

@@ -62,21 +62,21 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<GetEntityTokenResponse>> GetEntityTokenAsync(GetEntityTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
             var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
             string authKey = null, authValue = null;
 #if !DISABLE_PLAYFABCLIENT_API
-            var clientSessionTicket = request?.AuthenticationContext?.ClientSessionTicket ?? authenticationContext.ClientSessionTicket;
-            if (clientSessionTicket != null) { authKey = "X-Authorization"; authValue = clientSessionTicket; }
+            if (requestContext.ClientSessionTicket != null) { authKey = "X-Authorization"; authValue = requestContext.ClientSessionTicket; }
 #endif
 
 #if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API
-            var settings = apiSettings ?? PlayFabSettings.staticSettings; var developerSecretKey = settings.DeveloperSecretKey;
-            if (developerSecretKey != null) { authKey = "X-SecretKey"; authValue = developerSecretKey; }
+            if (requestSettings.DeveloperSecretKey != null) { authKey = "X-SecretKey"; authValue = requestSettings.DeveloperSecretKey; }
 #endif
 
 #if !DISABLE_PLAYFABENTITY_API
-            var entityToken = request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken;
-            if (entityToken != null) { authKey = "X-EntityToken"; authValue = entityToken; }
+            if (requestContext.EntityToken != null) { authKey = "X-EntityToken"; authValue = requestContext.EntityToken; }
 #endif
 
             var httpResult = await PlayFabHttp.DoPost("/Authentication/GetEntityToken", request, authKey, authValue, extraHeaders, requestSettings);
@@ -103,10 +103,13 @@ namespace PlayFab
         /// </summary>
         public async Task<PlayFabResult<ValidateEntityTokenResponse>> ValidateEntityTokenAsync(ValidateEntityTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if ((request?.AuthenticationContext?.EntityToken ?? authenticationContext.EntityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call GetEntityToken before calling this method");
+            await new PlayFabUtil.SynchronizationContextRemover();
 
-            var httpResult = await PlayFabHttp.DoPost("/Authentication/ValidateEntityToken", request, "X-EntityToken", authenticationContext.EntityToken, extraHeaders, requestSettings);
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Authentication/ValidateEntityToken", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

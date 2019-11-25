@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using PlayFab.ClientModels;
 
 namespace PlayFab
@@ -20,7 +22,9 @@ namespace PlayFab
 
     public static partial class PlayFabUtil
     {
+#pragma warning disable 0414
         private static string _localSettingsFileName = "playfab.local.settings.json";
+#pragma warning restore 0414
         public static readonly string[] DefaultDateTimeFormats = { // All parseable ISO 8601 formats for DateTime.[Try]ParseExact - Lets us deserialize any legacy timestamps in one of these formats
             // These are the standard format with ISO 8601 UTC markers (T/Z)
             "yyyy-MM-ddTHH:mm:ss.FFFFFFZ",
@@ -61,7 +65,7 @@ namespace PlayFab
             {
                 return string.Empty;
             }
-                
+
             if (_sb == null)
             {
                 _sb = new StringBuilder();
@@ -101,7 +105,7 @@ namespace PlayFab
                     envFileContent = ReadAllFileText(tempDirEnvFile);
                 }
             }
-            
+
             if (!string.IsNullOrEmpty(envFileContent))
             {
                 var jsonPlugin = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer);
@@ -116,7 +120,6 @@ namespace PlayFab
             public string LocalApiServer { get; set; }
         }
 #endif
-
 
         private static readonly StringBuilder Sb = new StringBuilder();
         public static string GetCloudScriptErrorReport(PlayFabResult<ExecuteCloudScriptResult> result)
@@ -148,6 +151,40 @@ namespace PlayFab
                     Sb.Append("\n").Append(jsonPlugin.SerializeObject(eachLog.Data));
             }
             return Sb.ToString();
+        }
+
+        public struct SynchronizationContextRemover : INotifyCompletion
+        {
+            public bool IsCompleted
+            {
+                get
+                {
+                    return SynchronizationContext.Current == null;
+                }
+            }
+
+            public void OnCompleted(Action continuation)
+            {
+                var prevContext = SynchronizationContext.Current;
+                try
+                {
+                    SynchronizationContext.SetSynchronizationContext(null);
+                    continuation();
+                }
+                finally
+                {
+                    SynchronizationContext.SetSynchronizationContext(prevContext);
+                }
+            }
+
+            public SynchronizationContextRemover GetAwaiter()
+            {
+                return this;
+            }
+
+            public void GetResult()
+            {
+            }
         }
     }
 }

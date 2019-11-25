@@ -8,7 +8,7 @@
     <FileAlignment>512</FileAlignment>
 
     <PackageId>PlayFabAllSDK</PackageId>
-    <Version>1.62.191121</Version>
+    <Version>1.63.191123</Version>
     <Title>PlayFab CSharp Sdk</Title>
     <Authors>PlayFab Inc.</Authors>
     <Owners>PlayFab Inc.</Owners>
@@ -21,7 +21,7 @@
     <Product>PlayFabSDK</Product>
     <Copyright>Copyright 2019</Copyright>
     <PackageTags>PlayFab, Baas, Paas, JSON, REST, HTTP, SSL, API, cloud, liveops, game, gamedev, native</PackageTags>
-    <PackageReleaseNotes>https://api.playfab.com/releaseNotes/#191121</PackageReleaseNotes>
+    <PackageReleaseNotes>https://api.playfab.com/releaseNotes/#191123</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>1</AssemblyVersion>
     <FileVersion>1</FileVersion>
