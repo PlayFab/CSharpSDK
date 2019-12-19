@@ -168,6 +168,11 @@ namespace PlayFab.MultiplayerModels
         public CurrentServerStats CurrentServerStats ;
 
         /// <summary>
+        /// Optional settings to control dynamic adjustment of standby target
+        /// </summary>
+        public DynamicStandbySettings DynamicStandbySettings ;
+
+        /// <summary>
         /// The maximum number of multiplayer servers for the region.
         /// </summary>
         public int MaxServers ;
@@ -178,7 +183,7 @@ namespace PlayFab.MultiplayerModels
         public string Region ;
 
         /// <summary>
-        /// The number of standby multiplayer servers for the region.
+        /// The target number of standby multiplayer servers for the region.
         /// </summary>
         public int StandbyServers ;
 
@@ -192,6 +197,11 @@ namespace PlayFab.MultiplayerModels
 
     public class BuildRegionParams
     {
+        /// <summary>
+        /// Optional settings to control dynamic adjustment of standby target. If not specified, dynamic standby is disabled
+        /// </summary>
+        public DynamicStandbySettings DynamicStandbySettings ;
+
         /// <summary>
         /// The maximum number of multiplayer servers for the region.
         /// </summary>
@@ -1014,6 +1024,40 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class DynamicStandbySettings
+    {
+        /// <summary>
+        /// List of auto standing by trigger values and corresponding standing by multiplier. Defaults to 1.5X at 50%, 3X at 25%,
+        /// and 4X at 5%
+        /// </summary>
+        public List<DynamicStandbyThreshold> DynamicFloorMultiplierThresholds ;
+
+        /// <summary>
+        /// When true, dynamic standby will be enabled
+        /// </summary>
+        public bool IsEnabled ;
+
+        /// <summary>
+        /// The time it takes to reduce target standing by to configured floor value after an increase. Defaults to 30 minutes
+        /// </summary>
+        public int? RampDownSeconds ;
+
+    }
+
+    public class DynamicStandbyThreshold
+    {
+        /// <summary>
+        /// When the trigger threshold is reached, multiply by this value
+        /// </summary>
+        public double Multiplier ;
+
+        /// <summary>
+        /// The multiplier will be applied when the actual standby divided by target standby floor is less than this value
+        /// </summary>
+        public double TriggerThresholdPercentage ;
+
+    }
+
     public class EmptyResponse : PlayFabResultCommon
     {
     }
@@ -1486,6 +1530,33 @@ namespace PlayFab.MultiplayerModels
         /// The virtual machine ID that the multiplayer server is located on.
         /// </summary>
         public string VmId ;
+
+    }
+
+    /// <summary>
+    /// Gets multiplayer server logs for a specific server id in a region. The logs are available only after a server has
+    /// terminated.
+    /// </summary>
+    public class GetMultiplayerServerLogsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The region of the multiplayer server to get logs for.
+        /// </summary>
+        public string Region ;
+
+        /// <summary>
+        /// The server ID of multiplayer server to get logs for.
+        /// </summary>
+        public string ServerId ;
+
+    }
+
+    public class GetMultiplayerServerLogsResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// URL for logs download.
+        /// </summary>
+        public string LogDownloadUrl ;
 
     }
 
@@ -2935,6 +3006,24 @@ namespace PlayFab.MultiplayerModels
         /// The core capacity for the various regions and VM Family
         /// </summary>
         public List<CoreCapacity> CoreCapacities ;
+
+    }
+
+    /// <summary>
+    /// Removes the specified tag from the image. After this operation, a 'docker pull' will fail for the specified image and
+    /// tag combination. Morever, ListContainerImageTags will not return the specified tag.
+    /// </summary>
+    public class UntagContainerImageRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The container image which tag we want to remove.
+        /// </summary>
+        public string ImageName ;
+
+        /// <summary>
+        /// The tag we want to remove.
+        /// </summary>
+        public string Tag ;
 
     }
 
