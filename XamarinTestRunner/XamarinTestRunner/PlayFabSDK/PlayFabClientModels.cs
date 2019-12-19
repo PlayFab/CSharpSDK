@@ -3234,7 +3234,7 @@ namespace PlayFab.ClientModels
         public string CatalogVersion ;
 
         /// <summary>
-        /// Non-unique display name of the character being granted (1-20 characters in length).
+        /// Non-unique display name of the character being granted (1-40 characters in length).
         /// </summary>
         public string CharacterName ;
 
@@ -7481,13 +7481,18 @@ namespace PlayFab.ClientModels
         public string CharacterId ;
 
         /// <summary>
+        /// The optional custom tags associated with the event (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> EventCustomTags ;
+
+        /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
         /// commonly follows the subject_verb_object pattern (e.g. player_logged_in).
         /// </summary>
         public string EventName ;
 
         /// <summary>
-        /// The time (in UTC) associated with this event. The value dafaults to the current time.
+        /// The time (in UTC) associated with this event. The value defaults to the current time.
         /// </summary>
         public DateTime? Timestamp ;
 
@@ -7506,13 +7511,18 @@ namespace PlayFab.ClientModels
         public Dictionary<string,object> Body ;
 
         /// <summary>
+        /// The optional custom tags associated with the event (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> EventCustomTags ;
+
+        /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
         /// commonly follows the subject_verb_object pattern (e.g. player_logged_in).
         /// </summary>
         public string EventName ;
 
         /// <summary>
-        /// The time (in UTC) associated with this event. The value dafaults to the current time.
+        /// The time (in UTC) associated with this event. The value defaults to the current time.
         /// </summary>
         public DateTime? Timestamp ;
 
@@ -7541,13 +7551,18 @@ namespace PlayFab.ClientModels
         public Dictionary<string,object> Body ;
 
         /// <summary>
+        /// The optional custom tags associated with the event (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> EventCustomTags ;
+
+        /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
         /// commonly follows the subject_verb_object pattern (e.g. player_logged_in).
         /// </summary>
         public string EventName ;
 
         /// <summary>
-        /// The time (in UTC) associated with this event. The value dafaults to the current time.
+        /// The time (in UTC) associated with this event. The value defaults to the current time.
         /// </summary>
         public DateTime? Timestamp ;
 
