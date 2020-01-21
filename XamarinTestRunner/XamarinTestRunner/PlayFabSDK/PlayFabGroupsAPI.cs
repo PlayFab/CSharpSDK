@@ -1,4 +1,4 @@
-#if !DISABLE_PLAYFABENTITY_API
+#if !DISABLE_PLAYFABENTITY_API && !DISABLE_PLAYFAB_STATIC_API
 
 using PlayFab.GroupsModels;
 using PlayFab.Internal;

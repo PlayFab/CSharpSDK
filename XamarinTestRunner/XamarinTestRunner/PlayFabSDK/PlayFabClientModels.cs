@@ -187,7 +187,8 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// More information can be found on configuring your game for the Google Cloud Messaging service in the Google developer
     /// documentation, here: http://developer.android.com/google/gcm/client.html. The steps to configure and send Push
-    /// Notifications is described in the PlayFab tutorials, here: https://api.playfab.com/docs/pushCrashCourse/.
+    /// Notifications is described in the PlayFab tutorials, here:
+    /// https://docs.microsoft.com/gaming/playfab/features/engagement/push-notifications/quickstart.
     /// </summary>
     public class AndroidDevicePushNotificationRegistrationRequest : PlayFabRequestCommon
     {
@@ -5438,7 +5439,7 @@ namespace PlayFab.ClientModels
 
     /// <summary>
     /// The steps to configure and send Push Notifications is described in the PlayFab tutorials, here:
-    /// https://api.playfab.com/docs/pushCrashCourse/
+    /// https://docs.microsoft.com/gaming/playfab/features/engagement/push-notifications/quickstart
     /// </summary>
     public class RegisterForIOSPushNotificationRequest : PlayFabRequestCommon
     {
@@ -7481,11 +7482,6 @@ namespace PlayFab.ClientModels
         public string CharacterId ;
 
         /// <summary>
-        /// The optional custom tags associated with the event (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> EventCustomTags ;
-
-        /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
         /// commonly follows the subject_verb_object pattern (e.g. player_logged_in).
         /// </summary>
@@ -7509,11 +7505,6 @@ namespace PlayFab.ClientModels
         /// Custom data properties associated with the event. Each property consists of a name (string) and a value (JSON object).
         /// </summary>
         public Dictionary<string,object> Body ;
-
-        /// <summary>
-        /// The optional custom tags associated with the event (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> EventCustomTags ;
 
         /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it
@@ -7549,11 +7540,6 @@ namespace PlayFab.ClientModels
         /// Custom event properties. Each property consists of a name (string) and a value (JSON object).
         /// </summary>
         public Dictionary<string,object> Body ;
-
-        /// <summary>
-        /// The optional custom tags associated with the event (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> EventCustomTags ;
 
         /// <summary>
         /// The name of the event, within the namespace scoped to the title. The naming convention is up to the caller, but it

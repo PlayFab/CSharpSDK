@@ -74,6 +74,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Cancel all active backfill tickets the player is a member of in a given queue.
+        /// </summary>
+        public async Task<PlayFabResult<CancelAllServerBackfillTicketsForPlayerResult>> CancelAllServerBackfillTicketsForPlayerAsync(CancelAllServerBackfillTicketsForPlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/CancelAllServerBackfillTicketsForPlayer", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<CancelAllServerBackfillTicketsForPlayerResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CancelAllServerBackfillTicketsForPlayerResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<CancelAllServerBackfillTicketsForPlayerResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Cancel a matchmaking ticket.
         /// </summary>
         public async Task<PlayFabResult<CancelMatchmakingTicketResult>> CancelMatchmakingTicketAsync(CancelMatchmakingTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -97,6 +123,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<CancelMatchmakingTicketResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Cancel a server backfill ticket.
+        /// </summary>
+        public async Task<PlayFabResult<CancelServerBackfillTicketResult>> CancelServerBackfillTicketAsync(CancelServerBackfillTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/CancelServerBackfillTicket", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<CancelServerBackfillTicketResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CancelServerBackfillTicketResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<CancelServerBackfillTicketResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -227,6 +279,34 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<CreateRemoteUserResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Create a backfill matchmaking ticket as a server. A backfill ticket represents an ongoing game. The matchmaking service
+        /// automatically starts matching the backfill ticket against other matchmaking tickets. Backfill tickets cannot match with
+        /// other backfill tickets.
+        /// </summary>
+        public async Task<PlayFabResult<CreateServerBackfillTicketResult>> CreateServerBackfillTicketAsync(CreateServerBackfillTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/CreateServerBackfillTicket", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<CreateServerBackfillTicketResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateServerBackfillTicketResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<CreateServerBackfillTicketResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -699,6 +779,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Get a matchmaking backfill ticket by ticket Id.
+        /// </summary>
+        public async Task<PlayFabResult<GetServerBackfillTicketResult>> GetServerBackfillTicketAsync(GetServerBackfillTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/GetServerBackfillTicket", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetServerBackfillTicketResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetServerBackfillTicketResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetServerBackfillTicketResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Gets the status of whether a title is enabled for the multiplayer server feature.
         /// </summary>
         public async Task<PlayFabResult<GetTitleEnabledForMultiplayerServersStatusResponse>> GetTitleEnabledForMultiplayerServersStatusAsync(GetTitleEnabledForMultiplayerServersStatusRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1113,6 +1219,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ListQosServersForTitleResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// List all server backfill ticket Ids the user is a member of.
+        /// </summary>
+        public async Task<PlayFabResult<ListServerBackfillTicketsForPlayerResult>> ListServerBackfillTicketsForPlayerAsync(ListServerBackfillTicketsForPlayerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Match/ListServerBackfillTicketsForPlayer", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListServerBackfillTicketsForPlayerResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListServerBackfillTicketsForPlayerResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListServerBackfillTicketsForPlayerResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
