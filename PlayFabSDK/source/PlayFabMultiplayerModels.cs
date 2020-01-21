@@ -281,6 +281,29 @@ namespace PlayFab.MultiplayerModels
     {
     }
 
+    /// <summary>
+    /// Cancels all backfill tickets of which the player is a member in a given queue that are not cancelled or matched. This
+    /// API is useful if you lose track of what tickets the player is a member of (if the server crashes for instance) and want
+    /// to "reset".
+    /// </summary>
+    public class CancelAllServerBackfillTicketsForPlayerRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The entity key of the player whose backfill tickets should be canceled.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The name of the queue from which a player's backfill tickets should be canceled.
+        /// </summary>
+        public string QueueName ;
+
+    }
+
+    public class CancelAllServerBackfillTicketsForPlayerResult : PlayFabResultCommon
+    {
+    }
+
     public enum CancellationReason
     {
         Requested,
@@ -314,6 +337,32 @@ namespace PlayFab.MultiplayerModels
     }
 
     public class CancelMatchmakingTicketResult : PlayFabResultCommon
+    {
+    }
+
+    /// <summary>
+    /// Only servers can cancel a backfill ticket. The ticket can be in three different states when it is cancelled. 1: the
+    /// ticket is matching. If the ticket is cancelled, it will stop matching. 2: the ticket is matched. A matched ticket cannot
+    /// be cancelled. 3: the ticket is already cancelled and nothing happens. There may be race conditions between the ticket
+    /// getting matched and the server making a cancellation request. The server must handle the possibility that the cancel
+    /// request fails if a match is found before the cancellation request is processed. We do not allow resubmitting a cancelled
+    /// ticket. Create a new ticket instead.
+    /// </summary>
+    public class CancelServerBackfillTicketRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The name of the queue the ticket is in.
+        /// </summary>
+        public string QueueName ;
+
+        /// <summary>
+        /// The Id of the ticket to find a match for.
+        /// </summary>
+        public string TicketId ;
+
+    }
+
+    public class CancelServerBackfillTicketResult : PlayFabResultCommon
     {
     }
 
@@ -771,6 +820,42 @@ namespace PlayFab.MultiplayerModels
         /// The username for the remote user that was created.
         /// </summary>
         public string Username ;
+
+    }
+
+    /// <summary>
+    /// The server specifies all the members, their teams and their attributes, and the server details if applicable.
+    /// </summary>
+    public class CreateServerBackfillTicketRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// How long to attempt matching this ticket in seconds.
+        /// </summary>
+        public int GiveUpAfterSeconds ;
+
+        /// <summary>
+        /// The users who will be part of this ticket, along with their team assignments.
+        /// </summary>
+        public List<MatchmakingPlayerWithTeamAssignment> Members ;
+
+        /// <summary>
+        /// The Id of a match queue.
+        /// </summary>
+        public string QueueName ;
+
+        /// <summary>
+        /// The details of the server the members are connected to.
+        /// </summary>
+        public ServerDetails ServerDetails ;
+
+    }
+
+    public class CreateServerBackfillTicketResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The Id of the ticket to find a match for.
+        /// </summary>
+        public string TicketId ;
 
     }
 
@@ -1345,12 +1430,6 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state.
         /// </summary>
-        [Obsolete("Use 'CancellationReasonString' instead", true)]
-        public CancellationReason? CancellationReason ;
-
-        /// <summary>
-        /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state.
-        /// </summary>
         public string CancellationReasonString ;
 
         /// <summary>
@@ -1623,6 +1702,79 @@ namespace PlayFab.MultiplayerModels
         /// The remote login port of multiplayer server.
         /// </summary>
         public int Port ;
+
+    }
+
+    /// <summary>
+    /// The ticket includes the players, their attributes, their teams, the ticket status, the match Id and the server details
+    /// when applicable, etc. Only servers can get the ticket.
+    /// </summary>
+    public class GetServerBackfillTicketRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Determines whether the matchmaking attributes will be returned as an escaped JSON string or as an un-escaped JSON
+        /// object.
+        /// </summary>
+        public bool EscapeObject ;
+
+        /// <summary>
+        /// The name of the queue to find a match for.
+        /// </summary>
+        public string QueueName ;
+
+        /// <summary>
+        /// The Id of the ticket to find a match for.
+        /// </summary>
+        public string TicketId ;
+
+    }
+
+    public class GetServerBackfillTicketResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state.
+        /// </summary>
+        public string CancellationReasonString ;
+
+        /// <summary>
+        /// The server date and time at which ticket was created.
+        /// </summary>
+        public DateTime Created ;
+
+        /// <summary>
+        /// How long to attempt matching this ticket in seconds.
+        /// </summary>
+        public int GiveUpAfterSeconds ;
+
+        /// <summary>
+        /// The Id of a match.
+        /// </summary>
+        public string MatchId ;
+
+        /// <summary>
+        /// A list of Users that are part of this ticket, along with their team assignments.
+        /// </summary>
+        public List<MatchmakingPlayerWithTeamAssignment> Members ;
+
+        /// <summary>
+        /// The Id of a match queue.
+        /// </summary>
+        public string QueueName ;
+
+        /// <summary>
+        /// The details of the server the members are connected to.
+        /// </summary>
+        public ServerDetails ServerDetails ;
+
+        /// <summary>
+        /// The current ticket status. Possible values are: WaitingForMatch, Canceled and Matched.
+        /// </summary>
+        public string Status ;
+
+        /// <summary>
+        /// The Id of the ticket to find a match for.
+        /// </summary>
+        public string TicketId ;
 
     }
 
@@ -2132,6 +2284,32 @@ namespace PlayFab.MultiplayerModels
         /// The skip token for the paged response.
         /// </summary>
         public string SkipToken ;
+
+    }
+
+    /// <summary>
+    /// List all server backfill ticket Ids the user is a member of.
+    /// </summary>
+    public class ListServerBackfillTicketsForPlayerRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The entity key for which to find the ticket Ids.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The name of the queue the tickets are in.
+        /// </summary>
+        public string QueueName ;
+
+    }
+
+    public class ListServerBackfillTicketsForPlayerResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The list of backfill ticket Ids the user is a member of.
+        /// </summary>
+        public List<string> TicketIds ;
 
     }
 

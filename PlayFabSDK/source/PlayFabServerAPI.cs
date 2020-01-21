@@ -1,4 +1,4 @@
-#if ENABLE_PLAYFABSERVER_API
+#if ENABLE_PLAYFABSERVER_API && !DISABLE_PLAYFAB_STATIC_API
 
 using PlayFab.ServerModels;
 using PlayFab.Internal;
@@ -136,7 +136,8 @@ namespace PlayFab
         /// <summary>
         /// Adds users to the set of those able to update both the shared data, as well as the set of users in the group. Only users
         /// in the group (and the server) can add new members. Shared Groups are designed for sharing data between a very small
-        /// number of players, please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// number of players, please see our guide:
+        /// https://docs.microsoft.com/gaming/playfab/features/social/groups/using-shared-group-data
         /// </summary>
         public static async Task<PlayFabResult<AddSharedGroupMembersResult>> AddSharedGroupMembersAsync(AddSharedGroupMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -301,7 +302,7 @@ namespace PlayFab
         /// Requests the creation of a shared group object, containing key/value pairs which may be updated by all members of the
         /// group. When created by a server, the group will initially have no members. Shared Groups are designed for sharing data
         /// between a very small number of players, please see our guide:
-        /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// https://docs.microsoft.com/gaming/playfab/features/social/groups/using-shared-group-data
         /// </summary>
         public static async Task<PlayFabResult<CreateSharedGroupResult>> CreateSharedGroupAsync(CreateSharedGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -411,7 +412,7 @@ namespace PlayFab
         /// <summary>
         /// Deletes a shared group, freeing up the shared group ID to be reused for a new group. Shared Groups are designed for
         /// sharing data between a very small number of players, please see our guide:
-        /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// https://docs.microsoft.com/gaming/playfab/features/social/groups/using-shared-group-data
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> DeleteSharedGroupAsync(DeleteSharedGroupRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -769,7 +770,7 @@ namespace PlayFab
         /// URL will attempt to download the content. A HEAD query to the returned URL will attempt to retrieve the metadata of the
         /// content. Note that a successful result does not guarantee the existence of this content - if it has not been uploaded,
         /// the query to retrieve the data will fail. See this post for more information:
-        /// https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service. Also,
+        /// https://community.playfab.com/hc/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service. Also,
         /// please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN rates apply.
         /// </summary>
         public static async Task<PlayFabResult<GetContentDownloadUrlResult>> GetContentDownloadUrlAsync(GetContentDownloadUrlRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1431,7 +1432,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves data stored in a shared group object, as well as the list of members in the group. The server can access all
         /// public and private group data. Shared Groups are designed for sharing data between a very small number of players,
-        /// please see our guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// please see our guide: https://docs.microsoft.com/gaming/playfab/features/social/groups/using-shared-group-data
         /// </summary>
         public static async Task<PlayFabResult<GetSharedGroupDataResult>> GetSharedGroupDataAsync(GetSharedGroupDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1945,6 +1946,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkPSNAccountResult>> LinkPSNAccountAsync(LinkPSNAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LinkPSNAccount", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkPSNAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkPSNAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkPSNAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the custom server identifier, generated by the title, to the user's PlayFab account.
         /// </summary>
         public static async Task<PlayFabResult<LinkServerCustomIdResult>> LinkServerCustomIdAsync(LinkServerCustomIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2411,7 +2439,7 @@ namespace PlayFab
         /// Removes users from the set of those able to update the shared data and the set of users in the group. Only users in the
         /// group can remove members. If as a result of the call, zero users remain with access, the group and its associated data
         /// will be deleted. Shared Groups are designed for sharing data between a very small number of players, please see our
-        /// guide: https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// guide: https://docs.microsoft.com/gaming/playfab/features/social/groups/using-shared-group-data
         /// </summary>
         public static async Task<PlayFabResult<RemoveSharedGroupMembersResult>> RemoveSharedGroupMembersAsync(RemoveSharedGroupMembersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2985,6 +3013,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks the related PSN account from the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkPSNAccountResult>> UnlinkPSNAccountAsync(UnlinkPSNAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkPSNAccount", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkPSNAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkPSNAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkPSNAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Unlinks the custom server identifier from the user's PlayFab account.
         /// </summary>
         public static async Task<PlayFabResult<UnlinkServerCustomIdResult>> UnlinkServerCustomIdAsync(UnlinkServerCustomIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -3291,7 +3346,7 @@ namespace PlayFab
         /// or added in this call will be readable by users not in the group. By default, data permissions are set to Private.
         /// Regardless of the permission setting, only members of the group (and the server) can update the data. Shared Groups are
         /// designed for sharing data between a very small number of players, please see our guide:
-        /// https://api.playfab.com/docs/tutorials/landing-players/shared-groups
+        /// https://docs.microsoft.com/gaming/playfab/features/social/groups/using-shared-group-data
         /// </summary>
         public static async Task<PlayFabResult<UpdateSharedGroupDataResult>> UpdateSharedGroupDataAsync(UpdateSharedGroupDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

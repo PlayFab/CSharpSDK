@@ -1,4 +1,4 @@
-#if ENABLE_PLAYFABSERVER_API
+#if ENABLE_PLAYFABSERVER_API && !DISABLE_PLAYFAB_STATIC_API
 
 using PlayFab.MatchmakerModels;
 using PlayFab.Internal;

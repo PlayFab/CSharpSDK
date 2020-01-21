@@ -1,4 +1,4 @@
-#if ENABLE_PLAYFABADMIN_API
+#if ENABLE_PLAYFABADMIN_API && !DISABLE_PLAYFAB_STATIC_API
 
 using PlayFab.AdminModels;
 using PlayFab.Internal;
