@@ -4,8 +4,7 @@ namespace PlayFab.QoS
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using MultiplayerModels;
-#if NET45 || NETCOREAPP2_0
+#if (NETSTANDARD && !NETSTANDARD1_1) || NETFRAMEWORK || NETCOREAPP
     using System.Net;
     using System.Net.Sockets;
 #endif
@@ -72,7 +71,7 @@ namespace PlayFab.QoS
 
         private async Task<int> PingInternalAsync()
         {
-#if NET45 || NETCOREAPP2_0
+#if (NETSTANDARD && !NETSTANDARD1_1) || NETFRAMEWORK || NETCOREAPP
             IPHostEntry hostEntry = await Dns.GetHostEntryAsync(_hostNameOrAddress);
             using (var client = new UdpClient(hostEntry.HostName, PortNumber))
             {
@@ -100,7 +99,7 @@ namespace PlayFab.QoS
 
             return UnknownLatencyValue;
 #else
-            return await Task.FromResult(UnknownLatencyValue);
+            throw new NotSupportedException("QoS ping library is only supported on .net standard 2.0 and newer, .net core or full .net framework");
 #endif
         }
 
