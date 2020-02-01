@@ -1,39 +1,21 @@
-﻿#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
+﻿using System.Collections.Generic;
+
+#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using MultiplayerModels;
 
     public class QosRegionResult
     {
-        public string Region;
+        public string Region { get; set; }
 
-        public int LatencyMs;
+        public int LatencyMs { get; set; }
+        
+        public IReadOnlyList<int> RawMeasurements { get; set; }
 
-        public int ErrorCode;
+        public int NumTimeouts { get; set; }
 
-        public string ErrorMessage;
-    }
-
-    /// <summary>
-    /// This class is used to json serialize the content to send to playfab
-    /// </summary>
-    internal class QosRegionResultFacade
-    {
-        public static QosRegionResultFacade CreateFrom(QosRegionResult result)
-        {
-            return new QosRegionResultFacade
-            {
-                Region = result.Region,
-                LatencyMs = result.LatencyMs,
-                ErrorCode = result.ErrorCode
-            };
-        }
-
-        public string Region;
-
-        public int LatencyMs;
-
-        public int ErrorCode;
+        public int ErrorCode { get; set; }
     }
 }
 #endif

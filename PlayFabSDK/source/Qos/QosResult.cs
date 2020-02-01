@@ -5,36 +5,30 @@ namespace PlayFab.QoS
 
     public class QosResult
     {
-        public List<QosRegionResult> RegionResults;
+        public List<QosRegionResult> RegionResults { get; set; }
 
-        public int ErrorCode;
+        public int ErrorCode { get; set; }
 
-        public string ErrorMessage;
+        public string ErrorMessage { get; set; }
     }
 
     /// <summary>
-    /// This class is used to json serialize the content to send to playfab
+    /// This class is used to json serialize the content to send to PlayFab without the ErrorMessage
     /// </summary>
     internal class QosResultFacade
     {
         public static QosResultFacade CreateFrom(QosResult result)
         {
-            var regionResults = new List<QosRegionResultFacade>(result.RegionResults.Count);
-            foreach (QosRegionResult regionResult in result.RegionResults)
-            {
-                regionResults.Add(QosRegionResultFacade.CreateFrom(regionResult));
-            }
-
             return new QosResultFacade
             {
-                RegionResults = regionResults,
+                RegionResults = new List<QosRegionResult>(result.RegionResults),
                 ErrorCode = result.ErrorCode
             };
         }
 
-        public List<QosRegionResultFacade> RegionResults;
+        public List<QosRegionResult> RegionResults { get; set; }
 
-        public int ErrorCode;
+        public int ErrorCode { get; set; }
     }
 }
 #endif

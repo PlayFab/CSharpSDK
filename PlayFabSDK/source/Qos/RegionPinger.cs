@@ -1,4 +1,8 @@
-﻿#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+
+#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using System;
@@ -11,67 +15,125 @@ namespace PlayFab.QoS
 
     public class RegionPinger
     {
-        private const int PingCount = 5;
         private const int PortNumber = 3075;
         private const int UnknownLatencyValue = int.MaxValue;
         private readonly byte[] _initialHeader = { 0xFF, 0xFF };
         private readonly byte[] _subsequentHeader = { 0x00, 0x00 };
+        
+        private readonly int _numTimeoutsForError;
         private readonly string _hostNameOrAddress;
         private readonly string _region;
+        private readonly int _timeoutMs;
 
-        public RegionPinger(string hostNameOrAddress, string region)
+        private int _numTimeouts;
+        private readonly List<int> latencyMeasures;
+
+        public RegionPinger(string hostNameOrAddress, string region, int timeoutMs, int numTimeoutsForError, int expectedPingsPerRegion = 0)
         {
             _hostNameOrAddress = hostNameOrAddress;
             _region = region;
+            _timeoutMs = timeoutMs;
+            _numTimeoutsForError = numTimeoutsForError;
+            latencyMeasures = new List<int>(expectedPingsPerRegion);
         }
 
-        public async Task<QosRegionResult> PingAsync(int timeoutMs)
+        public bool IsAtTimeoutThreshold()
         {
-            Task timeout = Task.Delay(timeoutMs);
-            var latencyMeasures = new List<Task<int>>(PingCount);
-            for (int i = 0; i < PingCount; i++)
+            return _numTimeouts >= _numTimeoutsForError;
+        }
+        
+        public async Task PingAsync()
+        {
+            if (IsAtTimeoutThreshold())
             {
-                latencyMeasures.Add(PingInternalAsync());
+                return;
             }
 
-            await Task.WhenAny(Task.WhenAll(latencyMeasures), timeout);
-            var latencies = new List<int>(latencyMeasures.Count);
-            int errorCode = 0;
-            foreach (Task<int> measure in latencyMeasures)
+            var sw = Stopwatch.StartNew();
+            Task timeout = Task.Delay(_timeoutMs);
+            Task<int> pingResultTask = PingInternalAsync();
+
+            await Task.WhenAny(pingResultTask, timeout);
+
+            if (pingResultTask.IsCompleted)
             {
-                if (!measure.IsCompleted || measure.Result < 0)
+                int pingResultMs = pingResultTask.GetAwaiter().GetResult();
+                
+                lock (latencyMeasures)
                 {
-                    errorCode = (int) QosErrorCode.Timeout;
-                    continue;
+                    latencyMeasures.Add(pingResultMs);
                 }
-
-                latencies.Add(measure.Result);
             }
-
-            int averageLatency = UnknownLatencyValue;
-            if (latencies.Count > 0)
+            else
             {
-                long sum = 0;
-                foreach (int latency in latencies)
+                Interlocked.Increment(ref _numTimeouts);
+            }
+        }
+        
+        public QosRegionResult GetResult()
+        {
+            if (IsAtTimeoutThreshold())
+            {
+                return new QosRegionResult
                 {
-                    sum += latency;
-                }
+                    Region = _region,
+                    LatencyMs = UnknownLatencyValue,
+                    RawMeasurements = latencyMeasures,
+                    NumTimeouts = _numTimeouts,
+                    ErrorCode = (int)QosErrorCode.Timeout
+                };
+            }
+            
+            int averageLatency;
+            QosErrorCode errorCode;
+            
+            lock (latencyMeasures)
+            {
+                if (latencyMeasures.Count > 0)
+                {
+                    long sum = 0;
+                    int count = 0;
+                    if (latencyMeasures.Count >= 3)
+                    {
+                        // If there are at least 4, throw out the top and bottom measurements 
+                        latencyMeasures.Sort();
+                        for (int i = 1; i < latencyMeasures.Count - 1; i++)
+                        {
+                            count++;
+                            sum += latencyMeasures[i];
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < latencyMeasures.Count; i++)
+                        {
+                            count++;
+                            sum += latencyMeasures[i];
+                        }
+                    }
 
-                averageLatency = (int)(sum / latencies.Count);
+                    errorCode = QosErrorCode.Success;
+                    averageLatency = (int) (sum / count);
+                }
+                else
+                {
+                    errorCode = QosErrorCode.NoResult;
+                    averageLatency = UnknownLatencyValue;
+                }
             }
 
-            // Return the average of the remaining numbers
             return new QosRegionResult
             {
                 Region = _region,
                 LatencyMs = averageLatency,
-                ErrorCode = errorCode
+                RawMeasurements = latencyMeasures,
+                ErrorCode = (int)errorCode
             };
         }
 
+#if (NETSTANDARD && !NETSTANDARD1_1) || NETFRAMEWORK || NETCOREAPP
         private async Task<int> PingInternalAsync()
         {
-#if (NETSTANDARD && !NETSTANDARD1_1) || NETFRAMEWORK || NETCOREAPP
             IPHostEntry hostEntry = await Dns.GetHostEntryAsync(_hostNameOrAddress);
             using (var client = new UdpClient(hostEntry.HostName, PortNumber))
             {
@@ -96,9 +158,10 @@ namespace PlayFab.QoS
                     }
                 }
             }
-
             return UnknownLatencyValue;
 #else
+        private Task<int> PingInternalAsync()
+        {
             throw new NotSupportedException("QoS ping library is only supported on .net standard 2.0 and newer, .net core or full .net framework");
 #endif
         }
