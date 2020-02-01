@@ -10,14 +10,25 @@ namespace PlayFab.QoS
 
     public class PlayFabQosApi
     {
+        private readonly PlayFabAuthenticationContext _authContext;
         private const int DefaultPingsPerRegion = 10;
         private const int DefaultDegreeOfParallelism = 4;
         private const int NumTimeoutsForError = 3;
         private const int DefaultTimeoutMs = 250;
-        private Dictionary<string, string> _dataCenterMap;
-        private readonly PlayFabMultiplayerInstanceAPI multiplayerApi = new PlayFabMultiplayerInstanceAPI(PlayFabSettings.staticPlayer);
-        private readonly PlayFabEventsInstanceAPI eventsApi = new PlayFabEventsInstanceAPI(PlayFabSettings.staticPlayer);
+        
+        private readonly PlayFabMultiplayerInstanceAPI multiplayerApi;
+        private readonly PlayFabEventsInstanceAPI eventsApi;
 
+        private Dictionary<string, string> _dataCenterMap;
+
+        public PlayFabQosApi(PlayFabApiSettings settings = null, PlayFabAuthenticationContext authContext = null)
+        {
+            _authContext = authContext ?? PlayFabSettings.staticPlayer;
+            
+            multiplayerApi = new PlayFabMultiplayerInstanceAPI(settings, _authContext);
+            eventsApi = new PlayFabEventsInstanceAPI(settings, _authContext);
+        }
+        
 #pragma warning disable 4014
         public async Task<QosResult> GetQosResultAsync(
             int timeoutMs = DefaultTimeoutMs, 
@@ -39,7 +50,7 @@ namespace PlayFab.QoS
 
         private async Task<QosResult> GetResultAsync(int timeoutMs, int pingsPerRegion, int degreeOfParallelism)
         {
-            if (!PlayFabSettings.staticPlayer.IsClientLoggedIn())
+            if (!_authContext.IsClientLoggedIn())
             {
                 return new QosResult
                 {
