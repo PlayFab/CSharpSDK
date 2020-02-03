@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-
+﻿
 #if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
-    using MultiplayerModels;
-
+    using System.Collections.Generic;
+    
     public class QosRegionResult
     {
         public string Region { get; set; }

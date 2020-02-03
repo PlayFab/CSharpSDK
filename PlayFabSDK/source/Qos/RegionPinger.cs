@@ -1,25 +1,22 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-
-#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
+﻿#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Threading;
     using System.Threading.Tasks;
 #if (NETSTANDARD && !NETSTANDARD1_1) || NETFRAMEWORK || NETCOREAPP
     using System.Net;
     using System.Net.Sockets;
-#endif
 
     public class RegionPinger
     {
         private const int PortNumber = 3075;
         private const int UnknownLatencyValue = int.MaxValue;
-        private readonly byte[] _initialHeader = { 0xFF, 0xFF };
-        private readonly byte[] _subsequentHeader = { 0x00, 0x00 };
-        
+        private readonly byte[] _initialHeader = {0xFF, 0xFF};
+        private readonly byte[] _subsequentHeader = {0x00, 0x00};
+
         private readonly int _numTimeoutsForError;
         private readonly string _hostNameOrAddress;
         private readonly string _region;
@@ -28,7 +25,8 @@ namespace PlayFab.QoS
         private int _numTimeouts;
         private readonly List<int> latencyMeasures;
 
-        public RegionPinger(string hostNameOrAddress, string region, int timeoutMs, int numTimeoutsForError, int expectedPingsPerRegion = 0)
+        public RegionPinger(string hostNameOrAddress, string region, int timeoutMs, int numTimeoutsForError,
+            int expectedPingsPerRegion = 0)
         {
             _hostNameOrAddress = hostNameOrAddress;
             _region = region;
@@ -41,7 +39,7 @@ namespace PlayFab.QoS
         {
             return _numTimeouts >= _numTimeoutsForError;
         }
-        
+
         public async Task PingAsync()
         {
             if (IsAtTimeoutThreshold())
@@ -50,15 +48,17 @@ namespace PlayFab.QoS
             }
 
             var sw = Stopwatch.StartNew();
-            Task timeout = Task.Delay(_timeoutMs);
+            var ct = new CancellationTokenSource();
+            Task timeout = Task.Delay(_timeoutMs, ct.Token);
             Task<int> pingResultTask = PingInternalAsync();
 
             await Task.WhenAny(pingResultTask, timeout);
 
             if (pingResultTask.IsCompleted)
             {
-                int pingResultMs = pingResultTask.GetAwaiter().GetResult();
-                
+                ct.Cancel();
+                int pingResultMs = await pingResultTask;
+
                 lock (latencyMeasures)
                 {
                     latencyMeasures.Add(pingResultMs);
@@ -69,7 +69,7 @@ namespace PlayFab.QoS
                 Interlocked.Increment(ref _numTimeouts);
             }
         }
-        
+
         public QosRegionResult GetResult()
         {
             if (IsAtTimeoutThreshold())
@@ -80,13 +80,13 @@ namespace PlayFab.QoS
                     LatencyMs = UnknownLatencyValue,
                     RawMeasurements = latencyMeasures,
                     NumTimeouts = _numTimeouts,
-                    ErrorCode = (int)QosErrorCode.Timeout
+                    ErrorCode = (int) QosErrorCode.Timeout
                 };
             }
-            
+
             int averageLatency;
             QosErrorCode errorCode;
-            
+
             lock (latencyMeasures)
             {
                 if (latencyMeasures.Count > 0)
@@ -127,11 +127,10 @@ namespace PlayFab.QoS
                 Region = _region,
                 LatencyMs = averageLatency,
                 RawMeasurements = latencyMeasures,
-                ErrorCode = (int)errorCode
+                ErrorCode = (int) errorCode
             };
         }
 
-#if (NETSTANDARD && !NETSTANDARD1_1) || NETFRAMEWORK || NETCOREAPP
         private async Task<int> PingInternalAsync()
         {
             IPHostEntry hostEntry = await Dns.GetHostEntryAsync(_hostNameOrAddress);
@@ -154,16 +153,12 @@ namespace PlayFab.QoS
 
                     if (result < int.MaxValue)
                     {
-                        return (int)result;
+                        return (int) result;
                     }
                 }
             }
+
             return UnknownLatencyValue;
-#else
-        private Task<int> PingInternalAsync()
-        {
-            throw new NotSupportedException("QoS ping library is only supported on .net standard 2.0 and newer, .net core or full .net framework");
-#endif
         }
 
         private bool VerifyResponseBuffer(byte[] header, long ticks)
@@ -184,5 +179,24 @@ namespace PlayFab.QoS
             return BitConverter.ToInt64(header, _subsequentHeader.Length) == ticks;
         }
     }
+#else
+    public class RegionPinger
+    {
+        public RegionPinger(string hostNameOrAddress, string region, int timeoutMs, int numTimeoutsForError,
+            int expectedPingsPerRegion = 0)
+        {
+        }
+
+        public Task PingAsync()
+        {
+            throw new NotSupportedException("QoS ping library is only supported on .net standard 2.0 and newer, .net core or full .net framework");
+        }
+
+        public QosRegionResult GetResult()
+        {
+            throw new NotSupportedException("QoS ping library is only supported on .net standard 2.0 and newer, .net core or full .net framework");
+        }
+    }
+#endif
 }
 #endif
