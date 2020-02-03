@@ -15,18 +15,23 @@ namespace PlayFab.QoS
     /// <summary>
     /// This class is used to json serialize the content to send to PlayFab without the ErrorMessage
     /// </summary>
-    internal class QosResultFacade
+    internal class QosResultPlayFabEvent
     {
-        public static QosResultFacade CreateFrom(QosResult result)
+        public static QosResultPlayFabEvent CreateFrom(QosResult result)
         {
-            return new QosResultFacade
+            return new QosResultPlayFabEvent
             {
-                RegionResults = new List<QosRegionResult>(result.RegionResults),
+                RegionResults = result.RegionResults.ConvertAll(x => new QosRegionResultSummary()
+                {
+                    Region = x.Region,
+                    ErrorCode = x.ErrorCode,
+                    LatencyMs = x.LatencyMs
+                }),
                 ErrorCode = result.ErrorCode
             };
         }
 
-        public List<QosRegionResult> RegionResults { get; set; }
+        public List<QosRegionResultSummary> RegionResults { get; set; }
 
         public int ErrorCode { get; set; }
     }

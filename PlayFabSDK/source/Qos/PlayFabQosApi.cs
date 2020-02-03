@@ -156,7 +156,7 @@ namespace PlayFab.QoS
             {
                 Name = "qos_result",
                 EventNamespace = "playfab.servers",
-                Payload = QosResultFacade.CreateFrom(result)
+                Payload = QosResultPlayFabEvent.CreateFrom(result)
             };
 
             var writeEventsRequest = new WriteEventsRequest

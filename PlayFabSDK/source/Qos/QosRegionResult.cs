@@ -16,5 +16,24 @@ namespace PlayFab.QoS
 
         public int ErrorCode { get; set; }
     }
+    
+    internal class QosRegionResultSummary
+    {
+        public static QosRegionResultSummary CreateFrom(QosRegionResult result)
+        {
+            return new QosRegionResultSummary
+            {
+                Region = result.Region,
+                LatencyMs = result.LatencyMs,
+                ErrorCode = result.ErrorCode
+            };
+        }
+
+        public string Region;
+
+        public int LatencyMs;
+
+        public int ErrorCode;
+    }
 }
 #endif
