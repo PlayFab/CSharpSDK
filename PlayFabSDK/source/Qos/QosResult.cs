@@ -1,6 +1,7 @@
 ﻿#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
+    using System;
     using System.Collections.Generic;
 
     public class QosResult
@@ -19,6 +20,7 @@ namespace PlayFab.QoS
     {
         public static QosResultPlayFabEvent CreateFrom(QosResult result)
         {
+#if (NETSTANDARD && !NETSTANDARD1_1) || NETFRAMEWORK || NETCOREAPP
             return new QosResultPlayFabEvent
             {
                 RegionResults = result.RegionResults.ConvertAll(x => new QosRegionResultSummary()
@@ -29,6 +31,9 @@ namespace PlayFab.QoS
                 }),
                 ErrorCode = result.ErrorCode
             };
+#else
+            throw new NotSupportedException("QoS ping library is only supported on .net standard 2.0 and newer, .net core or full .net framework");
+#endif
         }
 
         public List<QosRegionResultSummary> RegionResults { get; set; }

@@ -10,12 +10,12 @@ namespace PlayFab.QoS
     using System.Net;
     using System.Net.Sockets;
 
-    public class RegionPinger
+    public class RegionPinger : IRegionPinger
     {
         private const int PortNumber = 3075;
         private const int UnknownLatencyValue = int.MaxValue;
-        private readonly byte[] _initialHeader = {0xFF, 0xFF};
-        private readonly byte[] _subsequentHeader = {0x00, 0x00};
+        private static readonly byte[] _initialHeader = {0xFF, 0xFF};
+        private static readonly byte[] _subsequentHeader = {0x00, 0x00};
 
         private readonly int _numTimeoutsForError;
         private readonly string _hostNameOrAddress;
