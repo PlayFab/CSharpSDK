@@ -14,8 +14,8 @@ namespace PlayFab.QoS
     {
         private const int PortNumber = 3075;
         private const int UnknownLatencyValue = int.MaxValue;
-        private static readonly byte[] _initialHeader = {0xFF, 0xFF};
-        private static readonly byte[] _subsequentHeader = {0x00, 0x00};
+        private static readonly byte[] _initialHeader = { 0xFF, 0xFF };
+        private static readonly byte[] _subsequentHeader = { 0x00, 0x00 };
 
         private readonly int _numTimeoutsForError;
         private readonly string _hostNameOrAddress;
@@ -80,7 +80,7 @@ namespace PlayFab.QoS
                     LatencyMs = UnknownLatencyValue,
                     RawMeasurements = latencyMeasures,
                     NumTimeouts = _numTimeouts,
-                    ErrorCode = (int) QosErrorCode.Timeout
+                    ErrorCode = (int)QosErrorCode.Timeout
                 };
             }
 
@@ -113,7 +113,7 @@ namespace PlayFab.QoS
                     }
 
                     errorCode = QosErrorCode.Success;
-                    averageLatency = (int) (sum / count);
+                    averageLatency = (int)(sum / count);
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace PlayFab.QoS
                 Region = _region,
                 LatencyMs = averageLatency,
                 RawMeasurements = latencyMeasures,
-                ErrorCode = (int) errorCode
+                ErrorCode = (int)errorCode
             };
         }
 
@@ -153,7 +153,7 @@ namespace PlayFab.QoS
 
                     if (result < int.MaxValue)
                     {
-                        return (int) result;
+                        return (int)result;
                     }
                 }
             }

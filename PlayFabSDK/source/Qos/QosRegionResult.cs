@@ -1,22 +1,22 @@
-﻿
+
 #if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using System.Collections.Generic;
-    
+
     public class QosRegionResult
     {
-        public string Region { get; set; }
+        public string Region;
 
-        public int LatencyMs { get; set; }
-        
-        public IReadOnlyList<int> RawMeasurements { get; set; }
+        public int LatencyMs;
 
-        public int NumTimeouts { get; set; }
+        public IReadOnlyList<int> RawMeasurements;
 
-        public int ErrorCode { get; set; }
+        public int NumTimeouts;
+
+        public int ErrorCode;
     }
-    
+
     internal class QosRegionResultSummary
     {
         public static QosRegionResultSummary CreateFrom(QosRegionResult result)
