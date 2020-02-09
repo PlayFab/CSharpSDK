@@ -80,6 +80,7 @@ namespace PlayFab.Internal
                 {
                     error.HttpCode = (int)httpResponse.StatusCode;
                     error.HttpStatus = httpResponse.StatusCode.ToString();
+                    httpResponse.Dispose();
                     return error;
                 }
 
@@ -94,6 +95,7 @@ namespace PlayFab.Internal
                     error.HttpStatus = httpResponse.StatusCode.ToString();
                     error.Error = PlayFabErrorCode.JsonParseError;
                     error.ErrorMessage = e.Message;
+                    httpResponse.Dispose();
                     return error;
                 }
 
@@ -110,19 +112,22 @@ namespace PlayFab.Internal
                         error.ErrorDetails.Add(detail.Key, detail.Value);
                     }
                 }
-
+                
+                httpResponse.Dispose();
                 return error;
             }
 
             if (string.IsNullOrEmpty(httpResponseString))
             {
+                httpResponse.Dispose();
                 return new PlayFabError
                 {
                     Error = PlayFabErrorCode.Unknown,
                     ErrorMessage = "Internal server error"
                 };
             }
-
+            
+            httpResponse.Dispose();
             return httpResponseString;
         }
     }
