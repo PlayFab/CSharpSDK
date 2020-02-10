@@ -21,8 +21,8 @@ namespace PlayFab.QoS
         ///
         private const int NumSuccessBeforeFilteringOutBestAndWorst = 4;
 
-        private static readonly byte[] _initialHeader = { 0xFF, 0xFF };
-        private static readonly byte[] _subsequentHeader = { 0x00, 0x00 };
+        private static readonly byte[] _initialPrefix = { 0xFF, 0xFF };
+        private static readonly byte[] _subsequentPrefix = { 0x00, 0x00 };
 
         private readonly int _numTimeoutsForError;
         private readonly string _hostNameOrAddress;
@@ -145,9 +145,9 @@ namespace PlayFab.QoS
             {
                 long startTicks = DateTime.UtcNow.Ticks;
                 byte[] startTicksBytes = BitConverter.GetBytes(startTicks);
-                byte[] requestBuffer = new byte[_initialHeader.Length + startTicksBytes.Length];
-                _initialHeader.CopyTo(requestBuffer, 0);
-                startTicksBytes.CopyTo(requestBuffer, _initialHeader.Length);
+                byte[] requestBuffer = new byte[_initialPrefix.Length + startTicksBytes.Length];
+                _initialPrefix.CopyTo(requestBuffer, 0);
+                startTicksBytes.CopyTo(requestBuffer, _initialPrefix.Length);
 
                 await client.SendAsync(requestBuffer, requestBuffer.Length);
 
@@ -168,22 +168,22 @@ namespace PlayFab.QoS
             return UnknownLatencyValue;
         }
 
-        private bool VerifyResponseBuffer(byte[] header, long ticks)
+        private bool VerifyResponseBuffer(byte[] buffer, long ticks)
         {
-            if (header.Length < _subsequentHeader.Length)
+            if (buffer.Length < _subsequentPrefix.Length)
             {
                 return false;
             }
 
-            for (int i = 0; i < _subsequentHeader.Length; i++)
+            for (int i = 0; i < _subsequentPrefix.Length; i++)
             {
-                if (header[i] != _subsequentHeader[i])
+                if (buffer[i] != _subsequentPrefix[i])
                 {
                     return false;
                 }
             }
 
-            return BitConverter.ToInt64(header, _subsequentHeader.Length) == ticks;
+            return BitConverter.ToInt64(buffer, _subsequentPrefix.Length) == ticks;
         }
     }
 #else
