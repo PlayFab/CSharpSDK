@@ -25,11 +25,14 @@ namespace PlayFab.QoS
             {
                 Region = result.Region,
                 LatencyMs = result.LatencyMs,
-                ErrorCode = result.ErrorCode
+                ErrorCode = result.ErrorCode,
+                NumTimeouts = result.NumTimeouts
             };
         }
 
         public string Region;
+
+        public int NumTimeouts;
 
         public int LatencyMs;
 
