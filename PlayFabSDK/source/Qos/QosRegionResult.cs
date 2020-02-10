@@ -1,9 +1,9 @@
-﻿
+
 #if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using System.Collections.Generic;
-    
+
     public class QosRegionResult
     {
         public string Region;
@@ -16,7 +16,7 @@ namespace PlayFab.QoS
 
         public int ErrorCode;
     }
-    
+
     internal class QosRegionResultSummary
     {
         public static QosRegionResultSummary CreateFrom(QosRegionResult result)

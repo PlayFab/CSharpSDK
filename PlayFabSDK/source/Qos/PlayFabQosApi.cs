@@ -1,10 +1,9 @@
-﻿using System;
-
 #if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using EventsModels;
     using MultiplayerModels;
+    using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,7 +16,7 @@ namespace PlayFab.QoS
         private const int DefaultDegreeOfParallelism = 4;
         private const int NumTimeoutsForError = 3;
         private const int DefaultTimeoutMs = 250;
-        
+
         private readonly PlayFabMultiplayerInstanceAPI multiplayerApi;
         private readonly PlayFabEventsInstanceAPI eventsApi;
 
@@ -30,17 +29,17 @@ namespace PlayFab.QoS
         public PlayFabQosApi(PlayFabApiSettings settings = null, PlayFabAuthenticationContext authContext = null, bool reportResults = true)
         {
             _authContext = authContext ?? PlayFabSettings.staticPlayer;
-            
+
             multiplayerApi = new PlayFabMultiplayerInstanceAPI(settings, _authContext);
             eventsApi = new PlayFabEventsInstanceAPI(settings, _authContext);
             qosResultsReporter = SendSuccessfulQosResultsToPlayFab;
             _reportResults = reportResults;
         }
-        
+
 #pragma warning disable 4014
         public async Task<QosResult> GetQosResultAsync(
-            int timeoutMs = DefaultTimeoutMs, 
-            int pingsPerRegion = DefaultPingsPerRegion, 
+            int timeoutMs = DefaultTimeoutMs,
+            int pingsPerRegion = DefaultPingsPerRegion,
             int degreeOfParallelism = DefaultDegreeOfParallelism)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -66,7 +65,7 @@ namespace PlayFab.QoS
             {
                 return new QosResult
                 {
-                    ErrorCode = (int) QosErrorCode.NotLoggedIn, 
+                    ErrorCode = (int)QosErrorCode.NotLoggedIn,
                     ErrorMessage = "Client is not logged in"
                 };
             }
@@ -77,7 +76,7 @@ namespace PlayFab.QoS
             {
                 return new QosResult
                 {
-                    ErrorCode = (int) QosErrorCode.FailedToRetrieveServerList,
+                    ErrorCode = (int)QosErrorCode.FailedToRetrieveServerList,
                     ErrorMessage = "Failed to get server list from PlayFab multiplayer servers"
                 };
             }
@@ -85,7 +84,7 @@ namespace PlayFab.QoS
             return await GetSortedRegionLatencies(timeoutMs, dataCenterMap, pingsPerRegion, degreeOfParallelism);
         }
 
-        private async Task<Dictionary<string,string>> GetQoSServerList()
+        private async Task<Dictionary<string, string>> GetQoSServerList()
         {
             if (_dataCenterMap?.Count > 0)
             {
@@ -100,7 +99,7 @@ namespace PlayFab.QoS
             {
                 return null;
             }
-            
+
             var dataCenterMap = new Dictionary<string, string>(response.Result.QosServers.Count);
 
             foreach (QosServer qosServer in response.Result.QosServers)
@@ -151,26 +150,25 @@ namespace PlayFab.QoS
 
             QosErrorCode resultCode = QosErrorCode.Success;
             string errorMessage = null;
-            if (results.All(x => x.ErrorCode == (int) QosErrorCode.NoResult))
+            if (results.All(x => x.ErrorCode == (int)QosErrorCode.NoResult))
             {
                 resultCode = QosErrorCode.NoResult;
                 errorMessage = "No valid results from any QoS server";
             }
-            
+
             return new QosResult()
             {
-                ErrorCode = (int) resultCode,
+                ErrorCode = (int)resultCode,
                 RegionResults = results,
                 ErrorMessage = errorMessage
             };
         }
-        
-        
+
         private async Task PingWorker(RegionPinger[] regionPingers, IProducerConsumerCollection<int> initialRegionIndexes)
         {
             // For each initialRegionIndex, walk through all regions and do a ping starting at the index given and
             // wrapping around to 0 when reaching the final index
-            while(initialRegionIndexes.TryTake(out int initialRegionIndex))
+            while (initialRegionIndexes.TryTake(out int initialRegionIndex))
             {
                 for (int i = 0; i < regionPingers.Length; i++)
                 {

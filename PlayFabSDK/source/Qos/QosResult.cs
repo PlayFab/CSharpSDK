@@ -36,9 +36,9 @@ namespace PlayFab.QoS
 #endif
         }
 
-        public List<QosRegionResultSummary> RegionResults { get; set; }
+        public List<QosRegionResultSummary> RegionResults;
 
-        public int ErrorCode { get; set; }
+        public int ErrorCode;
     }
 }
 #endif
