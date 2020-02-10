@@ -6,15 +6,15 @@ namespace PlayFab.QoS
     
     public class QosRegionResult
     {
-        public string Region { get; set; }
+        public string Region;
 
-        public int LatencyMs { get; set; }
-        
-        public IReadOnlyList<int> RawMeasurements { get; set; }
+        public int LatencyMs;
 
-        public int NumTimeouts { get; set; }
+        public IReadOnlyList<int> RawMeasurements;
 
-        public int ErrorCode { get; set; }
+        public int NumTimeouts;
+
+        public int ErrorCode;
     }
     
     internal class QosRegionResultSummary

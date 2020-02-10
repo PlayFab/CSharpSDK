@@ -1,4 +1,6 @@
-﻿#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
+﻿using System;
+
+#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using EventsModels;
@@ -19,14 +21,20 @@ namespace PlayFab.QoS
         private readonly PlayFabMultiplayerInstanceAPI multiplayerApi;
         private readonly PlayFabEventsInstanceAPI eventsApi;
 
+        private readonly Func<object, Task> qosResultsReporter;
+
         private Dictionary<string, string> _dataCenterMap;
 
-        public PlayFabQosApi(PlayFabApiSettings settings = null, PlayFabAuthenticationContext authContext = null)
+        private bool _reportResults;
+
+        public PlayFabQosApi(PlayFabApiSettings settings = null, PlayFabAuthenticationContext authContext = null, bool reportResults = true)
         {
             _authContext = authContext ?? PlayFabSettings.staticPlayer;
             
             multiplayerApi = new PlayFabMultiplayerInstanceAPI(settings, _authContext);
             eventsApi = new PlayFabEventsInstanceAPI(settings, _authContext);
+            qosResultsReporter = SendSuccessfulQosResultsToPlayFab;
+            _reportResults = reportResults;
         }
         
 #pragma warning disable 4014
@@ -43,7 +51,11 @@ namespace PlayFab.QoS
                 return result;
             }
 
-            Task.Factory.StartNew(() => SendResultsToPlayFab(result));
+            if (_reportResults)
+            {
+                Task.Factory.StartNew(qosResultsReporter, result).Unwrap();
+            }
+
             return result;
         }
 #pragma warning restore 4014
@@ -61,7 +73,7 @@ namespace PlayFab.QoS
 
             Dictionary<string, string> dataCenterMap = await GetQoSServerList();
 
-            if (!(dataCenterMap?.Count > 0))
+            if (dataCenterMap == null || dataCenterMap.Count == 0)
             {
                 return new QosResult
                 {
@@ -93,12 +105,10 @@ namespace PlayFab.QoS
 
             foreach (QosServer qosServer in response.Result.QosServers)
             {
-                if (string.IsNullOrEmpty(qosServer.Region))
+                if (!string.IsNullOrEmpty(qosServer.Region))
                 {
-                    continue;
+                    dataCenterMap[qosServer.Region] = qosServer.ServerUrl;
                 }
-
-                dataCenterMap[qosServer.Region] = qosServer.ServerUrl;
             }
 
             return _dataCenterMap = dataCenterMap;
@@ -107,14 +117,32 @@ namespace PlayFab.QoS
         private async Task<QosResult> GetSortedRegionLatencies(int timeoutMs,
             Dictionary<string, string> dataCenterMap, int pingsPerRegion, int degreeOfParallelism)
         {
-            RegionPinger[] regionPingers = dataCenterMap.Select(
-                datacenter => new RegionPinger(datacenter.Value, datacenter.Key, timeoutMs, NumTimeoutsForError, pingsPerRegion)).ToArray();
+            RegionPinger[] regionPingers = new RegionPinger[dataCenterMap.Count];
 
-            ConcurrentBag<int> seeds = new ConcurrentBag<int>(Enumerable.Range(0, pingsPerRegion)
+            int index = 0;
+            foreach (KeyValuePair<string,string> datacenter in dataCenterMap)
+            {
+                regionPingers[index] = new RegionPinger(datacenter.Value, datacenter.Key, timeoutMs, NumTimeoutsForError, pingsPerRegion);
+                index++;
+            }
+
+            // initialRegionIndexes are the index of the first region that a ping worker will use. Distribute the
+            // indexes such that they are as far apart as possible to reduce the chance of sending all the pings
+            // to the same region at the same time
+            
+            // Example, if there are 6 regions and 3 pings per region, we will start pinging at regions 0, 2, and 4
+            // as shown in the table below
+            
+            //        Region 0    Region 1    Region 2    Region 3    Region 4    Region 5
+            // Ping 1    x
+            // Ping 2                           x
+            // Ping 3                                                    x
+            //
+            ConcurrentBag<int> initialRegionIndexes = new ConcurrentBag<int>(Enumerable.Range(0, pingsPerRegion)
                 .Select(i => i * dataCenterMap.Count / pingsPerRegion));
 
             Task[] pingWorkers = Enumerable.Range(0, degreeOfParallelism).Select(
-                i => PingWorker(regionPingers, seeds)).ToArray();
+                i => PingWorker(regionPingers, initialRegionIndexes)).ToArray();
 
             await Task.WhenAll(pingWorkers);
 
@@ -138,20 +166,23 @@ namespace PlayFab.QoS
         }
         
         
-        private async Task PingWorker(RegionPinger[] regionPingers, IProducerConsumerCollection<int> seeds)
+        private async Task PingWorker(RegionPinger[] regionPingers, IProducerConsumerCollection<int> initialRegionIndexes)
         {
-            while(seeds.TryTake(out int seed))
+            // For each initialRegionIndex, walk through all regions and do a ping starting at the index given and
+            // wrapping around to 0 when reaching the final index
+            while(initialRegionIndexes.TryTake(out int initialRegionIndex))
             {
                 for (int i = 0; i < regionPingers.Length; i++)
                 {
-                    int index = (i + seed) % regionPingers.Length;
+                    int index = (i + initialRegionIndex) % regionPingers.Length;
                     await regionPingers[index].PingAsync();
                 }
             }
         }
-
-        private async Task SendResultsToPlayFab(QosResult result)
+        
+        private async Task SendSuccessfulQosResultsToPlayFab(object resultState)
         {
+            var result = (QosResult) resultState;
             var eventContents = new EventContents
             {
                 Name = "qos_result",

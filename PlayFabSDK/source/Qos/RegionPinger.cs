@@ -14,6 +14,13 @@ namespace PlayFab.QoS
     {
         private const int PortNumber = 3075;
         private const int UnknownLatencyValue = int.MaxValue;
+        
+        ///
+        /// Need to have at least NumSuccessBeforeFilteringOutBestAndWorst successful results before filtering the
+        /// best and worst results from the average that is reported
+        ///
+        private const int NumSuccessBeforeFilteringOutBestAndWorst = 4;
+
         private static readonly byte[] _initialHeader = {0xFF, 0xFF};
         private static readonly byte[] _subsequentHeader = {0x00, 0x00};
 
@@ -26,7 +33,7 @@ namespace PlayFab.QoS
         private readonly List<int> latencyMeasures;
 
         public RegionPinger(string hostNameOrAddress, string region, int timeoutMs, int numTimeoutsForError,
-            int expectedPingsPerRegion = 0)
+            int expectedPingsPerRegion)
         {
             _hostNameOrAddress = hostNameOrAddress;
             _region = region;
@@ -93,9 +100,9 @@ namespace PlayFab.QoS
                 {
                     long sum = 0;
                     int count = 0;
-                    if (latencyMeasures.Count >= 3)
+                    if (latencyMeasures.Count >= NumSuccessBeforeFilteringOutBestAndWorst)
                     {
-                        // If there are at least 4, throw out the top and bottom measurements 
+                        // Throw out the top and bottom measurements 
                         latencyMeasures.Sort();
                         for (int i = 1; i < latencyMeasures.Count - 1; i++)
                         {
@@ -183,7 +190,7 @@ namespace PlayFab.QoS
     public class RegionPinger
     {
         public RegionPinger(string hostNameOrAddress, string region, int timeoutMs, int numTimeoutsForError,
-            int expectedPingsPerRegion = 0)
+            int expectedPingsPerRegion)
         {
         }
 
