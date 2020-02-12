@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -27,7 +28,8 @@ namespace PlayFab.Internal
                 bodyString = serializer.SerializeObject(request);
             }
 
-            HttpResponseMessage httpResponse;
+            bool isSuccessStatusCode;
+            HttpStatusCode httpStatusCode;
             string httpResponseString;
             using (var postBody = new ByteArrayContent(Encoding.UTF8.GetBytes(bodyString)))
             {
@@ -51,8 +53,11 @@ namespace PlayFab.Internal
 
                 try
                 {
-                    httpResponse = await _client.PostAsync(fullUrl, postBody);
+                    HttpResponseMessage httpResponse = await _client.PostAsync(fullUrl, postBody);
                     httpResponseString = await httpResponse.Content.ReadAsStringAsync();
+                    httpStatusCode = httpResponse.StatusCode;
+                    isSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                    httpResponse.Dispose();
                 }
                 catch (HttpRequestException e)
                 {
@@ -72,15 +77,14 @@ namespace PlayFab.Internal
                 }
             }
 
-            if (!httpResponse.IsSuccessStatusCode)
+            if (!isSuccessStatusCode)
             {
                 var error = new PlayFabError();
 
-                if (string.IsNullOrEmpty(httpResponseString) || httpResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                if (string.IsNullOrEmpty(httpResponseString) || httpStatusCode == HttpStatusCode.NotFound)
                 {
-                    error.HttpCode = (int)httpResponse.StatusCode;
-                    error.HttpStatus = httpResponse.StatusCode.ToString();
-                    httpResponse.Dispose();
+                    error.HttpCode = (int)httpStatusCode;
+                    error.HttpStatus = httpStatusCode.ToString();
                     return error;
                 }
 
@@ -91,11 +95,10 @@ namespace PlayFab.Internal
                 }
                 catch (Exception e)
                 {
-                    error.HttpCode = (int)httpResponse.StatusCode;
-                    error.HttpStatus = httpResponse.StatusCode.ToString();
+                    error.HttpCode = (int)httpStatusCode;
+                    error.HttpStatus = httpStatusCode.ToString();
                     error.Error = PlayFabErrorCode.JsonParseError;
                     error.ErrorMessage = e.Message;
-                    httpResponse.Dispose();
                     return error;
                 }
 
@@ -112,22 +115,19 @@ namespace PlayFab.Internal
                         error.ErrorDetails.Add(detail.Key, detail.Value);
                     }
                 }
-                
-                httpResponse.Dispose();
+
                 return error;
             }
 
             if (string.IsNullOrEmpty(httpResponseString))
             {
-                httpResponse.Dispose();
                 return new PlayFabError
                 {
                     Error = PlayFabErrorCode.Unknown,
                     ErrorMessage = "Internal server error"
                 };
             }
-            
-            httpResponse.Dispose();
+
             return httpResponseString;
         }
     }
