@@ -1,4 +1,4 @@
-#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
+﻿#if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
 namespace PlayFab.QoS
 {
     using EventsModels;
@@ -119,7 +119,7 @@ namespace PlayFab.QoS
             RegionPinger[] regionPingers = new RegionPinger[dataCenterMap.Count];
 
             int index = 0;
-            foreach (KeyValuePair<string,string> datacenter in dataCenterMap)
+            foreach (KeyValuePair<string, string> datacenter in dataCenterMap)
             {
                 regionPingers[index] = new RegionPinger(datacenter.Value, datacenter.Key, timeoutMs, NumTimeoutsForError, pingsPerRegion);
                 index++;
@@ -128,10 +128,10 @@ namespace PlayFab.QoS
             // initialRegionIndexes are the index of the first region that a ping worker will use. Distribute the
             // indexes such that they are as far apart as possible to reduce the chance of sending all the pings
             // to the same region at the same time
-            
+
             // Example, if there are 6 regions and 3 pings per region, we will start pinging at regions 0, 2, and 4
             // as shown in the table below
-            
+
             //        Region 0    Region 1    Region 2    Region 3    Region 4    Region 5
             // Ping 1    x
             // Ping 2                           x
@@ -177,10 +177,10 @@ namespace PlayFab.QoS
                 }
             }
         }
-        
+
         private async Task SendSuccessfulQosResultsToPlayFab(object resultState)
         {
-            var result = (QosResult) resultState;
+            var result = (QosResult)resultState;
             var eventContents = new EventContents
             {
                 Name = "qos_result",
