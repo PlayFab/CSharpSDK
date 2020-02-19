@@ -1169,6 +1169,39 @@ namespace PlayFab.AdminModels
 
     }
 
+    /// <summary>
+    /// Task name is unique within a title. Using a task name that's already taken will cause a name conflict error. Too many
+    /// create-task requests within a short time will cause a create conflict error.
+    /// </summary>
+    public class CreateInsightsScheduledScalingTaskRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Description the task
+        /// </summary>
+        public string Description ;
+
+        /// <summary>
+        /// Whether the schedule is active. Inactive schedule will not trigger task execution.
+        /// </summary>
+        public bool IsActive ;
+
+        /// <summary>
+        /// Name of the task. This is a unique identifier for tasks in the title.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// Task details related to Insights Scaling
+        /// </summary>
+        public InsightsScalingTaskParameter Parameter ;
+
+        /// <summary>
+        /// Cron expression for the run schedule of the task. The expression should be in UTC.
+        /// </summary>
+        public string Schedule ;
+
+    }
+
     public class CreateOpenIdConnectionRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2304,6 +2337,8 @@ namespace PlayFab.AdminModels
         ExperimentationNoScorecard,
         ExperimentationTreatmentAssignmentFailed,
         ExperimentationTreatmentAssignmentDisabled,
+        ExperimentationInvalidDuration,
+        ExperimentationMaxExperimentsReached,
         MaxActionDepthExceeded,
         SnapshotNotFound
     }
@@ -3498,6 +3533,15 @@ namespace PlayFab.AdminModels
         /// version change history of the statistic
         /// </summary>
         public PlayerStatisticVersion StatisticVersion ;
+
+    }
+
+    public class InsightsScalingTaskParameter
+    {
+        /// <summary>
+        /// Insights Performance Level to scale to.
+        /// </summary>
+        public int Level ;
 
     }
 
@@ -5034,7 +5078,8 @@ namespace PlayFab.AdminModels
     {
         CloudScript,
         ActionsOnPlayerSegment,
-        CloudScriptAzureFunctions
+        CloudScriptAzureFunctions,
+        InsightsScheduledScaling
     }
 
     public class ScriptExecutionError

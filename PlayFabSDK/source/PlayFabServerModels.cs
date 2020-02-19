@@ -2060,6 +2060,8 @@ namespace PlayFab.ServerModels
         ExperimentationNoScorecard,
         ExperimentationTreatmentAssignmentFailed,
         ExperimentationTreatmentAssignmentDisabled,
+        ExperimentationInvalidDuration,
+        ExperimentationMaxExperimentsReached,
         MaxActionDepthExceeded,
         SnapshotNotFound
     }
