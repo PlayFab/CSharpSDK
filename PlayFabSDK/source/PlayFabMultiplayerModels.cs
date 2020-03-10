@@ -1619,12 +1619,6 @@ namespace PlayFab.MultiplayerModels
     public class GetMultiplayerServerLogsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// The region of the multiplayer server to get logs for.
-        /// </summary>
-        [Obsolete("No longer available", false)]
-        public string Region ;
-
-        /// <summary>
         /// The server ID of multiplayer server to get logs for.
         /// </summary>
         public string ServerId ;
