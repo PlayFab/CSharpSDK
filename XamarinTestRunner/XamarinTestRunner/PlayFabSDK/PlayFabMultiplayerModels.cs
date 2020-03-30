@@ -189,7 +189,7 @@ namespace PlayFab.MultiplayerModels
 
         /// <summary>
         /// The status of multiplayer servers in the build region. Valid values are - Unknown, Initialized, Deploying, Deployed,
-        /// Unhealthy.
+        /// Unhealthy, Deleting, Deleted.
         /// </summary>
         public string Status ;
 
@@ -413,7 +413,8 @@ namespace PlayFab.MultiplayerModels
     {
         ManagedWindowsServerCore,
         CustomLinux,
-        ManagedWindowsServerCorePreview
+        ManagedWindowsServerCorePreview,
+        Invalid
     }
 
     public class ContainerImageReference
@@ -587,6 +588,11 @@ namespace PlayFab.MultiplayerModels
         public int MultiplayerServerCountPerVm ;
 
         /// <summary>
+        /// The OS platform used for running the game process.
+        /// </summary>
+        public string OsPlatform ;
+
+        /// <summary>
         /// The ports the build is mapped on.
         /// </summary>
         public List<Port> Ports ;
@@ -595,6 +601,11 @@ namespace PlayFab.MultiplayerModels
         /// The region configuration for the build.
         /// </summary>
         public List<BuildRegion> RegionConfigurations ;
+
+        /// <summary>
+        /// The type of game server being hosted.
+        /// </summary>
+        public string ServerType ;
 
         /// <summary>
         /// The VM size the build was created on.
@@ -627,6 +638,12 @@ namespace PlayFab.MultiplayerModels
         /// The game certificates for the build.
         /// </summary>
         public List<GameCertificateReferenceParams> GameCertificateReferences ;
+
+        /// <summary>
+        /// The directory containing the game executable. This would be the start path of the game assets that contain the main game
+        /// server executable. If not provided, a best effort will be made to extract it from the start game command.
+        /// </summary>
+        public string GameWorkingDirectory ;
 
         /// <summary>
         /// The instrumentation configuration for the build.
@@ -699,6 +716,12 @@ namespace PlayFab.MultiplayerModels
         public List<GameCertificateReference> GameCertificateReferences ;
 
         /// <summary>
+        /// The directory containing the game executable. This would be the start path of the game assets that contain the main game
+        /// server executable. If not provided, a best effort will be made to extract it from the start game command.
+        /// </summary>
+        public string GameWorkingDirectory ;
+
+        /// <summary>
         /// The instrumentation configuration for this build.
         /// </summary>
         public InstrumentationConfiguration InstrumentationConfiguration ;
@@ -714,6 +737,11 @@ namespace PlayFab.MultiplayerModels
         public int MultiplayerServerCountPerVm ;
 
         /// <summary>
+        /// The OS platform used for running the game process.
+        /// </summary>
+        public string OsPlatform ;
+
+        /// <summary>
         /// The ports the build is mapped on.
         /// </summary>
         public List<Port> Ports ;
@@ -722,6 +750,11 @@ namespace PlayFab.MultiplayerModels
         /// The region configuration for the build.
         /// </summary>
         public List<BuildRegion> RegionConfigurations ;
+
+        /// <summary>
+        /// The type of game server being hosted.
+        /// </summary>
+        public string ServerType ;
 
         /// <summary>
         /// The command to run when the multiplayer server has been allocated, including any arguments.
@@ -996,6 +1029,23 @@ namespace PlayFab.MultiplayerModels
         /// The guid string alias ID of the alias to perform the action on.
         /// </summary>
         public string AliasId ;
+
+    }
+
+    /// <summary>
+    /// Removes a multiplayer server build's region.
+    /// </summary>
+    public class DeleteBuildRegionRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The guid string ID of the build we want to update regions for.
+        /// </summary>
+        public string BuildId ;
+
+        /// <summary>
+        /// The build region to delete.
+        /// </summary>
+        public string Region ;
 
     }
 
@@ -1331,6 +1381,11 @@ namespace PlayFab.MultiplayerModels
         public int MultiplayerServerCountPerVm ;
 
         /// <summary>
+        /// The OS platform used for running the game process.
+        /// </summary>
+        public string OsPlatform ;
+
+        /// <summary>
         /// The ports the build is mapped on.
         /// </summary>
         public List<Port> Ports ;
@@ -1339,6 +1394,11 @@ namespace PlayFab.MultiplayerModels
         /// The region configuration for the build.
         /// </summary>
         public List<BuildRegion> RegionConfigurations ;
+
+        /// <summary>
+        /// The type of game server being hosted.
+        /// </summary>
+        public string ServerType ;
 
         /// <summary>
         /// The command to run when the multiplayer server has been allocated, including any arguments. This only applies to managed
@@ -2632,6 +2692,12 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public enum OsPlatform
+    {
+        Windows,
+        Linux
+    }
+
     public class OverrideDouble
     {
         /// <summary>
@@ -2899,6 +2965,12 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string Region ;
 
+    }
+
+    public enum ServerType
+    {
+        Container,
+        Process
     }
 
     public class SetIntersectionRule
@@ -3232,6 +3304,23 @@ namespace PlayFab.MultiplayerModels
         /// Array of build selection criteria.
         /// </summary>
         public List<BuildSelectionCriterion> BuildSelectionCriteria ;
+
+    }
+
+    /// <summary>
+    /// Updates a multiplayer server build's region.
+    /// </summary>
+    public class UpdateBuildRegionRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The guid string ID of the build we want to update regions for.
+        /// </summary>
+        public string BuildId ;
+
+        /// <summary>
+        /// The updated region configuration that should be applied to the specified build.
+        /// </summary>
+        public BuildRegionParams BuildRegion ;
 
     }
 

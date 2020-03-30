@@ -662,7 +662,8 @@ namespace PlayFab.CloudScriptModels
         NintendoSwitch,
         FacebookInstantGames,
         OpenIdConnect,
-        Apple
+        Apple,
+        NintendoSwitchAccount
     }
 
     public class LogStatement

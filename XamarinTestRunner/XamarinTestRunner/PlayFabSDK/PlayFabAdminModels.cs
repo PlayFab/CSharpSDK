@@ -2271,7 +2271,11 @@ namespace PlayFab.AdminModels
         InsightsManagementSetStorageRetentionBelowMinimum,
         InsightsManagementSetStorageRetentionAboveMaximum,
         AppleNotEnabledForTitle,
-        InsightsManagementNewActiveEventArchiveLimitInvalid,
+        InsightsManagementNewActiveEventExportLimitInvalid,
+        InsightsManagementSetPerformanceRateLimited,
+        PartyRequestsThrottledFromRateLimiter,
+        XboxServiceTooManyRequests,
+        NintendoSwitchNotEnabledForTitle,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2328,6 +2332,11 @@ namespace PlayFab.AdminModels
         ExportCouldNotCreate,
         ExportNoBackingDatabaseFound,
         ExportCouldNotDelete,
+        ExportCannotDetermineEventQuery,
+        ExportInvalidQuerySchemaModification,
+        ExportQuerySchemaMissingRequiredColumns,
+        ExportCannotParseQuery,
+        ExportControlCommandsNotAllowed,
         TitleNotEnabledForParty,
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
@@ -2346,6 +2355,7 @@ namespace PlayFab.AdminModels
         ExperimentationInvalidDuration,
         ExperimentationMaxExperimentsReached,
         MaxActionDepthExceeded,
+        TitleNotOnUpdatedPricingPlan,
         SnapshotNotFound
     }
 
@@ -3797,7 +3807,8 @@ namespace PlayFab.AdminModels
         NintendoSwitch,
         FacebookInstantGames,
         OpenIdConnect,
-        Apple
+        Apple,
+        NintendoSwitchAccount
     }
 
     public class LogStatement
@@ -5507,6 +5518,11 @@ namespace PlayFab.AdminModels
         public DateTime? CompletedAt ;
 
         /// <summary>
+        /// Error message for last processing attempt, if an error occured.
+        /// </summary>
+        public string ErrorMessage ;
+
+        /// <summary>
         /// Estimated time remaining in seconds.
         /// </summary>
         public double? EstimatedSecondsRemaining ;
@@ -6042,6 +6058,11 @@ namespace PlayFab.AdminModels
         public UserAndroidDeviceInfo AndroidDeviceInfo ;
 
         /// <summary>
+        /// Sign in with Apple account information, if an Apple account has been linked
+        /// </summary>
+        public UserAppleIdInfo AppleAccountInfo ;
+
+        /// <summary>
         /// Timestamp indicating when the user account was created
         /// </summary>
         public DateTime Created ;
@@ -6083,6 +6104,11 @@ namespace PlayFab.AdminModels
 
         /// <summary>
         /// Nintendo Switch account information, if a Nintendo Switch account has been linked
+        /// </summary>
+        public UserNintendoSwitchAccountIdInfo NintendoSwitchAccountInfo ;
+
+        /// <summary>
+        /// Nintendo Switch device information, if a Nintendo Switch device has been linked
         /// </summary>
         public UserNintendoSwitchDeviceIdInfo NintendoSwitchDeviceIdInfo ;
 
@@ -6144,6 +6170,15 @@ namespace PlayFab.AdminModels
         /// Android device ID
         /// </summary>
         public string AndroidDeviceId ;
+
+    }
+
+    public class UserAppleIdInfo
+    {
+        /// <summary>
+        /// Apple subject ID
+        /// </summary>
+        public string AppleSubjectId ;
 
     }
 
@@ -6270,6 +6305,15 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class UserNintendoSwitchAccountIdInfo
+    {
+        /// <summary>
+        /// Nintendo Switch account subject ID
+        /// </summary>
+        public string NintendoSwitchAccountSubjectId ;
+
+    }
+
     public class UserNintendoSwitchDeviceIdInfo
     {
         /// <summary>
@@ -6321,7 +6365,9 @@ namespace PlayFab.AdminModels
         ServerCustomId,
         NintendoSwitchDeviceId,
         FacebookInstantGamesId,
-        OpenIdConnect
+        OpenIdConnect,
+        Apple,
+        NintendoSwitchAccount
     }
 
     public class UserPrivateAccountInfo
