@@ -1074,6 +1074,19 @@ namespace PlayFab.MultiplayerModels
     }
 
     /// <summary>
+    /// Removes the specified container image repository. After this operation, a 'docker pull' will fail for all the tags of
+    /// the specified image. Morever, ListContainerImages will not return the specified image.
+    /// </summary>
+    public class DeleteContainerImageRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The container image repository we want to delete.
+        /// </summary>
+        public string ImageName ;
+
+    }
+
+    /// <summary>
     /// Deletes a remote user to log on to a VM for a multiplayer server build in a specific region. Returns user credential
     /// information necessary to log on.
     /// </summary>
@@ -2332,10 +2345,12 @@ namespace PlayFab.MultiplayerModels
     /// <summary>
     /// Returns a list of quality of service servers.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class ListQosServersRequest : PlayFabRequestCommon
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class ListQosServersResponse : PlayFabResultCommon
     {
         /// <summary>

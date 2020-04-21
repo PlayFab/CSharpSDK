@@ -33,6 +33,14 @@ namespace PlayFab.ClientModels
 
     }
 
+    public enum AdActivity
+    {
+        Opened,
+        Closed,
+        Start,
+        End
+    }
+
     public class AdCampaignAttributionModel
     {
         /// <summary>
@@ -181,6 +189,102 @@ namespace PlayFab.ClientModels
         /// Name of the virtual currency which is to be incremented.
         /// </summary>
         public string VirtualCurrency ;
+
+    }
+
+    /// <summary>
+    /// A single ad placement details including placement and reward information
+    /// </summary>
+    public class AdPlacementDetails
+    {
+        /// <summary>
+        /// Placement unique ID
+        /// </summary>
+        public string PlacementId ;
+
+        /// <summary>
+        /// Placement name
+        /// </summary>
+        public string PlacementName ;
+
+        /// <summary>
+        /// If placement has viewing limits indicates how many views are left
+        /// </summary>
+        public int? PlacementViewsRemaining ;
+
+        /// <summary>
+        /// If placement has viewing limits indicates when they will next reset
+        /// </summary>
+        public double? PlacementViewsResetMinutes ;
+
+        /// <summary>
+        /// Optional URL to a reward asset
+        /// </summary>
+        public string RewardAssetUrl ;
+
+        /// <summary>
+        /// Reward description
+        /// </summary>
+        public string RewardDescription ;
+
+        /// <summary>
+        /// Reward unique ID
+        /// </summary>
+        public string RewardId ;
+
+        /// <summary>
+        /// Reward name
+        /// </summary>
+        public string RewardName ;
+
+    }
+
+    /// <summary>
+    /// Details for each item granted
+    /// </summary>
+    public class AdRewardItemGranted
+    {
+        /// <summary>
+        /// Catalog ID
+        /// </summary>
+        public string CatalogId ;
+
+        /// <summary>
+        /// Catalog item display name
+        /// </summary>
+        public string DisplayName ;
+
+        /// <summary>
+        /// Inventory instance ID
+        /// </summary>
+        public string InstanceId ;
+
+        /// <summary>
+        /// Item ID
+        /// </summary>
+        public string ItemId ;
+
+    }
+
+    /// <summary>
+    /// Details on what was granted to the player
+    /// </summary>
+    public class AdRewardResults
+    {
+        /// <summary>
+        /// Array of the items granted to the player
+        /// </summary>
+        public List<AdRewardItemGranted> GrantedItems ;
+
+        /// <summary>
+        /// Dictionary of virtual currencies that were granted to the player
+        /// </summary>
+        public Dictionary<string,int> GrantedVirtualCurrencies ;
+
+        /// <summary>
+        /// Dictionary of statistics that were modified for the player
+        /// </summary>
+        public Dictionary<string,int> IncrementedStatistics ;
 
     }
 
@@ -1675,6 +1779,35 @@ namespace PlayFab.ClientModels
         /// Account information for the local user.
         /// </summary>
         public UserAccountInfo AccountInfo ;
+
+    }
+
+    /// <summary>
+    /// Using an AppId to return a list of valid ad placements for a player.
+    /// </summary>
+    public class GetAdPlacementsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The current AppId to use
+        /// </summary>
+        public string AppId ;
+
+        /// <summary>
+        /// Using the name or unique identifier, filter the result for get a specific placement.
+        /// </summary>
+        public NameIdentifier Identifier ;
+
+    }
+
+    /// <summary>
+    /// Array of AdPlacementDetails
+    /// </summary>
+    public class GetAdPlacementsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of results
+        /// </summary>
+        public List<AdPlacementDetails> AdPlacements ;
 
     }
 
@@ -3644,6 +3777,26 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class LinkNintendoSwitchAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// ID of the Nintendo Switch environment. If null, defaults to the production environment.
+        /// </summary>
+        public string EnvironmentId ;
+
+        /// <summary>
+        /// If another user is already linked to a specific Nintendo Switch account, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink ;
+
+        /// <summary>
+        /// The JSON Web token (JWT) returned by Nintendo after login. Used to validate the request and find the user ID (Nintendo
+        /// Switch subject) to link with.
+        /// </summary>
+        public string IdentityToken ;
+
+    }
+
     public class LinkNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4395,6 +4548,46 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class LoginWithNintendoSwitchAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount ;
+
+        /// <summary>
+        /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
+        /// </summary>
+        public string EncryptedRequest ;
+
+        /// <summary>
+        /// ID of the Nintendo Switch environment. If null, defaults to the production environment.
+        /// </summary>
+        public string EnvironmentId ;
+
+        /// <summary>
+        /// The JSON Web token (JWT) returned by Nintendo after login.
+        /// </summary>
+        public string IdentityToken ;
+
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
+
+        /// <summary>
+        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// </summary>
+        public string PlayerSecret ;
+
+        /// <summary>
+        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
+        /// title has been selected.
+        /// </summary>
+        public string TitleId ;
+
+    }
+
     public class LoginWithNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4882,6 +5075,24 @@ namespace PlayFab.ClientModels
         /// Name of the virtual currency which was modified.
         /// </summary>
         public string VirtualCurrency ;
+
+    }
+
+    /// <summary>
+    /// Identifier by either name or ID. Note that a name may change due to renaming, or reused after being deleted. ID is
+    /// immutable and unique.
+    /// </summary>
+    public class NameIdentifier
+    {
+        /// <summary>
+        /// Id Identifier, if present
+        /// </summary>
+        public string Id ;
+
+        /// <summary>
+        /// Name Identifier, if present
+        /// </summary>
+        public string Name ;
 
     }
 
@@ -5704,6 +5915,35 @@ namespace PlayFab.ClientModels
     {
     }
 
+    /// <summary>
+    /// Report ad activity
+    /// </summary>
+    public class ReportAdActivityRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Type of activity, may be Opened, Closed, Start or End
+        /// </summary>
+        public AdActivity Activity ;
+
+        /// <summary>
+        /// Unique ID of the placement to report for
+        /// </summary>
+        public string PlacementId ;
+
+        /// <summary>
+        /// Unique ID of the reward the player was offered
+        /// </summary>
+        public string RewardId ;
+
+    }
+
+    /// <summary>
+    /// Report ad activity response has no body
+    /// </summary>
+    public class ReportAdActivityResult : PlayFabResultCommon
+    {
+    }
+
     public class ReportPlayerClientRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5760,6 +6000,65 @@ namespace PlayFab.ClientModels
         /// Fulfilled inventory items and recorded purchases in fulfillment of the validated receipt transactions.
         /// </summary>
         public List<PurchaseReceiptFulfillment> Fulfillments ;
+
+    }
+
+    /// <summary>
+    /// Details on which placement and reward to perform a grant on
+    /// </summary>
+    public class RewardAdActivityRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Placement unique ID
+        /// </summary>
+        public string PlacementId ;
+
+        /// <summary>
+        /// Reward unique ID
+        /// </summary>
+        public string RewardId ;
+
+    }
+
+    /// <summary>
+    /// Result for rewarding an ad activity
+    /// </summary>
+    public class RewardAdActivityResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// PlayStream Event ID that was generated by this reward (all subsequent events are associated with this event identifier)
+        /// </summary>
+        public string AdActivityEventId ;
+
+        /// <summary>
+        /// Debug results from the grants
+        /// </summary>
+        public List<string> DebugResults ;
+
+        /// <summary>
+        /// Id of the placement the reward was for
+        /// </summary>
+        public string PlacementId ;
+
+        /// <summary>
+        /// Name of the placement the reward was for
+        /// </summary>
+        public string PlacementName ;
+
+        /// <summary>
+        /// If placement has viewing limits indicates how many views are left
+        /// </summary>
+        public int? PlacementViewsRemaining ;
+
+        /// <summary>
+        /// If placement has viewing limits indicates when they will next reset
+        /// </summary>
+        public double? PlacementViewsResetMinutes ;
+
+        /// <summary>
+        /// Reward results
+        /// </summary>
+        public AdRewardResults RewardResults ;
 
     }
 
@@ -6415,15 +6714,6 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class UninkOpenIdConnectRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// A name that identifies which configured OpenID Connect provider relationship to use. Maximum 100 characters.
-        /// </summary>
-        public string ConnectionId ;
-
-    }
-
     public class UnlinkAndroidDeviceIDRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6515,6 +6805,10 @@ namespace PlayFab.ClientModels
     {
     }
 
+    public class UnlinkNintendoSwitchAccountRequest : PlayFabRequestCommon
+    {
+    }
+
     public class UnlinkNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6526,6 +6820,15 @@ namespace PlayFab.ClientModels
 
     public class UnlinkNintendoSwitchDeviceIdResult : PlayFabResultCommon
     {
+    }
+
+    public class UnlinkOpenIdConnectRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// A name that identifies which configured OpenID Connect provider relationship to use. Maximum 100 characters.
+        /// </summary>
+        public string ConnectionId ;
+
     }
 
     public class UnlinkPSNAccountRequest : PlayFabRequestCommon
