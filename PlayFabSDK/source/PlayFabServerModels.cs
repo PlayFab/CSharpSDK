@@ -1999,7 +1999,6 @@ namespace PlayFab.ServerModels
         PartyRequestsThrottledFromRateLimiter,
         XboxServiceTooManyRequests,
         NintendoSwitchNotEnabledForTitle,
-        RequestMultiplayerServersThrottledFromRateLimiter,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -6184,7 +6183,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string XboxToken ;
 
     }

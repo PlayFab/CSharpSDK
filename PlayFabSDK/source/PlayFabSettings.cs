@@ -6,9 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.70.200421";
-        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-3_2";
-        public const string SdkVersionString = "CSharpSDK-1.70.200421";
+        public const string SdkVersion = "1.69.200402";
+        public const string BuildIdentifier = "jbuild_csharpsdk__sdk-genericslave-1_0";
+        public const string SdkVersionString = "CSharpSDK-1.69.200402";
         public const string AD_TYPE_IDFA = "Idfa";
         public const string AD_TYPE_ANDROID_ID = "Adid";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
