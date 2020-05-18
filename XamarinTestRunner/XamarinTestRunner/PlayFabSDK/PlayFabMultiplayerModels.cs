@@ -98,15 +98,23 @@ namespace PlayFab.MultiplayerModels
 
     public enum AzureVmSize
     {
+        Standard_A1,
+        Standard_A2,
+        Standard_A3,
+        Standard_A4,
+        Standard_A1_v2,
+        Standard_A2_v2,
+        Standard_A4_v2,
+        Standard_A8_v2,
         Standard_D1_v2,
         Standard_D2_v2,
         Standard_D3_v2,
         Standard_D4_v2,
         Standard_D5_v2,
-        Standard_A1_v2,
-        Standard_A2_v2,
-        Standard_A4_v2,
-        Standard_A8_v2,
+        Standard_D2_v3,
+        Standard_D4_v3,
+        Standard_D8_v3,
+        Standard_D16_v3,
         Standard_F1,
         Standard_F2,
         Standard_F4,
@@ -115,11 +123,7 @@ namespace PlayFab.MultiplayerModels
         Standard_F2s_v2,
         Standard_F4s_v2,
         Standard_F8s_v2,
-        Standard_F16s_v2,
-        Standard_A1,
-        Standard_A2,
-        Standard_A3,
-        Standard_A4
+        Standard_F16s_v2
     }
 
     public class BuildAliasDetailsResponse : PlayFabResultCommon
@@ -1070,6 +1074,19 @@ namespace PlayFab.MultiplayerModels
         /// The name of the certificate.
         /// </summary>
         public string Name ;
+
+    }
+
+    /// <summary>
+    /// Removes the specified container image repository. After this operation, a 'docker pull' will fail for all the tags of
+    /// the specified image. Morever, ListContainerImages will not return the specified image.
+    /// </summary>
+    public class DeleteContainerImageRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The container image repository we want to delete.
+        /// </summary>
+        public string ImageName ;
 
     }
 
@@ -2332,10 +2349,12 @@ namespace PlayFab.MultiplayerModels
     /// <summary>
     /// Returns a list of quality of service servers.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class ListQosServersRequest : PlayFabRequestCommon
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class ListQosServersResponse : PlayFabResultCommon
     {
         /// <summary>

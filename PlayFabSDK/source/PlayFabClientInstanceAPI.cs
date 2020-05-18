@@ -520,6 +520,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Returns a list of ad placements and a reward for each
+        /// </summary>
+        public async Task<PlayFabResult<GetAdPlacementsResult>> GetAdPlacementsAsync(GetAdPlacementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetAdPlacements", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetAdPlacementsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetAdPlacementsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetAdPlacementsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be
         /// evaluated with the parent PlayFabId to guarantee uniqueness.
         /// </summary>
@@ -2158,6 +2184,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the Nintendo Switch account associated with the token to the user's PlayFab account.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResult>> LinkNintendoSwitchAccountAsync(LinkNintendoSwitchAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkNintendoSwitchAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the NintendoSwitchDeviceId to the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<LinkNintendoSwitchDeviceIdResult>> LinkNintendoSwitchDeviceIdAsync(LinkNintendoSwitchDeviceIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2632,6 +2684,36 @@ namespace PlayFab
             if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithKongregate", request, null, null, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
+            authenticationContext.CopyFrom(result.AuthenticationContext);
+            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Signs in the user with a Nintendo Switch Account identity token.
+        /// </summary>
+        public async Task<PlayFabResult<LoginResult>> LoginWithNintendoSwitchAccountAsync(LoginWithNintendoSwitchAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (request != null) request.TitleId = request?.TitleId ?? requestSettings.TitleId;
+            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithNintendoSwitchAccount", request, null, null, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -3259,6 +3341,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Report player's ad activity
+        /// </summary>
+        public async Task<PlayFabResult<ReportAdActivityResult>> ReportAdActivityAsync(ReportAdActivityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ReportAdActivity", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ReportAdActivityResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ReportAdActivityResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ReportAdActivityResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Write a PlayStream event to describe the provided player device information. This API method is not designed to be
         /// called directly by developers. Each PlayFab client SDK will eventually report this information automatically.
         /// </summary>
@@ -3336,6 +3444,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<RestoreIOSPurchasesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Reward player's ad activity
+        /// </summary>
+        public async Task<PlayFabResult<RewardAdActivityResult>> RewardAdActivityAsync(RewardAdActivityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/RewardAdActivity", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RewardAdActivityResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RewardAdActivityResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RewardAdActivityResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -3733,6 +3867,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks the related Nintendo Switch account from the user's PlayFab account.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResponse>> UnlinkNintendoSwitchAccountAsync(UnlinkNintendoSwitchAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkNintendoSwitchAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Unlinks the related NintendoSwitchDeviceId from the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<UnlinkNintendoSwitchDeviceIdResult>> UnlinkNintendoSwitchDeviceIdAsync(UnlinkNintendoSwitchDeviceIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -3762,7 +3922,7 @@ namespace PlayFab
         /// Unlinks an OpenID Connect account from a user's PlayFab account, based on the connection ID of an existing relationship
         /// between a title and an Open ID Connect provider.
         /// </summary>
-        public async Task<PlayFabResult<EmptyResponse>> UnlinkOpenIdConnectAsync(UninkOpenIdConnectRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public async Task<PlayFabResult<EmptyResponse>> UnlinkOpenIdConnectAsync(UnlinkOpenIdConnectRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
 

@@ -470,6 +470,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes a container image repository.
+        /// </summary>
+        public static async Task<PlayFabResult<EmptyResponse>> DeleteContainerImageRepositoryAsync(DeleteContainerImageRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/DeleteContainerImageRepository", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Deletes a remote user to log on to a VM for a multiplayer server build.
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> DeleteRemoteUserAsync(DeleteRemoteUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -659,7 +686,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Get a matchmaking queue configuration.
+        /// SDK support is limited to C# and Java for this API. Get a matchmaking queue configuration.
         /// </summary>
         public static async Task<PlayFabResult<GetMatchmakingQueueResult>> GetMatchmakingQueueAsync(GetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1147,7 +1174,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// List all matchmaking queue configs.
+        /// SDK support is limited to C# and Java for this API. List all matchmaking queue configs.
         /// </summary>
         public static async Task<PlayFabResult<ListMatchmakingQueuesResult>> ListMatchmakingQueuesAsync(ListMatchmakingQueuesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1257,6 +1284,7 @@ namespace PlayFab
         /// <summary>
         /// Lists quality of service servers.
         /// </summary>
+        [Obsolete("Use 'ListQosServersForTitle' instead", false)]
         public static async Task<PlayFabResult<ListQosServersResponse>> ListQosServersAsync(ListQosServersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -1362,7 +1390,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Remove a matchmaking queue config.
+        /// SDK support is limited to C# and Java for this API. Remove a matchmaking queue config.
         /// </summary>
         public static async Task<PlayFabResult<RemoveMatchmakingQueueResult>> RemoveMatchmakingQueueAsync(RemoveMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1444,7 +1472,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Create or update a matchmaking queue configuration.
+        /// SDK support is limited to C# and Java for this API. Create or update a matchmaking queue configuration.
         /// </summary>
         public static async Task<PlayFabResult<SetMatchmakingQueueResult>> SetMatchmakingQueueAsync(SetMatchmakingQueueRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

@@ -1999,6 +1999,9 @@ namespace PlayFab.ServerModels
         PartyRequestsThrottledFromRateLimiter,
         XboxServiceTooManyRequests,
         NintendoSwitchNotEnabledForTitle,
+        RequestMultiplayerServersThrottledFromRateLimiter,
+        TitleDataInstanceNotFound,
+        DuplicateTitleDataOverrideInstanceName,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2079,6 +2082,7 @@ namespace PlayFab.ServerModels
         ExperimentationInvalidDuration,
         ExperimentationMaxExperimentsReached,
         ExperimentationExperimentSchedulingInProgress,
+        ExperimentationExistingCodelessScheduled,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SnapshotNotFound

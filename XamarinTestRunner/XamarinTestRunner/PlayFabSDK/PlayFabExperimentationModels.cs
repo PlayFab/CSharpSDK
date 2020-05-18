@@ -501,6 +501,11 @@ namespace PlayFab.ExperimentationModels
         public string Name ;
 
         /// <summary>
+        /// Id of the TitleDataOverrideGroup to use with this variant.
+        /// </summary>
+        public string TitleDataOverrideId ;
+
+        /// <summary>
         /// Percentage of target audience traffic that will see this variant.
         /// </summary>
         public uint TrafficPercentage ;

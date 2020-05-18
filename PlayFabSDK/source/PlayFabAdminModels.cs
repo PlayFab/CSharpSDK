@@ -2276,6 +2276,9 @@ namespace PlayFab.AdminModels
         PartyRequestsThrottledFromRateLimiter,
         XboxServiceTooManyRequests,
         NintendoSwitchNotEnabledForTitle,
+        RequestMultiplayerServersThrottledFromRateLimiter,
+        TitleDataInstanceNotFound,
+        DuplicateTitleDataOverrideInstanceName,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2356,6 +2359,7 @@ namespace PlayFab.AdminModels
         ExperimentationInvalidDuration,
         ExperimentationMaxExperimentsReached,
         ExperimentationExperimentSchedulingInProgress,
+        ExperimentationExistingCodelessScheduled,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SnapshotNotFound
