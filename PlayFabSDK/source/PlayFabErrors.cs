@@ -509,6 +509,9 @@ namespace PlayFab
         PartyRequestsThrottledFromRateLimiter = 1504,
         XboxServiceTooManyRequests = 1505,
         NintendoSwitchNotEnabledForTitle = 1506,
+        RequestMultiplayerServersThrottledFromRateLimiter = 1507,
+        TitleDataInstanceNotFound = 1508,
+        DuplicateTitleDataOverrideInstanceName = 1509,
         MatchmakingEntityInvalid = 2001,
         MatchmakingPlayerAttributesInvalid = 2002,
         MatchmakingQueueNotFound = 2016,
@@ -589,6 +592,7 @@ namespace PlayFab
         ExperimentationInvalidDuration = 7012,
         ExperimentationMaxExperimentsReached = 7013,
         ExperimentationExperimentSchedulingInProgress = 7014,
+        ExperimentationExistingCodelessScheduled = 7015,
         MaxActionDepthExceeded = 8000,
         TitleNotOnUpdatedPricingPlan = 9000,
         SnapshotNotFound = 11000
