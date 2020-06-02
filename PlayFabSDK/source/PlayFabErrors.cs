@@ -605,6 +605,7 @@ namespace PlayFab
         public PlayFabErrorCode Error;
         public string ErrorMessage;
         public Dictionary<string, string[]> ErrorDetails;
+        public string RequestId;
 
         private static readonly StringBuilder Sb = new StringBuilder();
         /// <summary>
@@ -622,6 +623,11 @@ namespace PlayFab
             else
             {
                 Sb.Append("Http Code: " + HttpCode.ToString() + "\nHttp Status: " + HttpStatus + "\nError: " + Error.ToString() + "\n");
+            }
+
+            if(RequestId != null)
+            {
+                Sb.Append("\n "+RequestId+"\n");
             }
 
             if (ErrorDetails == null)

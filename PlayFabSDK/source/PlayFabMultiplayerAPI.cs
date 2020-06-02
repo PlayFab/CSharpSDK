@@ -1263,10 +1263,9 @@ namespace PlayFab
 
             var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
             var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListPartyQosServers", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListPartyQosServers", request, null, null, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

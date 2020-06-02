@@ -36,7 +36,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Write batches of entity based events to PlayStream. The namespace of the Event must start with 'com.playfab.events.'
+        /// Write batches of entity based events to PlayStream. The namespace of the Event must be 'custom' or start with 'custom.'.
         /// </summary>
         public static async Task<PlayFabResult<WriteEventsResponse>> WriteEventsAsync(WriteEventsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
