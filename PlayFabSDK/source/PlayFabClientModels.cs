@@ -2959,8 +2959,8 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// This API is designed to return publisher-specific values which can be read, but not written to, by the client. This data
     /// is shared across all titles assigned to a particular publisher, and can be used for cross-game coordination. Only titles
-    /// assigned to a publisher can use this API. For more information email devrel@playfab.com. Note that there may up to a
-    /// minute delay in between updating title data and this API call returning the newest value.
+    /// assigned to a publisher can use this API. For more information email helloplayfab@microsoft.com. Note that there may up
+    /// to a minute delay in between updating title data and this API call returning the newest value.
     /// </summary>
     public class GetPublisherDataRequest : PlayFabRequestCommon
     {
@@ -3777,13 +3777,8 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkNintendoSwitchAccountRequest : PlayFabRequestCommon
+    public class LinkNintendoAccountRequest : PlayFabRequestCommon
     {
-        /// <summary>
-        /// ID of the Nintendo Switch environment. If null, defaults to the production environment.
-        /// </summary>
-        public string EnvironmentId ;
-
         /// <summary>
         /// If another user is already linked to a specific Nintendo Switch account, unlink the other user and re-link.
         /// </summary>
@@ -4548,7 +4543,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithNintendoSwitchAccountRequest : PlayFabRequestCommon
+    public class LoginWithNintendoAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Automatically create a PlayFab account if one is not currently linked to this ID.
@@ -4559,11 +4554,6 @@ namespace PlayFab.ClientModels
         /// Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only).
         /// </summary>
         public string EncryptedRequest ;
-
-        /// <summary>
-        /// ID of the Nintendo Switch environment. If null, defaults to the production environment.
-        /// </summary>
-        public string EnvironmentId ;
 
         /// <summary>
         /// The JSON Web token (JWT) returned by Nintendo after login.
@@ -6805,7 +6795,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkNintendoSwitchAccountRequest : PlayFabRequestCommon
+    public class UnlinkNintendoAccountRequest : PlayFabRequestCommon
     {
     }
 
