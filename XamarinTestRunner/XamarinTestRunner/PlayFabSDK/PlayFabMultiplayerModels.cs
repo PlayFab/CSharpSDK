@@ -488,6 +488,12 @@ namespace PlayFab.MultiplayerModels
     public class CreateBuildWithCustomContainerRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// When true, assets will not be copied for each server inside the VM. All serverswill run from the same set of assets, or
+        /// will have the same assets mounted in the container.
+        /// </summary>
+        public bool? AreAssetsReadonly ;
+
+        /// <summary>
         /// The build name.
         /// </summary>
         public string BuildName ;
@@ -539,6 +545,12 @@ namespace PlayFab.MultiplayerModels
         public List<BuildRegionParams> RegionConfigurations ;
 
         /// <summary>
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
+        /// </summary>
+        public bool? UseStreamingForAssetDownloads ;
+
+        /// <summary>
         /// The VM size to create the build on.
         /// </summary>
         public AzureVmSize? VmSize ;
@@ -547,6 +559,12 @@ namespace PlayFab.MultiplayerModels
 
     public class CreateBuildWithCustomContainerResponse : PlayFabResultCommon
     {
+        /// <summary>
+        /// When true, assets will not be copied for each server inside the VM. All serverswill run from the same set of assets, or
+        /// will have the same assets mounted in the container.
+        /// </summary>
+        public bool? AreAssetsReadonly ;
+
         /// <summary>
         /// The guid string build ID. Must be unique for every build.
         /// </summary>
@@ -618,6 +636,12 @@ namespace PlayFab.MultiplayerModels
         public string ServerType ;
 
         /// <summary>
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
+        /// </summary>
+        public bool? UseStreamingForAssetDownloads ;
+
+        /// <summary>
         /// The VM size the build was created on.
         /// </summary>
         public AzureVmSize? VmSize ;
@@ -629,6 +653,12 @@ namespace PlayFab.MultiplayerModels
     /// </summary>
     public class CreateBuildWithManagedContainerRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// When true, assets will not be copied for each server inside the VM. All serverswill run from the same set of assets, or
+        /// will have the same assets mounted in the container.
+        /// </summary>
+        public bool? AreAssetsReadonly ;
+
         /// <summary>
         /// The build name.
         /// </summary>
@@ -687,6 +717,12 @@ namespace PlayFab.MultiplayerModels
         public string StartMultiplayerServerCommand ;
 
         /// <summary>
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
+        /// </summary>
+        public bool? UseStreamingForAssetDownloads ;
+
+        /// <summary>
         /// The VM size to create the build on.
         /// </summary>
         public AzureVmSize? VmSize ;
@@ -695,6 +731,12 @@ namespace PlayFab.MultiplayerModels
 
     public class CreateBuildWithManagedContainerResponse : PlayFabResultCommon
     {
+        /// <summary>
+        /// When true, assets will not be copied for each server inside the VM. All serverswill run from the same set of assets, or
+        /// will have the same assets mounted in the container.
+        /// </summary>
+        public bool? AreAssetsReadonly ;
+
         /// <summary>
         /// The guid string build ID. Must be unique for every build.
         /// </summary>
@@ -770,6 +812,12 @@ namespace PlayFab.MultiplayerModels
         /// The command to run when the multiplayer server has been allocated, including any arguments.
         /// </summary>
         public string StartMultiplayerServerCommand ;
+
+        /// <summary>
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
+        /// </summary>
+        public bool? UseStreamingForAssetDownloads ;
 
         /// <summary>
         /// The VM size the build was created on.
@@ -1342,6 +1390,12 @@ namespace PlayFab.MultiplayerModels
     public class GetBuildResponse : PlayFabResultCommon
     {
         /// <summary>
+        /// When true, assets will not be copied for each server inside the VM. All serverswill run from the same set of assets, or
+        /// will have the same assets mounted in the container.
+        /// </summary>
+        public bool? AreAssetsReadonly ;
+
+        /// <summary>
         /// The guid string build ID of the build.
         /// </summary>
         public string BuildId ;
@@ -1428,6 +1482,12 @@ namespace PlayFab.MultiplayerModels
         /// builds. If the build is a custom build, this field will be null.
         /// </summary>
         public string StartMultiplayerServerCommand ;
+
+        /// <summary>
+        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
+        /// disc.
+        /// </summary>
+        public bool? UseStreamingForAssetDownloads ;
 
         /// <summary>
         /// The VM size the build was created on.
@@ -2355,12 +2415,12 @@ namespace PlayFab.MultiplayerModels
     /// <summary>
     /// Returns a list of quality of service servers.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class ListQosServersRequest : PlayFabRequestCommon
     {
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class ListQosServersResponse : PlayFabResultCommon
     {
         /// <summary>

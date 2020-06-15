@@ -3160,6 +3160,11 @@ namespace PlayFab.ClientModels
         /// </summary>
         public List<string> Keys ;
 
+        /// <summary>
+        /// Name of the override.
+        /// </summary>
+        public string OverrideLabel ;
+
     }
 
     public class GetTitleDataResult : PlayFabResultCommon

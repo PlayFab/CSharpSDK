@@ -2000,8 +2000,8 @@ namespace PlayFab.ServerModels
         XboxServiceTooManyRequests,
         NintendoSwitchNotEnabledForTitle,
         RequestMultiplayerServersThrottledFromRateLimiter,
-        TitleDataInstanceNotFound,
-        DuplicateTitleDataOverrideInstanceName,
+        TitleDataOverrideNotFound,
+        DuplicateKeys,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -3390,6 +3390,11 @@ namespace PlayFab.ServerModels
         /// Specific keys to search for in the title data (leave null to get all keys)
         /// </summary>
         public List<string> Keys ;
+
+        /// <summary>
+        /// Name of the override.
+        /// </summary>
+        public string OverrideLabel ;
 
     }
 
