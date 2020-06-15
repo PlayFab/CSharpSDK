@@ -1283,7 +1283,7 @@ namespace PlayFab
         /// <summary>
         /// Lists quality of service servers.
         /// </summary>
-        [Obsolete("Use 'ListQosServersForTitle' instead", false)]
+        [Obsolete("Use 'ListQosServersForTitle' instead", true)]
         public static async Task<PlayFabResult<ListQosServersResponse>> ListQosServersAsync(ListQosServersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
