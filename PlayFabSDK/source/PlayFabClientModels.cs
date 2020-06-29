@@ -3782,7 +3782,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class LinkNintendoAccountRequest : PlayFabRequestCommon
+    public class LinkNintendoServiceAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// If another user is already linked to a specific Nintendo Switch account, unlink the other user and re-link.
@@ -4548,7 +4548,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LoginWithNintendoAccountRequest : PlayFabRequestCommon
+    public class LoginWithNintendoServiceAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// Automatically create a PlayFab account if one is not currently linked to this ID.
@@ -6800,7 +6800,7 @@ namespace PlayFab.ClientModels
     {
     }
 
-    public class UnlinkNintendoAccountRequest : PlayFabRequestCommon
+    public class UnlinkNintendoServiceAccountRequest : PlayFabRequestCommon
     {
     }
 
@@ -6874,12 +6874,6 @@ namespace PlayFab.ClientModels
 
     public class UnlinkXboxAccountRequest : PlayFabRequestCommon
     {
-        /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public string XboxToken ;
-
     }
 
     public class UnlinkXboxAccountResult : PlayFabResultCommon

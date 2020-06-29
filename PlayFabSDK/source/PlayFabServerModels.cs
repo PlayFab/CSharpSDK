@@ -6189,12 +6189,6 @@ namespace PlayFab.ServerModels
         /// </summary>
         public string PlayFabId ;
 
-        /// <summary>
-        /// Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com/", "").
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public string XboxToken ;
-
     }
 
     public class UnlinkXboxAccountResult : PlayFabResultCommon
