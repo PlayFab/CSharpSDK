@@ -2239,9 +2239,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Links the Nintendo account associated with the token to the user's PlayFab account. (Open ID)
+        /// Links the Nintendo account associated with the token to the user's PlayFab account.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResult>> LinkNintendoAccountAsync(LinkNintendoAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResult>> LinkNintendoServiceAccountAsync(LinkNintendoServiceAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
 
@@ -2250,7 +2250,7 @@ namespace PlayFab
             if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/LinkNintendoAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkNintendoServiceAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -2775,9 +2775,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs in the user with a Nintendo account identity token. (Open ID)
+        /// Signs in the user with a Nintendo service account token.
         /// </summary>
-        public static async Task<PlayFabResult<LoginResult>> LoginWithNintendoAccountAsync(LoginWithNintendoAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<LoginResult>> LoginWithNintendoServiceAccountAsync(LoginWithNintendoServiceAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
 
@@ -2787,7 +2787,7 @@ namespace PlayFab
             if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithNintendoAccount", request, null, null, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithNintendoServiceAccount", request, null, null, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -3982,9 +3982,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Unlinks the related Nintendo account from the user's PlayFab account. (Open ID)
+        /// Unlinks the related Nintendo account from the user's PlayFab account.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResponse>> UnlinkNintendoAccountAsync(UnlinkNintendoAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> UnlinkNintendoServiceAccountAsync(UnlinkNintendoServiceAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
 
@@ -3993,7 +3993,7 @@ namespace PlayFab
             if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkNintendoAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkNintendoServiceAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
