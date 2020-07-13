@@ -130,6 +130,11 @@ namespace PlayFab.MatchmakerModels
     public class PlayerJoinedRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// Unique identifier of the Game Server Instance the user is joining. This must be a Game Server Instance started with the
         /// Matchmaker/StartGame API.
         /// </summary>
@@ -148,6 +153,11 @@ namespace PlayFab.MatchmakerModels
 
     public class PlayerLeftRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// Unique identifier of the Game Server Instance the user is leaving. This must be a Game Server Instance started with the
         /// Matchmaker/StartGame API.
@@ -187,6 +197,11 @@ namespace PlayFab.MatchmakerModels
         /// Custom command line argument when starting game server process.
         /// </summary>
         public string CustomCommandLineData ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
 
         /// <summary>
         /// HTTP endpoint URL for receiving game status events, if using an external matchmaker. When the game ends, PlayFab will
@@ -238,6 +253,11 @@ namespace PlayFab.MatchmakerModels
 
     public class UserInfoRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// Minimum catalog version for which data is requested (filters the results to only contain inventory items which have a
         /// catalog version of this or higher).

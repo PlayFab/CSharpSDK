@@ -409,6 +409,11 @@ namespace PlayFab.CloudScriptModels
     public class ExecuteEntityCloudScriptRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity ;
@@ -448,6 +453,11 @@ namespace PlayFab.CloudScriptModels
     /// </summary>
     public class ExecuteFunctionRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags { get; set; }
+
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -583,6 +593,11 @@ namespace PlayFab.CloudScriptModels
     /// </summary>
     public class ListFunctionsRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
     }
 
     public class ListFunctionsResult : PlayFabResultCommon
@@ -872,6 +887,11 @@ namespace PlayFab.CloudScriptModels
     public class PostFunctionResultForEntityTriggeredActionRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity ;
@@ -886,6 +906,11 @@ namespace PlayFab.CloudScriptModels
     public class PostFunctionResultForFunctionExecutionRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity ;
@@ -899,6 +924,11 @@ namespace PlayFab.CloudScriptModels
 
     public class PostFunctionResultForPlayerTriggeredActionRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -923,6 +953,11 @@ namespace PlayFab.CloudScriptModels
 
     public class PostFunctionResultForScheduledTaskRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -982,6 +1017,11 @@ namespace PlayFab.CloudScriptModels
     public class RegisterHttpFunctionRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// The name of the function to register
         /// </summary>
         public string FunctionName ;
@@ -1003,6 +1043,11 @@ namespace PlayFab.CloudScriptModels
         /// A connection string for the storage account that hosts the queue for the Azure Function.
         /// </summary>
         public string ConnectionString ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
 
         /// <summary>
         /// The name of the function to register
@@ -1123,6 +1168,11 @@ namespace PlayFab.CloudScriptModels
 
     public class UnregisterFunctionRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// The name of the function to unregister
         /// </summary>
