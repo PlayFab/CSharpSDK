@@ -21,6 +21,11 @@ namespace PlayFab.ExperimentationModels
     public class CreateExperimentRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// Description of the experiment.
         /// </summary>
         public string Description ;
@@ -78,6 +83,11 @@ namespace PlayFab.ExperimentationModels
     /// </summary>
     public class DeleteExperimentRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// The ID of the experiment to delete.
         /// </summary>
@@ -181,6 +191,11 @@ namespace PlayFab.ExperimentationModels
     /// </summary>
     public class GetExperimentsRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
     }
 
     public class GetExperimentsResult : PlayFabResultCommon
@@ -197,6 +212,11 @@ namespace PlayFab.ExperimentationModels
     /// </summary>
     public class GetLatestScorecardRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// The ID of the experiment.
         /// </summary>
@@ -219,6 +239,11 @@ namespace PlayFab.ExperimentationModels
     /// </summary>
     public class GetTreatmentAssignmentRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// The entity to perform this action on.
         /// </summary>
@@ -378,6 +403,11 @@ namespace PlayFab.ExperimentationModels
     public class StartExperimentRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// The ID of the experiment to start.
         /// </summary>
         public string ExperimentId ;
@@ -389,6 +419,11 @@ namespace PlayFab.ExperimentationModels
     /// </summary>
     public class StopExperimentRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// The ID of the experiment to stop.
         /// </summary>
@@ -416,6 +451,11 @@ namespace PlayFab.ExperimentationModels
     /// </summary>
     public class UpdateExperimentRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// Description of the experiment.
         /// </summary>
@@ -501,9 +541,9 @@ namespace PlayFab.ExperimentationModels
         public string Name ;
 
         /// <summary>
-        /// Id of the TitleDataOverrideGroup to use with this variant.
+        /// Id of the TitleDataOverride to use with this variant.
         /// </summary>
-        public string TitleDataOverrideId ;
+        public string TitleDataOverrideLabel ;
 
         /// <summary>
         /// Percentage of target audience traffic that will see this variant.

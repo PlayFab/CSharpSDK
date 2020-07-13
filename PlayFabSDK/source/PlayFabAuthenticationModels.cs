@@ -65,6 +65,11 @@ namespace PlayFab.AuthenticationModels
     public class GetEntityTokenRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
         /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity ;
@@ -120,6 +125,11 @@ namespace PlayFab.AuthenticationModels
     /// </summary>
     public class ValidateEntityTokenRequest : PlayFabRequestCommon
     {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
         /// <summary>
         /// Client EntityToken
         /// </summary>
