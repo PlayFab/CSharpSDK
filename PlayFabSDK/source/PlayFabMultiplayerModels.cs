@@ -84,7 +84,8 @@ namespace PlayFab.MultiplayerModels
         WestUs,
         ChinaEast2,
         ChinaNorth2,
-        SouthAfricaNorth
+        SouthAfricaNorth,
+        CentralUsEuap
     }
 
     public enum AzureVmFamily
@@ -554,6 +555,11 @@ namespace PlayFab.MultiplayerModels
         public List<GameCertificateReferenceParams> GameCertificateReferences ;
 
         /// <summary>
+        /// The Linux instrumentation configuration for the build.
+        /// </summary>
+        public LinuxInstrumentationConfiguration LinuxInstrumentationConfiguration ;
+
+        /// <summary>
         /// Metadata to tag the build. The keys are case insensitive. The build metadata is made available to the server through
         /// Game Server SDK (GSDK).Constraints: Maximum number of keys: 30, Maximum key length: 50, Maximum value length: 100
         /// </summary>
@@ -634,6 +640,11 @@ namespace PlayFab.MultiplayerModels
         /// The game certificates for the build.
         /// </summary>
         public List<GameCertificateReference> GameCertificateReferences ;
+
+        /// <summary>
+        /// The Linux instrumentation configuration for this build.
+        /// </summary>
+        public LinuxInstrumentationConfiguration LinuxInstrumentationConfiguration ;
 
         /// <summary>
         /// The metadata of the build.
@@ -900,6 +911,11 @@ namespace PlayFab.MultiplayerModels
         public string GameWorkingDirectory ;
 
         /// <summary>
+        /// The instrumentation configuration for the build.
+        /// </summary>
+        public InstrumentationConfiguration InstrumentationConfiguration ;
+
+        /// <summary>
         /// Metadata to tag the build. The keys are case insensitive. The build metadata is made available to the server through
         /// Game Server SDK (GSDK).Constraints: Maximum number of keys: 30, Maximum key length: 50, Maximum value length: 100
         /// </summary>
@@ -987,6 +1003,11 @@ namespace PlayFab.MultiplayerModels
         /// mount path of the game server executable.
         /// </summary>
         public string GameWorkingDirectory ;
+
+        /// <summary>
+        /// The instrumentation configuration for this build.
+        /// </summary>
+        public InstrumentationConfiguration InstrumentationConfiguration ;
 
         /// <summary>
         /// The metadata of the build.
@@ -2443,6 +2464,15 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class LinuxInstrumentationConfiguration
+    {
+        /// <summary>
+        /// Designates whether Linux instrumentation configuration will be enabled for this Build
+        /// </summary>
+        public bool IsEnabled ;
+
+    }
+
     /// <summary>
     /// Returns a list of multiplayer server game asset summaries for a title.
     /// </summary>
@@ -2759,6 +2789,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// Qos servers version
         /// </summary>
+        [Obsolete("No longer available", false)]
         public string Version ;
 
     }
