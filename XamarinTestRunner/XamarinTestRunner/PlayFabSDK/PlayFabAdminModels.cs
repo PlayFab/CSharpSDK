@@ -1666,6 +1666,22 @@ namespace PlayFab.AdminModels
     }
 
     /// <summary>
+    /// Will delete all the title data associated with the given override label.
+    /// </summary>
+    public class DeleteTitleDataOverrideRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Name of the override.
+        /// </summary>
+        public string OverrideLabel ;
+
+    }
+
+    public class DeleteTitleDataOverrideResult : PlayFabResultCommon
+    {
+    }
+
+    /// <summary>
     /// Deletes all data associated with the title, including catalog, virtual currencies, leaderboard statistics, Cloud Script
     /// revisions, segment definitions, event rules, tasks, add-ons, secret keys, data encryption keys, and permission policies.
     /// Removes the title from its studio and removes all associated developer roles and permissions. Does not delete PlayStream
@@ -2420,7 +2436,6 @@ namespace PlayFab.AdminModels
         ExperimentationInvalidDuration,
         ExperimentationMaxExperimentsReached,
         ExperimentationExperimentSchedulingInProgress,
-        ExperimentationExistingCodelessScheduled,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SnapshotNotFound
@@ -5373,6 +5388,29 @@ namespace PlayFab.AdminModels
     }
 
     /// <summary>
+    /// Will set the given key values in the specified override or the primary title data based on whether the label is provided
+    /// or not.
+    /// </summary>
+    public class SetTitleDataAndOverridesRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// List of titleData key-value pairs to set/delete. Use an empty value to delete an existing key; use a non-empty value to
+        /// create/update a key.
+        /// </summary>
+        public List<TitleDataKeyValue> KeyValues ;
+
+        /// <summary>
+        /// Name of the override.
+        /// </summary>
+        public string OverrideLabel ;
+
+    }
+
+    public class SetTitleDataAndOverridesResult : PlayFabResultCommon
+    {
+    }
+
+    /// <summary>
     /// This API method is designed to store title specific values which can be read by the client. For example, a developer
     /// could choose to store values which modify the user experience, such as enemy spawn rates, weapon strengths, movement
     /// speeds, etc. This allows a developer to update the title without the need to create, test, and ship a new build. This
@@ -5745,6 +5783,21 @@ namespace PlayFab.AdminModels
         PendingSteam,
         ActivatedSteam,
         RevokedSteam
+    }
+
+    public class TitleDataKeyValue
+    {
+        /// <summary>
+        /// Key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same
+        /// name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
+        /// </summary>
+        public string Key ;
+
+        /// <summary>
+        /// New value to set. Set to null to remove a value
+        /// </summary>
+        public string Value ;
+
     }
 
     /// <summary>
