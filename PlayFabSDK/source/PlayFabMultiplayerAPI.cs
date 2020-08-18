@@ -1308,34 +1308,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Lists quality of service servers.
-        /// </summary>
-        [Obsolete("Use 'ListQosServersForTitle' instead", true)]
-        public static async Task<PlayFabResult<ListQosServersResponse>> ListQosServersAsync(ListQosServersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-
-
-            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListQosServers", request, null, null, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<ListQosServersResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListQosServersResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ListQosServersResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Lists quality of service servers.
+        /// Lists quality of service servers for the title. By default, servers are only returned for regions where a Multiplayer
+        /// Servers build has been deployed.
         /// </summary>
         public static async Task<PlayFabResult<ListQosServersForTitleResponse>> ListQosServersForTitleAsync(ListQosServersForTitleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
