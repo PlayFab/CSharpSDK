@@ -2356,6 +2356,7 @@ namespace PlayFab.AdminModels
         TitleDataOverrideNotFound,
         DuplicateKeys,
         WasNotCreatedWithCloudRoot,
+        LegacyMultiplayerServersDeprecated,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,

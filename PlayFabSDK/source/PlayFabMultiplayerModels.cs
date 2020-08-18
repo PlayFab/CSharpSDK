@@ -85,7 +85,8 @@ namespace PlayFab.MultiplayerModels
         ChinaEast2,
         ChinaNorth2,
         SouthAfricaNorth,
-        CentralUsEuap
+        CentralUsEuap,
+        WestCentralUs
     }
 
     public enum AzureVmFamily
@@ -2786,12 +2787,6 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public Dictionary<string,string> CustomTags ;
 
-        /// <summary>
-        /// Qos servers version
-        /// </summary>
-        [Obsolete("No longer available", false)]
-        public string Version ;
-
     }
 
     public class ListPartyQosServersResponse : PlayFabResultCommon
@@ -2823,42 +2818,15 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public Dictionary<string,string> CustomTags ;
 
+        /// <summary>
+        /// Indicates that the response should contain Qos servers for all regions, including those where there are no builds
+        /// deployed for the title.
+        /// </summary>
+        public bool IncludeAllRegions ;
+
     }
 
     public class ListQosServersForTitleResponse : PlayFabResultCommon
-    {
-        /// <summary>
-        /// The page size on the response.
-        /// </summary>
-        public int PageSize ;
-
-        /// <summary>
-        /// The list of QoS servers.
-        /// </summary>
-        public List<QosServer> QosServers ;
-
-        /// <summary>
-        /// The skip token for the paged response.
-        /// </summary>
-        public string SkipToken ;
-
-    }
-
-    /// <summary>
-    /// Returns a list of quality of service servers.
-    /// </summary>
-    [Obsolete("No longer available", true)]
-    public class ListQosServersRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class ListQosServersResponse : PlayFabResultCommon
     {
         /// <summary>
         /// The page size on the response.
