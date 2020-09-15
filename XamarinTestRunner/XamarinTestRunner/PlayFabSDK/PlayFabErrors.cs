@@ -600,6 +600,7 @@ namespace PlayFab
         SegmentManagementNoExpressionTree = 10001,
         SegmentManagementTriggerActionCountOverLimit = 10002,
         SegmentManagementSegmentCountOverLimit = 10003,
+        SegmentManagementInvalidSegmentId = 10004,
         SnapshotNotFound = 11000
     }
 
