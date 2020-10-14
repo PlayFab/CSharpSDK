@@ -126,6 +126,11 @@ namespace PlayFab.DataModels
         /// </summary>
         public List<string> FileNames ;
 
+        /// <summary>
+        /// The current version of the profile, can be used for concurrency control during updates.
+        /// </summary>
+        public int ProfileVersion ;
+
     }
 
     public class FinalizeFileUploadsResponse : PlayFabResultCommon

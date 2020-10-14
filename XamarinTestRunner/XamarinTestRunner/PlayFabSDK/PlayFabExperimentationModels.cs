@@ -16,6 +16,37 @@ namespace PlayFab.ExperimentationModels
     }
 
     /// <summary>
+    /// Given a title entity token and exclusion group details, will create a new exclusion group for the title.
+    /// </summary>
+    public class CreateExclusionGroupRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Description of the exclusion group.
+        /// </summary>
+        public string Description ;
+
+        /// <summary>
+        /// Friendly name of the exclusion group.
+        /// </summary>
+        public string Name ;
+
+    }
+
+    public class CreateExclusionGroupResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Identifier of the exclusion group.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+    }
+
+    /// <summary>
     /// Given a title entity token and experiment details, will create a new experiment for the title.
     /// </summary>
     public class CreateExperimentRequest : PlayFabRequestCommon
@@ -33,7 +64,23 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The duration of the experiment, in days.
         /// </summary>
-        public uint Duration ;
+        [Obsolete("Use 'EndDate' instead", false)]
+        public uint? Duration ;
+
+        /// <summary>
+        /// When experiment should end.
+        /// </summary>
+        public DateTime? EndDate ;
+
+        /// <summary>
+        /// Id of the exclusion group.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+        /// <summary>
+        /// Percentage of exclusion group traffic that will see this experiment.
+        /// </summary>
+        public uint? ExclusionGroupTrafficAllocation ;
 
         /// <summary>
         /// Type of experiment.
@@ -78,6 +125,23 @@ namespace PlayFab.ExperimentationModels
     }
 
     /// <summary>
+    /// Given an entity token and an exclusion group ID this API deletes the exclusion group.
+    /// </summary>
+    public class DeleteExclusionGroupRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The ID of the exclusion group to delete.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+    }
+
+    /// <summary>
     /// Given an entity token and an experiment ID this API deletes the experiment. A running experiment must be stopped before
     /// it can be deleted.
     /// </summary>
@@ -116,6 +180,20 @@ namespace PlayFab.ExperimentationModels
 
     }
 
+    public class ExclusionGroupTrafficAllocation
+    {
+        /// <summary>
+        /// Id of the experiment.
+        /// </summary>
+        public string ExperimentId ;
+
+        /// <summary>
+        /// Percentage of exclusion group traffic that will see this experiment.
+        /// </summary>
+        public uint TrafficAllocation ;
+
+    }
+
     public class Experiment
     {
         /// <summary>
@@ -126,7 +204,23 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The duration of the experiment, in days.
         /// </summary>
-        public uint Duration ;
+        [Obsolete("Use 'EndDate' instead", false)]
+        public uint? Duration ;
+
+        /// <summary>
+        /// When experiment should end/was ended.
+        /// </summary>
+        public DateTime? EndDate ;
+
+        /// <summary>
+        /// Id of the exclusion group for this experiment.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+        /// <summary>
+        /// Percentage of exclusion group traffic that will see this experiment.
+        /// </summary>
+        public uint? ExclusionGroupTrafficAllocation ;
 
         /// <summary>
         /// Type of experiment.
@@ -171,6 +265,25 @@ namespace PlayFab.ExperimentationModels
 
     }
 
+    public class ExperimentExclusionGroup
+    {
+        /// <summary>
+        /// Description of the exclusion group.
+        /// </summary>
+        public string Description ;
+
+        /// <summary>
+        /// Id of the exclusion group.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+        /// <summary>
+        /// Friendly name of the exclusion group.
+        /// </summary>
+        public string Name ;
+
+    }
+
     public enum ExperimentState
     {
         New,
@@ -183,6 +296,54 @@ namespace PlayFab.ExperimentationModels
     {
         Active,
         Snapshot
+    }
+
+    /// <summary>
+    /// Given a title entity token will return the list of all exclusion groups for a title.
+    /// </summary>
+    public class GetExclusionGroupsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+    }
+
+    public class GetExclusionGroupsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of exclusion groups for the title.
+        /// </summary>
+        public List<ExperimentExclusionGroup> ExclusionGroups ;
+
+    }
+
+    /// <summary>
+    /// Given a title entity token and an exclusion group ID, will return the list of traffic allocations for the exclusion
+    /// group.
+    /// </summary>
+    public class GetExclusionGroupTrafficRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The ID of the exclusion group.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+    }
+
+    public class GetExclusionGroupTrafficResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// List of traffic allocations for the exclusion group.
+        /// </summary>
+        public List<ExclusionGroupTrafficAllocation> TrafficAllocations ;
+
     }
 
     /// <summary>
@@ -446,6 +607,33 @@ namespace PlayFab.ExperimentationModels
     }
 
     /// <summary>
+    /// Given an entity token and exclusion group details this API updates the exclusion group.
+    /// </summary>
+    public class UpdateExclusionGroupRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Description of the exclusion group.
+        /// </summary>
+        public string Description ;
+
+        /// <summary>
+        /// The ID of the exclusion group to update.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+        /// <summary>
+        /// Friendly name of the exclusion group.
+        /// </summary>
+        public string Name ;
+
+    }
+
+    /// <summary>
     /// Given a title entity token and experiment details, this API updates the experiment. If an experiment is already running,
     /// only the description and duration properties can be updated.
     /// </summary>
@@ -464,7 +652,23 @@ namespace PlayFab.ExperimentationModels
         /// <summary>
         /// The duration of the experiment, in days.
         /// </summary>
-        public uint Duration ;
+        [Obsolete("Use 'EndDate' instead", false)]
+        public uint? Duration ;
+
+        /// <summary>
+        /// When experiment should end.
+        /// </summary>
+        public DateTime? EndDate ;
+
+        /// <summary>
+        /// Id of the exclusion group.
+        /// </summary>
+        public string ExclusionGroupId ;
+
+        /// <summary>
+        /// Percentage of exclusion group traffic that will see this experiment.
+        /// </summary>
+        public uint? ExclusionGroupTrafficAllocation ;
 
         /// <summary>
         /// Type of experiment.
