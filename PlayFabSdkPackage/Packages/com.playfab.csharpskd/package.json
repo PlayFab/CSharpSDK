@@ -1,0 +1,19 @@
+{
+  "name": "com.playfab.csharpskd",
+  "version": "1.83.201014",
+  "displayName": "PlayFabCshaprSdk",
+  "description": "SDK for C#/.net environments other than Unity, including Microsoft CLR environments, Mono and Xamarin.\nhttps://github.com/dre0dru/CSharpSDK",
+  "unity": "2019.2",
+  "unityRelease": "4f1",
+  "keywords": [
+    "keyword1",
+    "keyword2",
+    "keyword3"
+  ],
+  "author": {
+    "name": "Unity",
+    "email": "unity@example.com",
+    "url": "https://www.unity3d.com"
+  },
+  "type": "library"
+}
