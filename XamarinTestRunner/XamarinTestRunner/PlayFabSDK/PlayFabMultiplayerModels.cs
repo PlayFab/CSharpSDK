@@ -97,7 +97,12 @@ namespace PlayFab.MultiplayerModels
         Dv3,
         F,
         Fsv2,
-        Dasv4
+        Dasv4,
+        Dav4,
+        Eav4,
+        Easv4,
+        Ev4,
+        Esv4
     }
 
     public enum AzureVmSize
@@ -131,7 +136,11 @@ namespace PlayFab.MultiplayerModels
         Standard_D2as_v4,
         Standard_D4as_v4,
         Standard_D8as_v4,
-        Standard_D16as_v4
+        Standard_D16as_v4,
+        Standard_D2a_v4,
+        Standard_D4a_v4,
+        Standard_D8a_v4,
+        Standard_D16a_v4
     }
 
     public class BuildAliasDetailsResponse : PlayFabResultCommon
