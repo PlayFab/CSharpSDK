@@ -548,7 +548,6 @@ namespace PlayFab
         CatalogSearchParameterInvalid = 4008,
         CatalogFeatureDisabled = 4009,
         CatalogConfigInvalid = 4010,
-        CatalogUnauthorized = 4011,
         CatalogItemTypeInvalid = 4012,
         CatalogBadRequest = 4013,
         CatalogTooManyRequests = 4014,
@@ -610,6 +609,10 @@ namespace PlayFab
         SegmentManagementInvalidSegmentId = 10004,
         SegmentManagementInvalidInput = 10005,
         SegmentManagementInvalidSegmentName = 10006,
+        DeleteSegmentRateLimitExceeded = 10007,
+        CreateSegmentRateLimitExceeded = 10008,
+        UpdateSegmentRateLimitExceeded = 10009,
+        GetSegmentsRateLimitExceeded = 10010,
         SnapshotNotFound = 11000
     }
 

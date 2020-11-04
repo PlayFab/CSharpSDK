@@ -2391,7 +2391,6 @@ namespace PlayFab.AdminModels
         CatalogSearchParameterInvalid,
         CatalogFeatureDisabled,
         CatalogConfigInvalid,
-        CatalogUnauthorized,
         CatalogItemTypeInvalid,
         CatalogBadRequest,
         CatalogTooManyRequests,
@@ -2453,6 +2452,10 @@ namespace PlayFab.AdminModels
         SegmentManagementInvalidSegmentId,
         SegmentManagementInvalidInput,
         SegmentManagementInvalidSegmentName,
+        DeleteSegmentRateLimitExceeded,
+        CreateSegmentRateLimitExceeded,
+        UpdateSegmentRateLimitExceeded,
+        GetSegmentsRateLimitExceeded,
         SnapshotNotFound
     }
 
