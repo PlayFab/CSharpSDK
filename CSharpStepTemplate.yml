@@ -97,7 +97,7 @@ steps:
     echo === attempt the build ===
 - task: MSBuild@1
   inputs:
-    solution: "/sdks/$(parameters.SdkName)/PlayFabSDK/PlayFabSDK.sln"
+    solution: "/sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln"
     configuration: Debug
     clean: true
 - bash: |
