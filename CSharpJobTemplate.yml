@@ -8,7 +8,7 @@ parameters:
 - name: vmImage
   displayName: vmImage
   type: string
-  default: 'windows-latest' # swap to correct VM (do we need it at all? windows-latest?)
+  default: 'Azure Pipelines'
 - name: ApiSpecSource
   displayName: ApiSpecSource
   type: string
