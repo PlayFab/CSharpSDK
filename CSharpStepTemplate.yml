@@ -95,10 +95,11 @@ steps:
     echo === with these contents ===
     ls
     echo === attempt the build ===
-    cmd << MSBUILD_EXE "./PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
+- powershell: 
+    MSBUILD_EXE "./PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Release" /t:Rebuild
-    
+- bash: |
     echo === Build the CSharp UnitTestRunner ===
     # if $TestWin32NetCore
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/UnittestRunner.csproj" /restore /p:configuration="Release" /t:Rebuild
