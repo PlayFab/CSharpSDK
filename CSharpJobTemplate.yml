@@ -56,7 +56,7 @@ jobs:
   - bash: echo CSharpJobTemplate
 - job: CSharpTemplate
   pool: 'Azure Pipelines'
-    vmImage: ${{ parameters.vmImage }}
+    vmImage: 'windows-latest'
   steps:
   - template: CSharpStepTemplate.yml
     parameters:
