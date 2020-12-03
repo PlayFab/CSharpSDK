@@ -97,9 +97,9 @@ steps:
     echo === attempt the build ===
 - task: MSBuild@1
   inputs:
-    solution: "./PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
+    solution: "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln"
     configuration: Debug
-    clean: testResultsFile
+    clean: true
 - bash: |
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Release" /t:Rebuild
