@@ -95,7 +95,12 @@ steps:
     echo === with these contents ===
     ls
     echo === attempt the build ===
-    cmd <<< "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\bin\msbuild.exe" "./PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
+- task: MSBuild@1
+  inputs:
+    solution: "./PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
+    configuration: Debug
+    clean: testResultsFile
+- bash: |
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Release" /t:Rebuild
 
