@@ -8,7 +8,7 @@ parameters:
 - name: vmImage
   displayName: vmImage
   type: string
-  default: 'Azure Pipelines'
+  default: 'windows-latest'
 - name: ApiSpecSource
   displayName: ApiSpecSource
   type: string
@@ -55,7 +55,8 @@ jobs:
   steps:
   - bash: echo CSharpJobTemplate
 - job: CSharpTemplate
-  pool: ${{ parameters.vmImage }}
+  pool: 'Azure Pipelines'
+    vmImage: ${{ parameters.vmImage }}
   steps:
   - template: CSharpStepTemplate.yml
     parameters:
