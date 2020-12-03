@@ -89,7 +89,8 @@ steps:
     echo === Build the CSharp Project ===
     # if $TestCompile
     echo MSBUILD_EXE "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
-    cmd <<< MSBUILD_EXE "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
+    cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK"
+    cmd <<< MSBUILD_EXE "./PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Release" /t:Rebuild
     
