@@ -95,13 +95,18 @@ steps:
     echo === with these contents ===
     ls
     echo === attempt the build ===
+- task: NuGetCommand@2
+  displayName: 'Nuget Restore CSharpSDK UnitTest'
+  inputs:
+    command: 'restore'
+    restoreSolution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln'
+    feedsToUse: 'select'
 - task: VSBuild@1
   displayName: 'Build PlayFabSDK solution: Debug'
   inputs:
     solution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln'
     configuration: 'Debug'
     clean: true
-    restoreNugetPackages: true
     msbuildArchitecture: 'x64'
 - task: VSBuild@1
   displayName: 'Build PlayFabSDK solution: Release'
@@ -109,7 +114,19 @@ steps:
     solution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln'
     configuration: 'Release'
     clean: true
-    restoreNugetPackages: true
+    msbuildArchitecture: 'x64'
+- task: NuGetCommand@2
+  displayName: 'Nuget Restore CSharpSDK UnitTest'
+  inputs:
+    command: 'restore'
+    restoreSolution: 'sdks/CSharpSDK/PlayFabSDK/UnittestRunner/UnittestRunner.csproj'
+    feedsToUse: 'select'
+- task: VSBuild@1
+  displayName: 'Build PlayFabSDK solution: Release'
+  inputs:
+    solution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln'
+    configuration: 'Release'
+    clean: true
     msbuildArchitecture: 'x64'
 - bash: |
     echo === Build the CSharp UnitTestRunner ===
