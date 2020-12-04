@@ -95,6 +95,12 @@ steps:
     echo === with these contents ===
     ls
     echo === attempt the build ===
+- task: NuGetCommand@2
+  displayName: 'Nuget Restore CSharpSDK UnitTest'
+  inputs:
+    command: 'restore'
+    restoreSolution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln'
+    feedsToUse: 'select'
 - task: VSBuild@1
   displayName: 'Build PlayFabSDK solution: Release'
   inputs:
@@ -143,4 +149,4 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '*.xml'
-    testRunTitle: UnitySwitchTemplate
+    testRunTitle: CSharpTemplate
