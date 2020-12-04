@@ -95,11 +95,13 @@ steps:
     echo === with these contents ===
     ls
     echo === attempt the build ===
-- task: MSBuild@1
+- task: VSBuild@1
+  displayName: 'Build PlayFabSDK solution: Release'
   inputs:
-    solution: "/sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln"
-    configuration: Debug
+    solution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln'
+    configuration: 'Release'
     clean: true
+    msbuildArchitecture: 'x64'
 - bash: |
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Release" /t:Rebuild
