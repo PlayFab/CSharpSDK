@@ -161,7 +161,7 @@ steps:
 
     echo === Run the CSharpSdk UnitTestRunner net core app 2.0 ===
     # .NetCore version of CSharpSdk
-    cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
+    cd "$WORKSPACE/sdks/CSharpSDK/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
     cmd <<< dotnet .\UnittestRunner.dll -testInputsFile "$WORKSPACE\JenkinsSdkSetupScripts\Creds\testTitleData.json"
 
     echo === Build PlayFabSDK+Unit.sln ===
