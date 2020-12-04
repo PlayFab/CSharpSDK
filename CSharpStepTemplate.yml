@@ -122,37 +122,63 @@ steps:
     restoreSolution: 'sdks/CSharpSDK/PlayFabSDK/UnittestRunner/UnittestRunner.csproj'
     feedsToUse: 'select'
 - task: VSBuild@1
-  displayName: 'Build PlayFabSDK solution: Release'
+  displayName: 'Build UnitTestRunner csproj: Release'
   inputs:
-    solution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK.sln'
+    solution: 'sdks/CSharpSDK/PlayFabSDK/UnittestRunner/UnittestRunner.csproj'
     configuration: 'Release'
+    clean: true
+    msbuildArchitecture: 'x64'
+- task: NuGetCommand@2
+  displayName: 'Nuget Restore PlayFabSDK+Unit.sln'
+  inputs:
+    command: 'restore'
+    restoreSolution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK+Unit.sln'
+    feedsToUse: 'select'
+- task: VSBuild@1
+  displayName: 'Build UnitTestRunner csproj: Release'
+  inputs:
+    solution: 'sdks/CSharpSDK/PlayFabSDK/PlayFabSDK+Unit.sln'
+    configuration: 'Release'
+    clean: true
+    msbuildArchitecture: 'x64'
+- task: NuGetCommand@2
+  displayName: 'Nuget Restore JenkinsConsoleUtility'
+  inputs:
+    command: 'restore'
+    restoreSolution: 'SDKGenerator/JenkinsConsoleUtility/JenkinsConsoleUtility.sln'
+    feedsToUse: 'select'
+- task: VSBuild@1
+  displayName: 'Build UnitTestRunner csproj: Release'
+  inputs:
+    solution: 'SDKGenerator/JenkinsConsoleUtility/JenkinsConsoleUtility.sln'
+    configuration: 'Debug'
     clean: true
     msbuildArchitecture: 'x64'
 - bash: |
     echo === Build the CSharp UnitTestRunner ===
-    # if $TestWin32NetCore
-    # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/UnittestRunner.csproj" /restore /p:configuration="Release" /t:Rebuild
+    ## if $TestWin32NetCore
+    ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/UnittestRunner.csproj" /restore /p:configuration="Release" /t:Rebuild
 
     echo === Run the CSharpSdk UnitTestRunner net core app 2.0 ===
     # .NetCore version of CSharpSdk
-    # cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
-    # dotnet UnittestRunner.dll -testInputsFile "$WORKSPACE\JenkinsSdkSetupScripts\Creds\testTitleData.json"
+    cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
+    cmd <<< dotnet .\UnittestRunner.dll -testInputsFile "$WORKSPACE\JenkinsSdkSetupScripts\Creds\testTitleData.json"
 
     echo === Build PlayFabSDK+Unit.sln ===
-    # if $TestWin32Basic
-    # (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK+Unit.sln" /restore /p:configuration="Release" /t:Rebuild
+    ## if $TestWin32Basic
+    ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK+Unit.sln" /restore /p:configuration="Release" /t:Rebuild
 
     echo === Run PlayFabSDK+Unit.sln ===
     # rem .Net45-only version of CSharpSdk
-    # cd "%WORKSPACE%/sdks/%SdkName%/PlayFabSDK/UnittestRunner/bin/Release/net45"
-    # cmd <<< UnittestRunner.exe -testInputsFile "%WORKSPACE%/JenkinsSdkSetupScripts/Creds/testTitleData.json"
+    cd "%WORKSPACE%/sdks/%SdkName%/PlayFabSDK/UnittestRunner/bin/Release/net45"
+    cmd <<< UnittestRunner.exe -testInputsFile "%WORKSPACE%/JenkinsSdkSetupScripts/Creds/testTitleData.json"
 
     echo === Nuget Restore JenkinsConsoleUtility ===
-    # cd %WORKSPACE%/SDKGenerator/JenkinsConsoleUtility
-    # nuget restore JenkinsConsoleUtility.sln
+    ## cd %WORKSPACE%/SDKGenerator/JenkinsConsoleUtility
+    ## nuget restore JenkinsConsoleUtility.sln
 
     echo === Build JenkinsConsoleUtility ===
-    # (dot net 4.6 with msbuild 2017) "$WORKSPACE/SDKGenerator/JenkinsConsoleUtility/JenkinsConsoleUtility.sln" /p:configuration="Debug" /p:platform="Any CPU" /t:Rebuild
+    ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/SDKGenerator/JenkinsConsoleUtility/JenkinsConsoleUtility.sln" /p:configuration="Debug" /p:platform="Any CPU" /t:Rebuild
 
     ListenCsJCU
 
