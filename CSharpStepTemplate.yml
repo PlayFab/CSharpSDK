@@ -155,13 +155,23 @@ steps:
     clean: true
     msbuildArchitecture: 'x64'
 - bash: |
+    set -e
+    
+    echo alias the ADO variables into local variables
+    ApiSpecSource="${{ parameters.ApiSpecSource }}"
+    CommitMessage="${{ parameters.CommitMessage }}"
+    GitDestBranch="${{ parameters.GitDestBranch }}"
+    SdkName="${{ parameters.SdkName }}"
+    WORKSPACE=$(pwd -W)
+    # Hack attempt to get WORKSPACE into a sub-environment
+    export WORKSPACE="$WORKSPACE"
     echo === Build the CSharp UnitTestRunner ===
     ## if $TestWin32NetCore
     ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/UnittestRunner.csproj" /restore /p:configuration="Release" /t:Rebuild
 
     echo === Run the CSharpSdk UnitTestRunner net core app 2.0 ===
     # .NetCore version of CSharpSdk
-    cd "$WORKSPACE/sdks/CSharpSDK/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
+    cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
     cmd <<< dotnet .\UnittestRunner.dll -testInputsFile "$WORKSPACE\JenkinsSdkSetupScripts\Creds\testTitleData.json"
 
     echo === Build PlayFabSDK+Unit.sln ===
