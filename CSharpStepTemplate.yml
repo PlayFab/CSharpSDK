@@ -180,8 +180,8 @@ steps:
 
     echo === Run PlayFabSDK+Unit.sln ===
     # rem .Net45-only version of CSharpSdk
-    cd "%WORKSPACE%/sdks/%SdkName%/PlayFabSDK/UnittestRunner/bin/Release/net45"
-    cmd <<< UnittestRunner.exe -testInputsFile "%WORKSPACE%/JenkinsSdkSetupScripts/Creds/testTitleData.json"
+    cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/net45"
+    cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE/JenkinsSdkSetupScripts/Creds/testTitleData.json"
 
     echo === Nuget Restore JenkinsConsoleUtility ===
     ## cd %WORKSPACE%/SDKGenerator/JenkinsConsoleUtility
@@ -189,7 +189,7 @@ steps:
 
     echo === Build JenkinsConsoleUtility ===
     ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/SDKGenerator/JenkinsConsoleUtility/JenkinsConsoleUtility.sln" /p:configuration="Debug" /p:platform="Any CPU" /t:Rebuild
-
+    cd $WORKSPACE/SDKGenerator/JenkinsConsoleUtility
     ListenCsJCU
 
     # if $isVersioned && $SdkName == CSharpSDK
