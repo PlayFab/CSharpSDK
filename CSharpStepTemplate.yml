@@ -97,7 +97,8 @@ steps:
 
     echo === Build the CSharp Project ===
     # if $TestCompile
-    $MSBUILD_EXE "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
+    echo $MSBUILD_EXE "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
+    "MSBUILD_EXE" "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK.sln" /restore /p:configuration="Debug" /t:Rebuild
     cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK"
     echo === testing this folder ===
     pwd
