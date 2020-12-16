@@ -108,29 +108,29 @@ steps:
     
     echo === Build the CSharp UnitTestRunner ===
     ## if $TestWin32NetCore
-    ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/UnittestRunner.csproj" /restore /p:configuration="Release" /t:Rebuild
+    "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//UnittestRunner//UnittestRunner.csproj" //restore //p:configuration="Release" //t:Rebuild
 
     echo === Run the CSharpSdk UnitTestRunner net core app 2.0 ===
     # .NetCore version of CSharpSdk
     cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
-    cmd <<< dotnet .\UnittestRunner.dll -testInputsFile "$WORKSPACE\JenkinsSdkSetupScripts\Creds\testTitleData.json"
+    cmd <<< dotnet .\\UnittestRunner.dll -testInputsFile "$WORKSPACE\\JenkinsSdkSetupScripts\\Creds\\testTitleData.json"
 
     echo === Build PlayFabSDK+Unit.sln ===
     ## if $TestWin32Basic
-    ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/sdks/$SdkName/PlayFabSDK/PlayFabSDK+Unit.sln" /restore /p:configuration="Release" /t:Rebuild
+    "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//PlayFabSDK+Unit.sln" //restore //p:configuration="Release" //t:Rebuild
 
     echo === Run PlayFabSDK+Unit.sln ===
     # rem .Net45-only version of CSharpSdk
-    cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/net45"
-    cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE/JenkinsSdkSetupScripts/Creds/testTitleData.json"
+    cd "$WORKSPACE//sdks//$SdkName//PlayFabSDK//UnittestRunner//bin//Release//net45"
+    cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE//JenkinsSdkSetupScripts//Creds//testTitleData.json"
 
     echo === Nuget Restore JenkinsConsoleUtility ===
-    ## cd %WORKSPACE%/SDKGenerator/JenkinsConsoleUtility
-    ## nuget restore JenkinsConsoleUtility.sln
+    cd "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility"
+    nuget restore JenkinsConsoleUtility.sln
 
     echo === Build JenkinsConsoleUtility ===
-    ## (dot net 4.6 with msbuild 2017) "$WORKSPACE/SDKGenerator/JenkinsConsoleUtility/JenkinsConsoleUtility.sln" /p:configuration="Debug" /p:platform="Any CPU" /t:Rebuild
-    cd $WORKSPACE/SDKGenerator/JenkinsConsoleUtility
+    "$MSBUILD_EXE" "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility//JenkinsConsoleUtility.sln" //p:configuration="Debug" //p:platform="Any CPU" //t:Rebuild
+    cd "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility"
     ListenCsJCU
 
     # if $isVersioned && $SdkName == CSharpSDK
