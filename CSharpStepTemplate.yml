@@ -73,6 +73,9 @@ steps:
     CommitMessage="${{ parameters.CommitMessage }}"
     GitDestBranch="${{ parameters.GitDestBranch }}"
     SdkName="${{ parameters.SdkName }}"
+    TestCompile="${{ parameters.TestCompile }}"
+    TestWin32Basic="${{ parameters.TestWin32Basic }}"
+    TestWin32NetCore="${{ parameters.TestWin32NetCore }}"
     WORKSPACE=$(pwd -W)
     # Hack attempt to get WORKSPACE into a sub-environment
     export WORKSPACE="$WORKSPACE"
