@@ -60,7 +60,7 @@ steps:
 - checkout: SdkGenerator
   clean: true
   path: s/SdkGenerator
-- checkout: CSharpSdk
+- checkout: ${{ parameters.SelfTemplateResource }}
   clean: true
   submodules: true
   path: s/sdks/CSharpSDK
