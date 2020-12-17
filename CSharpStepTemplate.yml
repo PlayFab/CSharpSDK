@@ -99,7 +99,7 @@ steps:
     . ./shared_build.sh
 
     echo === Build the CSharp Project ===
-    if [[ -z $TestCompile ]]
+    if $TestCompile
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//PlayFabSDK.sln" //restore //p:configuration="Debug" //t:Rebuild
     fi
@@ -107,7 +107,7 @@ steps:
     cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK"
     
     echo === Build the CSharp UnitTestRunner ===
-    if [[ -z $TestWin32NetCore ]]
+    if $TestWin32NetCore
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//UnittestRunner//UnittestRunner.csproj" //restore //p:configuration="Release" //t:Rebuild
       echo === Run the CSharpSdk UnitTestRunner net core app 2.0 ===
@@ -115,9 +115,8 @@ steps:
       cmd <<< dotnet .\\UnittestRunner.dll -testInputsFile "$WORKSPACE\\JenkinsSdkSetupScripts\\Creds\\testTitleData.json"
     fi
 
-
     echo === Build PlayFabSDK+Unit.sln ===
-    if [[ -z $TestWin32Basic ]]
+    if $TestWin32Basic
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//PlayFabSDK+Unit.sln" //restore //p:configuration="Release" //t:Rebuild
     fi
