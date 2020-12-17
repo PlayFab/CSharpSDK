@@ -135,7 +135,7 @@ steps:
     then
       cd "$WORKSPACE\SDKGenerator\JenkinsConsoleUtility\bin\Debug"
       cmd <<< "JenkinsConsoleUtility.exe --version -SdkName $SdkName -workspacepath "$WORKSPACE" -destFile version_$EXECUTOR_NUMBER.txt $apiSpecSource"
-      echo TODO inject environment variable - (guessing it is just creating the text file) $WORKSPACE/version_$EXECUTOR_NUMBER.txt ?
+      echo TODO inject environment variable - $WORKSPACE/version_$EXECUTOR_NUMBER.txt ?
       touch $WORKSPACE/version_$EXECUTOR_NUMBER
 
       echo === publish .NetCore nuget package ===
