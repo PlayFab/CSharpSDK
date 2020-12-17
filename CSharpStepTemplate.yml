@@ -114,7 +114,7 @@ steps:
       cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
       cmd <<< dotnet .\\UnittestRunner.dll -testInputsFile "$WORKSPACE\\JenkinsSdkSetupScripts\\Creds\\testTitleData.json"
     fi
-
+    
     echo === Build PlayFabSDK+Unit.sln ===
     if [ $TestWin32Basic = true ] ;
     then
