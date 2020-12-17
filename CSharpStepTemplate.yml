@@ -120,7 +120,7 @@ steps:
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//PlayFabSDK+Unit.sln" //restore //p:configuration="Release" //t:Rebuild
     fi
-
+    
     echo === Run PlayFabSDK+Unit.sln ===
     cd "$WORKSPACE//sdks//$SdkName//PlayFabSDK//UnittestRunner//bin//Release//net45"
     cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE//JenkinsSdkSetupScripts//Creds//testTitleData.json"
