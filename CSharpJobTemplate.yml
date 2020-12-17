@@ -1,0 +1,68 @@
+# JOB LEVEL TEMPLATE:
+# Used to build CSharp
+# Reusable
+# Meant to be run from the single CSharpTemplate pipeline (default), or
+#   from a multi-pipeline such as publishing (should specify alternate params)
+
+parameters:
+- name: ApiSpecSource
+  displayName: ApiSpecSource
+  type: string
+  default: -apiSpecGitUrl https://raw.githubusercontent.com/PlayFab/API_Specs/master/
+- name: CommitMessage
+  displayName: CommitMessage
+  type: string
+  default: Automated build from ADO Pipeline
+- name: GitDestBranch
+  displayName: GitDestBranch
+  type: string
+  default: doNotCommit
+- name: GitJSetupBranch
+  displayName: GitJSetupBranch
+  type: string
+  default: master
+- name: GitSdkGenBranch
+  displayName: GitSdkGenBranch
+  type: string
+  default: master
+- name: isVersioned
+  displayName: isVersioned
+  type: boolean
+  default: false
+- name: TestCompile
+  displayName: TestCompile
+  type: boolean
+  default: true
+- name: TestWin32NetCore
+  displayName: TestWin32NetCore
+  type: boolean
+  default: true
+- name: TestWin32Basic
+  displayName: TestWin32Basic
+  type: boolean
+  default: true
+- name: SelfTemplateResource
+  displayName: SelfTemplateResource
+  type: string
+  default: self
+
+jobs:
+- job: CSharpJobTemplate
+  steps:
+  - bash: echo CSharpJobTemplate
+- job: CSharpTemplate
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - template: CSharpStepTemplate.yml
+    parameters:
+      ApiSpecSource: ${{ parameters.ApiSpecSource }}
+      CommitMessage: ${{ parameters.CommitMessage }}
+      GitDestBranch: ${{ parameters.GitDestBranch }}
+      GitJSetupBranch: ${{ parameters.GitJSetupBranch }}
+      GitSdkGenBranch: ${{ parameters.GitSdkGenBranch }}
+      isVersioned: ${{ parameters.isVersioned }}
+      TestCompile: ${{ parameters.TestCompile }}
+      TestWin32NetCore: ${{ parameters.TestWin32NetCore }}
+      TestWin32Basic: ${{ parameters.TestWin32Basic }}
+      SelfTemplateResource: ${{ parameters.SelfTemplateResource }}

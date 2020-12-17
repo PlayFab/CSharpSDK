@@ -1,0 +1,8 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+trigger:
+- master
+
+extends:
+  template: CSharpResourceTemplate.yml
