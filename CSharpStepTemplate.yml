@@ -60,7 +60,7 @@ steps:
 - checkout: SdkGenerator
   clean: true
   path: s/SdkGenerator
-- checkout: CSharpSdk
+- checkout: ${{ parameters.SelfTemplateResource }}
   clean: true
   submodules: true
   path: s/sdks/CSharpSDK
@@ -97,7 +97,7 @@ steps:
     targetSrc="csharp"
     export PF_TEST_TITLE_DATA_JSON="$WORKSPACE\JenkinsSdkSetupScripts\Creds\testTitleData.json"
     . ./shared_build.sh
-
+    
     echo === Build the CSharp Project ===
     if [ $TestCompile = true ] ;
     then
@@ -114,19 +114,17 @@ steps:
       cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK/UnittestRunner/bin/Release/netcoreapp2.0"
       cmd <<< dotnet .\\UnittestRunner.dll -testInputsFile "$WORKSPACE\\JenkinsSdkSetupScripts\\Creds\\testTitleData.json"
     fi
-
+    
     echo === Build PlayFabSDK+Unit.sln ===
     if [ $TestWin32Basic = true ] ;
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//PlayFabSDK+Unit.sln" //restore //p:configuration="Release" //t:Rebuild
     fi
-
+    
     echo === Run PlayFabSDK+Unit.sln ===
     cd "$WORKSPACE//sdks//$SdkName//PlayFabSDK//UnittestRunner//bin//Release//net45"
     cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE//JenkinsSdkSetupScripts//Creds//testTitleData.json"
 
-    echo === Nuget Restore JenkinsConsoleUtility ===
-    cd "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility"
     nuget restore JenkinsConsoleUtility.sln
 
     echo === Build JenkinsConsoleUtility ===
