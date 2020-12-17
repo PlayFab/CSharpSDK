@@ -97,7 +97,7 @@ steps:
     targetSrc="csharp"
     export PF_TEST_TITLE_DATA_JSON="$WORKSPACE\JenkinsSdkSetupScripts\Creds\testTitleData.json"
     . ./shared_build.sh
-
+    
     echo === Build the CSharp Project ===
     if [ $TestCompile = true ] ;
     then
