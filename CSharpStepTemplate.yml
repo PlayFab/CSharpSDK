@@ -99,7 +99,7 @@ steps:
     . ./shared_build.sh
 
     echo === Build the CSharp Project ===
-    if $TestCompile
+    if [ $TestCompile = true ] ;
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//PlayFabSDK.sln" //restore //p:configuration="Debug" //t:Rebuild
     fi
@@ -107,7 +107,7 @@ steps:
     cd "$WORKSPACE/sdks/$SdkName/PlayFabSDK"
     
     echo === Build the CSharp UnitTestRunner ===
-    if $TestWin32NetCore
+    if [ $TestWin32NetCore = true ] ;
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//UnittestRunner//UnittestRunner.csproj" //restore //p:configuration="Release" //t:Rebuild
       echo === Run the CSharpSdk UnitTestRunner net core app 2.0 ===
@@ -116,7 +116,7 @@ steps:
     fi
 
     echo === Build PlayFabSDK+Unit.sln ===
-    if $TestWin32Basic
+    if [ $TestWin32Basic = true ] ;
     then
       "$MSBUILD_EXE" "$WORKSPACE//sdks//$SdkName//PlayFabSDK//PlayFabSDK+Unit.sln" //restore //p:configuration="Release" //t:Rebuild
     fi
@@ -133,6 +133,32 @@ steps:
     "$MSBUILD_EXE" "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility//JenkinsConsoleUtility.sln" //p:configuration="Debug" //p:platform="Any CPU" //t:Rebuild
     cd "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility"
     ListenCsJCU
+
+    if [ $isVersioned = true ] ;
+    then
+      cd "$WORKSPACE\SDKGenerator\JenkinsConsoleUtility\bin\Debug"
+      cmd <<< "JenkinsConsoleUtility.exe --version -SdkName $SdkName -workspacepath "$WORKSPACE" -destFile version_$EXECUTOR_NUMBER.txt $apiSpecSource"
+      echo TODO inject environment variable - (guessing it is just creating the text file) $WORKSPACE/version_$EXECUTOR_NUMBER.txt ?
+      touch $WORKSPACE/version_$EXECUTOR_NUMBER
+
+      echo === publish .NetCore nuget package ===
+      echo This step is disabled for now, because we're still publishing the 4.5 package.
+      echo We should decide at some point what and how to deal with the additional .netcore package
+      echo cd "$WORKSPACE\sdks\$SdkName\PlayFabSDK\source"
+      echo dotnet pack --configuration Release --output bin\out .\PlayFabSDK.csproj
+      echo nuget push .\bin\out\PlayFabAllSDK.$sdkVersion.nupkg -Source nuget.org -A $NUGET_API_KEY
+
+      echo === publish .Net45 nuget package ===
+      cd "$WORKSPACE\sdks\$SdkName\PlayFabSDK\source"
+      dotnet pack --configuration Release --output bin\out .\PlayFabSDK.csproj
+      nuget push bin\out\PlayFabAllSDK.$sdkVersion.nupkg -Source nuget.org -A $NUGET_API_KEY
+
+      echo === publish CloudScript plugin ===
+      echo this step is disabled until we can discover why this is trying to access XPlat
+      echo cd "$WORKSPACE\sdks\$SdkName\Plugins\CloudScript\source"
+      echo dotnet pack --configuration Release --output bin\out .\PlayFabCloudScriptPlugin.csproj
+      echo nuget push bin\out\PlayFabCloudScriptPlugin.$sdkVersion-alpha.nupkg -Source nuget.org -A $NUGET_API_KEY
+    fi
 
   displayName: 'Build/Test/Report'
 - task: PublishTestResults@2
