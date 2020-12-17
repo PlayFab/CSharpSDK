@@ -124,7 +124,7 @@ steps:
       cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE//JenkinsSdkSetupScripts//Creds//testTitleData.json"
     fi
 
-    nuget restore JenkinsConsoleUtility.sln
+    nuget restore $WORKSPACE//SDKGenerator//JenkinsConsoleUtility//JenkinsConsoleUtility.sln
 
     echo === Build JenkinsConsoleUtility ===
     "$MSBUILD_EXE" "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility//JenkinsConsoleUtility.sln" //p:configuration="Debug" //p:platform="Any CPU" //t:Rebuild
