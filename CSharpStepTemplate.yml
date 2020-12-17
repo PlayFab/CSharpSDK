@@ -125,7 +125,6 @@ steps:
     cd "$WORKSPACE//sdks//$SdkName//PlayFabSDK//UnittestRunner//bin//Release//net45"
     cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE//JenkinsSdkSetupScripts//Creds//testTitleData.json"
 
-    echo === Nuget Restore JenkinsConsoleUtility ===
     cd "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility"
     nuget restore JenkinsConsoleUtility.sln
 
