@@ -124,9 +124,12 @@ steps:
       cmd <<< UnittestRunner.exe -testInputsFile "$WORKSPACE//JenkinsSdkSetupScripts//Creds//testTitleData.json"
     fi
 
-    "$MSBUILD_EXE" "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility//JenkinsConsoleUtility.sln" //restore //p:configuration="Debug" //p:platform="Any CPU" //t:Rebuild
-    cd "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility"
-    ListenCsJCU
+    if [ $TestWin32Basic = true ] || [$TestWin32NetCore = true] || [$TestCompile = true] ;
+    then
+      "$MSBUILD_EXE" "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility//JenkinsConsoleUtility.sln" //restore //p:configuration="Debug" //p:platform="Any CPU" //t:Rebuild
+      cd "$WORKSPACE//SDKGenerator//JenkinsConsoleUtility"
+      ListenCsJCU
+    fi
 
     if [ $isVersioned = true ] ;
     then
