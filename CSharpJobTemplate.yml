@@ -5,10 +5,6 @@
 #   from a multi-pipeline such as publishing (should specify alternate params)
 
 parameters:
-- name: vmImage
-  displayName: vmImage
-  type: string
-  default: 'windows-latest'
 - name: ApiSpecSource
   displayName: ApiSpecSource
   type: string
