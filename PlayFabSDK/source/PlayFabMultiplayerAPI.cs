@@ -1095,6 +1095,7 @@ namespace PlayFab
         /// Lists summarized details of all multiplayer server builds for a title. Accepts tokens for title and if game client
         /// access is enabled, allows game client to request list of builds with player entity token.
         /// </summary>
+        [Obsolete("Use 'ListBuildSummariesV2' instead", false)]
         public static async Task<PlayFabResult<ListBuildSummariesResponse>> ListBuildSummariesAsync(ListBuildSummariesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -1105,6 +1106,34 @@ namespace PlayFab
 
 
             var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListBuildSummaries", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListBuildSummariesResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListBuildSummariesResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListBuildSummariesResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Lists summarized details of all multiplayer server builds for a title. Accepts tokens for title and if game client
+        /// access is enabled, allows game client to request list of builds with player entity token.
+        /// </summary>
+        public static async Task<PlayFabResult<ListBuildSummariesResponse>> ListBuildSummariesV2Async(ListBuildSummariesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListBuildSummariesV2", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
