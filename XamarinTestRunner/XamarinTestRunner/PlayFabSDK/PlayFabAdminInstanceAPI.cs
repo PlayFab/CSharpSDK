@@ -442,6 +442,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Creates a new player segment by defining the conditions on player properties. Also, create actions to target the player
+        /// segments for a title.
+        /// </summary>
+        public async Task<PlayFabResult<CreateSegmentResponse>> CreateSegmentAsync(CreateSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/CreateSegment", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<CreateSegmentResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateSegmentResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<CreateSegmentResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Delete a content file from the title. When deleting a file that does not exist, it returns success.
         /// </summary>
         public async Task<PlayFabResult<BlankResult>> DeleteContentAsync(DeleteContentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -570,6 +597,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<DeletePlayerSharedSecretResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Deletes an existing player segment and its associated action(s) for a title.
+        /// </summary>
+        public async Task<PlayFabResult<DeleteSegmentsResponse>> DeleteSegmentAsync(DeleteSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/DeleteSegment", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteSegmentsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteSegmentsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteSegmentsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1307,6 +1360,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetRandomResultTablesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Get detail information of a segment and its associated definition(s) and action(s) for a title.
+        /// </summary>
+        public async Task<PlayFabResult<GetSegmentsResponse>> GetSegmentsAsync(GetSegmentsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/GetSegments", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetSegmentsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetSegmentsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetSegmentsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2771,6 +2850,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateRandomResultTablesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Updates an existing player segment and its associated definition(s) and action(s) for a title.
+        /// </summary>
+        public async Task<PlayFabResult<UpdateSegmentResponse>> UpdateSegmentAsync(UpdateSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/UpdateSegment", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UpdateSegmentResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateSegmentResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UpdateSegmentResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
