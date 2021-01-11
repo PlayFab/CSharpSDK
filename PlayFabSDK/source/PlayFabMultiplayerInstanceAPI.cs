@@ -1074,7 +1074,7 @@ namespace PlayFab
         /// Lists summarized details of all multiplayer server builds for a title. Accepts tokens for title and if game client
         /// access is enabled, allows game client to request list of builds with player entity token.
         /// </summary>
-        [Obsolete("Use 'ListBuildSummariesV2' instead", false)]
+        [Obsolete("Use 'ListBuildSummariesV2' instead", true)]
         public async Task<PlayFabResult<ListBuildSummariesResponse>> ListBuildSummariesAsync(ListBuildSummariesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -1566,6 +1566,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<BuildAliasDetailsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Updates a multiplayer server build's name.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResponse>> UpdateBuildNameAsync(UpdateBuildNameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/UpdateBuildName", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
