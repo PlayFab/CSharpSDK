@@ -412,6 +412,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Checks for any new PS5 entitlements. If any are found, they are consumed (if they're consumables) and added as PlayFab
+        /// items
+        /// </summary>
+        public async Task<PlayFabResult<ConsumePS5EntitlementsResult>> ConsumePS5EntitlementsAsync(ConsumePS5EntitlementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ConsumePS5Entitlements", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ConsumePS5EntitlementsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ConsumePS5EntitlementsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ConsumePS5EntitlementsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items
         /// </summary>
         public async Task<PlayFabResult<ConsumePSNEntitlementsResult>> ConsumePSNEntitlementsAsync(ConsumePSNEntitlementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
