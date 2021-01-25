@@ -3245,7 +3245,7 @@ namespace PlayFab.ServerModels
     public class GetPlayFabIDsFromPSNAccountIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -4164,7 +4164,7 @@ namespace PlayFab.ServerModels
         public bool? ForceLink ;
 
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
