@@ -2056,6 +2056,8 @@ namespace PlayFab.ServerModels
         WasNotCreatedWithCloudRoot,
         LegacyMultiplayerServersDeprecated,
         VirtualCurrencyCurrentlyUnavailable,
+        SteamUserNotFound,
+        ElasticSearchOperationFailed,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2080,6 +2082,7 @@ namespace PlayFab.ServerModels
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
+        CatalogApiNotImplemented,
         CatalogEntityInvalid,
         CatalogTitleIdMissing,
         CatalogPlayerIdMissing,
@@ -2171,7 +2174,8 @@ namespace PlayFab.ServerModels
         CreateSegmentRateLimitExceeded,
         UpdateSegmentRateLimitExceeded,
         GetSegmentsRateLimitExceeded,
-        SnapshotNotFound
+        SnapshotNotFound,
+        InventoryApiNotImplemented
     }
 
     public class GenericPlayFabIdPair
@@ -4358,6 +4362,38 @@ namespace PlayFab.ServerModels
         /// The backend server identifier for this player.
         /// </summary>
         public string ServerCustomId ;
+
+    }
+
+    /// <summary>
+    /// If this is the first time a user has signed in with the Steam ID and CreateAccount is set to true, a new PlayFab account
+    /// will be created and linked to the Steam account. In this case, no email or username will be associated with the PlayFab
+    /// account. Otherwise, if no PlayFab account is linked to the Steam account, an error indicating this will be returned, so
+    /// that the title can guide the user through creation of a PlayFab account. Steam users that are not logged into the Steam
+    /// Client app will only have their Steam username synced, other data, such as currency and country will not be available
+    /// until they login while the Client is open.
+    /// </summary>
+    public class LoginWithSteamIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
+
+        /// <summary>
+        /// Unique Steam identifier for a user
+        /// </summary>
+        public string SteamId ;
 
     }
 
