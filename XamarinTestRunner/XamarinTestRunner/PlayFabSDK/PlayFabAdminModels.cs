@@ -2545,8 +2545,6 @@ namespace PlayFab.AdminModels
         WasNotCreatedWithCloudRoot,
         LegacyMultiplayerServersDeprecated,
         VirtualCurrencyCurrentlyUnavailable,
-        SteamUserNotFound,
-        ElasticSearchOperationFailed,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2571,7 +2569,6 @@ namespace PlayFab.AdminModels
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
-        CatalogApiNotImplemented,
         CatalogEntityInvalid,
         CatalogTitleIdMissing,
         CatalogPlayerIdMissing,
@@ -2649,7 +2646,6 @@ namespace PlayFab.AdminModels
         ExperimentationExclusionGroupInsufficientCapacity,
         ExperimentationExclusionGroupCannotDelete,
         ExperimentationExclusionGroupInvalidTrafficAllocation,
-        ExperimentationExclusionGroupInvalidName,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SegmentManagementTitleNotInFlight,
@@ -2663,8 +2659,7 @@ namespace PlayFab.AdminModels
         CreateSegmentRateLimitExceeded,
         UpdateSegmentRateLimitExceeded,
         GetSegmentsRateLimitExceeded,
-        SnapshotNotFound,
-        InventoryApiNotImplemented
+        SnapshotNotFound
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -4194,6 +4189,11 @@ namespace PlayFab.AdminModels
 
     public class LinkedUserAccountSegmentFilter
     {
+        /// <summary>
+        /// Login provider comparison.
+        /// </summary>
+        public SegmentFilterComparison? Comparison ;
+
         /// <summary>
         /// Login provider.
         /// </summary>

@@ -2060,34 +2060,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using an Steam ID, returning a session identifier that can subsequently be used for API calls which
-        /// require an authenticated user
-        /// </summary>
-        public static async Task<PlayFabResult<ServerLoginResult>> LoginWithSteamIdAsync(LoginWithSteamIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithSteamId", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<ServerLoginResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ServerLoginResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ServerLoginResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Signs the user in using a Xbox Live Token from an external server backend, returning a session identifier that can
         /// subsequently be used for API calls which require an authenticated user
         /// </summary>

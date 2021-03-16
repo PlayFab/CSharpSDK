@@ -62,12 +62,6 @@ namespace PlayFab.ExperimentationModels
         public string Description ;
 
         /// <summary>
-        /// The duration of the experiment, in days.
-        /// </summary>
-        [Obsolete("Use 'EndDate' instead", true)]
-        public uint? Duration ;
-
-        /// <summary>
         /// When experiment should end.
         /// </summary>
         public DateTime? EndDate ;
@@ -200,12 +194,6 @@ namespace PlayFab.ExperimentationModels
         /// Description of the experiment.
         /// </summary>
         public string Description ;
-
-        /// <summary>
-        /// The duration of the experiment, in days.
-        /// </summary>
-        [Obsolete("Use 'EndDate' instead", true)]
-        public uint? Duration ;
 
         /// <summary>
         /// When experiment should end/was ended.
@@ -648,12 +636,6 @@ namespace PlayFab.ExperimentationModels
         /// Description of the experiment.
         /// </summary>
         public string Description ;
-
-        /// <summary>
-        /// The duration of the experiment, in days.
-        /// </summary>
-        [Obsolete("Use 'EndDate' instead", true)]
-        public uint? Duration ;
 
         /// <summary>
         /// When experiment should end.

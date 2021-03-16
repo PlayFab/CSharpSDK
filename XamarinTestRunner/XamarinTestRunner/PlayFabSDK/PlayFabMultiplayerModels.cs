@@ -86,12 +86,7 @@ namespace PlayFab.MultiplayerModels
         ChinaNorth2,
         SouthAfricaNorth,
         CentralUsEuap,
-        WestCentralUs,
-        KoreaCentral,
-        FranceCentral,
-        WestUs2,
-        CentralIndia,
-        UaeNorth
+        WestCentralUs
     }
 
     public enum AzureVmFamily
@@ -107,9 +102,7 @@ namespace PlayFab.MultiplayerModels
         Eav4,
         Easv4,
         Ev4,
-        Esv4,
-        Dsv3,
-        Dsv2
+        Esv4
     }
 
     public enum AzureVmSize
@@ -147,24 +140,7 @@ namespace PlayFab.MultiplayerModels
         Standard_D2a_v4,
         Standard_D4a_v4,
         Standard_D8a_v4,
-        Standard_D16a_v4,
-        Standard_E2a_v4,
-        Standard_E4a_v4,
-        Standard_E8a_v4,
-        Standard_E16a_v4,
-        Standard_E2as_v4,
-        Standard_E4as_v4,
-        Standard_E8as_v4,
-        Standard_E16as_v4,
-        Standard_D2s_v3,
-        Standard_D4s_v3,
-        Standard_D8s_v3,
-        Standard_D16s_v3,
-        Standard_DS1_v2,
-        Standard_DS2_v2,
-        Standard_DS3_v2,
-        Standard_DS4_v2,
-        Standard_DS5_v2
+        Standard_D16a_v4
     }
 
     public class BuildAliasDetailsResponse : PlayFabResultCommon
@@ -527,25 +503,6 @@ namespace PlayFab.MultiplayerModels
         /// The AzureVmFamily
         /// </summary>
         public AzureVmFamily? VmFamily ;
-
-    }
-
-    public class CoreCapacityChange
-    {
-        /// <summary>
-        /// New quota core limit for the given vm family/region.
-        /// </summary>
-        public int NewCoreLimit ;
-
-        /// <summary>
-        /// Region to change.
-        /// </summary>
-        public string Region ;
-
-        /// <summary>
-        /// Virtual machine family to change.
-        /// </summary>
-        public AzureVmFamily VmFamily ;
 
     }
 
@@ -1296,57 +1253,6 @@ namespace PlayFab.MultiplayerModels
         /// The Id of a match queue.
         /// </summary>
         public string QueueName ;
-
-    }
-
-    /// <summary>
-    /// Creates a request to change a title's multiplayer server quotas.
-    /// </summary>
-    public class CreateTitleMultiplayerServersQuotaChangeRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// A brief description of the requested changes.
-        /// </summary>
-        public string ChangeDescription ;
-
-        /// <summary>
-        /// Changes to make to the titles cores quota.
-        /// </summary>
-        public List<CoreCapacityChange> Changes ;
-
-        /// <summary>
-        /// Email to be contacted by our team about this request. Only required when a request is not approved.
-        /// </summary>
-        public string ContactEmail ;
-
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// Additional information about this request that our team can use to better understand the requirements.
-        /// </summary>
-        public string Notes ;
-
-        /// <summary>
-        /// When these changes would need to be in effect. Only required when a request is not approved.
-        /// </summary>
-        public DateTime? StartDate ;
-
-    }
-
-    public class CreateTitleMultiplayerServersQuotaChangeResponse : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Id of the change request that was created.
-        /// </summary>
-        public string RequestId ;
-
-        /// <summary>
-        /// Determines if the request was approved or not. When false, our team is reviewing and may respond within 2 business days.
-        /// </summary>
-        public bool WasApproved ;
 
     }
 
@@ -2435,32 +2341,6 @@ namespace PlayFab.MultiplayerModels
     }
 
     /// <summary>
-    /// Gets a title's server quota change request.
-    /// </summary>
-    public class GetTitleMultiplayerServersQuotaChangeRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// Id of the change request to get.
-        /// </summary>
-        public string RequestId ;
-
-    }
-
-    public class GetTitleMultiplayerServersQuotaChangeResponse : PlayFabResultCommon
-    {
-        /// <summary>
-        /// The change request for this title.
-        /// </summary>
-        public QuotaChange Change ;
-
-    }
-
-    /// <summary>
     /// Gets the quotas for a title in relation to multiplayer servers.
     /// </summary>
     public class GetTitleMultiplayerServersQuotasRequest : PlayFabRequestCommon
@@ -3028,27 +2908,6 @@ namespace PlayFab.MultiplayerModels
     }
 
     /// <summary>
-    /// List all server quota change requests for a title.
-    /// </summary>
-    public class ListTitleMultiplayerServersQuotaChangesRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-    }
-
-    public class ListTitleMultiplayerServersQuotaChangesResponse : PlayFabResultCommon
-    {
-        /// <summary>
-        /// All change requests for this title.
-        /// </summary>
-        public List<QuotaChange> Changes ;
-
-    }
-
-    /// <summary>
     /// Returns a list of virtual machines for a title.
     /// </summary>
     public class ListVirtualMachineSummariesRequest : PlayFabRequestCommon
@@ -3443,45 +3302,6 @@ namespace PlayFab.MultiplayerModels
         /// Specifies which source the attribute comes from.
         /// </summary>
         public AttributeSource Source ;
-
-    }
-
-    public class QuotaChange
-    {
-        /// <summary>
-        /// A brief description of the requested changes.
-        /// </summary>
-        public string ChangeDescription ;
-
-        /// <summary>
-        /// Requested changes to make to the titles cores quota.
-        /// </summary>
-        public List<CoreCapacityChange> Changes ;
-
-        /// <summary>
-        /// Whether or not this request is pending a review.
-        /// </summary>
-        public bool IsPendingReview ;
-
-        /// <summary>
-        /// Additional information about this request that our team can use to better understand the requirements.
-        /// </summary>
-        public string Notes ;
-
-        /// <summary>
-        /// Id of the change request.
-        /// </summary>
-        public string RequestId ;
-
-        /// <summary>
-        /// Comments by our team when a request is reviewed.
-        /// </summary>
-        public string ReviewComments ;
-
-        /// <summary>
-        /// Whether or not this request was approved.
-        /// </summary>
-        public bool WasApproved ;
 
     }
 
@@ -4099,28 +3919,6 @@ namespace PlayFab.MultiplayerModels
         /// Array of build selection criteria.
         /// </summary>
         public List<BuildSelectionCriterion> BuildSelectionCriteria ;
-
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-    }
-
-    /// <summary>
-    /// Updates a multiplayer server build's name.
-    /// </summary>
-    public class UpdateBuildNameRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The guid string ID of the build we want to update the name of.
-        /// </summary>
-        public string BuildId ;
-
-        /// <summary>
-        /// The build name.
-        /// </summary>
-        public string BuildName ;
 
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
