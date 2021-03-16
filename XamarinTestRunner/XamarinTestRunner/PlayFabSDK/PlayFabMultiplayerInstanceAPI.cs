@@ -368,32 +368,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Creates a request to change a title's multiplayer server quotas.
-        /// </summary>
-        public async Task<PlayFabResult<CreateTitleMultiplayerServersQuotaChangeResponse>> CreateTitleMultiplayerServersQuotaChangeAsync(CreateTitleMultiplayerServersQuotaChangeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/CreateTitleMultiplayerServersQuotaChange", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<CreateTitleMultiplayerServersQuotaChangeResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateTitleMultiplayerServersQuotaChangeResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<CreateTitleMultiplayerServersQuotaChangeResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Deletes a multiplayer server game asset for a title.
         /// </summary>
         public async Task<PlayFabResult<EmptyResponse>> DeleteAssetAsync(DeleteAssetRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -966,32 +940,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Gets a title's server quota change request.
-        /// </summary>
-        public async Task<PlayFabResult<GetTitleMultiplayerServersQuotaChangeResponse>> GetTitleMultiplayerServersQuotaChangeAsync(GetTitleMultiplayerServersQuotaChangeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/GetTitleMultiplayerServersQuotaChange", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetTitleMultiplayerServersQuotaChangeResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetTitleMultiplayerServersQuotaChangeResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetTitleMultiplayerServersQuotaChangeResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Gets the quotas for a title in relation to multiplayer servers.
         /// </summary>
         public async Task<PlayFabResult<GetTitleMultiplayerServersQuotasResponse>> GetTitleMultiplayerServersQuotasAsync(GetTitleMultiplayerServersQuotasRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1384,32 +1332,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// List all server quota change requests for a title.
-        /// </summary>
-        public async Task<PlayFabResult<ListTitleMultiplayerServersQuotaChangesResponse>> ListTitleMultiplayerServersQuotaChangesAsync(ListTitleMultiplayerServersQuotaChangesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/ListTitleMultiplayerServersQuotaChanges", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<ListTitleMultiplayerServersQuotaChangesResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListTitleMultiplayerServersQuotaChangesResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ListTitleMultiplayerServersQuotaChangesResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Lists virtual machines for a title.
         /// </summary>
         public async Task<PlayFabResult<ListVirtualMachineSummariesResponse>> ListVirtualMachineSummariesAsync(ListVirtualMachineSummariesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1616,32 +1538,6 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<BuildAliasDetailsResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Updates a multiplayer server build's name.
-        /// </summary>
-        public async Task<PlayFabResult<EmptyResponse>> UpdateBuildNameAsync(UpdateBuildNameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/MultiplayerServer/UpdateBuildName", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>

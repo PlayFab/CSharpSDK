@@ -515,8 +515,6 @@ namespace PlayFab
         WasNotCreatedWithCloudRoot = 1510,
         LegacyMultiplayerServersDeprecated = 1511,
         VirtualCurrencyCurrentlyUnavailable = 1512,
-        SteamUserNotFound = 1513,
-        ElasticSearchOperationFailed = 1514,
         MatchmakingEntityInvalid = 2001,
         MatchmakingPlayerAttributesInvalid = 2002,
         MatchmakingQueueNotFound = 2016,
@@ -541,7 +539,6 @@ namespace PlayFab
         TitleConfigNotFound = 3001,
         TitleConfigUpdateConflict = 3002,
         TitleConfigSerializationError = 3003,
-        CatalogApiNotImplemented = 4000,
         CatalogEntityInvalid = 4001,
         CatalogTitleIdMissing = 4002,
         CatalogPlayerIdMissing = 4003,
@@ -619,7 +616,6 @@ namespace PlayFab
         ExperimentationExclusionGroupInsufficientCapacity = 7019,
         ExperimentationExclusionGroupCannotDelete = 7020,
         ExperimentationExclusionGroupInvalidTrafficAllocation = 7021,
-        ExperimentationExclusionGroupInvalidName = 7022,
         MaxActionDepthExceeded = 8000,
         TitleNotOnUpdatedPricingPlan = 9000,
         SegmentManagementTitleNotInFlight = 10000,
@@ -633,8 +629,7 @@ namespace PlayFab
         CreateSegmentRateLimitExceeded = 10008,
         UpdateSegmentRateLimitExceeded = 10009,
         GetSegmentsRateLimitExceeded = 10010,
-        SnapshotNotFound = 11000,
-        InventoryApiNotImplemented = 12000
+        SnapshotNotFound = 11000
     }
 
     public class PlayFabError
