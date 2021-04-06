@@ -820,6 +820,34 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class ConsumePS5EntitlementsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Catalog version to use
+        /// </summary>
+        public string CatalogVersion ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Marketplace specific payload containing details to fetch in app purchase transactions
+        /// </summary>
+        public PlayStation5Payload MarketplaceSpecificData ;
+
+    }
+
+    public class ConsumePS5EntitlementsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Details for the items purchased.
+        /// </summary>
+        public List<ItemInstance> Items ;
+
+    }
+
     public class ConsumePSNEntitlementsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2420,7 +2448,9 @@ namespace PlayFab.ClientModels
     }
 
     /// <summary>
-    /// Note: the user's Position is relative to the overall leaderboard.
+    /// Note that the Position of the user in the results is for the overall leaderboard. If Facebook friends are included, make
+    /// sure the access token from previous LoginWithFacebook call is still valid and not expired. If Xbox Live friends are
+    /// included, make sure the access token from the previous LoginWithXbox call is still valid and not expired.
     /// </summary>
     public class GetLeaderboardResult : PlayFabResultCommon
     {
@@ -2988,7 +3018,7 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromPSNAccountIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -3454,6 +3484,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// Requires the SHA256 hash of the user's public key.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class GetWindowsHelloChallengeRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3469,6 +3500,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GetWindowsHelloChallengeResponse : PlayFabResultCommon
     {
         /// <summary>
@@ -4048,7 +4080,7 @@ namespace PlayFab.ClientModels
         public bool? ForceLink ;
 
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -4120,6 +4152,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// PublicKey must be generated using the Windows Hello Passport service.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class LinkWindowsHelloAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4149,6 +4182,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class LinkWindowsHelloAccountResponse : PlayFabResultCommon
     {
     }
@@ -5013,7 +5047,7 @@ namespace PlayFab.ClientModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
 
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -5139,6 +5173,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// Requires both the SHA256 hash of the user's public key as well as the signed response from GetWindowsHelloChallenge
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class LoginWithWindowsHelloRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5848,6 +5883,20 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class PlayStation5Payload
+    {
+        /// <summary>
+        /// An optional list of entitlement ids to query against PSN
+        /// </summary>
+        public List<string> Ids ;
+
+        /// <summary>
+        /// Id of the PSN service label to consume entitlements from
+        /// </summary>
+        public string ServiceLabel ;
+
+    }
+
     public class PSNAccountPlayFabIdPair
     {
         /// <summary>
@@ -6007,7 +6056,7 @@ namespace PlayFab.ClientModels
         public string AuthCode ;
 
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -6175,6 +6224,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// PublicKey must be generated using the Windows Hello Passport service.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class RegisterWithWindowsHelloRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -7344,6 +7394,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// Must include the Public Key Hint
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class UnlinkWindowsHelloAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -7358,6 +7409,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class UnlinkWindowsHelloAccountResponse : PlayFabResultCommon
     {
     }

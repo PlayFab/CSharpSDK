@@ -2525,7 +2525,7 @@ namespace PlayFab.AdminModels
         EvaluationModePlayerCountExceeded,
         GetPlayersInSegmentRateLimitExceeded,
         CloudScriptFunctionNameSizeExceeded,
-        InsightsManagementTitleInEvaluationMode,
+        PaidInsightsFeaturesNotEnabled,
         CloudScriptAzureFunctionsQueueRequestError,
         EvaluationModeTitleCountExceeded,
         InsightsManagementTitleNotInFlight,
@@ -2545,6 +2545,9 @@ namespace PlayFab.AdminModels
         WasNotCreatedWithCloudRoot,
         LegacyMultiplayerServersDeprecated,
         VirtualCurrencyCurrentlyUnavailable,
+        SteamUserNotFound,
+        ElasticSearchOperationFailed,
+        NotImplemented,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2569,6 +2572,7 @@ namespace PlayFab.AdminModels
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
+        CatalogApiNotImplemented,
         CatalogEntityInvalid,
         CatalogTitleIdMissing,
         CatalogPlayerIdMissing,
@@ -2646,6 +2650,7 @@ namespace PlayFab.AdminModels
         ExperimentationExclusionGroupInsufficientCapacity,
         ExperimentationExclusionGroupCannotDelete,
         ExperimentationExclusionGroupInvalidTrafficAllocation,
+        ExperimentationExclusionGroupInvalidName,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SegmentManagementTitleNotInFlight,
@@ -2659,7 +2664,9 @@ namespace PlayFab.AdminModels
         CreateSegmentRateLimitExceeded,
         UpdateSegmentRateLimitExceeded,
         GetSegmentsRateLimitExceeded,
-        SnapshotNotFound
+        AsyncExportNotInFlight,
+        SnapshotNotFound,
+        InventoryApiNotImplemented
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -3267,6 +3274,11 @@ namespace PlayFab.AdminModels
         /// The name of the policy read.
         /// </summary>
         public string PolicyName ;
+
+        /// <summary>
+        /// Policy version.
+        /// </summary>
+        public int PolicyVersion ;
 
         /// <summary>
         /// The statements in the requested policy.
@@ -4189,11 +4201,6 @@ namespace PlayFab.AdminModels
 
     public class LinkedUserAccountSegmentFilter
     {
-        /// <summary>
-        /// Login provider comparison.
-        /// </summary>
-        public SegmentFilterComparison? Comparison ;
-
         /// <summary>
         /// Login provider.
         /// </summary>
@@ -7123,7 +7130,10 @@ namespace PlayFab.AdminModels
     /// <summary>
     /// Updates permissions for your title. Policies affect what is allowed to happen on your title. Your policy is a collection
     /// of statements that, together, govern particular area for your title. Today, the only allowed policy is called
-    /// 'ApiPolicy' and it governs what api calls are allowed.
+    /// 'ApiPolicy' and it governs what API calls are allowed. To verify that you have the latest version always download the
+    /// current policy from GetPolicy before uploading a new policy. PlayFab updates the base policy periodically and will
+    /// automatically apply it to the uploaded policy. Overwriting the combined policy blindly may result in unexpected API
+    /// errors.
     /// </summary>
     public class UpdatePolicyRequest : PlayFabRequestCommon
     {
@@ -7136,6 +7146,11 @@ namespace PlayFab.AdminModels
         /// The name of the policy being updated. Only supported name is 'ApiPolicy'
         /// </summary>
         public string PolicyName ;
+
+        /// <summary>
+        /// Version of the policy to update. Must be the latest (as returned by GetPolicy).
+        /// </summary>
+        public int PolicyVersion ;
 
         /// <summary>
         /// The new statements to include in the policy.
