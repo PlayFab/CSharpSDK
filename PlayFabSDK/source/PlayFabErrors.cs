@@ -495,7 +495,7 @@ namespace PlayFab
         EvaluationModePlayerCountExceeded = 1490,
         GetPlayersInSegmentRateLimitExceeded = 1491,
         CloudScriptFunctionNameSizeExceeded = 1492,
-        InsightsManagementTitleInEvaluationMode = 1493,
+        PaidInsightsFeaturesNotEnabled = 1493,
         CloudScriptAzureFunctionsQueueRequestError = 1494,
         EvaluationModeTitleCountExceeded = 1495,
         InsightsManagementTitleNotInFlight = 1496,
@@ -515,6 +515,9 @@ namespace PlayFab
         WasNotCreatedWithCloudRoot = 1510,
         LegacyMultiplayerServersDeprecated = 1511,
         VirtualCurrencyCurrentlyUnavailable = 1512,
+        SteamUserNotFound = 1513,
+        ElasticSearchOperationFailed = 1514,
+        NotImplemented = 1515,
         MatchmakingEntityInvalid = 2001,
         MatchmakingPlayerAttributesInvalid = 2002,
         MatchmakingQueueNotFound = 2016,
@@ -539,6 +542,7 @@ namespace PlayFab
         TitleConfigNotFound = 3001,
         TitleConfigUpdateConflict = 3002,
         TitleConfigSerializationError = 3003,
+        CatalogApiNotImplemented = 4000,
         CatalogEntityInvalid = 4001,
         CatalogTitleIdMissing = 4002,
         CatalogPlayerIdMissing = 4003,
@@ -616,6 +620,7 @@ namespace PlayFab
         ExperimentationExclusionGroupInsufficientCapacity = 7019,
         ExperimentationExclusionGroupCannotDelete = 7020,
         ExperimentationExclusionGroupInvalidTrafficAllocation = 7021,
+        ExperimentationExclusionGroupInvalidName = 7022,
         MaxActionDepthExceeded = 8000,
         TitleNotOnUpdatedPricingPlan = 9000,
         SegmentManagementTitleNotInFlight = 10000,
@@ -629,7 +634,9 @@ namespace PlayFab
         CreateSegmentRateLimitExceeded = 10008,
         UpdateSegmentRateLimitExceeded = 10009,
         GetSegmentsRateLimitExceeded = 10010,
-        SnapshotNotFound = 11000
+        AsyncExportNotInFlight = 10011,
+        SnapshotNotFound = 11000,
+        InventoryApiNotImplemented = 12000
     }
 
     public class PlayFabError
