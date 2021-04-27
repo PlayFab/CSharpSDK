@@ -3484,7 +3484,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// Requires the SHA256 hash of the user's public key.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetWindowsHelloChallengeRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3500,7 +3500,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetWindowsHelloChallengeResponse : PlayFabResultCommon
     {
         /// <summary>
@@ -4152,7 +4152,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// PublicKey must be generated using the Windows Hello Passport service.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LinkWindowsHelloAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4182,7 +4182,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LinkWindowsHelloAccountResponse : PlayFabResultCommon
     {
     }
@@ -5173,7 +5173,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// Requires both the SHA256 hash of the user's public key as well as the signed response from GetWindowsHelloChallenge
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class LoginWithWindowsHelloRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6224,7 +6224,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// PublicKey must be generated using the Windows Hello Passport service.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RegisterWithWindowsHelloRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -7394,7 +7394,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// Must include the Public Key Hint
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UnlinkWindowsHelloAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -7409,7 +7409,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class UnlinkWindowsHelloAccountResponse : PlayFabResultCommon
     {
     }
