@@ -2628,6 +2628,7 @@ namespace PlayFab.AdminModels
         TitleNotEnabledForParty,
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
+        MultiplayerServerBuildReferencedByBuildAlias,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,

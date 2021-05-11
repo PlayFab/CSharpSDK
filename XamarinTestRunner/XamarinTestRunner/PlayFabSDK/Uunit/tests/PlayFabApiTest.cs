@@ -156,7 +156,7 @@ namespace PlayFab.UUnit
         private void LoginWithAdvertisingIdContinued(PlayFabResult<LoginResult> loginResult, UUnitTestContext testContext, string failMessage)
         {
             testContext.True(clientApi.IsClientLoggedIn(), failMessage);
-            testContext.StringEquals(PlayFabSettings.AD_TYPE_ANDROID_ID + "_Successful", PlayFabSettings.staticSettings.AdvertisingIdType);
+            testContext.StringEquals(PlayFabSettings.AD_TYPE_ANDROID_ID, PlayFabSettings.staticSettings.AdvertisingIdType);
         }
 
         /// <summary>
