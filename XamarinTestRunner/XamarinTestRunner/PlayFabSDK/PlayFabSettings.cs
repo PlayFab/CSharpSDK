@@ -6,11 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.93.210511";
-        public const string BuildIdentifier = "jbuild_csharpsdk_sdk-generic-1_0";
-        public const string SdkVersionString = "CSharpSDK-1.93.210511";
-        public const string AD_TYPE_IDFA = "Idfa";
-        public const string AD_TYPE_ANDROID_ID = "Adid";
+        public const string SdkVersion = "1.94.210521";
+        public const string BuildIdentifier = "jbuild_csharpsdk_sdk-generic-3_2";
+        public const string SdkVersionString = "CSharpSDK-1.94.210521";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string DefaultProductionEnvironmentUrl = "playfabapi.com";
 
@@ -37,17 +35,6 @@ namespace PlayFab
 
         [Obsolete("Moved to PlayFabSettings.staticSettings.TitleId")]
         public static string TitleId { get { return staticSettings.TitleId; } set { staticSettings.TitleId = value; } }
-
-#if !DISABLE_PLAYFABCLIENT_API
-        [Obsolete("Moved to PlayFabSettings.staticSettings.AdvertisingIdType")]
-        public static string AdvertisingIdType { get { return staticSettings.AdvertisingIdType; } set { staticSettings.AdvertisingIdType = value; } }
-
-        [Obsolete("Moved to PlayFabSettings.staticSettings.AdvertisingIdValue")]
-        public static string AdvertisingIdValue { get { return staticSettings.AdvertisingIdValue; } set { staticSettings.AdvertisingIdValue = value; } }
-
-        [Obsolete("Moved to PlayFabSettings.staticSettings.DisableAdvertising")]
-        public static bool DisableAdvertising { get { return staticSettings.DisableAdvertising; } set { staticSettings.DisableAdvertising = value; } }
-#endif
         #endregion Deprecated staticSettingsredirect properties
 
 #if !NET45 && !NETSTANDARD2_0

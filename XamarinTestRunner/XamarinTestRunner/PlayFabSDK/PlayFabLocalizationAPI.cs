@@ -60,6 +60,6 @@ namespace PlayFab
 
             return new PlayFabResult<GetLanguageListResponse> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif

@@ -3563,6 +3563,6 @@ namespace PlayFab
             return new PlayFabResult<WriteEventResponse> { Result = result, CustomData = customData };
         }
 
-    }
+}
 }
 #endif

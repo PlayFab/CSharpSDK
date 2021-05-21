@@ -225,6 +225,6 @@ namespace PlayFab
 
             return new PlayFabResult<SetObjectsResponse> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif

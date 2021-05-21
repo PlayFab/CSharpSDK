@@ -2666,6 +2666,8 @@ namespace PlayFab.AdminModels
         UpdateSegmentRateLimitExceeded,
         GetSegmentsRateLimitExceeded,
         AsyncExportNotInFlight,
+        AsyncExportNotFound,
+        AsyncExportRateLimitExceeded,
         SnapshotNotFound,
         InventoryApiNotImplemented
     }

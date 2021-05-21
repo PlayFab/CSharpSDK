@@ -224,6 +224,6 @@ namespace PlayFab
 
             return new PlayFabResult<SetEntityProfilePolicyResponse> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif

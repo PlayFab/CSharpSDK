@@ -89,6 +89,6 @@ namespace PlayFab
 
             return new PlayFabResult<WriteEventsResponse> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif
