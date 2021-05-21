@@ -3112,6 +3112,6 @@ namespace PlayFab
             return new PlayFabResult<UpdateUserTitleDisplayNameResult> { Result = result, CustomData = customData };
         }
 
-    }
+}
 }
 #endif

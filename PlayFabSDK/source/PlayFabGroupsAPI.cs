@@ -710,6 +710,6 @@ namespace PlayFab
 
             return new PlayFabResult<UpdateGroupRoleResponse> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif

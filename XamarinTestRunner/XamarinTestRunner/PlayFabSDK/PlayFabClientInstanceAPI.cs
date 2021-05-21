@@ -298,8 +298,6 @@ namespace PlayFab
             var resultRawJson = (string)httpResult;
             var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<AttributeInstallResult>>(resultRawJson);
             var result = resultData.data;
-            // Modify AdvertisingIdType:  Prevents us from sending the id multiple times, and allows automated tests to determine id was sent successfully
-            requestSettings.AdvertisingIdType += "_Successful";
 
             return new PlayFabResult<AttributeInstallResult> { Result = result, CustomData = customData };
         }
@@ -1951,32 +1949,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Requests a challenge from the server to be signed by Windows Hello Passport service to authenticate.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public async Task<PlayFabResult<GetWindowsHelloChallengeResponse>> GetWindowsHelloChallengeAsync(GetWindowsHelloChallengeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/GetWindowsHelloChallenge", request, null, null, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetWindowsHelloChallengeResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetWindowsHelloChallengeResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetWindowsHelloChallengeResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated
         /// with the parent PlayFabId to guarantee uniqueness.
         /// </summary>
@@ -2398,33 +2370,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Link Windows Hello authentication to the current PlayFab Account
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public async Task<PlayFabResult<LinkWindowsHelloAccountResponse>> LinkWindowsHelloAsync(LinkWindowsHelloAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/LinkWindowsHello", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<LinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkWindowsHelloAccountResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<LinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2476,7 +2421,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2506,7 +2450,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2537,7 +2480,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2570,7 +2512,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2601,7 +2542,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2632,7 +2572,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2666,7 +2605,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2696,7 +2634,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2727,7 +2664,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2757,7 +2693,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2787,7 +2722,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2818,7 +2752,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2849,7 +2782,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2882,7 +2814,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2913,7 +2844,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2944,7 +2874,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -2974,41 +2903,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
-
-            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Completes the Windows Hello login flow by returning the signed value of the challange from GetWindowsHelloChallenge.
-        /// Windows Hello has a 2 step client to server authentication scheme. Step one is to request from the server a challenge
-        /// string. Step two is to request the user sign the string via Windows Hello and then send the signed value back to the
-        /// server.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public async Task<PlayFabResult<LoginResult>> LoginWithWindowsHelloAsync(LoginWithWindowsHelloRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (request != null) request.TitleId = request?.TitleId ?? requestSettings.TitleId;
-            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithWindowsHello", request, null, null, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
-            var result = resultData.data;
-            result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
-            authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -3039,7 +2933,6 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
@@ -3259,41 +3152,8 @@ namespace PlayFab
             var result = resultData.data;
             result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
             authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
 
             return new PlayFabResult<RegisterPlayFabUserResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Registers a new PlayFab user account using Windows Hello authentication, returning a session ticket that can
-        /// subsequently be used for API calls which require an authenticated user
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public async Task<PlayFabResult<LoginResult>> RegisterWithWindowsHelloAsync(RegisterWithWindowsHelloRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (request != null) request.TitleId = request?.TitleId ?? requestSettings.TitleId;
-            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/RegisterWithWindowsHello", request, null, null, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
-            var result = resultData.data;
-            result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
-            authenticationContext.CopyFrom(result.AuthenticationContext);
-            await MultiStepClientLogin(result.SettingsForUser.NeedsAttribution);
-
-            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -4087,33 +3947,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Unlink Windows Hello authentication from the current PlayFab Account
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public async Task<PlayFabResult<UnlinkWindowsHelloAccountResponse>> UnlinkWindowsHelloAsync(UnlinkWindowsHelloAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkWindowsHello", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkWindowsHelloAccountResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Unlinks the related Xbox Live account from the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<UnlinkXboxAccountResult>> UnlinkXboxAccountAsync(UnlinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -4594,22 +4427,6 @@ namespace PlayFab
             return new PlayFabResult<WriteEventResponse> { Result = result, CustomData = customData };
         }
 
-        private async Task<PlayFabResult<AttributeInstallResult>> MultiStepClientLogin(bool needsAttribution)
-        {
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (needsAttribution && !requestSettings.DisableAdvertising && !string.IsNullOrEmpty(requestSettings.AdvertisingIdType) && !string.IsNullOrEmpty(requestSettings.AdvertisingIdValue))
-            {
-                var request = new AttributeInstallRequest();
-                if (requestSettings.AdvertisingIdType == PlayFabSettings.AD_TYPE_IDFA)
-                    request.Idfa = requestSettings.AdvertisingIdValue;
-                else if (requestSettings.AdvertisingIdType == PlayFabSettings.AD_TYPE_ANDROID_ID)
-                    request.Adid = requestSettings.AdvertisingIdValue;
-                else
-                    return null;
-                return await AttributeInstallAsync(request);
-            }
-            return null;
-        }
-    }
+}
 }
 #endif

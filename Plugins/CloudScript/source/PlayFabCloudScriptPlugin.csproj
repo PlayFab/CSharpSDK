@@ -8,7 +8,7 @@
     <FileAlignment>512</FileAlignment>
 
     <PackageId>PlayFabCloudScriptPlugin</PackageId>
-    <Version>1.93.210511-alpha</Version>
+    <Version>1.94.210521-alpha</Version>
     <Title>PlayFab CSharp CloudScript Plugin</Title>
     <Authors>PlayFab Inc.</Authors>
     <Owners>PlayFab Inc.</Owners>
@@ -21,7 +21,7 @@
     <Product>PlayFabCloudScriptPlugin</Product>
     <Copyright>Copyright 2021</Copyright>
     <PackageTags>PlayFab, Baas, Paas, JSON, REST, HTTP, SSL, API, cloud, liveops, game, gamedev, native</PackageTags>
-    <PackageReleaseNotes>https://docs.microsoft.com/gaming/playfab/release-notes#210511</PackageReleaseNotes>
+    <PackageReleaseNotes>https://docs.microsoft.com/gaming/playfab/release-notes#210521</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>1</AssemblyVersion>
     <FileVersion>1</FileVersion>
@@ -45,7 +45,7 @@
   </PropertyGroup>
     
   <ItemGroup>
-     <PackageReference Include="PlayFabAllSDK" Version="1.93.210511" />
+     <PackageReference Include="PlayFabAllSDK" Version="1.94.210521" />
   </ItemGroup>
 
 </Project>

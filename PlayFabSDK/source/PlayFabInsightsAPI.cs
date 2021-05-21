@@ -197,6 +197,6 @@ namespace PlayFab
 
             return new PlayFabResult<InsightsOperationResponse> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif

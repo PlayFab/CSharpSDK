@@ -129,6 +129,6 @@ namespace PlayFab
             return new PlayFabResult<ValidateEntityTokenResponse> { Result = result, CustomData = customData };
         }
 
-    }
+}
 }
 #endif

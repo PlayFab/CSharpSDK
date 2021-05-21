@@ -161,6 +161,6 @@ namespace PlayFab
 
             return new PlayFabResult<UserInfoResponse> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif

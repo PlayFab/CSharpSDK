@@ -2177,6 +2177,8 @@ namespace PlayFab.ServerModels
         UpdateSegmentRateLimitExceeded,
         GetSegmentsRateLimitExceeded,
         AsyncExportNotInFlight,
+        AsyncExportNotFound,
+        AsyncExportRateLimitExceeded,
         SnapshotNotFound,
         InventoryApiNotImplemented
     }

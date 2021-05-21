@@ -390,6 +390,6 @@ namespace PlayFab
             return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
-    }
+}
 }
 #endif

@@ -379,6 +379,6 @@ namespace PlayFab
 
             return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
         }
-    }
+}
 }
 #endif
