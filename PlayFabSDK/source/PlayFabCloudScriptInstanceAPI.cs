@@ -62,9 +62,8 @@ namespace PlayFab
 
             var requestContext = request?.AuthenticationContext ?? authenticationContext;
             var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteEntityCloudScript", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteEntityCloudScript", request, null, null, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -89,9 +88,8 @@ namespace PlayFab
 
             var requestContext = request?.AuthenticationContext ?? authenticationContext;
             var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
-            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteFunction", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteFunction", request, null, null, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
