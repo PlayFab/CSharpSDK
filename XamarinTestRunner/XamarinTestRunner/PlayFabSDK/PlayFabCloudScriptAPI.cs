@@ -44,10 +44,9 @@ namespace PlayFab
 
             var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
             var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteEntityCloudScript", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteEntityCloudScript", request, null, null, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -72,7 +71,6 @@ namespace PlayFab
 
             var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
             var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
 
             string localApiServerString = PlayFabSettings.LocalApiServer;
@@ -82,7 +80,7 @@ namespace PlayFab
                 var fullUri = new System.Uri(baseUri, "/CloudScript/ExecuteFunction".TrimStart('/'));
 
                 // Duplicate code necessary to avoid changing all SDK methods to new convention
-                var debugHttpResult = await PlayFabHttp.DoPostWithFullUri(fullUri.AbsoluteUri, request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+                var debugHttpResult = await PlayFabHttp.DoPostWithFullUri(fullUri.AbsoluteUri, request, null, null, extraHeaders);
                 if (debugHttpResult is PlayFabError debugError)
                 {
                     PlayFabSettings.GlobalErrorHandler?.Invoke(debugError);
@@ -95,7 +93,7 @@ namespace PlayFab
                 return new PlayFabResult<ExecuteFunctionResult> { Result = debugResult, CustomData = customData };
             }
 
-            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteFunction", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ExecuteFunction", request, null, null, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

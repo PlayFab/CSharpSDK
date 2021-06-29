@@ -410,33 +410,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Checks for any new PS5 entitlements. If any are found, they are consumed (if they're consumables) and added as PlayFab
-        /// items
-        /// </summary>
-        public async Task<PlayFabResult<ConsumePS5EntitlementsResult>> ConsumePS5EntitlementsAsync(ConsumePS5EntitlementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/ConsumePS5Entitlements", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<ConsumePS5EntitlementsResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ConsumePS5EntitlementsResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ConsumePS5EntitlementsResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items
         /// </summary>
         public async Task<PlayFabResult<ConsumePSNEntitlementsResult>> ConsumePSNEntitlementsAsync(ConsumePSNEntitlementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1949,6 +1922,31 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Requests a challenge from the server to be signed by Windows Hello Passport service to authenticate.
+        /// </summary>
+        public async Task<PlayFabResult<GetWindowsHelloChallengeResponse>> GetWindowsHelloChallengeAsync(GetWindowsHelloChallengeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetWindowsHelloChallenge", request, null, null, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetWindowsHelloChallengeResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetWindowsHelloChallengeResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetWindowsHelloChallengeResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated
         /// with the parent PlayFabId to guarantee uniqueness.
         /// </summary>
@@ -2106,10 +2104,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Links the Game Center account associated with the provided Game Center ID to the user's PlayFab account. Logging in with
-        /// a Game Center ID is insecure if you do not include the optional PublicKeyUrl, Salt, Signature, and Timestamp parameters
-        /// in this request. It is recommended you require these parameters on all Game Center calls by going to the Apple Add-ons
-        /// page in the PlayFab Game Manager and enabling the 'Require secure authentication only for this app' option.
+        /// Links the Game Center account associated with the provided Game Center ID to the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<LinkGameCenterAccountResult>> LinkGameCenterAccountAsync(LinkGameCenterAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2370,6 +2365,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Link Windows Hello authentication to the current PlayFab Account
+        /// </summary>
+        public async Task<PlayFabResult<LinkWindowsHelloAccountResponse>> LinkWindowsHelloAsync(LinkWindowsHelloAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkWindowsHello", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkWindowsHelloAccountResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2578,10 +2599,7 @@ namespace PlayFab
 
         /// <summary>
         /// Signs the user in using an iOS Game Center player identifier, returning a session identifier that can subsequently be
-        /// used for API calls which require an authenticated user. Logging in with a Game Center ID is insecure if you do not
-        /// include the optional PublicKeyUrl, Salt, Signature, and Timestamp parameters in this request. It is recommended you
-        /// require these parameters on all Game Center calls by going to the Apple Add-ons page in the PlayFab Game Manager and
-        /// enabling the 'Require secure authentication only for this app' option.
+        /// used for API calls which require an authenticated user
         /// </summary>
         public async Task<PlayFabResult<LoginResult>> LoginWithGameCenterAsync(LoginWithGameCenterRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2908,6 +2926,38 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Completes the Windows Hello login flow by returning the signed value of the challange from GetWindowsHelloChallenge.
+        /// Windows Hello has a 2 step client to server authentication scheme. Step one is to request from the server a challenge
+        /// string. Step two is to request the user sign the string via Windows Hello and then send the signed value back to the
+        /// server.
+        /// </summary>
+        public async Task<PlayFabResult<LoginResult>> LoginWithWindowsHelloAsync(LoginWithWindowsHelloRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (request != null) request.TitleId = request?.TitleId ?? requestSettings.TitleId;
+            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithWindowsHello", request, null, null, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
+            authenticationContext.CopyFrom(result.AuthenticationContext);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls
         /// which require an authenticated user
         /// </summary>
@@ -3154,6 +3204,36 @@ namespace PlayFab
             authenticationContext.CopyFrom(result.AuthenticationContext);
 
             return new PlayFabResult<RegisterPlayFabUserResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Registers a new PlayFab user account using Windows Hello authentication, returning a session ticket that can
+        /// subsequently be used for API calls which require an authenticated user
+        /// </summary>
+        public async Task<PlayFabResult<LoginResult>> RegisterWithWindowsHelloAsync(RegisterWithWindowsHelloRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (request != null) request.TitleId = request?.TitleId ?? requestSettings.TitleId;
+            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/RegisterWithWindowsHello", request, null, null, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
+            authenticationContext.CopyFrom(result.AuthenticationContext);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -3944,6 +4024,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UnlinkTwitchAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlink Windows Hello authentication from the current PlayFab Account
+        /// </summary>
+        public async Task<PlayFabResult<UnlinkWindowsHelloAccountResponse>> UnlinkWindowsHelloAsync(UnlinkWindowsHelloAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkWindowsHello", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkWindowsHelloAccountResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkWindowsHelloAccountResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>

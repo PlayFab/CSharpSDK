@@ -495,7 +495,7 @@ namespace PlayFab
         EvaluationModePlayerCountExceeded = 1490,
         GetPlayersInSegmentRateLimitExceeded = 1491,
         CloudScriptFunctionNameSizeExceeded = 1492,
-        PaidInsightsFeaturesNotEnabled = 1493,
+        InsightsManagementTitleInEvaluationMode = 1493,
         CloudScriptAzureFunctionsQueueRequestError = 1494,
         EvaluationModeTitleCountExceeded = 1495,
         InsightsManagementTitleNotInFlight = 1496,
@@ -515,9 +515,6 @@ namespace PlayFab
         WasNotCreatedWithCloudRoot = 1510,
         LegacyMultiplayerServersDeprecated = 1511,
         VirtualCurrencyCurrentlyUnavailable = 1512,
-        SteamUserNotFound = 1513,
-        ElasticSearchOperationFailed = 1514,
-        NotImplemented = 1515,
         MatchmakingEntityInvalid = 2001,
         MatchmakingPlayerAttributesInvalid = 2002,
         MatchmakingQueueNotFound = 2016,
@@ -542,7 +539,6 @@ namespace PlayFab
         TitleConfigNotFound = 3001,
         TitleConfigUpdateConflict = 3002,
         TitleConfigSerializationError = 3003,
-        CatalogApiNotImplemented = 4000,
         CatalogEntityInvalid = 4001,
         CatalogTitleIdMissing = 4002,
         CatalogPlayerIdMissing = 4003,
@@ -598,7 +594,6 @@ namespace PlayFab
         TitleNotEnabledForParty = 6000,
         PartyVersionNotFound = 6001,
         MultiplayerServerBuildReferencedByMatchmakingQueue = 6002,
-        MultiplayerServerBuildReferencedByBuildAlias = 6003,
         ExperimentationExperimentStopped = 7000,
         ExperimentationExperimentRunning = 7001,
         ExperimentationExperimentNotFound = 7002,
@@ -621,7 +616,6 @@ namespace PlayFab
         ExperimentationExclusionGroupInsufficientCapacity = 7019,
         ExperimentationExclusionGroupCannotDelete = 7020,
         ExperimentationExclusionGroupInvalidTrafficAllocation = 7021,
-        ExperimentationExclusionGroupInvalidName = 7022,
         MaxActionDepthExceeded = 8000,
         TitleNotOnUpdatedPricingPlan = 9000,
         SegmentManagementTitleNotInFlight = 10000,
@@ -635,11 +629,7 @@ namespace PlayFab
         CreateSegmentRateLimitExceeded = 10008,
         UpdateSegmentRateLimitExceeded = 10009,
         GetSegmentsRateLimitExceeded = 10010,
-        AsyncExportNotInFlight = 10011,
-        AsyncExportNotFound = 10012,
-        AsyncExportRateLimitExceeded = 10013,
-        SnapshotNotFound = 11000,
-        InventoryApiNotImplemented = 12000
+        SnapshotNotFound = 11000
     }
 
     public class PlayFabError
@@ -650,6 +640,7 @@ namespace PlayFab
         public string ErrorMessage;
         public Dictionary<string, string[]> ErrorDetails;
         public string RequestId;
+        public uint? RetryAfterSeconds = null;
 
         private static readonly StringBuilder Sb = new StringBuilder();
         /// <summary>
