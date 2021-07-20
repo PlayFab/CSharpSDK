@@ -2036,7 +2036,7 @@ namespace PlayFab.ServerModels
         EvaluationModePlayerCountExceeded,
         GetPlayersInSegmentRateLimitExceeded,
         CloudScriptFunctionNameSizeExceeded,
-        InsightsManagementTitleInEvaluationMode,
+        PaidInsightsFeaturesNotEnabled,
         CloudScriptAzureFunctionsQueueRequestError,
         EvaluationModeTitleCountExceeded,
         InsightsManagementTitleNotInFlight,
@@ -2056,6 +2056,9 @@ namespace PlayFab.ServerModels
         WasNotCreatedWithCloudRoot,
         LegacyMultiplayerServersDeprecated,
         VirtualCurrencyCurrentlyUnavailable,
+        SteamUserNotFound,
+        ElasticSearchOperationFailed,
+        NotImplemented,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2080,6 +2083,7 @@ namespace PlayFab.ServerModels
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
+        CatalogApiNotImplemented,
         CatalogEntityInvalid,
         CatalogTitleIdMissing,
         CatalogPlayerIdMissing,
@@ -2132,9 +2136,11 @@ namespace PlayFab.ServerModels
         ExplorerBasicUpdateQueryError,
         ExplorerBasicSavedQueriesLimit,
         ExplorerBasicSavedQueryNotFound,
+        TenantShardMapperShardNotFound,
         TitleNotEnabledForParty,
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
+        MultiplayerServerBuildReferencedByBuildAlias,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,
@@ -2157,6 +2163,7 @@ namespace PlayFab.ServerModels
         ExperimentationExclusionGroupInsufficientCapacity,
         ExperimentationExclusionGroupCannotDelete,
         ExperimentationExclusionGroupInvalidTrafficAllocation,
+        ExperimentationExclusionGroupInvalidName,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SegmentManagementTitleNotInFlight,
@@ -2170,7 +2177,14 @@ namespace PlayFab.ServerModels
         CreateSegmentRateLimitExceeded,
         UpdateSegmentRateLimitExceeded,
         GetSegmentsRateLimitExceeded,
-        SnapshotNotFound
+        AsyncExportNotInFlight,
+        AsyncExportNotFound,
+        AsyncExportRateLimitExceeded,
+        SnapshotNotFound,
+        InventoryApiNotImplemented,
+        EventSamplingInvalidRatio,
+        EventSamplingInvalidEventName,
+        EventSamplingRatioNotFound
     }
 
     public class GenericPlayFabIdPair
@@ -2665,7 +2679,8 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        public int MaxResultsCount ;
+        [Obsolete("Use '' instead", false)]
+        public int? MaxResultsCount ;
 
         /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
@@ -3244,7 +3259,7 @@ namespace PlayFab.ServerModels
     public class GetPlayFabIDsFromPSNAccountIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -4163,7 +4178,7 @@ namespace PlayFab.ServerModels
         public bool? ForceLink ;
 
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to 256 (production)
+        /// Id of the PSN issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -4357,6 +4372,38 @@ namespace PlayFab.ServerModels
         /// The backend server identifier for this player.
         /// </summary>
         public string ServerCustomId ;
+
+    }
+
+    /// <summary>
+    /// If this is the first time a user has signed in with the Steam ID and CreateAccount is set to true, a new PlayFab account
+    /// will be created and linked to the Steam account. In this case, no email or username will be associated with the PlayFab
+    /// account. Otherwise, if no PlayFab account is linked to the Steam account, an error indicating this will be returned, so
+    /// that the title can guide the user through creation of a PlayFab account. Steam users that are not logged into the Steam
+    /// Client app will only have their Steam username synced, other data, such as currency and country will not be available
+    /// until they login while the Client is open.
+    /// </summary>
+    public class LoginWithSteamIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Automatically create a PlayFab account if one is not currently linked to this ID.
+        /// </summary>
+        public bool? CreateAccount ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Flags for which pieces of info to return for the user.
+        /// </summary>
+        public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
+
+        /// <summary>
+        /// Unique Steam identifier for a user
+        /// </summary>
+        public string SteamId ;
 
     }
 
@@ -4913,7 +4960,9 @@ namespace PlayFab.ServerModels
         public string DisplayName ;
 
         /// <summary>
-        /// List of experiment variants for the player.
+        /// List of experiment variants for the player. Note that these variants are not guaranteed to be up-to-date when returned
+        /// during login because the player profile is updated only after login. Instead, use the LoginResult.TreatmentAssignment
+        /// property during login to get the correct variants and variables.
         /// </summary>
         public List<string> ExperimentVariants ;
 

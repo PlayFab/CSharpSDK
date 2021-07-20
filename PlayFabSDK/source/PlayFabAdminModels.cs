@@ -907,7 +907,7 @@ namespace PlayFab.AdminModels
         /// <summary>
         /// Size of the content in bytes
         /// </summary>
-        public uint Size ;
+        public double Size ;
 
     }
 
@@ -2525,7 +2525,7 @@ namespace PlayFab.AdminModels
         EvaluationModePlayerCountExceeded,
         GetPlayersInSegmentRateLimitExceeded,
         CloudScriptFunctionNameSizeExceeded,
-        InsightsManagementTitleInEvaluationMode,
+        PaidInsightsFeaturesNotEnabled,
         CloudScriptAzureFunctionsQueueRequestError,
         EvaluationModeTitleCountExceeded,
         InsightsManagementTitleNotInFlight,
@@ -2545,6 +2545,9 @@ namespace PlayFab.AdminModels
         WasNotCreatedWithCloudRoot,
         LegacyMultiplayerServersDeprecated,
         VirtualCurrencyCurrentlyUnavailable,
+        SteamUserNotFound,
+        ElasticSearchOperationFailed,
+        NotImplemented,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2569,6 +2572,7 @@ namespace PlayFab.AdminModels
         TitleConfigNotFound,
         TitleConfigUpdateConflict,
         TitleConfigSerializationError,
+        CatalogApiNotImplemented,
         CatalogEntityInvalid,
         CatalogTitleIdMissing,
         CatalogPlayerIdMissing,
@@ -2621,9 +2625,11 @@ namespace PlayFab.AdminModels
         ExplorerBasicUpdateQueryError,
         ExplorerBasicSavedQueriesLimit,
         ExplorerBasicSavedQueryNotFound,
+        TenantShardMapperShardNotFound,
         TitleNotEnabledForParty,
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
+        MultiplayerServerBuildReferencedByBuildAlias,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,
@@ -2646,6 +2652,7 @@ namespace PlayFab.AdminModels
         ExperimentationExclusionGroupInsufficientCapacity,
         ExperimentationExclusionGroupCannotDelete,
         ExperimentationExclusionGroupInvalidTrafficAllocation,
+        ExperimentationExclusionGroupInvalidName,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SegmentManagementTitleNotInFlight,
@@ -2659,7 +2666,14 @@ namespace PlayFab.AdminModels
         CreateSegmentRateLimitExceeded,
         UpdateSegmentRateLimitExceeded,
         GetSegmentsRateLimitExceeded,
-        SnapshotNotFound
+        AsyncExportNotInFlight,
+        AsyncExportNotFound,
+        AsyncExportRateLimitExceeded,
+        SnapshotNotFound,
+        InventoryApiNotImplemented,
+        EventSamplingInvalidRatio,
+        EventSamplingInvalidEventName,
+        EventSamplingRatioNotFound
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -3267,6 +3281,11 @@ namespace PlayFab.AdminModels
         /// The name of the policy read.
         /// </summary>
         public string PolicyName ;
+
+        /// <summary>
+        /// Policy version.
+        /// </summary>
+        public int PolicyVersion ;
 
         /// <summary>
         /// The statements in the requested policy.
@@ -4190,11 +4209,6 @@ namespace PlayFab.AdminModels
     public class LinkedUserAccountSegmentFilter
     {
         /// <summary>
-        /// Login provider comparison.
-        /// </summary>
-        public SegmentFilterComparison? Comparison ;
-
-        /// <summary>
         /// Login provider.
         /// </summary>
         public SegmentLoginIdentityProvider? LoginProvider ;
@@ -4847,7 +4861,9 @@ namespace PlayFab.AdminModels
         public string DisplayName ;
 
         /// <summary>
-        /// List of experiment variants for the player.
+        /// List of experiment variants for the player. Note that these variants are not guaranteed to be up-to-date when returned
+        /// during login because the player profile is updated only after login. Instead, use the LoginResult.TreatmentAssignment
+        /// property during login to get the correct variants and variables.
         /// </summary>
         public List<string> ExperimentVariants ;
 
@@ -6481,8 +6497,7 @@ namespace PlayFab.AdminModels
         public string Key ;
 
         /// <summary>
-        /// name of the application sending the message (application names must be made up of only uppercase and lowercase ASCII
-        /// letters, numbers, underscores, hyphens, and periods, and must be between 1 and 256 characters long)
+        /// This field is deprecated and any usage of this will cause the API to fail.
         /// </summary>
         public string Name ;
 
@@ -7123,7 +7138,10 @@ namespace PlayFab.AdminModels
     /// <summary>
     /// Updates permissions for your title. Policies affect what is allowed to happen on your title. Your policy is a collection
     /// of statements that, together, govern particular area for your title. Today, the only allowed policy is called
-    /// 'ApiPolicy' and it governs what api calls are allowed.
+    /// 'ApiPolicy' and it governs what API calls are allowed. To verify that you have the latest version always download the
+    /// current policy from GetPolicy before uploading a new policy. PlayFab updates the base policy periodically and will
+    /// automatically apply it to the uploaded policy. Overwriting the combined policy blindly may result in unexpected API
+    /// errors.
     /// </summary>
     public class UpdatePolicyRequest : PlayFabRequestCommon
     {
@@ -7136,6 +7154,11 @@ namespace PlayFab.AdminModels
         /// The name of the policy being updated. Only supported name is 'ApiPolicy'
         /// </summary>
         public string PolicyName ;
+
+        /// <summary>
+        /// Version of the policy to update. Must be the latest (as returned by GetPolicy).
+        /// </summary>
+        public int PolicyVersion ;
 
         /// <summary>
         /// The new statements to include in the policy.
