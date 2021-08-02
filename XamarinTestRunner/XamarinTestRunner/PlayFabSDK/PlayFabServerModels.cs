@@ -2182,6 +2182,18 @@ namespace PlayFab.ServerModels
         AsyncExportRateLimitExceeded,
         SnapshotNotFound,
         InventoryApiNotImplemented,
+        LobbyDoesNotExist,
+        LobbyRateLimitExceeded,
+        LobbyPlayerAlreadyJoined,
+        LobbyNotJoinable,
+        LobbyMemberCannotRejoin,
+        LobbyCurrentPlayersMoreThanMaxPlayers,
+        LobbyPlayerNotPresent,
+        LobbyBadRequest,
+        LobbyPlayerMaxLobbyLimitExceeded,
+        LobbyNewOwnerMustBeConnected,
+        LobbyCurrentOwnerStillConnected,
+        LobbyMemberIsNotOwner,
         EventSamplingInvalidRatio,
         EventSamplingInvalidEventName,
         EventSamplingRatioNotFound
@@ -2679,7 +2691,7 @@ namespace PlayFab.ServerModels
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        [Obsolete("Use '' instead", false)]
+        [Obsolete("Use '' instead", true)]
         public int? MaxResultsCount ;
 
         /// <summary>
@@ -7088,11 +7100,6 @@ namespace PlayFab.ServerModels
         public string Username ;
 
         /// <summary>
-        /// Windows Hello account information, if a Windows Hello account has been linked
-        /// </summary>
-        public UserWindowsHelloInfo WindowsHelloInfo ;
-
-        /// <summary>
         /// User XBox account information, if a XBox account has been linked
         /// </summary>
         public UserXboxInfo XboxInfo ;
@@ -7296,7 +7303,6 @@ namespace PlayFab.ServerModels
         XboxLive,
         Parse,
         Twitch,
-        WindowsHello,
         ServerCustomId,
         NintendoSwitchDeviceId,
         FacebookInstantGamesId,
@@ -7433,20 +7439,6 @@ namespace PlayFab.ServerModels
         /// Twitch Username
         /// </summary>
         public string TwitchUserName ;
-
-    }
-
-    public class UserWindowsHelloInfo
-    {
-        /// <summary>
-        /// Windows Hello Device Name
-        /// </summary>
-        public string WindowsHelloDeviceName ;
-
-        /// <summary>
-        /// Windows Hello Public Key Hash
-        /// </summary>
-        public string WindowsHelloPublicKeyHash ;
 
     }
 

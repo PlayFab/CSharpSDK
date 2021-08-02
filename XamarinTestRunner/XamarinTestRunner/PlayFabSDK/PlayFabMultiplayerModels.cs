@@ -3910,6 +3910,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The guid string build ID of the multiplayer server to delete.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public string BuildId ;
 
         /// <summary>
@@ -3920,6 +3921,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The region of the multiplayer server to shut down.
         /// </summary>
+        [Obsolete("No longer available", false)]
         public string Region ;
 
         /// <summary>

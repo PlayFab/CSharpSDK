@@ -2388,7 +2388,7 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
-        [Obsolete("Use '' instead", false)]
+        [Obsolete("Use '' instead", true)]
         public int? MaxResultsCount ;
 
         /// <summary>
@@ -7673,11 +7673,6 @@ namespace PlayFab.ClientModels
         public string Username ;
 
         /// <summary>
-        /// Windows Hello account information, if a Windows Hello account has been linked
-        /// </summary>
-        public UserWindowsHelloInfo WindowsHelloInfo ;
-
-        /// <summary>
         /// User XBox account information, if a XBox account has been linked
         /// </summary>
         public UserXboxInfo XboxInfo ;
@@ -7881,7 +7876,6 @@ namespace PlayFab.ClientModels
         XboxLive,
         Parse,
         Twitch,
-        WindowsHello,
         ServerCustomId,
         NintendoSwitchDeviceId,
         FacebookInstantGamesId,
@@ -8018,20 +8012,6 @@ namespace PlayFab.ClientModels
         /// Twitch Username
         /// </summary>
         public string TwitchUserName ;
-
-    }
-
-    public class UserWindowsHelloInfo
-    {
-        /// <summary>
-        /// Windows Hello Device Name
-        /// </summary>
-        public string WindowsHelloDeviceName ;
-
-        /// <summary>
-        /// Windows Hello Public Key Hash
-        /// </summary>
-        public string WindowsHelloPublicKeyHash ;
 
     }
 
