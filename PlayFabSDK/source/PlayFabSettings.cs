@@ -6,9 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.98.210802";
+        public const string SdkVersion = "1.99.210816";
         public const string BuildIdentifier = "jbuild_csharpsdk_sdk-generic-2_0";
-        public const string SdkVersionString = "CSharpSDK-1.98.210802";
+        public const string SdkVersionString = "CSharpSDK-1.99.210816";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string DefaultProductionEnvironmentUrl = "playfabapi.com";
 
@@ -37,7 +37,7 @@ namespace PlayFab
         public static string TitleId { get { return staticSettings.TitleId; } set { staticSettings.TitleId = value; } }
         #endregion Deprecated staticSettingsredirect properties
 
-#if !NET45 && !NETSTANDARD2_0
+#if !NET45 && !NETSTANDARD2_0 && !UNITY_EDITOR && !UNITY_STANDALONE
         private static string _localApiServer;
 #endif
 
@@ -45,13 +45,13 @@ namespace PlayFab
         {
             get
             {
-#if NET45 || NETSTANDARD2_0
+#if NET45 || NETSTANDARD2_0 || UNITY_EDITOR || UNITY_STANDALONE
                 return PlayFabUtil.GetLocalSettingsFile().LocalApiServer;
 #else
                 return _localApiServer;
 #endif
             }
-#if !NET45 && !NETSTANDARD2_0
+#if !NET45 && !NETSTANDARD2_0 && !UNITY_EDITOR && !UNITY_STANDALONE
             set
             {
                 _localApiServer = value;
