@@ -2550,6 +2550,8 @@ namespace PlayFab.AdminModels
         NotImplemented,
         PublisherNotFound,
         PublisherDeleted,
+        ApiDisabledForMigration,
+        ResourceNameUpdateNotAllowed,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2688,6 +2690,7 @@ namespace PlayFab.AdminModels
         LobbyCurrentOwnerStillConnected,
         LobbyMemberIsNotOwner,
         EventSamplingInvalidRatio,
+        EventSamplingInvalidEventNamespace,
         EventSamplingInvalidEventName,
         EventSamplingRatioNotFound
     }
