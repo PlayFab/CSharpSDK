@@ -110,7 +110,8 @@ namespace PlayFab.MultiplayerModels
         Dsv2,
         NCasT4_v3,
         Ddv4,
-        Ddsv4
+        Ddsv4,
+        HBv3
     }
 
     public enum AzureVmSize
@@ -174,7 +175,12 @@ namespace PlayFab.MultiplayerModels
         Standard_D2ds_v4,
         Standard_D4ds_v4,
         Standard_D8ds_v4,
-        Standard_D16ds_v4
+        Standard_D16ds_v4,
+        Standard_HB120_16rs_v3,
+        Standard_HB120_32rs_v3,
+        Standard_HB120_64rs_v3,
+        Standard_HB120_96rs_v3,
+        Standard_HB120rs_v3
     }
 
     public class BuildAliasDetailsResponse : PlayFabResultCommon
@@ -3910,7 +3916,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The guid string build ID of the multiplayer server to delete.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string BuildId ;
 
         /// <summary>
@@ -3921,7 +3927,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The region of the multiplayer server to shut down.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string Region ;
 
         /// <summary>
