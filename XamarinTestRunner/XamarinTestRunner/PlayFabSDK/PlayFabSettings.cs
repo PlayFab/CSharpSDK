@@ -6,9 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.101.210913";
-        public const string BuildIdentifier = "jbuild_csharpsdk_sdk-generic-2_0";
-        public const string SdkVersionString = "CSharpSDK-1.101.210913";
+        public const string SdkVersion = "1.102.210927";
+        public const string BuildIdentifier = "jbuild_csharpsdk_sdk-generic-2_1";
+        public const string SdkVersionString = "CSharpSDK-1.102.210927";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string DefaultProductionEnvironmentUrl = "playfabapi.com";
 
