@@ -2556,6 +2556,7 @@ namespace PlayFab.AdminModels
         DuplicateTitleNameForPublisher,
         AzureTitleCreationInProgress,
         DuplicateAzureResourceId,
+        TitleContraintsPublisherDeletion,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
