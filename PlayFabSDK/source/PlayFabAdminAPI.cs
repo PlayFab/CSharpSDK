@@ -518,6 +518,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes a player's subscription
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteMembershipSubscriptionResult>> DeleteMembershipSubscriptionAsync(DeleteMembershipSubscriptionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/DeleteMembershipSubscription", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteMembershipSubscriptionResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteMembershipSubscriptionResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteMembershipSubscriptionResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Removes a relationship between a title and an OpenID Connect provider.
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> DeleteOpenIdConnectionAsync(DeleteOpenIdConnectionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2473,6 +2500,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCatalogItemsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Sets the override expiration for a membership subscription
+        /// </summary>
+        public static async Task<PlayFabResult<SetMembershipOverrideResult>> SetMembershipOverrideAsync(SetMembershipOverrideRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/SetMembershipOverride", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SetMembershipOverrideResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetMembershipOverrideResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SetMembershipOverrideResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
