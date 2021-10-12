@@ -162,6 +162,11 @@ namespace PlayFab.AuthenticationModels
         public LoginIdentityProvider? IdentityProvider ;
 
         /// <summary>
+        /// The ID issued by the identity provider, e.g. a XUID on Xbox Live
+        /// </summary>
+        public string IdentityProviderIssuedId ;
+
+        /// <summary>
         /// The lineage of this profile.
         /// </summary>
         public EntityLineage Lineage ;

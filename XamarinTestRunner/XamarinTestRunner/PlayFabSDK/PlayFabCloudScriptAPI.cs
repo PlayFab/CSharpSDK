@@ -111,6 +111,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Gets registered Azure Functions for a given title id and function name.
+        /// </summary>
+        public static async Task<PlayFabResult<GetFunctionResult>> GetFunctionAsync(GetFunctionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/CloudScript/GetFunction", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetFunctionResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetFunctionResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetFunctionResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Lists all currently registered Azure Functions for a given title.
         /// </summary>
         public static async Task<PlayFabResult<ListFunctionsResult>> ListFunctionsAsync(ListFunctionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
