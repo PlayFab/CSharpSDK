@@ -186,6 +186,7 @@ namespace PlayFab.MatchmakerModels
         Australia
     }
 
+    [Obsolete("No longer available", true)]
     public class StartGameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -222,6 +223,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    [Obsolete("No longer available", true)]
     public class StartGameResponse : PlayFabResultCommon
     {
         /// <summary>

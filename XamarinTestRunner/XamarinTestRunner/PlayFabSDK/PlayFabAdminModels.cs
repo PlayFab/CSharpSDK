@@ -250,6 +250,7 @@ namespace PlayFab.AdminModels
     {
     }
 
+    [Obsolete("No longer available", true)]
     public class AddServerBuildRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -295,6 +296,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", true)]
     public class AddServerBuildResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2587,8 +2589,12 @@ namespace PlayFab.AdminModels
         DuplicateTitleNameForPublisher,
         AzureTitleCreationInProgress,
         DuplicateAzureResourceId,
-        TitleContraintsPublisherDeletion,
+        TitleConstraintsPublisherDeletion,
         InvalidPlayerAccountPoolId,
+        PlayerAccountPoolNotFound,
+        PlayerAccountPoolDeleted,
+        TitleCleanupInProgress,
+        AzureResourceManagerNotSupportedInStamp,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -3515,6 +3521,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", true)]
     public class GetServerBuildUploadURLRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3524,6 +3531,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", true)]
     public class GetServerBuildUploadURLResult : PlayFabResultCommon
     {
         /// <summary>
@@ -4474,6 +4482,7 @@ namespace PlayFab.AdminModels
     /// mode definition for the game server executable in question to be created from scratch. If there is an existing game
     /// server mode definition for the given BuildVersion, it will be deleted and replaced with the data specified in this call.
     /// </summary>
+    [Obsolete("No longer available", true)]
     public class ModifyMatchmakerGameModesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4488,6 +4497,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", true)]
     public class ModifyMatchmakerGameModesResult : PlayFabResultCommon
     {
     }

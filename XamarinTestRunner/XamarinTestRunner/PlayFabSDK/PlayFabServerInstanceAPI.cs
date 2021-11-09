@@ -2299,6 +2299,7 @@ namespace PlayFab
         /// <summary>
         /// Inform the matchmaker that a new Game Server Instance is added.
         /// </summary>
+        [Obsolete("No longer available", true)]
         public async Task<PlayFabResult<RegisterGameResponse>> RegisterGameAsync(RegisterGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
