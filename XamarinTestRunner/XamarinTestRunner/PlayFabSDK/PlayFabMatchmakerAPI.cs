@@ -110,6 +110,7 @@ namespace PlayFab
         /// <summary>
         /// Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance
         /// </summary>
+        [Obsolete("No longer available", true)]
         public static async Task<PlayFabResult<StartGameResponse>> StartGameAsync(StartGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();

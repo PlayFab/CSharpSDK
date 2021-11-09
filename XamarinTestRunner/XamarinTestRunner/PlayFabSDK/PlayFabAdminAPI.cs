@@ -138,6 +138,7 @@ namespace PlayFab
         /// Adds the game server executable specified (previously uploaded - see GetServerBuildUploadUrl) to the set of those a
         /// client is permitted to request in a call to StartGame
         /// </summary>
+        [Obsolete("No longer available", true)]
         public static async Task<PlayFabResult<AddServerBuildResult>> AddServerBuildAsync(AddServerBuildRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -1476,6 +1477,7 @@ namespace PlayFab
         /// Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for
         /// use - see AddServerBuild)
         /// </summary>
+        [Obsolete("No longer available", true)]
         public static async Task<PlayFabResult<GetServerBuildUploadURLResult>> GetServerBuildUploadUrlAsync(GetServerBuildUploadURLRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -2043,6 +2045,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the game server mode details for the specified game server executable
         /// </summary>
+        [Obsolete("No longer available", true)]
         public static async Task<PlayFabResult<ModifyMatchmakerGameModesResult>> ModifyMatchmakerGameModesAsync(ModifyMatchmakerGameModesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();

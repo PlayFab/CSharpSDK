@@ -23,6 +23,40 @@ namespace PlayFab.CloudScriptModels
 
     }
 
+    public class AzureResourceSystemData
+    {
+        /// <summary>
+        /// The timestamp of resource creation (UTC)
+        /// </summary>
+        public DateTime? CreatedAt ;
+
+        /// <summary>
+        /// The identity that created the resource
+        /// </summary>
+        public string CreatedBy ;
+
+        /// <summary>
+        /// The type of identity that created the resource
+        /// </summary>
+        public string CreatedByType ;
+
+        /// <summary>
+        /// The type of identity that last modified the resource
+        /// </summary>
+        public DateTime? LastModifiedAt ;
+
+        /// <summary>
+        /// The identity that last modified the resource
+        /// </summary>
+        public string LastModifiedBy ;
+
+        /// <summary>
+        /// The type of identity that last modified the resource
+        /// </summary>
+        public string LastModifiedByType ;
+
+    }
+
     public enum CloudScriptRevisionOption
     {
         Live,
@@ -586,6 +620,11 @@ namespace PlayFab.CloudScriptModels
         public string QueueName ;
 
         /// <summary>
+        /// System Data of the Azure Resource
+        /// </summary>
+        public AzureResourceSystemData SystemData ;
+
+        /// <summary>
         /// The trigger type for the function.
         /// </summary>
         public string TriggerType ;
@@ -603,6 +642,11 @@ namespace PlayFab.CloudScriptModels
         /// The URL of the function.
         /// </summary>
         public string FunctionUrl ;
+
+        /// <summary>
+        /// The System data of the Azure Resource
+        /// </summary>
+        public AzureResourceSystemData SystemData ;
 
     }
 
@@ -640,6 +684,11 @@ namespace PlayFab.CloudScriptModels
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
         public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The Id of the parent Title
+        /// </summary>
+        public string TitleId ;
 
     }
 
@@ -1057,6 +1106,11 @@ namespace PlayFab.CloudScriptModels
         /// </summary>
         public string QueueName ;
 
+        /// <summary>
+        /// The System data of the Azure Resource
+        /// </summary>
+        public AzureResourceSystemData SystemData ;
+
     }
 
     public class RegisterHttpFunctionRequest : PlayFabRequestCommon
@@ -1080,6 +1134,11 @@ namespace PlayFab.CloudScriptModels
         /// Full URL for Azure Function that implements the function.
         /// </summary>
         public string FunctionUrl ;
+
+        /// <summary>
+        /// System Data of the Azure Resource
+        /// </summary>
+        public AzureResourceSystemData SystemData ;
 
         /// <summary>
         /// The Id of the parent Title
@@ -1118,6 +1177,11 @@ namespace PlayFab.CloudScriptModels
         /// The name of the queue for the Azure Function.
         /// </summary>
         public string QueueName ;
+
+        /// <summary>
+        /// System Data of the Azure Resource
+        /// </summary>
+        public AzureResourceSystemData SystemData ;
 
         /// <summary>
         /// The Id of the parent Title

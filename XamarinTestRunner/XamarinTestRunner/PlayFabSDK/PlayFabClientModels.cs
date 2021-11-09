@@ -3835,7 +3835,8 @@ namespace PlayFab.ClientModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// If another user is already linked to the account, unlink the other user and re-link.
+        /// If another user is already linked to the account, unlink the other user and re-link. If the current user is already
+        /// linked, link both accounts
         /// </summary>
         public bool? ForceLink ;
 
@@ -3883,7 +3884,8 @@ namespace PlayFab.ClientModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// If another user is already linked to the account, unlink the other user and re-link.
+        /// If another user is already linked to the account, unlink the other user and re-link. If the current user is already
+        /// linked, link both accounts
         /// </summary>
         public bool? ForceLink ;
 
@@ -6485,6 +6487,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// This API must be enabled for use as an option in the game manager website. It is disabled by default.
     /// </summary>
+    [Obsolete("No longer available", true)]
     public class StartGameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6524,6 +6527,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", true)]
     public class StartGameResult : PlayFabResultCommon
     {
         /// <summary>

@@ -3579,6 +3579,7 @@ namespace PlayFab
         /// <summary>
         /// Start a new game server with a given configuration, add the current player and return the connection information.
         /// </summary>
+        [Obsolete("No longer available", true)]
         public static async Task<PlayFabResult<StartGameResult>> StartGameAsync(StartGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
