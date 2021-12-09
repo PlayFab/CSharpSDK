@@ -410,6 +410,40 @@ namespace PlayFab.AdminModels
         Email
     }
 
+    public class AzureResourceSystemData
+    {
+        /// <summary>
+        /// The timestamp of resource creation (UTC)
+        /// </summary>
+        public DateTime? CreatedAt ;
+
+        /// <summary>
+        /// The identity that created the resource
+        /// </summary>
+        public string CreatedBy ;
+
+        /// <summary>
+        /// The type of identity that created the resource
+        /// </summary>
+        public string CreatedByType ;
+
+        /// <summary>
+        /// The type of identity that last modified the resource
+        /// </summary>
+        public DateTime? LastModifiedAt ;
+
+        /// <summary>
+        /// The identity that last modified the resource
+        /// </summary>
+        public string LastModifiedBy ;
+
+        /// <summary>
+        /// The type of identity that last modified the resource
+        /// </summary>
+        public string LastModifiedByType ;
+
+    }
+
     /// <summary>
     /// Contains information for a ban.
     /// </summary>
@@ -2594,7 +2628,13 @@ namespace PlayFab.AdminModels
         PlayerAccountPoolNotFound,
         PlayerAccountPoolDeleted,
         TitleCleanupInProgress,
+        AzureResourceConcurrentOperationInProgress,
+        TitlePublisherUpdateNotAllowed,
         AzureResourceManagerNotSupportedInStamp,
+        ApiNotIncludedInAzurePlayFabFeatureSet,
+        GoogleServiceAccountFailedAuth,
+        GoogleAPIServiceUnavailable,
+        GoogleAPIServiceUnknownError,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -6586,6 +6626,11 @@ namespace PlayFab.AdminModels
         /// name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
         /// </summary>
         public string Key ;
+
+        /// <summary>
+        /// System Data of the Azure Resource
+        /// </summary>
+        public AzureResourceSystemData SystemData ;
 
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a

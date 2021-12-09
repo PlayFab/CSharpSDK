@@ -6,9 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.105.211108";
+        public const string SdkVersion = "1.107.211209";
         public const string BuildIdentifier = "jbuild_csharpsdk_sdk-generic-2_2";
-        public const string SdkVersionString = "CSharpSDK-1.105.211108";
+        public const string SdkVersionString = "CSharpSDK-1.107.211209";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string DefaultProductionEnvironmentUrl = "playfabapi.com";
 
@@ -64,19 +64,26 @@ namespace PlayFab
             StringBuilder sb = new StringBuilder(1000);
 
             var apiSettings = instanceSettings ?? staticSettings;
-
             var baseUrl = apiSettings?.ProductionEnvironmentUrl;
-            if (!baseUrl.StartsWith("http"))
+
+            if(apiSettings.ConnectionString == "")
             {
-                sb.Append("https://");
-                if (!string.IsNullOrEmpty(apiSettings?.TitleId))
+                if (!baseUrl.StartsWith("http"))
                 {
-                    sb.Append(apiSettings.TitleId).Append(".");
+                    sb.Append("https://");
+                    if (!string.IsNullOrEmpty(apiSettings?.TitleId))
+                    {
+                        sb.Append(apiSettings.TitleId).Append(".");
+                    }
+                    if (!string.IsNullOrEmpty(apiSettings?.VerticalName))
+                    {
+                        sb.Append(apiSettings?.VerticalName).Append(".");
+                    }
                 }
-                if (!string.IsNullOrEmpty(apiSettings?.VerticalName))
-                {
-                    sb.Append(apiSettings?.VerticalName).Append(".");
-                }
+            }
+            else
+            {
+                baseUrl = apiSettings.ConnectionString;
             }
 
             sb.Append(baseUrl).Append(apiCall);
