@@ -655,6 +655,11 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> Metadata ;
 
         /// <summary>
+        /// The configuration for the monitoring application on the build
+        /// </summary>
+        public MonitoringApplicationConfigurationParams MonitoringApplicationConfiguration ;
+
+        /// <summary>
         /// The number of multiplayer servers to host on a single VM.
         /// </summary>
         public int MultiplayerServerCountPerVm ;
@@ -739,6 +744,11 @@ namespace PlayFab.MultiplayerModels
         /// The metadata of the build.
         /// </summary>
         public Dictionary<string,string> Metadata ;
+
+        /// <summary>
+        /// The configuration for the monitoring application for the build
+        /// </summary>
+        public MonitoringApplicationConfiguration MonitoringApplicationConfiguration ;
 
         /// <summary>
         /// The number of multiplayer servers to host on a single VM of the build.
@@ -832,6 +842,11 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> Metadata ;
 
         /// <summary>
+        /// The configuration for the monitoring application on the build
+        /// </summary>
+        public MonitoringApplicationConfigurationParams MonitoringApplicationConfiguration ;
+
+        /// <summary>
         /// The number of multiplayer servers to host on a single VM.
         /// </summary>
         public int MultiplayerServerCountPerVm ;
@@ -917,6 +932,11 @@ namespace PlayFab.MultiplayerModels
         /// The metadata of the build.
         /// </summary>
         public Dictionary<string,string> Metadata ;
+
+        /// <summary>
+        /// The configuration for the monitoring application for the build
+        /// </summary>
+        public MonitoringApplicationConfiguration MonitoringApplicationConfiguration ;
 
         /// <summary>
         /// The number of multiplayer servers to host on a single VM of the build.
@@ -1017,6 +1037,11 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> Metadata ;
 
         /// <summary>
+        /// The configuration for the monitoring application on the build
+        /// </summary>
+        public MonitoringApplicationConfigurationParams MonitoringApplicationConfiguration ;
+
+        /// <summary>
         /// The number of multiplayer servers to host on a single VM.
         /// </summary>
         public int MultiplayerServerCountPerVm ;
@@ -1114,6 +1139,11 @@ namespace PlayFab.MultiplayerModels
         /// The metadata of the build.
         /// </summary>
         public Dictionary<string,string> Metadata ;
+
+        /// <summary>
+        /// The configuration for the monitoring application for the build
+        /// </summary>
+        public MonitoringApplicationConfiguration MonitoringApplicationConfiguration ;
 
         /// <summary>
         /// The number of multiplayer servers to host on a single VM of the build.
@@ -3414,6 +3444,54 @@ namespace PlayFab.MultiplayerModels
         /// How many seconds before this rule is expanded.
         /// </summary>
         public uint SecondsBetweenExpansions ;
+
+    }
+
+    public class MonitoringApplicationConfiguration
+    {
+        /// <summary>
+        /// Asset which contains the monitoring application files and scripts.
+        /// </summary>
+        public AssetReference AssetReference ;
+
+        /// <summary>
+        /// Execution script name, this will be the main executable for the monitoring application.
+        /// </summary>
+        public string ExecutionScriptName ;
+
+        /// <summary>
+        /// Installation script name, this will be run before the ExecutionScript.
+        /// </summary>
+        public string InstallationScriptName ;
+
+        /// <summary>
+        /// Timespan the monitoring application will be kept alive when running from the start of the VM
+        /// </summary>
+        public double? OnStartRuntimeInMinutes ;
+
+    }
+
+    public class MonitoringApplicationConfigurationParams
+    {
+        /// <summary>
+        /// Asset which contains the monitoring application files and scripts.
+        /// </summary>
+        public AssetReferenceParams AssetReference ;
+
+        /// <summary>
+        /// Execution script name, this will be the main executable for the monitoring application.
+        /// </summary>
+        public string ExecutionScriptName ;
+
+        /// <summary>
+        /// Installation script name, this will be run before the ExecutionScript.
+        /// </summary>
+        public string InstallationScriptName ;
+
+        /// <summary>
+        /// Timespan the monitoring application will be kept alive when running from the start of the VM
+        /// </summary>
+        public double? OnStartRuntimeInMinutes ;
 
     }
 
