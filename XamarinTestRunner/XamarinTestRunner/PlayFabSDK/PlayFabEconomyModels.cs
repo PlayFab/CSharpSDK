@@ -377,6 +377,11 @@ namespace PlayFab.EconomyModels
         public EntityKey Entity ;
 
         /// <summary>
+        /// Whether to fetch metadata of the scan status.
+        /// </summary>
+        public bool? ExpandScanningStatus ;
+
+        /// <summary>
         /// The unique ID of the item.
         /// </summary>
         public string Id ;
