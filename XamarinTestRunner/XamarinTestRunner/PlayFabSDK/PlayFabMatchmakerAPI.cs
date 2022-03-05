@@ -108,34 +108,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public static async Task<PlayFabResult<StartGameResponse>> StartGameAsync(StartGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Matchmaker/StartGame", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<StartGameResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<StartGameResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<StartGameResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Retrieves the relevant details for a specified user, which the external match-making service can then use to compute
         /// effective matches
         /// </summary>
