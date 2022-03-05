@@ -3577,34 +3577,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Start a new game server with a given configuration, add the current player and return the connection information.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public static async Task<PlayFabResult<StartGameResult>> StartGameAsync(StartGameRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/StartGame", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<StartGameResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<StartGameResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<StartGameResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Creates an order for a list of items from the title catalog
         /// </summary>
         public static async Task<PlayFabResult<StartPurchaseResult>> StartPurchaseAsync(StartPurchaseRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
