@@ -2650,6 +2650,10 @@ namespace PlayFab.AdminModels
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
+        EventSinkLimitExceeded,
+        EventSinkSasTokenInvalid,
+        EventSinkNotFound,
+        EventSinkNameInvalid,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
         AllowNonUniquePlayerDisplayNamesDisableNotAllowed
@@ -3357,77 +3361,6 @@ namespace PlayFab.AdminModels
         /// List of title segments.
         /// </summary>
         public List<SegmentModel> Segments ;
-
-    }
-
-    public class GetServerBuildInfoRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// unique identifier of the previously uploaded build executable for which information is being requested
-        /// </summary>
-        public string BuildId ;
-
-    }
-
-    /// <summary>
-    /// Information about a particular server build
-    /// </summary>
-    public class GetServerBuildInfoResult : PlayFabResultCommon, IComparable<GetServerBuildInfoResult>
-    {
-        /// <summary>
-        /// array of regions where this build can used, when it is active
-        /// </summary>
-        [Unordered]
-        public List<Region> ActiveRegions ;
-
-        /// <summary>
-        /// unique identifier for this build executable
-        /// </summary>
-        public string BuildId ;
-
-        /// <summary>
-        /// developer comment(s) for this build
-        /// </summary>
-        public string Comment ;
-
-        /// <summary>
-        /// error message, if any, about this build
-        /// </summary>
-        public string ErrorMessage ;
-
-        /// <summary>
-        /// maximum number of game server instances that can run on a single host machine
-        /// </summary>
-        public int MaxGamesPerHost ;
-
-        /// <summary>
-        /// minimum capacity of additional game server instances that can be started before the autoscaling service starts new host
-        /// machines (given the number of current running host machines and game server instances)
-        /// </summary>
-        public int MinFreeGameSlots ;
-
-        /// <summary>
-        /// the current status of the build validation and processing steps
-        /// </summary>
-        public GameBuildStatus? Status ;
-
-        /// <summary>
-        /// time this build was last modified (or uploaded, if this build has never been modified)
-        /// </summary>
-        public DateTime Timestamp ;
-
-        /// <summary>
-        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
-        /// title has been selected.
-        /// </summary>
-        public string TitleId ;
-
-        public int CompareTo(GetServerBuildInfoResult other)
-        {
-            if (other == null || other.BuildId == null) return 1;
-            if (BuildId == null) return -1;
-            return BuildId.CompareTo(other.BuildId);
-        }
 
     }
 
@@ -4174,20 +4107,6 @@ namespace PlayFab.AdminModels
         /// Login provider.
         /// </summary>
         public SegmentLoginIdentityProvider? LoginProvider ;
-
-    }
-
-    public class ListBuildsRequest : PlayFabRequestCommon
-    {
-    }
-
-    public class ListBuildsResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// array of uploaded game server builds
-        /// </summary>
-        [Unordered(SortProperty="BuildId")]
-        public List<GetServerBuildInfoResult> Builds ;
 
     }
 
@@ -5252,19 +5171,6 @@ namespace PlayFab.AdminModels
     }
 
     public class RemovePlayerTagResult : PlayFabResultCommon
-    {
-    }
-
-    public class RemoveServerBuildRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// unique identifier of the previously uploaded build executable to be removed
-        /// </summary>
-        public string BuildId ;
-
-    }
-
-    public class RemoveServerBuildResult : PlayFabResultCommon
     {
     }
 
@@ -6479,11 +6385,10 @@ namespace PlayFab.AdminModels
     }
 
     /// <summary>
-    /// This API method is designed to store title specific values which can be read by the client. For example, a developer
-    /// could choose to store values which modify the user experience, such as enemy spawn rates, weapon strengths, movement
-    /// speeds, etc. This allows a developer to update the title without the need to create, test, and ship a new build. This
-    /// operation is additive. If a Key does not exist in the current dataset, it will be added with the specified Value. If it
-    /// already exists, the Value for that key will be overwritten with the new Value.
+    /// This API method is designed to store title specific values which are accessible only by the server. These values can be
+    /// used to tweak settings used by game servers and Cloud Scripts without the need to update and re-deploy. This operation
+    /// is additive. If a Key does not exist in the current dataset, it will be added with the specified Value. If it already
+    /// exists, the Value for that key will be overwritten with the new Value.
     /// </summary>
     public class SetTitleDataRequest : PlayFabRequestCommon
     {
