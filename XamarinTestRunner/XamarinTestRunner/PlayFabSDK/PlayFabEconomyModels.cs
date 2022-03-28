@@ -469,6 +469,10 @@ namespace PlayFab.EconomyModels
 
     }
 
+    public class FilterOptions
+    {
+    }
+
     public class GetCatalogConfigRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -951,6 +955,14 @@ namespace PlayFab.EconomyModels
 
     }
 
+    public class PriceOverride
+    {
+    }
+
+    public class PricesOverride
+    {
+    }
+
     /// <summary>
     /// The call kicks off a workflow to publish the item to the public catalog. The Publish Status API should be used to
     /// monitor the publish job.
@@ -997,6 +1009,10 @@ namespace PlayFab.EconomyModels
         Succeeded,
         Failed,
         Canceled
+    }
+
+    public class PurchaseOverride
+    {
     }
 
     public class Rating
@@ -1336,6 +1352,10 @@ namespace PlayFab.EconomyModels
     }
 
     public class SetItemModerationStateResponse : PlayFabResultCommon
+    {
+    }
+
+    public class StoreDetails
     {
     }
 
