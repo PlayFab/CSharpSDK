@@ -2265,13 +2265,6 @@ namespace PlayFab.MultiplayerModels
         public string StartMultiplayerServerCommand ;
 
         /// <summary>
-        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
-        /// disc.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public bool? UseStreamingForAssetDownloads ;
-
-        /// <summary>
         /// The VM size the build was created on.
         /// </summary>
         public AzureVmSize? VmSize ;
@@ -2399,6 +2392,11 @@ namespace PlayFab.MultiplayerModels
         public string CancellationReasonString ;
 
         /// <summary>
+        /// Change number used for differentiating older matchmaking status updates from newer ones.
+        /// </summary>
+        public uint? ChangeNumber ;
+
+        /// <summary>
         /// The server date and time at which ticket was created.
         /// </summary>
         public DateTime Created ;
@@ -2483,6 +2481,11 @@ namespace PlayFab.MultiplayerModels
 
     public class GetMatchResult : PlayFabResultCommon
     {
+        /// <summary>
+        /// A string that is used by players that are matched together to join an arranged lobby.
+        /// </summary>
+        public string ArrangementString ;
+
         /// <summary>
         /// The Id of a match.
         /// </summary>
@@ -4803,6 +4806,54 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    /// <summary>
+    /// Subscribe to match resource notifications. Match subscriptions have two types; MatchInvite and MatchTicketStatusChange
+    /// </summary>
+    public class SubscribeToMatchResourceRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The entity performing the subscription. The entity must be authorized to use this connectionHandle.
+        /// </summary>
+        public EntityKey EntityKey ;
+
+        /// <summary>
+        /// Opaque string, given to a client upon creating a connection with PubSub. Notifications will be sent to the connection
+        /// associated with this handle.
+        /// </summary>
+        public string PubSubConnectionHandle ;
+
+        /// <summary>
+        /// The name of the resource to subscribe to.
+        /// </summary>
+        public string ResourceId ;
+
+        /// <summary>
+        /// Version number for the subscription of this resource. Current supported version must be 1.
+        /// </summary>
+        public uint SubscriptionVersion ;
+
+        /// <summary>
+        /// Subscription type. MatchInvite subscriptions are per-player. MatchTicketStatusChange subscriptions are per-ticket.
+        /// Subscribe calls are idempotent. Subscribing on the same resource for the same connection results in success.
+        /// </summary>
+        public string Type ;
+
+    }
+
+    public class SubscribeToMatchResourceResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Matchmaking resource
+        /// </summary>
+        public string Topic ;
+
+    }
+
     public enum SubscriptionType
     {
         LobbyChange,
@@ -4948,6 +4999,49 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public SubscriptionType Type ;
 
+    }
+
+    /// <summary>
+    /// Unsubscribe from a Match resource's notifications. For MatchInvite, players are expected to unsubscribe once they can no
+    /// longer accept invites. For MatchTicketStatusChange, players are expected to unsusbcribe once the ticket has reached a
+    /// canceled or matched state.
+    /// </summary>
+    public class UnsubscribeFromMatchResourceRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The entity performing the unsubscription. The entity must be authorized to use this connectionHandle.
+        /// </summary>
+        public EntityKey EntityKey ;
+
+        /// <summary>
+        /// Opaque string, given to a client upon creating a connection with PubSub.
+        /// </summary>
+        public string PubSubConnectionHandle ;
+
+        /// <summary>
+        /// The resource to unsubscribe from.
+        /// </summary>
+        public string ResourceId ;
+
+        /// <summary>
+        /// Version number for the unsubscription from this resource.
+        /// </summary>
+        public uint SubscriptionVersion ;
+
+        /// <summary>
+        /// Type of the subscription to be canceled.
+        /// </summary>
+        public string Type ;
+
+    }
+
+    public class UnsubscribeFromMatchResourceResult : PlayFabResultCommon
+    {
     }
 
     /// <summary>
