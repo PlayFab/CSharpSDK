@@ -8,7 +8,7 @@
     <FileAlignment>512</FileAlignment>
 
     <PackageId>PlayFabAllSDK</PackageId>
-    <Version>1.120.220502</Version>
+    <Version>1.122.220509</Version>
     <Title>PlayFab CSharp Sdk</Title>
     <Authors>Microsoft</Authors>
     <Owners>Microsoft</Owners>
@@ -21,7 +21,7 @@
     <Company>PlayFab</Company>
     <Product>PlayFabSDK</Product>
     <PackageTags>PlayFab, Baas, Paas, JSON, REST, HTTP, SSL, API, cloud, liveops, game, gamedev, native</PackageTags>
-    <PackageReleaseNotes>https://docs.microsoft.com/gaming/playfab/release-notes#220502</PackageReleaseNotes>
+    <PackageReleaseNotes>https://docs.microsoft.com/gaming/playfab/release-notes#220509</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>1</AssemblyVersion>
     <FileVersion>1</FileVersion>
