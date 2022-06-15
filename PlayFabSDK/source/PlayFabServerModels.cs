@@ -2231,6 +2231,9 @@ namespace PlayFab.ServerModels
         EventSinkNameInvalid,
         EventSinkSasTokenPermissionInvalid,
         EventSinkSecretInvalid,
+        EventSinkTenantNotFound,
+        EventSinkAadNotFound,
+        EventSinkDatabaseNotFound,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
         AllowNonUniquePlayerDisplayNamesDisableNotAllowed
