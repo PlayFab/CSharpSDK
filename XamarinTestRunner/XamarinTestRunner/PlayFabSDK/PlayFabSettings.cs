@@ -6,9 +6,9 @@ namespace PlayFab
 {
     public class PlayFabSettings
     {
-        public const string SdkVersion = "1.123.220523";
-        public const string BuildIdentifier = "adobuild_csharpsdk_8";
-        public const string SdkVersionString = "CSharpSDK-1.123.220523";
+        public const string SdkVersion = "1.126.220704";
+        public const string BuildIdentifier = "adobuild_csharpsdk_117";
+        public const string SdkVersionString = "CSharpSDK-1.126.220704";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string DefaultProductionEnvironmentUrl = "playfabapi.com";
 
@@ -28,7 +28,7 @@ namespace PlayFab
         [Obsolete("Moved to PlayFabSettings.staticSettings.VerticalName")]
         public static string VerticalName { get { return staticSettings.VerticalName; } set { staticSettings.VerticalName = value; } }
 
-#if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API
+#if ENABLE_PLAYFABSERVER_API || ENABLE_PLAYFABADMIN_API || ENABLE_PLAYFAB_SECRETKEY
         [Obsolete("Moved to PlayFabSettings.staticSettings.DeveloperSecretKey")]
         public static string DeveloperSecretKey { get { return staticSettings.DeveloperSecretKey; } set { staticSettings.DeveloperSecretKey = value; } }
 #endif

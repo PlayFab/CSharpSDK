@@ -2613,32 +2613,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Set and delete key-value pairs in a title internal data override instance.
-        /// </summary>
-        public static async Task<PlayFabResult<SetTitleDataAndOverridesResult>> SetTitleInternalDataAndOverridesAsync(SetTitleDataAndOverridesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Admin/SetTitleInternalDataAndOverrides", request, null, null, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<SetTitleDataAndOverridesResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetTitleDataAndOverridesResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<SetTitleDataAndOverridesResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Sets the Amazon Resource Name (ARN) for iOS and Android push notifications. Documentation on the exact restrictions can
         /// be found at: http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformApplication.html. Currently, Amazon device
         /// Messaging is not supported.
