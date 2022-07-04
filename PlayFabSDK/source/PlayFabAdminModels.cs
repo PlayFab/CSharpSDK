@@ -2531,6 +2531,10 @@ namespace PlayFab.AdminModels
         PhotonApplicationIdAlreadyInUse,
         CloudScriptUnableToDeleteProductionRevision,
         CustomIdNotFound,
+        AutomationInvalidInput,
+        AutomationInvalidRuleName,
+        AutomationRuleAlreadyExists,
+        AutomationRuleLimitExceeded,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2598,6 +2602,7 @@ namespace PlayFab.AdminModels
         ExportCannotParseQuery,
         ExportControlCommandsNotAllowed,
         ExportQueryMissingTableReference,
+        ExportInsightsV1Deprecated,
         ExplorerBasicInvalidQueryName,
         ExplorerBasicInvalidQueryDescription,
         ExplorerBasicInvalidQueryConditions,
@@ -6442,11 +6447,6 @@ namespace PlayFab.AdminModels
         /// </summary>
         public string OverrideLabel ;
 
-        /// <summary>
-        /// Title Id
-        /// </summary>
-        public string TitleId ;
-
     }
 
     public class SetTitleDataAndOverridesResult : PlayFabResultCommon
@@ -6472,12 +6472,6 @@ namespace PlayFab.AdminModels
         /// name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character.
         /// </summary>
         public string Key ;
-
-        /// <summary>
-        /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a
-        /// title has been selected.
-        /// </summary>
-        public string TitleId ;
 
         /// <summary>
         /// new value to set. Set to null to remove a value
