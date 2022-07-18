@@ -18,7 +18,7 @@ namespace PlayFab.UUnit
         public string aliasId;
 #endif
         public string userEmail;
-        public string connectionString;
+
         public Dictionary<string, string> extraHeaders;
     }
     public static class UUnitIncrementalTestRunner
@@ -72,7 +72,7 @@ namespace PlayFab.UUnit
 
 #if !DISABLE_PLAYFABCLIENT_API
             PlayFabApiTest.SetTitleInfo(TestTitleData);
-            PlayFabConnectionStringApiTest.SetTitleInfo(TestTitleData);
+
 #endif
 #if !DISABLE_PLAYFABCLIENT_API && !DISABLE_PLAYFABENTITY_API
             InstanceAuthTests.SetTitleInfo(TestTitleData);

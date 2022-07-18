@@ -7,7 +7,7 @@ namespace PlayFab
     public class PlayFabSettings
     {
         public const string SdkVersion = "1.126.220704";
-        public const string BuildIdentifier = "adobuild_csharpsdk_117";
+        public const string BuildIdentifier = "adobuild_csharpsdk_8";
         public const string SdkVersionString = "CSharpSDK-1.126.220704";
         /// <summary> This is only for customers running a private cluster.  Generally you shouldn't touch this </summary>
         public static string DefaultProductionEnvironmentUrl = "playfabapi.com";
@@ -66,8 +66,7 @@ namespace PlayFab
             var apiSettings = instanceSettings ?? staticSettings;
             var baseUrl = apiSettings?.ProductionEnvironmentUrl;
 
-            if(apiSettings.ConnectionString == "")
-            {
+
                 if (!baseUrl.StartsWith("http"))
                 {
                     sb.Append("https://");
@@ -80,11 +79,7 @@ namespace PlayFab
                         sb.Append(apiSettings?.VerticalName).Append(".");
                     }
                 }
-            }
-            else
-            {
-                baseUrl = apiSettings.ConnectionString;
-            }
+
 
             sb.Append(baseUrl).Append(apiCall);
 
