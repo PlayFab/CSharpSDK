@@ -410,8 +410,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Checks for any new PS5 entitlements. If any are found, they are consumed (if they're consumables) and added as PlayFab
-        /// items
+        /// Checks for any new consumable entitlements. If any are found, they are consumed (if they're consumables) and added as
+        /// PlayFab items
         /// </summary>
         public async Task<PlayFabResult<ConsumePS5EntitlementsResult>> ConsumePS5EntitlementsAsync(ConsumePS5EntitlementsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1502,7 +1502,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers.
+        /// Retrieves the unique PlayFab identifiers for the given set of PlayStation :tm: Network identifiers.
         /// </summary>
         public async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2319,7 +2319,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Links the PlayStation Network account associated with the provided access code to the user's PlayFab account
+        /// Links the PlayStation :tm: Network account associated with the provided access code to the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<LinkPSNAccountResult>> LinkPSNAccountAsync(LinkPSNAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2666,6 +2666,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Signs the user in using their Google Play Games account credentials
+        /// </summary>
+        public async Task<PlayFabResult<LoginResult>> LoginWithGooglePlayGamesServicesAsync(LoginWithGooglePlayGamesServicesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (request != null) request.TitleId = request?.TitleId ?? requestSettings.TitleId;
+            if (request.TitleId == null) throw new PlayFabException(PlayFabExceptionCode.TitleNotSet, "TitleId must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/LoginWithGooglePlayGamesServices", request, null, null, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LoginResult>>(resultRawJson);
+            var result = resultData.data;
+            result.AuthenticationContext = new PlayFabAuthenticationContext(result.SessionTicket, result.EntityToken.EntityToken, result.PlayFabId, result.EntityToken.Entity.Id, result.EntityToken.Entity.Type);
+            authenticationContext.CopyFrom(result.AuthenticationContext);
+
+            return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Signs the user in using the vendor-specific iOS device identifier, returning a session identifier that can subsequently
         /// be used for API calls which require an authenticated user
         /// </summary>
@@ -2846,8 +2875,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently
-        /// be used for API calls which require an authenticated user
+        /// Signs the user in using a PlayStation :tm: Network authentication code, returning a session identifier that can
+        /// subsequently be used for API calls which require an authenticated user
         /// </summary>
         public async Task<PlayFabResult<LoginResult>> LoginWithPSNAsync(LoginWithPSNRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -3102,7 +3131,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Uses the supplied OAuth code to refresh the internally cached player PSN auth token
+        /// Uses the supplied OAuth code to refresh the internally cached player PSN :tm: auth token
         /// </summary>
         public async Task<PlayFabResult<EmptyResponse>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -3870,7 +3899,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Unlinks the related PSN account from the user's PlayFab account
+        /// Unlinks the related PSN :tm: account from the user's PlayFab account
         /// </summary>
         public async Task<PlayFabResult<UnlinkPSNAccountResult>> UnlinkPSNAccountAsync(UnlinkPSNAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

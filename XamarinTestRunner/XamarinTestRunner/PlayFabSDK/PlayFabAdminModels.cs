@@ -2535,6 +2535,7 @@ namespace PlayFab.AdminModels
         AutomationInvalidRuleName,
         AutomationRuleAlreadyExists,
         AutomationRuleLimitExceeded,
+        InvalidGooglePlayGamesServerAuthCode,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -4261,7 +4262,8 @@ namespace PlayFab.AdminModels
         FacebookInstantGames,
         OpenIdConnect,
         Apple,
-        NintendoSwitchAccount
+        NintendoSwitchAccount,
+        GooglePlayGames
     }
 
     public class LogStatement
@@ -6969,9 +6971,11 @@ namespace PlayFab.AdminModels
     }
 
     /// <summary>
-    /// This operation is not additive. Using it will cause the indicated catalog version to be created from scratch. If there
-    /// is an existing catalog with the version number in question, it will be deleted and replaced with only the items
-    /// specified in this call.
+    /// When used for SetCatalogItems, this operation is not additive. Using it will cause the indicated catalog version to be
+    /// created from scratch. If there is an existing catalog with the version number in question, it will be deleted and
+    /// replaced with only the items specified in this call. When used for UpdateCatalogItems, this operation is additive. Items
+    /// with ItemId values not currently in the catalog will be added, while those with ItemId values matching items currently
+    /// in the catalog will overwrite those items with the given values.
     /// </summary>
     public class UpdateCatalogItemsRequest : PlayFabRequestCommon
     {
@@ -7241,16 +7245,19 @@ namespace PlayFab.AdminModels
     }
 
     /// <summary>
-    /// This operation is not additive. Using it will cause the indicated virtual store to be created from scratch. If there is
-    /// an existing store with the same storeId, it will be deleted and replaced with only the items specified in this call. A
-    /// store contains an array of references to items defined inthe catalog, along with the prices for the item, in both real
-    /// world and virtual currencies. These prices act as an override to any prices defined in the catalog. In this way, the
-    /// base definitions of the items may be defined in the catalog, with all associated properties, while the pricing can be
-    /// set for each store, as needed. This allows for subsets of goods to be defined for different purposes (in order to
-    /// simplify showing some, but not all catalog items to users, based upon different characteristics), along with unique
-    /// prices. Note that all prices defined in the catalog and store definitions for the item are considered valid, and that a
-    /// compromised client can be made to send a request for an item based upon any of these definitions. If no price is
-    /// specified in the store for an item, the price set in the catalog should be displayed to the user.
+    /// When used for SetStoreItems, this operation is not additive. Using it will cause the indicated virtual store to be
+    /// created from scratch. If there is an existing store with the same storeId, it will be deleted and replaced with only the
+    /// items specified in this call. When used for UpdateStoreItems, this operation is additive. Items with ItemId values not
+    /// currently in the store will be added, while those with ItemId values matching items currently in the catalog will
+    /// overwrite those items with the given values. In both cases, a store contains an array of references to items defined in
+    /// the catalog, along with the prices for the item, in both real world and virtual currencies. These prices act as an
+    /// override to any prices defined in the catalog. In this way, the base definitions of the items may be defined in the
+    /// catalog, with all associated properties, while the pricing can be set for each store, as needed. This allows for subsets
+    /// of goods to be defined for different purposes (in order to simplify showing some, but not all catalog items to users,
+    /// based upon different characteristics), along with unique prices. Note that all prices defined in the catalog and store
+    /// definitions for the item are considered valid, and that a compromised client can be made to send a request for an item
+    /// based upon any of these definitions. If no price is specified in the store for an item, the price set in the catalog
+    /// should be displayed to the user.
     /// </summary>
     public class UpdateStoreItemsRequest : PlayFabRequestCommon
     {
@@ -7488,6 +7495,11 @@ namespace PlayFab.AdminModels
         public UserGoogleInfo GoogleInfo ;
 
         /// <summary>
+        /// User Google Play Games account information, if a Google Play Games account has been linked
+        /// </summary>
+        public UserGooglePlayGamesInfo GooglePlayGamesInfo ;
+
+        /// <summary>
         /// User iOS device information, if an iOS device has been linked
         /// </summary>
         public UserIosDeviceInfo IosDeviceInfo ;
@@ -7672,6 +7684,25 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class UserGooglePlayGamesInfo
+    {
+        /// <summary>
+        /// Avatar image url of the Google Play Games player
+        /// </summary>
+        public string GooglePlayGamesPlayerAvatarImageUrl ;
+
+        /// <summary>
+        /// Display name of the Google Play Games player
+        /// </summary>
+        public string GooglePlayGamesPlayerDisplayName ;
+
+        /// <summary>
+        /// Google Play Games player ID
+        /// </summary>
+        public string GooglePlayGamesPlayerId ;
+
+    }
+
     public class UserIosDeviceInfo
     {
         /// <summary>
@@ -7756,7 +7787,8 @@ namespace PlayFab.AdminModels
         FacebookInstantGamesId,
         OpenIdConnect,
         Apple,
-        NintendoSwitchAccount
+        NintendoSwitchAccount,
+        GooglePlayGames
     }
 
     public class UserOriginationSegmentFilter
