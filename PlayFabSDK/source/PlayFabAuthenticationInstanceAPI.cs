@@ -15,7 +15,8 @@ namespace PlayFab
     /// <summary>
     /// The Authentication APIs provide a convenient way to convert classic authentication responses into entity authentication
     /// models. These APIs will provide you with the entity authentication token needed for subsequent Entity API calls. Manage
-    /// API keys for authenticating any entity.
+    /// API keys for authenticating any entity. The game_server API is designed to create uniquely identifiable game_server
+    /// entities. The game_server Entity token can be used to call Matchmaking Lobby and Pubsub for server scenarios.
     /// </summary>
     public class PlayFabAuthenticationInstanceAPI
     {
@@ -59,6 +60,32 @@ namespace PlayFab
         public void ForgetAllCredentials()
         {
             authenticationContext?.ForgetAllCredentials();
+        }
+
+        /// <summary>
+        /// Delete a game_server entity.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResponse>> DeleteAsync(DeleteRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/GameServerIdentity/Delete", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
