@@ -2443,9 +2443,7 @@ namespace PlayFab.ClientModels
     }
 
     /// <summary>
-    /// Note that the Position of the user in the results is for the overall leaderboard. If Facebook friends are included, make
-    /// sure the access token from previous LoginWithFacebook call is still valid and not expired. If Xbox Live friends are
-    /// included, make sure the access token from the previous LoginWithXbox call is still valid and not expired.
+    /// Note: the user's Position is relative to the overall leaderboard.
     /// </summary>
     public class GetLeaderboardResult : PlayFabResultCommon
     {
@@ -2965,6 +2963,27 @@ namespace PlayFab.ClientModels
         /// Mapping of Google identifiers to PlayFab identifiers.
         /// </summary>
         public List<GooglePlayFabIdPair> Data ;
+
+    }
+
+    public class GetPlayFabIDsFromGooglePlayGamesPlayerIDsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique Google Play Games identifiers (Google+ user IDs) for which the title needs to get PlayFab identifiers.
+        /// </summary>
+        public List<string> GooglePlayGamesPlayerIDs ;
+
+    }
+
+    /// <summary>
+    /// For Google Play Games identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
+    public class GetPlayFabIDsFromGooglePlayGamesPlayerIDsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of Google Play Games identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<GooglePlayGamesPlayFabIdPair> Data ;
 
     }
 
@@ -3511,6 +3530,20 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class GooglePlayGamesPlayFabIdPair
+    {
+        /// <summary>
+        /// Unique Google Play Games identifier for a user.
+        /// </summary>
+        public string GooglePlayGamesPlayerId ;
+
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Google Play Games identifier.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
     /// <summary>
     /// Grants a character to the user of the type specified by the item ID. The user must already have an instance of this item
     /// in their inventory in order to allow character creation. This item can come from a purchase or grant, which must be done
@@ -3919,6 +3952,35 @@ namespace PlayFab.ClientModels
     }
 
     public class LinkGoogleAccountResult : PlayFabResultCommon
+    {
+    }
+
+    /// <summary>
+    /// Google Play Games sign-in is accomplished by obtaining a Google OAuth 2.0 credential using the Google Play Games sign-in
+    /// for Android APIs on the device and passing it to this API.
+    /// </summary>
+    public class LinkGooglePlayGamesServicesAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// If another user is already linked to the account, unlink the other user and re-link. If the current user is already
+        /// linked, link both accounts
+        /// </summary>
+        public bool? ForceLink ;
+
+        /// <summary>
+        /// OAuth 2.0 server authentication code obtained on the client by calling the requestServerSideAccess()
+        /// (https://developers.google.com/games/services/android/signin) Google Play Games client API.
+        /// </summary>
+        public string ServerAuthCode ;
+
+    }
+
+    public class LinkGooglePlayGamesServicesAccountResult : PlayFabResultCommon
     {
     }
 
@@ -7125,6 +7187,19 @@ namespace PlayFab.ClientModels
     }
 
     public class UnlinkGoogleAccountResult : PlayFabResultCommon
+    {
+    }
+
+    public class UnlinkGooglePlayGamesServicesAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+    }
+
+    public class UnlinkGooglePlayGamesServicesAccountResult : PlayFabResultCommon
     {
     }
 
