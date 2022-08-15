@@ -687,6 +687,11 @@ namespace PlayFab.MultiplayerModels
         public List<BuildRegionParams> RegionConfigurations ;
 
         /// <summary>
+        /// The resource constraints to apply to each server on the VM (EXPERIMENTAL API)
+        /// </summary>
+        public ServerResourceConstraintParams ServerResourceConstraints ;
+
+        /// <summary>
         /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
         /// disc.
         /// </summary>
@@ -783,6 +788,11 @@ namespace PlayFab.MultiplayerModels
         public List<BuildRegion> RegionConfigurations ;
 
         /// <summary>
+        /// The resource constraints to apply to each server on the VM (EXPERIMENTAL API)
+        /// </summary>
+        public ServerResourceConstraintParams ServerResourceConstraints ;
+
+        /// <summary>
         /// The type of game server being hosted.
         /// </summary>
         public string ServerType ;
@@ -872,6 +882,11 @@ namespace PlayFab.MultiplayerModels
         /// The region configurations for the build.
         /// </summary>
         public List<BuildRegionParams> RegionConfigurations ;
+
+        /// <summary>
+        /// The resource constraints to apply to each server on the VM (EXPERIMENTAL API)
+        /// </summary>
+        public ServerResourceConstraintParams ServerResourceConstraints ;
 
         /// <summary>
         /// The command to run when the multiplayer server is started, including any arguments.
@@ -974,6 +989,11 @@ namespace PlayFab.MultiplayerModels
         /// The region configuration for the build.
         /// </summary>
         public List<BuildRegion> RegionConfigurations ;
+
+        /// <summary>
+        /// The resource constraints to apply to each server on the VM (EXPERIMENTAL API)
+        /// </summary>
+        public ServerResourceConstraintParams ServerResourceConstraints ;
 
         /// <summary>
         /// The type of game server being hosted.
@@ -2273,6 +2293,11 @@ namespace PlayFab.MultiplayerModels
         public List<BuildRegion> RegionConfigurations ;
 
         /// <summary>
+        /// The resource constraints to apply to each server on the VM.
+        /// </summary>
+        public ServerResourceConstraintParams ServerResourceConstraints ;
+
+        /// <summary>
         /// The type of game server being hosted.
         /// </summary>
         public string ServerType ;
@@ -2536,7 +2561,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The guid string build ID of the multiplayer server to get details for.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string BuildId ;
 
         /// <summary>
@@ -2547,7 +2572,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The region the multiplayer server is located in to get details for.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public string Region ;
 
         /// <summary>
@@ -4595,6 +4620,21 @@ namespace PlayFab.MultiplayerModels
 
     }
 
+    public class ServerResourceConstraintParams
+    {
+        /// <summary>
+        /// The maximum number of cores that each server is allowed to use.
+        /// </summary>
+        public double CpuLimit ;
+
+        /// <summary>
+        /// The maximum number of GiB of memory that each server is allowed to use. WARNING: After exceeding this limit, the server
+        /// will be killed
+        /// </summary>
+        public double MemoryLimitGB ;
+
+    }
+
     public enum ServerType
     {
         Container,
@@ -4996,7 +5036,7 @@ namespace PlayFab.MultiplayerModels
     }
 
     /// <summary>
-    /// Request to unsubscribe from lobby notifications. Only a client can unsubscribe from notifications.
+    /// Request to unsubscribe from lobby notifications.
     /// </summary>
     public class UnsubscribeFromLobbyResourceRequest : PlayFabRequestCommon
     {
