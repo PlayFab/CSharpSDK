@@ -3276,7 +3276,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Uses the supplied OAuth code to refresh the internally cached player PSN :tm: auth token
+        /// Uses the supplied OAuth code to refresh the internally cached player PlayStation :tm: Network auth token
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> RefreshPSNAuthTokenAsync(RefreshPSNAuthTokenRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -4100,7 +4100,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Unlinks the related PSN :tm: account from the user's PlayFab account
+        /// Unlinks the related PlayStation :tm: Network account from the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<UnlinkPSNAccountResult>> UnlinkPSNAccountAsync(UnlinkPSNAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

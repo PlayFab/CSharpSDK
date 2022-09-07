@@ -329,11 +329,6 @@ namespace PlayFab.ServerModels
         public string IPAddress ;
 
         /// <summary>
-        /// MAC address to be banned. May affect multiple players.
-        /// </summary>
-        public string MACAddress ;
-
-        /// <summary>
         /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
         /// </summary>
         public string PlayFabId ;
@@ -1510,7 +1505,8 @@ namespace PlayFab.ServerModels
         public PlayerProfileModel Profile ;
 
         /// <summary>
-        /// Available PSN information, if the user and PlayFab friend are both connected to PSN.
+        /// Available PlayStation :tm: Network information, if the user and PlayFab friend are both connected to PlayStation :tm:
+        /// Network.
         /// </summary>
         public UserPsnInfo PSNInfo ;
 
@@ -2172,6 +2168,7 @@ namespace PlayFab.ServerModels
         PartyVersionNotFound,
         MultiplayerServerBuildReferencedByMatchmakingQueue,
         MultiplayerServerBuildReferencedByBuildAlias,
+        MultiplayerServerBuildAliasReferencedByMatchmakingQueue,
         ExperimentationExperimentStopped,
         ExperimentationExperimentRunning,
         ExperimentationExperimentNotFound,
@@ -3333,24 +3330,24 @@ namespace PlayFab.ServerModels
     public class GetPlayFabIDsFromPSNAccountIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to production environment.
+        /// Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
         /// <summary>
-        /// Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers.
+        /// Array of unique PlayStation :tm: Network identifiers for which the title needs to get PlayFab identifiers.
         /// </summary>
         public List<string> PSNAccountIDs ;
 
     }
 
     /// <summary>
-    /// For PlayStation Network identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// For PlayStation :tm: Network identifiers which have not been linked to PlayFab accounts, null will be returned.
     /// </summary>
     public class GetPlayFabIDsFromPSNAccountIDsResult : PlayFabResultCommon
     {
         /// <summary>
-        /// Mapping of PlayStation Network identifiers to PlayFab identifiers.
+        /// Mapping of PlayStation :tm: Network identifiers to PlayFab identifiers.
         /// </summary>
         public List<PSNAccountPlayFabIdPair> Data ;
 
@@ -3418,7 +3415,7 @@ namespace PlayFab.ServerModels
     public class GetPlayFabIDsFromXboxLiveIDsResult : PlayFabResultCommon
     {
         /// <summary>
-        /// Mapping of PlayStation Network identifiers to PlayFab identifiers.
+        /// Mapping of Xbox Live identifiers to PlayFab identifiers.
         /// </summary>
         public List<XboxLiveAccountPlayFabIdPair> Data ;
 
@@ -4255,10 +4252,63 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class LinkNintendoServiceAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// If another user is already linked to a specific Nintendo Switch account, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink ;
+
+        /// <summary>
+        /// The JSON Web token (JWT) returned by Nintendo after login. Used to validate the request and find the user ID (Nintendo
+        /// Switch subject) to link with.
+        /// </summary>
+        public string IdentityToken ;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class LinkNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// If another user is already linked to the Nintendo Switch Device ID, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink ;
+
+        /// <summary>
+        /// Nintendo Switch unique identifier for the user's device.
+        /// </summary>
+        public string NintendoSwitchDeviceId ;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class LinkNintendoSwitchDeviceIdResult : PlayFabResultCommon
+    {
+    }
+
     public class LinkPSNAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Authentication code provided by the PlayStation Network.
+        /// Authentication code provided by the PlayStation :tm: Network.
         /// </summary>
         public string AuthCode ;
 
@@ -4273,7 +4323,7 @@ namespace PlayFab.ServerModels
         public bool? ForceLink ;
 
         /// <summary>
-        /// Id of the PSN issuer environment. If null, defaults to production environment.
+        /// Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment.
         /// </summary>
         public int? IssuerId ;
 
@@ -4283,7 +4333,7 @@ namespace PlayFab.ServerModels
         public string PlayFabId ;
 
         /// <summary>
-        /// Redirect URI supplied to PSN when requesting an auth code
+        /// Redirect URI supplied to PlayStation :tm: Network when requesting an auth code
         /// </summary>
         public string RedirectUri ;
 
@@ -5295,12 +5345,13 @@ namespace PlayFab.ServerModels
     public class PSNAccountPlayFabIdPair
     {
         /// <summary>
-        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation Network identifier.
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the PlayStation :tm: Network
+        /// identifier.
         /// </summary>
         public string PlayFabId ;
 
         /// <summary>
-        /// Unique PlayStation Network identifier for a user.
+        /// Unique PlayStation :tm: Network identifier for a user.
         /// </summary>
         public string PSNAccountId ;
 
@@ -6602,6 +6653,43 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class UnlinkNintendoServiceAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class UnlinkNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Nintendo Switch Device identifier for the user. If not specified, the most recently signed in device ID will be used.
+        /// </summary>
+        public string NintendoSwitchDeviceId ;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class UnlinkNintendoSwitchDeviceIdResult : PlayFabResultCommon
+    {
+    }
+
     public class UnlinkPSNAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6798,11 +6886,6 @@ namespace PlayFab.ServerModels
         /// The updated IP address for the ban. Null for no change.
         /// </summary>
         public string IPAddress ;
-
-        /// <summary>
-        /// The updated MAC address for the ban. Null for no change.
-        /// </summary>
-        public string MACAddress ;
 
         /// <summary>
         /// Whether to make this ban permanent. Set to true to make this ban permanent. This will not modify Active state.
@@ -7198,7 +7281,7 @@ namespace PlayFab.ServerModels
         public UserPrivateAccountInfo PrivateInfo ;
 
         /// <summary>
-        /// User PSN account information, if a PSN account has been linked
+        /// User PlayStation :tm: Network account information, if a PlayStation :tm: Network account has been linked
         /// </summary>
         public UserPsnInfo PsnInfo ;
 
@@ -7466,12 +7549,12 @@ namespace PlayFab.ServerModels
     public class UserPsnInfo
     {
         /// <summary>
-        /// PSN account ID
+        /// PlayStation :tm: Network account ID
         /// </summary>
         public string PsnAccountId ;
 
         /// <summary>
-        /// PSN online ID
+        /// PlayStation :tm: Network online ID
         /// </summary>
         public string PsnOnlineId ;
 
