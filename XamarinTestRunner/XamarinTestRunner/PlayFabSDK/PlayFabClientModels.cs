@@ -2034,7 +2034,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Optional character type on which to filter the leaderboard entries.
         /// </summary>
-        [Obsolete("No longer available", false)]
         public string CharacterType ;
 
         /// <summary>
@@ -2299,7 +2298,6 @@ namespace PlayFab.ClientModels
         /// <summary>
         /// Optional character type on which to filter the leaderboard entries.
         /// </summary>
-        [Obsolete("No longer available", false)]
         public string CharacterType ;
 
         /// <summary>
