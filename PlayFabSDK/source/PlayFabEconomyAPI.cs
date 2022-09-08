@@ -35,6 +35,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Add inventory items.
+        /// </summary>
+        public static async Task<PlayFabResult<AddInventoryItemsResponse>> AddInventoryItemsAsync(AddInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/AddInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<AddInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<AddInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<AddInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Creates a new item in the working catalog using provided metadata.
         /// </summary>
         public static async Task<PlayFabResult<CreateDraftItemResponse>> CreateDraftItemAsync(CreateDraftItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -116,6 +143,60 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Delete an Inventory Collection
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteInventoryCollectionResponse>> DeleteInventoryCollectionAsync(DeleteInventoryCollectionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/DeleteInventoryCollection", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteInventoryCollectionResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteInventoryCollectionResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteInventoryCollectionResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Delete inventory items
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteInventoryItemsResponse>> DeleteInventoryItemsAsync(DeleteInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/DeleteInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Removes an item from working catalog and all published versions from the public catalog.
         /// </summary>
         public static async Task<PlayFabResult<DeleteItemResponse>> DeleteItemAsync(DeleteItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -140,6 +221,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<DeleteItemResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Execute a list of Inventory Operations
+        /// </summary>
+        public static async Task<PlayFabResult<ExecuteInventoryOperationsResponse>> ExecuteInventoryOperationsAsync(ExecuteInventoryOperationsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/ExecuteInventoryOperations", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ExecuteInventoryOperationsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ExecuteInventoryOperationsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ExecuteInventoryOperationsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -278,6 +386,60 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Get Inventory Collection Ids
+        /// </summary>
+        public static async Task<PlayFabResult<GetInventoryCollectionIdsResponse>> GetInventoryCollectionIdsAsync(GetInventoryCollectionIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/GetInventoryCollectionIds", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetInventoryCollectionIdsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetInventoryCollectionIdsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetInventoryCollectionIdsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Get current inventory items.
+        /// </summary>
+        public static async Task<PlayFabResult<GetInventoryItemsResponse>> GetInventoryItemsAsync(GetInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/GetInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves an item from the public catalog.
         /// </summary>
         public static async Task<PlayFabResult<GetItemResponse>> GetItemAsync(GetItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -302,6 +464,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetItemResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Search for a given item and return a set of bundles and stores containing the item
+        /// </summary>
+        public static async Task<PlayFabResult<GetItemContainersResponse>> GetItemContainersAsync(GetItemContainersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Catalog/GetItemContainers", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetItemContainersResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetItemContainersResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetItemContainersResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -440,6 +629,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Gets the access tokens.
+        /// </summary>
+        public static async Task<PlayFabResult<GetMicrosoftStoreAccessTokensResponse>> GetMicrosoftStoreAccessTokensAsync(GetMicrosoftStoreAccessTokensRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/GetMicrosoftStoreAccessTokens", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetMicrosoftStoreAccessTokensResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetMicrosoftStoreAccessTokensResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetMicrosoftStoreAccessTokensResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Initiates a publish of an item from the working catalog to the public catalog.
         /// </summary>
         public static async Task<PlayFabResult<PublishDraftItemResponse>> PublishDraftItemAsync(PublishDraftItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -464,6 +680,195 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<PublishDraftItemResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Purchase an item or bundle
+        /// </summary>
+        public static async Task<PlayFabResult<PurchaseInventoryItemsResponse>> PurchaseInventoryItemsAsync(PurchaseInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/PurchaseInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<PurchaseInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<PurchaseInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<PurchaseInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
+        public static async Task<PlayFabResult<RedeemAppleAppStoreInventoryItemsResponse>> RedeemAppleAppStoreInventoryItemsAsync(RedeemAppleAppStoreInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/RedeemAppleAppStoreInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RedeemAppleAppStoreInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemAppleAppStoreInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RedeemAppleAppStoreInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
+        public static async Task<PlayFabResult<RedeemGooglePlayInventoryItemsResponse>> RedeemGooglePlayInventoryItemsAsync(RedeemGooglePlayInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/RedeemGooglePlayInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RedeemGooglePlayInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemGooglePlayInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RedeemGooglePlayInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
+        public static async Task<PlayFabResult<RedeemMicrosoftStoreInventoryItemsResponse>> RedeemMicrosoftStoreInventoryItemsAsync(RedeemMicrosoftStoreInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/RedeemMicrosoftStoreInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RedeemMicrosoftStoreInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemMicrosoftStoreInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RedeemMicrosoftStoreInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
+        public static async Task<PlayFabResult<RedeemNintendoEShopInventoryItemsResponse>> RedeemNintendoEShopInventoryItemsAsync(RedeemNintendoEShopInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/RedeemNintendoEShopInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RedeemNintendoEShopInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemNintendoEShopInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RedeemNintendoEShopInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
+        public static async Task<PlayFabResult<RedeemPlayStationStoreInventoryItemsResponse>> RedeemPlayStationStoreInventoryItemsAsync(RedeemPlayStationStoreInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/RedeemPlayStationStoreInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RedeemPlayStationStoreInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemPlayStationStoreInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RedeemPlayStationStoreInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
+        public static async Task<PlayFabResult<RedeemSteamInventoryItemsResponse>> RedeemSteamInventoryItemsAsync(RedeemSteamInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/RedeemSteamInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RedeemSteamInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemSteamInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RedeemSteamInventoryItemsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -630,6 +1035,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Subtract inventory items.
+        /// </summary>
+        public static async Task<PlayFabResult<SubtractInventoryItemsResponse>> SubtractInventoryItemsAsync(SubtractInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/SubtractInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SubtractInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SubtractInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SubtractInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Submit a request to takedown one or more reviews.
         /// </summary>
         public static async Task<PlayFabResult<TakedownItemReviewsResponse>> TakedownItemReviewsAsync(TakedownItemReviewsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -654,6 +1086,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<TakedownItemReviewsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Transfer inventory items.
+        /// </summary>
+        public static async Task<PlayFabResult<TransferInventoryItemsResponse>> TransferInventoryItemsAsync(TransferInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/TransferInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<TransferInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<TransferInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<TransferInventoryItemsResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -708,6 +1167,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateDraftItemResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Update inventory items
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateInventoryItemsResponse>> UpdateInventoryItemsAsync(UpdateInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/UpdateInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UpdateInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UpdateInventoryItemsResponse> { Result = result, CustomData = customData };
         }
 }
 }
