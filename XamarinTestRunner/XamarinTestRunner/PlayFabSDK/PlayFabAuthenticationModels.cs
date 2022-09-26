@@ -5,6 +5,38 @@ using System.Collections.Generic;
 namespace PlayFab.AuthenticationModels
 {
     /// <summary>
+    /// Create or return a game_server entity token. Caller must be a title entity.
+    /// </summary>
+    public class AuthenticateCustomIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The customId used to create and retrieve game_server entity tokens. This is unique at the title level. CustomId must be
+        /// between 32 and 100 characters.
+        /// </summary>
+        public string CustomId ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+    }
+
+    public class AuthenticateCustomIdResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The token generated used to set X-EntityToken for game_server calls.
+        /// </summary>
+        public EntityTokenResponse EntityToken ;
+
+        /// <summary>
+        /// True if the account was newly created on this authentication.
+        /// </summary>
+        public bool NewlyCreated ;
+
+    }
+
+    /// <summary>
     /// Delete a game_server entity. The caller can be the game_server entity attempting to delete itself. Or a title entity
     /// attempting to delete game_server entities for this title.
     /// </summary>
@@ -74,6 +106,25 @@ namespace PlayFab.AuthenticationModels
         /// The Title Player Account Id of the associated entity.
         /// </summary>
         public string TitlePlayerAccountId ;
+
+    }
+
+    public class EntityTokenResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The entity id and type.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The token used to set X-EntityToken for all entity based API calls.
+        /// </summary>
+        public string EntityToken ;
+
+        /// <summary>
+        /// The time the token will expire, if it is an expiring token, in UTC.
+        /// </summary>
+        public DateTime? TokenExpiration ;
 
     }
 

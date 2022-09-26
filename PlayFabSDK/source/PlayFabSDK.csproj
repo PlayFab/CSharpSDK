@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>PlayFabAllSDK</RootNamespace>
     <AssemblyName>PlayFabAllSDK</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
 
     <PackageId>PlayFabAllSDK</PackageId>
-    <Version>1.135.220908</Version>
+    <Version>1.138.220926</Version>
     <Title>PlayFab CSharp Sdk</Title>
     <Authors>Microsoft</Authors>
     <Owners>Microsoft</Owners>
@@ -21,7 +21,7 @@
     <Company>PlayFab</Company>
     <Product>PlayFabSDK</Product>
     <PackageTags>PlayFab, Baas, Paas, JSON, REST, HTTP, SSL, API, cloud, liveops, game, gamedev, native</PackageTags>
-    <PackageReleaseNotes>https://docs.microsoft.com/gaming/playfab/release-notes#220908</PackageReleaseNotes>
+    <PackageReleaseNotes>https://docs.microsoft.com/gaming/playfab/release-notes#220926</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <AssemblyVersion>1</AssemblyVersion>
     <FileVersion>1</FileVersion>
