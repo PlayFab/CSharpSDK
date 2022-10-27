@@ -84,6 +84,18 @@ namespace UnittestRunner
             for (var i = 0; i < args.Length; i++)
                 if (args[i] == "-testInputsFile" && (i + 1) < args.Length)
                     filename = args[i + 1];
+                else if (args[i] == "-testInputsString" && (i + 1) < args.Length)
+                {
+                    try
+                    {
+                        testInputs = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<TestTitleData>(args[i + 1]);
+                        return testInputs;
+                    } catch(Exception e)
+                    {
+                        WriteConsoleColor("Parsing testSettings string failed: " + args[i + 1], ConsoleColor.Red);
+                        return null;
+                    }
+                }
             if (string.IsNullOrEmpty(filename))
                 filename = Environment.GetEnvironmentVariable("PF_TEST_TITLE_DATA_JSON");
             if (File.Exists(filename))
