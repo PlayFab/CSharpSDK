@@ -1598,6 +1598,27 @@ namespace PlayFab.ClientModels
 
     }
 
+    public enum ExternalFriendSources
+    {
+        None,
+        Steam,
+        Facebook,
+        SteamOrFacebook,
+        Xbox,
+        SteamOrXbox,
+        FacebookOrXbox,
+        SteamOrFacebookOrXbox,
+        Psn,
+        SteamOrPsn,
+        FacebookOrPsn,
+        SteamOrFacebookOrPsn,
+        XboxOrPsn,
+        SteamOrXboxOrPsn,
+        FacebookOrXboxOrPsn,
+        SteamOrFacebookOrXboxOrPsn,
+        All
+    }
+
     public class FacebookInstantGamesPlayFabIdPair
     {
         /// <summary>
@@ -2032,12 +2053,6 @@ namespace PlayFab.ClientModels
     public class GetCharacterLeaderboardRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Optional character type on which to filter the leaderboard entries.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public string CharacterType ;
-
-        /// <summary>
         /// Maximum number of entries to retrieve. Default 10, maximum 100.
         /// </summary>
         public int? MaxResultsCount ;
@@ -2124,13 +2139,20 @@ namespace PlayFab.ClientModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
+        /// Indicates which other platforms' friends should be included in the response.
+        /// </summary>
+        public ExternalFriendSources? ExternalPlatformFriends ;
+
+        /// <summary>
         /// Indicates whether Facebook friends should be included in the response. Default is true.
         /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
         public bool? IncludeFacebookFriends ;
 
         /// <summary>
         /// Indicates whether Steam service friends should be included in the response. Default is true.
         /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
         public bool? IncludeSteamFriends ;
 
         /// <summary>
@@ -2200,13 +2222,20 @@ namespace PlayFab.ClientModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
+        /// Indicates which other platforms' friends should be included in the response.
+        /// </summary>
+        public ExternalFriendSources? ExternalPlatformFriends ;
+
+        /// <summary>
         /// Indicates whether Facebook friends should be included in the response. Default is true.
         /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
         public bool? IncludeFacebookFriends ;
 
         /// <summary>
         /// Indicates whether Steam service friends should be included in the response. Default is true.
         /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
         public bool? IncludeSteamFriends ;
 
         /// <summary>
@@ -2251,13 +2280,20 @@ namespace PlayFab.ClientModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
+        /// Indicates which other platforms' friends should be included in the response.
+        /// </summary>
+        public ExternalFriendSources? ExternalPlatformFriends ;
+
+        /// <summary>
         /// Indicates whether Facebook friends should be included in the response. Default is true.
         /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
         public bool? IncludeFacebookFriends ;
 
         /// <summary>
         /// Indicates whether Steam service friends should be included in the response. Default is true.
         /// </summary>
+        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
         public bool? IncludeSteamFriends ;
 
         /// <summary>
@@ -2295,12 +2331,6 @@ namespace PlayFab.ClientModels
         /// Unique PlayFab assigned ID for a specific character on which to center the leaderboard.
         /// </summary>
         public string CharacterId ;
-
-        /// <summary>
-        /// Optional character type on which to filter the leaderboard entries.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public string CharacterType ;
 
         /// <summary>
         /// Maximum number of entries to retrieve. Default 10, maximum 100.
@@ -2866,7 +2896,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromFacebookIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Facebook identifiers for which the title needs to get PlayFab identifiers.
+        /// Array of unique Facebook identifiers for which the title needs to get PlayFab identifiers. The array cannot exceed 2,000
+        /// in length.
         /// </summary>
         public List<string> FacebookIDs ;
 
@@ -2887,7 +2918,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromFacebookInstantGamesIdsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Facebook Instant Games identifiers for which the title needs to get PlayFab identifiers.
+        /// Array of unique Facebook Instant Games identifiers for which the title needs to get PlayFab identifiers. The array
+        /// cannot exceed 25 in length.
         /// </summary>
         public List<string> FacebookInstantGamesIds ;
 
@@ -2909,6 +2941,7 @@ namespace PlayFab.ClientModels
     {
         /// <summary>
         /// Array of unique Game Center identifiers (the Player Identifier) for which the title needs to get PlayFab identifiers.
+        /// The array cannot exceed 2,000 in length.
         /// </summary>
         public List<string> GameCenterIDs ;
 
@@ -2951,7 +2984,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromGoogleIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Google identifiers (Google+ user IDs) for which the title needs to get PlayFab identifiers.
+        /// Array of unique Google identifiers (Google+ user IDs) for which the title needs to get PlayFab identifiers. The array
+        /// cannot exceed 2,000 in length.
         /// </summary>
         public List<string> GoogleIDs ;
 
@@ -2973,6 +3007,7 @@ namespace PlayFab.ClientModels
     {
         /// <summary>
         /// Array of unique Google Play Games identifiers (Google+ user IDs) for which the title needs to get PlayFab identifiers.
+        /// The array cannot exceed 2,000 in length.
         /// </summary>
         public List<string> GooglePlayGamesPlayerIDs ;
 
@@ -2993,7 +3028,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromKongregateIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Kongregate identifiers (Kongregate's user_id) for which the title needs to get PlayFab identifiers.
+        /// Array of unique Kongregate identifiers (Kongregate's user_id) for which the title needs to get PlayFab identifiers. The
+        /// array cannot exceed 2,000 in length.
         /// </summary>
         public List<string> KongregateIDs ;
 
@@ -3014,7 +3050,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromNintendoServiceAccountIdsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Nintendo Switch Account identifiers for which the title needs to get PlayFab identifiers.
+        /// Array of unique Nintendo Switch Account identifiers for which the title needs to get PlayFab identifiers. The array
+        /// cannot exceed 2,000 in length.
         /// </summary>
         public List<string> NintendoAccountIds ;
 
@@ -3035,7 +3072,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers.
+        /// Array of unique Nintendo Switch Device identifiers for which the title needs to get PlayFab identifiers. The array
+        /// cannot exceed 2,000 in length.
         /// </summary>
         public List<string> NintendoSwitchDeviceIds ;
 
@@ -3061,7 +3099,8 @@ namespace PlayFab.ClientModels
         public int? IssuerId ;
 
         /// <summary>
-        /// Array of unique PlayStation :tm: Network identifiers for which the title needs to get PlayFab identifiers.
+        /// Array of unique PlayStation :tm: Network identifiers for which the title needs to get PlayFab identifiers. The array
+        /// cannot exceed 2,000 in length.
         /// </summary>
         public List<string> PSNAccountIDs ;
 
@@ -3082,7 +3121,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromSteamIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers.
+        /// Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. The array
+        /// cannot exceed 2,000 in length.
         /// </summary>
         public List<string> SteamStringIDs ;
 
@@ -3103,7 +3143,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromTwitchIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Array of unique Twitch identifiers (Twitch's _id) for which the title needs to get PlayFab identifiers.
+        /// Array of unique Twitch identifiers (Twitch's _id) for which the title needs to get PlayFab identifiers. The array cannot
+        /// exceed 2,000 in length.
         /// </summary>
         public List<string> TwitchIds ;
 
@@ -3129,7 +3170,8 @@ namespace PlayFab.ClientModels
         public string Sandbox ;
 
         /// <summary>
-        /// Array of unique Xbox Live account identifiers for which the title needs to get PlayFab identifiers.
+        /// Array of unique Xbox Live account identifiers for which the title needs to get PlayFab identifiers. The array cannot
+        /// exceed 2,000 in length.
         /// </summary>
         public List<string> XboxLiveAccountIDs ;
 
