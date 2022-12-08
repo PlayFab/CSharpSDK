@@ -1922,19 +1922,8 @@ namespace PlayFab.MultiplayerModels
         None,
         Steam,
         Facebook,
-        SteamOrFacebook,
         Xbox,
-        SteamOrXbox,
-        FacebookOrXbox,
-        SteamOrFacebookOrXbox,
         Psn,
-        SteamOrPsn,
-        FacebookOrPsn,
-        SteamOrFacebookOrPsn,
-        XboxOrPsn,
-        SteamOrXboxOrPsn,
-        FacebookOrXboxOrPsn,
-        SteamOrFacebookOrXboxOrPsn,
         All
     }
 
