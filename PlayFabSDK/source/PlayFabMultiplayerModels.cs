@@ -1940,13 +1940,13 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// Controls whether this query should link to friends made on the Facebook network. Defaults to false
         /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
+        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
         public bool? ExcludeFacebookFriends ;
 
         /// <summary>
         /// Controls whether this query should link to friends made on the Steam network. Defaults to false
         /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", false)]
+        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
         public bool? ExcludeSteamFriends ;
 
         /// <summary>
