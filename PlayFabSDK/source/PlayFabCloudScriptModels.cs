@@ -971,12 +971,6 @@ namespace PlayFab.CloudScriptModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public EntityKey Entity ;
-
-        /// <summary>
         /// The result of the function execution.
         /// </summary>
         public ExecuteFunctionResult FunctionResult ;
@@ -999,12 +993,6 @@ namespace PlayFab.CloudScriptModels
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
         public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// The entity to perform this action on.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public EntityKey Entity ;
 
         /// <summary>
         /// The result of the function execution
