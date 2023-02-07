@@ -9,7 +9,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount to add to the current item amount.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// The inventory item the operation applies to.
@@ -31,7 +31,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount to add for the current item.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// The id of the entity's collection to perform this action on. (Default="default")
@@ -1757,7 +1757,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount of the item.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// Game specific properties for display purposes. This is an arbitrary JSON blob.
@@ -1927,7 +1927,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount to purchase.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// Indicates whether stacks reduced to an amount of 0 during the operation should be deleted from the inventory. (Default =
@@ -1966,7 +1966,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount to purchase.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// The id of the entity's collection to perform this action on. (Default="default")
@@ -2818,7 +2818,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount to subtract from the current item amount.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// Indicates whether stacks reduced to an amount of 0 during the request should be deleted from the inventory. (Default =
@@ -2839,9 +2839,9 @@ namespace PlayFab.EconomyModels
     public class SubtractInventoryItemsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// The amount to add for the current item.
+        /// The amount to subtract for the current item.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// The id of the entity's collection to perform this action on. (Default="default")
