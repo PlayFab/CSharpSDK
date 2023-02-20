@@ -3062,7 +3062,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount to transfer.
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// Indicates whether stacks reduced to an amount of 0 during the operation should be deleted from the inventory. (Default =
@@ -3095,7 +3095,7 @@ namespace PlayFab.EconomyModels
         /// <summary>
         /// The amount to transfer .
         /// </summary>
-        public int Amount ;
+        public int? Amount ;
 
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
