@@ -693,6 +693,7 @@ namespace PlayFab.ClientModels
     /// set defined by Includes rules and then remove collections that matches the Excludes rules. A collection is considered
     /// matching a rule if the rule describes a subset of the collection.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class CollectionFilter
     {
         /// <summary>
@@ -927,6 +928,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// A data container
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class Container_Dictionary_String_String
     {
         /// <summary>
@@ -1388,6 +1390,7 @@ namespace PlayFab.ClientModels
         ZWD
     }
 
+    [Obsolete("No longer available", false)]
     public class CurrentGamesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1417,6 +1420,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class CurrentGamesResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1705,6 +1709,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GameInfo
     {
         /// <summary>
@@ -1795,6 +1800,7 @@ namespace PlayFab.ClientModels
         Closed
     }
 
+    [Obsolete("No longer available", false)]
     public class GameServerRegionsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1810,6 +1816,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GameServerRegionsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5345,6 +5352,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class MatchmakeRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5394,6 +5402,7 @@ namespace PlayFab.ClientModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class MatchmakeResult : PlayFabResultCommon
     {
         /// <summary>
@@ -6175,6 +6184,7 @@ namespace PlayFab.ClientModels
         Australia
     }
 
+    [Obsolete("No longer available", false)]
     public class RegionInfo
     {
         /// <summary>

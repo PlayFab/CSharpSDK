@@ -1023,6 +1023,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves the details for a specific completed session, including links to standard out and standard error logs
         /// </summary>
+        [Obsolete("Use 'MultiplayerServer/GetMultiplayerSessionLogsBySessionId' instead", false)]
         public async Task<PlayFabResult<GetMatchmakerGameInfoResult>> GetMatchmakerGameInfoAsync(GetMatchmakerGameInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -1049,6 +1050,7 @@ namespace PlayFab
         /// <summary>
         /// Retrieves the details of defined game modes for the specified game server executable
         /// </summary>
+        [Obsolete("No longer available", false)]
         public async Task<PlayFabResult<GetMatchmakerGameModesResult>> GetMatchmakerGameModesAsync(GetMatchmakerGameModesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -1941,6 +1943,7 @@ namespace PlayFab
         /// <summary>
         /// Updates the build details for the specified game server executable
         /// </summary>
+        [Obsolete("No longer available", false)]
         public async Task<PlayFabResult<ModifyServerBuildResult>> ModifyServerBuildAsync(ModifyServerBuildRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();

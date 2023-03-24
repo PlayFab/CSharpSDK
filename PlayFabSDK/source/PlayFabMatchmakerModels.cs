@@ -9,6 +9,7 @@ namespace PlayFab.MatchmakerModels
     /// order to securely enable match-making. The client passes the user's Session Ticket to the external match-making service,
     /// which then passes the Session Ticket in as the AuthorizationTicket in this call.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class AuthUserRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -18,6 +19,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class AuthUserResponse : PlayFabResultCommon
     {
         /// <summary>
@@ -39,6 +41,7 @@ namespace PlayFab.MatchmakerModels
     /// the User's specific instance has updated the CustomData via a call to UpdateUserInventoryItemCustomData. Other fields
     /// such as UnitPrice and UnitCurrency are only set when the item was granted via a purchase.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class ItemInstance : IComparable<ItemInstance>
     {
         /// <summary>
@@ -127,6 +130,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerJoinedRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -147,10 +151,12 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerJoinedResponse : PlayFabResultCommon
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerLeftRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -171,10 +177,12 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerLeftResponse : PlayFabResultCommon
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class UserInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -195,6 +203,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class UserInfoResponse : PlayFabResultCommon
     {
         /// <summary>
@@ -240,6 +249,7 @@ namespace PlayFab.MatchmakerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class VirtualCurrencyRechargeTime
     {
         /// <summary>

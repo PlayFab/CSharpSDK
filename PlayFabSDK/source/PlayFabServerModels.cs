@@ -1261,6 +1261,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class DeregisterGameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1275,6 +1276,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class DeregisterGameResponse : PlayFabResultCommon
     {
     }
@@ -2263,6 +2265,7 @@ namespace PlayFab.ServerModels
         TelemetryKeyAlreadyExists,
         TelemetryKeyInvalid,
         TelemetryKeyCountOverLimit,
+        TelemetryKeyDeactivated,
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
@@ -4920,6 +4923,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class NotifyMatchmakerPlayerLeftRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4939,6 +4943,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class NotifyMatchmakerPlayerLeftResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5560,6 +5565,7 @@ namespace PlayFab.ServerModels
     /// managed. Since this call will always return the relevant information for users who have accessed the title, the
     /// recommendation is to not store this data locally.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class RedeemMatchmakerTicketRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5579,6 +5585,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class RedeemMatchmakerTicketResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5598,6 +5605,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class RefreshGameServerInstanceHeartbeatRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5607,6 +5615,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class RefreshGameServerInstanceHeartbeatResult : PlayFabResultCommon
     {
     }
@@ -5622,6 +5631,7 @@ namespace PlayFab.ServerModels
         Australia
     }
 
+    [Obsolete("No longer available", false)]
     public class RegisterGameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5678,6 +5688,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class RegisterGameResponse : PlayFabResultCommon
     {
         /// <summary>
@@ -6222,6 +6233,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class SetGameServerInstanceDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6236,10 +6248,12 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class SetGameServerInstanceDataResult : PlayFabResultCommon
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class SetGameServerInstanceStateRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6254,10 +6268,12 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class SetGameServerInstanceStateResult : PlayFabResultCommon
     {
     }
 
+    [Obsolete("No longer available", false)]
     public class SetGameServerInstanceTagsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6273,6 +6289,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class SetGameServerInstanceTagsResult : PlayFabResultCommon
     {
     }
