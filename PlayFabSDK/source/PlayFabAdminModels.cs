@@ -1985,6 +1985,7 @@ namespace PlayFab.AdminModels
         FailedToProcess
     }
 
+    [Obsolete("No longer available", false)]
     public class GameModeInfo
     {
         /// <summary>
@@ -2711,6 +2712,7 @@ namespace PlayFab.AdminModels
         TelemetryKeyAlreadyExists,
         TelemetryKeyInvalid,
         TelemetryKeyCountOverLimit,
+        TelemetryKeyDeactivated,
         EventSinkConnectionInvalid,
         EventSinkConnectionUnauthorized,
         EventSinkRegionInvalid,
@@ -2939,6 +2941,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GetMatchmakerGameInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2948,6 +2951,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GetMatchmakerGameInfoResult : PlayFabResultCommon
     {
         /// <summary>
@@ -3018,6 +3022,7 @@ namespace PlayFab.AdminModels
     /// additional users, and by the PlayFab game server management service to determine when a new Game Server Host should be
     /// created in order to prevent excess load on existing Hosts.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class GetMatchmakerGameModesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3027,6 +3032,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GetMatchmakerGameModesResult : PlayFabResultCommon
     {
         /// <summary>
@@ -4389,6 +4395,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class ModifyServerBuildRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4439,6 +4446,7 @@ namespace PlayFab.AdminModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class ModifyServerBuildResult : PlayFabResultCommon
     {
         /// <summary>

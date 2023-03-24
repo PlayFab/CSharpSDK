@@ -692,9 +692,10 @@ namespace PlayFab.MultiplayerModels
         public ServerResourceConstraintParams ServerResourceConstraints ;
 
         /// <summary>
-        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
-        /// disc.
+        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
+        /// written first to disc.
         /// </summary>
+        [Obsolete("Use '' instead", false)]
         public bool? UseStreamingForAssetDownloads ;
 
         /// <summary>
@@ -904,9 +905,10 @@ namespace PlayFab.MultiplayerModels
         public string StartMultiplayerServerCommand ;
 
         /// <summary>
-        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
-        /// disc.
+        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
+        /// written first to disc.
         /// </summary>
+        [Obsolete("Use '' instead", false)]
         public bool? UseStreamingForAssetDownloads ;
 
         /// <summary>
@@ -1125,9 +1127,10 @@ namespace PlayFab.MultiplayerModels
         public string StartMultiplayerServerCommand ;
 
         /// <summary>
-        /// When true, assets will be downloaded and uncompressed in memory, without the compressedversion being written first to
-        /// disc.
+        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
+        /// written first to disc.
         /// </summary>
+        [Obsolete("Use '' instead", false)]
         public bool? UseStreamingForAssetDownloads ;
 
         /// <summary>
@@ -2478,7 +2481,8 @@ namespace PlayFab.MultiplayerModels
     public class GetMatchmakingTicketResult : PlayFabResultCommon
     {
         /// <summary>
-        /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state.
+        /// The reason why the current ticket was canceled. This field is only set if the ticket is in canceled state. Please retry
+        /// if CancellationReason is RetryRequired.
         /// </summary>
         public string CancellationReasonString ;
 
