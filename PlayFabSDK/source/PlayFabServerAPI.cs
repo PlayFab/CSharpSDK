@@ -2117,6 +2117,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Links the Steam account associated with the provided Steam ID to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkSteamIdResult>> LinkSteamIdAsync(LinkSteamIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LinkSteamId", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkSteamIdResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkSteamIdResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkSteamIdResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
         /// </summary>
         public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(LinkXboxAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -3270,6 +3297,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UnlinkServerCustomIdResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlinks the Steam account associated with the provided Steam ID to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkSteamIdResult>> UnlinkSteamIdAsync(UnlinkSteamIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkSteamId", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkSteamIdResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkSteamIdResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkSteamIdResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
