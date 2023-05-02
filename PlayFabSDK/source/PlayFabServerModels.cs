@@ -1261,7 +1261,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class DeregisterGameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1276,7 +1276,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class DeregisterGameResponse : PlayFabResultCommon
     {
     }
@@ -2281,7 +2281,17 @@ namespace PlayFab.ServerModels
         EventSinkDatabaseNotFound,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
-        AllowNonUniquePlayerDisplayNamesDisableNotAllowed
+        AllowNonUniquePlayerDisplayNamesDisableNotAllowed,
+        PartitionedEventInvalid,
+        PartitionedEventCountOverLimit,
+        PlayerCustomPropertiesPropertyNameTooLong,
+        PlayerCustomPropertiesPropertyNameIsInvalid,
+        PlayerCustomPropertiesStringPropertyValueTooLong,
+        PlayerCustomPropertiesValueIsInvalidType,
+        PlayerCustomPropertiesVersionMismatch,
+        PlayerCustomPropertiesPropertyCountTooHigh,
+        PlayerCustomPropertiesDuplicatePropertyName,
+        PlayerCustomPropertiesPropertyDoesNotExist
     }
 
     public class GenericPlayFabIdPair
@@ -2572,18 +2582,6 @@ namespace PlayFab.ServerModels
         public ExternalFriendSources? ExternalPlatformFriends ;
 
         /// <summary>
-        /// Indicates whether Facebook friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeFacebookFriends ;
-
-        /// <summary>
-        /// Indicates whether Steam service friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeSteamFriends ;
-
-        /// <summary>
         /// Maximum number of entries to retrieve.
         /// </summary>
         public int MaxResultsCount ;
@@ -2634,18 +2632,6 @@ namespace PlayFab.ServerModels
         /// comma-separated list of platforms.
         /// </summary>
         public ExternalFriendSources? ExternalPlatformFriends ;
-
-        /// <summary>
-        /// Indicates whether Facebook friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeFacebookFriends ;
-
-        /// <summary>
-        /// Indicates whether Steam service friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeSteamFriends ;
 
         /// <summary>
         /// PlayFab identifier of the player whose friend list to get.
@@ -4952,7 +4938,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class NotifyMatchmakerPlayerLeftRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4972,7 +4958,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class NotifyMatchmakerPlayerLeftResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5594,7 +5580,7 @@ namespace PlayFab.ServerModels
     /// managed. Since this call will always return the relevant information for users who have accessed the title, the
     /// recommendation is to not store this data locally.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RedeemMatchmakerTicketRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5614,7 +5600,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RedeemMatchmakerTicketResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5634,7 +5620,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RefreshGameServerInstanceHeartbeatRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5644,7 +5630,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RefreshGameServerInstanceHeartbeatResult : PlayFabResultCommon
     {
     }
@@ -5660,7 +5646,7 @@ namespace PlayFab.ServerModels
         Australia
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RegisterGameRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5717,7 +5703,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RegisterGameResponse : PlayFabResultCommon
     {
         /// <summary>
@@ -6262,7 +6248,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class SetGameServerInstanceDataRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6277,12 +6263,12 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class SetGameServerInstanceDataResult : PlayFabResultCommon
     {
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class SetGameServerInstanceStateRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6297,12 +6283,12 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class SetGameServerInstanceStateResult : PlayFabResultCommon
     {
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class SetGameServerInstanceTagsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6318,7 +6304,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class SetGameServerInstanceTagsResult : PlayFabResultCommon
     {
     }

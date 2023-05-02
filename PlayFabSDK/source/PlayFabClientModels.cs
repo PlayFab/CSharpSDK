@@ -693,7 +693,7 @@ namespace PlayFab.ClientModels
     /// set defined by Includes rules and then remove collections that matches the Excludes rules. A collection is considered
     /// matching a rule if the rule describes a subset of the collection.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class CollectionFilter
     {
         /// <summary>
@@ -928,7 +928,7 @@ namespace PlayFab.ClientModels
     /// <summary>
     /// A data container
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class Container_Dictionary_String_String
     {
         /// <summary>
@@ -1390,7 +1390,7 @@ namespace PlayFab.ClientModels
         ZWD
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class CurrentGamesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1420,7 +1420,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class CurrentGamesResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1709,7 +1709,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GameInfo
     {
         /// <summary>
@@ -1800,7 +1800,7 @@ namespace PlayFab.ClientModels
         Closed
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GameServerRegionsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1816,7 +1816,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GameServerRegionsResult : PlayFabResultCommon
     {
         /// <summary>
@@ -2141,18 +2141,6 @@ namespace PlayFab.ClientModels
         public ExternalFriendSources? ExternalPlatformFriends ;
 
         /// <summary>
-        /// Indicates whether Facebook friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeFacebookFriends ;
-
-        /// <summary>
-        /// Indicates whether Steam service friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeSteamFriends ;
-
-        /// <summary>
         /// Maximum number of entries to retrieve. Default 10, maximum 100.
         /// </summary>
         public int? MaxResultsCount ;
@@ -2225,18 +2213,6 @@ namespace PlayFab.ClientModels
         public ExternalFriendSources? ExternalPlatformFriends ;
 
         /// <summary>
-        /// Indicates whether Facebook friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeFacebookFriends ;
-
-        /// <summary>
-        /// Indicates whether Steam service friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeSteamFriends ;
-
-        /// <summary>
         /// Maximum number of entries to retrieve. Default 10, maximum 100.
         /// </summary>
         public int? MaxResultsCount ;
@@ -2282,18 +2258,6 @@ namespace PlayFab.ClientModels
         /// comma-separated list of platforms.
         /// </summary>
         public ExternalFriendSources? ExternalPlatformFriends ;
-
-        /// <summary>
-        /// Indicates whether Facebook friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeFacebookFriends ;
-
-        /// <summary>
-        /// Indicates whether Steam service friends should be included in the response. Default is true.
-        /// </summary>
-        [Obsolete("Use 'ExternalPlatformFriends' instead", true)]
-        public bool? IncludeSteamFriends ;
 
         /// <summary>
         /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
@@ -5352,7 +5316,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class MatchmakeRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5402,7 +5366,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class MatchmakeResult : PlayFabResultCommon
     {
         /// <summary>
@@ -6184,7 +6148,7 @@ namespace PlayFab.ClientModels
         Australia
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class RegionInfo
     {
         /// <summary>

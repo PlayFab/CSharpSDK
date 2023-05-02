@@ -817,7 +817,7 @@ namespace PlayFab
         /// <summary>
         /// Get details about all current running game servers matching the given parameters.
         /// </summary>
-        [Obsolete("Use 'MultiplayerServer/ListMultiplayerServers' instead", false)]
+        [Obsolete("Use 'MultiplayerServer/ListMultiplayerServers' instead", true)]
         public static async Task<PlayFabResult<CurrentGamesResult>> GetCurrentGamesAsync(CurrentGamesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -929,7 +929,7 @@ namespace PlayFab
         /// <summary>
         /// Get details about the regions hosting game servers matching the given parameters.
         /// </summary>
-        [Obsolete("Use 'MultiplayerServer/ListMultiplayerServers' instead", false)]
+        [Obsolete("Use 'MultiplayerServer/ListMultiplayerServers' instead", true)]
         public static async Task<PlayFabResult<GameServerRegionsResult>> GetGameServerRegionsAsync(GameServerRegionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -3143,7 +3143,7 @@ namespace PlayFab
         /// availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be
         /// GameNotFound.
         /// </summary>
-        [Obsolete("Use 'Match/CreateMatchmakingTicket' instead", false)]
+        [Obsolete("Use 'Match/CreateMatchmakingTicket' instead", true)]
         public static async Task<PlayFabResult<MatchmakeResult>> MatchmakeAsync(MatchmakeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
