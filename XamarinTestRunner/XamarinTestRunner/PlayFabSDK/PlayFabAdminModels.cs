@@ -1985,7 +1985,7 @@ namespace PlayFab.AdminModels
         FailedToProcess
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GameModeInfo
     {
         /// <summary>
@@ -2728,7 +2728,17 @@ namespace PlayFab.AdminModels
         EventSinkDatabaseNotFound,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
-        AllowNonUniquePlayerDisplayNamesDisableNotAllowed
+        AllowNonUniquePlayerDisplayNamesDisableNotAllowed,
+        PartitionedEventInvalid,
+        PartitionedEventCountOverLimit,
+        PlayerCustomPropertiesPropertyNameTooLong,
+        PlayerCustomPropertiesPropertyNameIsInvalid,
+        PlayerCustomPropertiesStringPropertyValueTooLong,
+        PlayerCustomPropertiesValueIsInvalidType,
+        PlayerCustomPropertiesVersionMismatch,
+        PlayerCustomPropertiesPropertyCountTooHigh,
+        PlayerCustomPropertiesDuplicatePropertyName,
+        PlayerCustomPropertiesPropertyDoesNotExist
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -2942,7 +2952,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetMatchmakerGameInfoRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2952,7 +2962,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetMatchmakerGameInfoResult : PlayFabResultCommon
     {
         /// <summary>
@@ -3023,7 +3033,7 @@ namespace PlayFab.AdminModels
     /// additional users, and by the PlayFab game server management service to determine when a new Game Server Host should be
     /// created in order to prevent excess load on existing Hosts.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetMatchmakerGameModesRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3033,7 +3043,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetMatchmakerGameModesResult : PlayFabResultCommon
     {
         /// <summary>
@@ -4396,7 +4406,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class ModifyServerBuildRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4447,7 +4457,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class ModifyServerBuildResult : PlayFabResultCommon
     {
         /// <summary>
