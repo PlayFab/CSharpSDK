@@ -109,6 +109,7 @@ namespace PlayFab.MultiplayerModels
         Fsv2,
         Dasv4,
         Dav4,
+        Dadsv5,
         Eav4,
         Easv4,
         Ev4,
@@ -157,6 +158,10 @@ namespace PlayFab.MultiplayerModels
         Standard_D4a_v4,
         Standard_D8a_v4,
         Standard_D16a_v4,
+        Standard_D2ads_v5,
+        Standard_D4ads_v5,
+        Standard_D8ads_v5,
+        Standard_D16ads_v5,
         Standard_E2a_v4,
         Standard_E4a_v4,
         Standard_E8a_v4,
@@ -2633,7 +2638,7 @@ namespace PlayFab.MultiplayerModels
         public string FQDN ;
 
         /// <summary>
-        /// The IPv4 address of the virtual machine that is hosting this multiplayer server.
+        /// The public IPv4 address of the virtual machine that is hosting this multiplayer server.
         /// </summary>
         public string IPV4Address ;
 
@@ -2646,6 +2651,11 @@ namespace PlayFab.MultiplayerModels
         /// The ports the multiplayer server uses.
         /// </summary>
         public List<Port> Ports ;
+
+        /// <summary>
+        /// The list of public Ipv4 addresses associated with the server.
+        /// </summary>
+        public List<PublicIpAddress> PublicIPV4Addresses ;
 
         /// <summary>
         /// The region the multiplayer server is located in.
@@ -4285,6 +4295,25 @@ namespace PlayFab.MultiplayerModels
         UDP
     }
 
+    public class PublicIpAddress
+    {
+        /// <summary>
+        /// FQDN of the public IP
+        /// </summary>
+        public string FQDN ;
+
+        /// <summary>
+        /// Server IP Address
+        /// </summary>
+        public string IpAddress ;
+
+        /// <summary>
+        /// Routing Type of the public IP.
+        /// </summary>
+        public string RoutingType ;
+
+    }
+
     public class QosServer
     {
         /// <summary>
@@ -4506,7 +4535,7 @@ namespace PlayFab.MultiplayerModels
         public string FQDN ;
 
         /// <summary>
-        /// The IPv4 address of the virtual machine that is hosting this multiplayer server.
+        /// The public IPv4 address of the virtual machine that is hosting this multiplayer server.
         /// </summary>
         public string IPV4Address ;
 
@@ -4519,6 +4548,11 @@ namespace PlayFab.MultiplayerModels
         /// The ports the multiplayer server uses.
         /// </summary>
         public List<Port> Ports ;
+
+        /// <summary>
+        /// The list of public Ipv4 addresses associated with the server.
+        /// </summary>
+        public List<PublicIpAddress> PublicIPV4Addresses ;
 
         /// <summary>
         /// The region the multiplayer server is located in.
@@ -4577,6 +4611,12 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string Username ;
 
+    }
+
+    public enum RoutingType
+    {
+        Microsoft,
+        Internet
     }
 
     public class Schedule
