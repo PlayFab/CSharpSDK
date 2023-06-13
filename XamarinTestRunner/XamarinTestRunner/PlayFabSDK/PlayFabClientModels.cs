@@ -4179,6 +4179,12 @@ namespace PlayFab.ClientModels
         /// </summary>
         public string SteamTicket ;
 
+        /// <summary>
+        /// True if ticket was generated using ISteamUser::GetAuthTicketForWebAPI() using "AzurePlayFab" as the identity string.
+        /// False if the ticket was generated with ISteamUser::GetAuthSessionTicket().
+        /// </summary>
+        public bool? TicketIsServiceSpecific ;
+
     }
 
     public class LinkSteamAccountResult : PlayFabResultCommon
@@ -5196,6 +5202,12 @@ namespace PlayFab.ClientModels
         /// 0x08 should become "08").
         /// </summary>
         public string SteamTicket ;
+
+        /// <summary>
+        /// True if ticket was generated using ISteamUser::GetAuthTicketForWebAPI() using "AzurePlayFab" as the identity string.
+        /// False if the ticket was generated with ISteamUser::GetAuthSessionTicket().
+        /// </summary>
+        public bool? TicketIsServiceSpecific ;
 
         /// <summary>
         /// Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a

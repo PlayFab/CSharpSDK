@@ -77,7 +77,7 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<WriteEventsResponse> { Result = result, CustomData = customData };
-        }
+        } 
 
         /// <summary>
         /// Write batches of entity based events to as Telemetry events (bypass PlayStream). The namespace must be 'custom' or start
@@ -104,8 +104,31 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<WriteEventsResponse> { Result = result, CustomData = customData };
-        }
+        } 
 
-}
+        /// <summary>
+        /// Write batches of entity based events to as Telemetry events (bypass PlayStream) using a Telemetry Key. The namespace must be 'custom' or start
+        /// with 'custom.'
+        /// </summary>
+        public async Task<PlayFabResult<WriteEventsResponse>> WriteTelemetryEventsAsync(WriteEventsRequest request, string telemetryKey, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            var httpResult = await PlayFabHttp.DoPost("/Event/WriteTelemetryEvents", request, "X-TelemetryKey", telemetryKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<WriteEventsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<WriteEventsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<WriteEventsResponse> { Result = result, CustomData = customData };
+        } 
+    }
 }
 #endif
