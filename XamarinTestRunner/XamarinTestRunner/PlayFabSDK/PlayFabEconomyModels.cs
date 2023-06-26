@@ -330,7 +330,8 @@ namespace PlayFab.EconomyModels
         public Dictionary<string,string> Title ;
 
         /// <summary>
-        /// The high-level type of the item. The following item types are supported: bundle, catalogItem, currency, store, ugc.
+        /// The high-level type of the item. The following item types are supported: bundle, catalogItem, currency, store, ugc,
+        /// subscription.
         /// </summary>
         public string Type ;
 
@@ -2755,6 +2756,11 @@ namespace PlayFab.EconomyModels
         /// can be found here: https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/search#limits
         /// </summary>
         public string Filter ;
+
+        /// <summary>
+        /// The locale to be returned in the result.
+        /// </summary>
+        public string Language ;
 
         /// <summary>
         /// An OData orderBy used to order the results of the search query. For example: "rating/average asc"

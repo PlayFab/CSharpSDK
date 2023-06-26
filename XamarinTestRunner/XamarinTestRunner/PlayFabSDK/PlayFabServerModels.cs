@@ -2293,7 +2293,9 @@ namespace PlayFab.ServerModels
         PlayerCustomPropertiesVersionMismatch,
         PlayerCustomPropertiesPropertyCountTooHigh,
         PlayerCustomPropertiesDuplicatePropertyName,
-        PlayerCustomPropertiesPropertyDoesNotExist
+        PlayerCustomPropertiesPropertyDoesNotExist,
+        AddonAlreadyExists,
+        AddonDoesntExist
     }
 
     public class GenericPlayFabIdPair
