@@ -741,7 +741,9 @@ namespace PlayFab
         PlayerCustomPropertiesVersionMismatch = 19004,
         PlayerCustomPropertiesPropertyCountTooHigh = 19005,
         PlayerCustomPropertiesDuplicatePropertyName = 19006,
-        PlayerCustomPropertiesPropertyDoesNotExist = 19007
+        PlayerCustomPropertiesPropertyDoesNotExist = 19007,
+        AddonAlreadyExists = 19008,
+        AddonDoesntExist = 19009
     }
 
     public class PlayFabError
