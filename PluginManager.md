@@ -62,6 +62,12 @@ Then use PluginManager class to set custom plugins before using any other PlayFa
     {
         PlayFabSettings.TitleId = "144"; // Please change this value to your own titleId from PlayFab Game Manager
 
+        // We recommend using the Polly wrapped transport client as this
+        // will help your services follow better fault tolerance practices 
+        // and proper retrying logic against the PlayFab services. For more
+        // information, see the PlayFabPollyHttp class summary.
+        PluginManager.SetPlugin(new PlayFabPollyHttp(), PluginContract.PlayFab_Transport, "PluginWithPolly");
+
         // Optionally set your own custom JSON serializer
         PluginManager.SetPlugin(new MyJsonSerializer(), PluginContract.PlayFab_Serializer);
 
