@@ -4,6 +4,62 @@ using System.Collections.Generic;
 
 namespace PlayFab.EventsModels
 {
+    public class CreateTelemetryKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The name of the new key. Telemetry key names must be unique within the scope of the title.
+        /// </summary>
+        public string KeyName ;
+
+    }
+
+    public class CreateTelemetryKeyResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Details about the newly created telemetry key.
+        /// </summary>
+        public TelemetryKeyDetails NewKeyDetails ;
+
+    }
+
+    public class DeleteTelemetryKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The name of the key to delete.
+        /// </summary>
+        public string KeyName ;
+
+    }
+
+    public class DeleteTelemetryKeyResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Indicates whether or not the key was deleted. If false, no key with that name existed.
+        /// </summary>
+        public bool WasKeyDeleted ;
+
+    }
+
     /// <summary>
     /// Combined entity type and ID structure which uniquely identifies a single entity.
     /// </summary>
@@ -67,6 +123,124 @@ namespace PlayFab.EventsModels
         /// allowed.
         /// </summary>
         public string PayloadJSON ;
+
+    }
+
+    public class GetTelemetryKeyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The name of the key to retrieve.
+        /// </summary>
+        public string KeyName ;
+
+    }
+
+    public class GetTelemetryKeyResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Details about the requested telemetry key.
+        /// </summary>
+        public TelemetryKeyDetails KeyDetails ;
+
+    }
+
+    public class ListTelemetryKeysRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
+        /// </summary>
+        public EntityKey Entity ;
+
+    }
+
+    public class ListTelemetryKeysResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The telemetry keys configured for the title.
+        /// </summary>
+        public List<TelemetryKeyDetails> KeyDetails ;
+
+    }
+
+    public class SetTelemetryKeyActiveRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Whether to set the key to active (true) or deactivated (false).
+        /// </summary>
+        public bool Active ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The name of the key to update.
+        /// </summary>
+        public string KeyName ;
+
+    }
+
+    public class SetTelemetryKeyActiveResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The most current details about the telemetry key that was to be updated.
+        /// </summary>
+        public TelemetryKeyDetails KeyDetails ;
+
+        /// <summary>
+        /// Indicates whether or not the key was updated. If false, the key was already in the desired state.
+        /// </summary>
+        public bool WasKeyUpdated ;
+
+    }
+
+    public class TelemetryKeyDetails
+    {
+        /// <summary>
+        /// When the key was created.
+        /// </summary>
+        public DateTime CreateTime ;
+
+        /// <summary>
+        /// Whether or not the key is currently active. Deactivated keys cannot be used for telemetry ingestion.
+        /// </summary>
+        public bool IsActive ;
+
+        /// <summary>
+        /// The key that can be distributed to clients for use during telemetry ingestion.
+        /// </summary>
+        public string KeyValue ;
+
+        /// <summary>
+        /// When the key was last updated.
+        /// </summary>
+        public DateTime LastUpdateTime ;
+
+        /// <summary>
+        /// The name of the key. Telemetry key names are unique within the scope of the title.
+        /// </summary>
+        public string Name ;
 
     }
 
