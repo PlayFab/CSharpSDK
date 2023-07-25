@@ -697,13 +697,6 @@ namespace PlayFab.MultiplayerModels
         public ServerResourceConstraintParams ServerResourceConstraints ;
 
         /// <summary>
-        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-        /// written first to disc.
-        /// </summary>
-        [Obsolete("Use '' instead", true)]
-        public bool? UseStreamingForAssetDownloads ;
-
-        /// <summary>
         /// The VM size to create the build on.
         /// </summary>
         public AzureVmSize? VmSize ;
@@ -908,13 +901,6 @@ namespace PlayFab.MultiplayerModels
         /// The command to run when the multiplayer server is started, including any arguments.
         /// </summary>
         public string StartMultiplayerServerCommand ;
-
-        /// <summary>
-        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-        /// written first to disc.
-        /// </summary>
-        [Obsolete("Use '' instead", true)]
-        public bool? UseStreamingForAssetDownloads ;
 
         /// <summary>
         /// The VM size to create the build on.
@@ -1130,13 +1116,6 @@ namespace PlayFab.MultiplayerModels
         /// relative to the root asset folder when unzipped.
         /// </summary>
         public string StartMultiplayerServerCommand ;
-
-        /// <summary>
-        /// DEPRECATED - this is always true. Assets are downloaded and uncompressed in memory, without the compressedversion being
-        /// written first to disc.
-        /// </summary>
-        [Obsolete("Use '' instead", true)]
-        public bool? UseStreamingForAssetDownloads ;
 
         /// <summary>
         /// The VM size to create the build on.

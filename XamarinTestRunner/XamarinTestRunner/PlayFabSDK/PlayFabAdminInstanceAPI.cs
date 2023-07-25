@@ -152,7 +152,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Increments the specified virtual currency by the stated amount
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Increments the specified virtual currency by the stated amount
         /// </summary>
         public async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> AddUserVirtualCurrencyAsync(AddUserVirtualCurrencyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -178,8 +179,9 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of
-        /// 2,147,483,647 when granted to a player. Any value over that will be discarded.
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum
+        /// value of 2,147,483,647 when granted to a player. Any value over that will be discarded.
         /// </summary>
         public async Task<PlayFabResult<BlankResult>> AddVirtualCurrencyTypesAsync(AddVirtualCurrencyTypesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -231,7 +233,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Checks the global count for the limited edition item.
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Checks the global count for the limited edition item.
         /// </summary>
         public async Task<PlayFabResult<CheckLimitedEditionItemAvailabilityResult>> CheckLimitedEditionItemAvailabilityAsync(CheckLimitedEditionItemAvailabilityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -625,7 +628,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Deletes an existing virtual item store
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Deletes an existing virtual item store
         /// </summary>
         public async Task<PlayFabResult<DeleteStoreResult>> DeleteStoreAsync(DeleteStoreRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -836,7 +840,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Retrieves the specified version of the title's catalog of virtual goods, including all defined properties
         /// </summary>
         public async Task<PlayFabResult<GetCatalogItemsResult>> GetCatalogItemsAsync(GetCatalogItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1366,7 +1371,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the random drop table configuration for the title
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Retrieves the random drop table configuration for the title
         /// </summary>
         public async Task<PlayFabResult<GetRandomResultTablesResult>> GetRandomResultTablesAsync(GetRandomResultTablesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1447,7 +1453,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the set of items defined for the specified store, including all prices defined
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Retrieves the set of items defined for the specified store, including all prices defined
         /// </summary>
         public async Task<PlayFabResult<GetStoreItemsResult>> GetStoreItemsAsync(GetStoreItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1681,7 +1688,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the specified user's current inventory of virtual goods
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Retrieves the specified user's current inventory of virtual goods
         /// </summary>
         public async Task<PlayFabResult<GetUserInventoryResult>> GetUserInventoryAsync(GetUserInventoryRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1811,7 +1819,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Adds the specified items to the specified user inventories
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Adds the specified items to the specified user inventories
         /// </summary>
         public async Task<PlayFabResult<GrantItemsToUsersResult>> GrantItemsToUsersAsync(GrantItemsToUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1837,7 +1846,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Increases the global count for the given scarce resource.
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Increases the global count for the given scarce resource.
         /// </summary>
         public async Task<PlayFabResult<IncrementLimitedEditionItemAvailabilityResult>> IncrementLimitedEditionItemAvailabilityAsync(IncrementLimitedEditionItemAvailabilityRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1915,7 +1925,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retuns the list of all defined virtual currencies for the title
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Retuns the list of all defined virtual currencies for the title
         /// </summary>
         public async Task<PlayFabResult<ListVirtualCurrencyTypesResult>> ListVirtualCurrencyTypesAsync(ListVirtualCurrencyTypesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1968,7 +1979,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Attempts to process an order refund through the original real money payment provider.
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Attempts to process an order refund through the original real money payment provider.
         /// </summary>
         public async Task<PlayFabResult<RefundPurchaseResponse>> RefundPurchaseAsync(RefundPurchaseRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2020,7 +2032,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Removes one or more virtual currencies from the set defined for the title.
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Removes one or more virtual currencies from the set defined for the title.
         /// </summary>
         public async Task<PlayFabResult<BlankResult>> RemoveVirtualCurrencyTypesAsync(RemoveVirtualCurrencyTypesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2124,7 +2137,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Attempts to resolve a dispute with the original order's payment provider.
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Attempts to resolve a dispute with the original order's payment provider.
         /// </summary>
         public async Task<PlayFabResult<ResolvePurchaseDisputeResponse>> ResolvePurchaseDisputeAsync(ResolvePurchaseDisputeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2202,7 +2216,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Revokes access to an item in a user's inventory
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Revokes access to an item in a user's inventory
         /// </summary>
         public async Task<PlayFabResult<RevokeInventoryResult>> RevokeInventoryItemAsync(RevokeInventoryItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2228,7 +2243,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Revokes access for up to 25 items across multiple users and characters.
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Revokes access for up to 25 items across multiple users and characters.
         /// </summary>
         public async Task<PlayFabResult<RevokeInventoryItemsResult>> RevokeInventoryItemsAsync(RevokeInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2308,7 +2324,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Creates the catalog configuration of all virtual goods for the specified catalog version
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Creates the catalog configuration of all virtual goods for the specified catalog version
         /// </summary>
         public async Task<PlayFabResult<UpdateCatalogItemsResult>> SetCatalogItemsAsync(UpdateCatalogItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2438,7 +2455,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Sets all the items in one virtual store
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Sets all the items in one virtual store
         /// </summary>
         public async Task<PlayFabResult<UpdateStoreItemsResult>> SetStoreItemsAsync(UpdateStoreItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2574,7 +2592,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Decrements the specified virtual currency by the stated amount
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Decrements the specified virtual currency by the stated amount
         /// </summary>
         public async Task<PlayFabResult<ModifyUserVirtualCurrencyResult>> SubtractUserVirtualCurrencyAsync(SubtractUserVirtualCurrencyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2626,7 +2645,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates the catalog configuration for virtual goods in the specified catalog version
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Updates the catalog configuration for virtual goods in the specified catalog version
         /// </summary>
         public async Task<PlayFabResult<UpdateCatalogItemsResult>> UpdateCatalogItemsAsync(UpdateCatalogItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2784,7 +2804,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates the random drop table configuration for the title
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Updates the random drop table configuration for the title
         /// </summary>
         public async Task<PlayFabResult<UpdateRandomResultTablesResult>> UpdateRandomResultTablesAsync(UpdateRandomResultTablesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -2836,7 +2857,8 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Updates an existing virtual item store with new or modified items
+        /// _NOTE: This is a Legacy Economy API, and is in bugfix-only mode. All new Economy features are being developed only for
+        /// version 2._ Updates an existing virtual item store with new or modified items
         /// </summary>
         public async Task<PlayFabResult<UpdateStoreItemsResult>> UpdateStoreItemsAsync(UpdateStoreItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
