@@ -3255,7 +3255,7 @@ namespace PlayFab
 
         /// <summary>
         /// Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which
-        /// require an authenticated user. You must supply either a username or an email address.
+        /// require an authenticated user. You must supply a username and an email address.
         /// </summary>
         public async Task<PlayFabResult<RegisterPlayFabUserResult>> RegisterPlayFabUserAsync(RegisterPlayFabUserRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
