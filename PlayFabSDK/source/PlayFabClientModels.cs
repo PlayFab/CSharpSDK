@@ -946,7 +946,8 @@ namespace PlayFab.ClientModels
         EU,
         NA,
         OC,
-        SA
+        SA,
+        Unknown
     }
 
     public enum CountryCode
@@ -1199,7 +1200,8 @@ namespace PlayFab.ClientModels
         EH,
         YE,
         ZM,
-        ZW
+        ZW,
+        Unknown
     }
 
     /// <summary>
@@ -7766,6 +7768,11 @@ namespace PlayFab.ClientModels
         public UserPsnInfo PsnInfo ;
 
         /// <summary>
+        /// Server Custom ID information, if a server custom ID has been assigned
+        /// </summary>
+        public UserServerCustomIdInfo ServerCustomIdInfo ;
+
+        /// <summary>
         /// User Steam information, if a Steam account has been linked
         /// </summary>
         public UserSteamInfo SteamInfo ;
@@ -8037,6 +8044,15 @@ namespace PlayFab.ClientModels
         /// PlayStation :tm: Network online ID
         /// </summary>
         public string PsnOnlineId ;
+
+    }
+
+    public class UserServerCustomIdInfo
+    {
+        /// <summary>
+        /// Custom ID
+        /// </summary>
+        public string CustomId ;
 
     }
 
