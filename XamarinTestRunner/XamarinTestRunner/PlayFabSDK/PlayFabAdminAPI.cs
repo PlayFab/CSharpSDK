@@ -493,6 +493,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes PlayStream and telemetry event data associated with the master player account from PlayFab storage
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteMasterPlayerEventDataResult>> DeleteMasterPlayerEventDataAsync(DeleteMasterPlayerEventDataRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/DeleteMasterPlayerEventData", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteMasterPlayerEventDataResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteMasterPlayerEventDataResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteMasterPlayerEventDataResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Deletes a player's subscription
         /// </summary>
         public static async Task<PlayFabResult<DeleteMembershipSubscriptionResult>> DeleteMembershipSubscriptionAsync(DeleteMembershipSubscriptionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
