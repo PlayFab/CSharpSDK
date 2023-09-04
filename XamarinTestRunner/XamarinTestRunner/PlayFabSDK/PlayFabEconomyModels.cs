@@ -2132,6 +2132,10 @@ namespace PlayFab.EconomyModels
     {
     }
 
+    public class PurchaseOverridesInfo
+    {
+    }
+
     public class PurchasePriceAmount
     {
         /// <summary>
@@ -3290,6 +3294,12 @@ namespace PlayFab.EconomyModels
         /// The idempotency id for the request.
         /// </summary>
         public string IdempotencyId ;
+
+        /// <summary>
+        /// The transfer operation status. Possible values are 'InProgress' or 'Completed'. If the operation has completed, the
+        /// response code will be 200. Otherwise, it will be 202.
+        /// </summary>
+        public string OperationStatus ;
 
         /// <summary>
         /// The ids of transactions that occurred as a result of the request's receiving action.
