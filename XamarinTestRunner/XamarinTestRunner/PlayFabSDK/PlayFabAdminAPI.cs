@@ -1069,62 +1069,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Retrieves the details for a specific completed session, including links to standard out and standard error logs
-        /// </summary>
-        [Obsolete("Use 'MultiplayerServer/GetMultiplayerSessionLogsBySessionId' instead", true)]
-        public static async Task<PlayFabResult<GetMatchmakerGameInfoResult>> GetMatchmakerGameInfoAsync(GetMatchmakerGameInfoRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Admin/GetMatchmakerGameInfo", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetMatchmakerGameInfoResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetMatchmakerGameInfoResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetMatchmakerGameInfoResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Retrieves the details of defined game modes for the specified game server executable
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public static async Task<PlayFabResult<GetMatchmakerGameModesResult>> GetMatchmakerGameModesAsync(GetMatchmakerGameModesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Admin/GetMatchmakerGameModes", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetMatchmakerGameModesResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetMatchmakerGameModesResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetMatchmakerGameModesResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Get the list of titles that the player has played
         /// </summary>
         public static async Task<PlayFabResult<GetPlayedTitleListResult>> GetPlayedTitleListAsync(GetPlayedTitleListRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2027,34 +1971,6 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ListVirtualCurrencyTypesResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Updates the build details for the specified game server executable
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public static async Task<PlayFabResult<ModifyServerBuildResult>> ModifyServerBuildAsync(ModifyServerBuildRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Admin/ModifyServerBuild", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<ModifyServerBuildResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ModifyServerBuildResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<ModifyServerBuildResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

@@ -1263,26 +1263,6 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class DeregisterGameRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// Unique identifier for the Game Server Instance that is being deregistered.
-        /// </summary>
-        public string LobbyId ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class DeregisterGameResponse : PlayFabResultCommon
-    {
-    }
-
     public enum EmailVerificationStatus
     {
         Unverified,
@@ -1557,12 +1537,6 @@ namespace PlayFab.ServerModels
         /// </summary>
         public UserXboxInfo XboxInfo ;
 
-    }
-
-    public enum GameInstanceState
-    {
-        Open,
-        Closed
     }
 
     public enum GenericErrorCodes
@@ -4338,6 +4312,30 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class LinkNintendoServiceAccountSubjectRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// If another user is already linked to a specific Nintendo Service Account, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink ;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId ;
+
+        /// <summary>
+        /// The Nintendo Service Account subject or id to link to the PlayFab user.
+        /// </summary>
+        public string Subject ;
+
+    }
+
     public class LinkNintendoSwitchDeviceIdRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4983,44 +4981,6 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class NotifyMatchmakerPlayerLeftRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// Unique identifier of the Game Instance the user is leaving.
-        /// </summary>
-        public string LobbyId ;
-
-        /// <summary>
-        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
-        /// </summary>
-        public string PlayFabId ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class NotifyMatchmakerPlayerLeftResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// State of user leaving the Game Server Instance.
-        /// </summary>
-        public PlayerConnectionState? PlayerState ;
-
-    }
-
-    public enum PlayerConnectionState
-    {
-        Unassigned,
-        Connecting,
-        Participating,
-        Participated
-    }
-
     public class PlayerLeaderboardEntry
     {
         /// <summary>
@@ -5616,149 +5576,6 @@ namespace PlayFab.ServerModels
 
     }
 
-    /// <summary>
-    /// This function is used by a Game Server Instance to validate with the PlayFab service that a user has been registered as
-    /// connected to the server. The Ticket is provided to the client either as a result of a call to StartGame or Matchmake,
-    /// each of which return a Ticket specific to the Game Server Instance. This function will fail in any case where the Ticket
-    /// presented is not valid for the specific Game Server Instance making the call. Note that data returned may be Personally
-    /// Identifying Information (PII), such as email address, and so care should be taken in how this data is stored and
-    /// managed. Since this call will always return the relevant information for users who have accessed the title, the
-    /// recommendation is to not store this data locally.
-    /// </summary>
-    [Obsolete("No longer available", true)]
-    public class RedeemMatchmakerTicketRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// Unique identifier of the Game Server Instance that is asking for validation of the authorization ticket.
-        /// </summary>
-        public string LobbyId ;
-
-        /// <summary>
-        /// Server authorization ticket passed back from a call to Matchmake or StartGame.
-        /// </summary>
-        public string Ticket ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class RedeemMatchmakerTicketResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Error value if the ticket was not validated.
-        /// </summary>
-        public string Error ;
-
-        /// <summary>
-        /// Boolean indicating whether the ticket was validated by the PlayFab service.
-        /// </summary>
-        public bool TicketIsValid ;
-
-        /// <summary>
-        /// User account information for the user validated.
-        /// </summary>
-        public UserAccountInfo UserInfo ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class RefreshGameServerInstanceHeartbeatRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// Unique identifier of the Game Server Instance for which the heartbeat is updated.
-        /// </summary>
-        public string LobbyId ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class RefreshGameServerInstanceHeartbeatResult : PlayFabResultCommon
-    {
-    }
-
-    public enum Region
-    {
-        USCentral,
-        USEast,
-        EUWest,
-        Singapore,
-        Japan,
-        Brazil,
-        Australia
-    }
-
-    [Obsolete("No longer available", true)]
-    public class RegisterGameRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// Unique identifier of the build running on the Game Server Instance.
-        /// </summary>
-        public string Build ;
-
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game
-        /// Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs).
-        /// </summary>
-        public string GameMode ;
-
-        /// <summary>
-        /// Previous lobby id if re-registering an existing game.
-        /// </summary>
-        public string LobbyId ;
-
-        /// <summary>
-        /// Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS
-        /// region and use Tags (below) to specify your custom region.
-        /// </summary>
-        public Region Region ;
-
-        /// <summary>
-        /// IPV4 address of the game server instance.
-        /// </summary>
-        public string ServerIPV4Address ;
-
-        /// <summary>
-        /// IPV6 address (if any) of the game server instance.
-        /// </summary>
-        public string ServerIPV6Address ;
-
-        /// <summary>
-        /// Port number for communication with the Game Server Instance.
-        /// </summary>
-        public string ServerPort ;
-
-        /// <summary>
-        /// Public DNS name (if any) of the server
-        /// </summary>
-        public string ServerPublicDNSName ;
-
-        /// <summary>
-        /// Tags for the Game Server Instance
-        /// </summary>
-        public Dictionary<string,string> Tags ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class RegisterGameResponse : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the
-        /// game still exists in PlayFab, the LobbyId in request is returned. Otherwise a new lobby id will be returned.
-        /// </summary>
-        public string LobbyId ;
-
-    }
-
     public class RemoveFriendRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -6291,67 +6108,6 @@ namespace PlayFab.ServerModels
         /// </summary>
         public List<string> Tags ;
 
-    }
-
-    [Obsolete("No longer available", true)]
-    public class SetGameServerInstanceDataRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// Custom data to set for the specified game server instance.
-        /// </summary>
-        public string GameServerData ;
-
-        /// <summary>
-        /// Unique identifier of the Game Instance to be updated, in decimal format.
-        /// </summary>
-        public string LobbyId ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class SetGameServerInstanceDataResult : PlayFabResultCommon
-    {
-    }
-
-    [Obsolete("No longer available", true)]
-    public class SetGameServerInstanceStateRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// Unique identifier of the Game Instance to be updated, in decimal format.
-        /// </summary>
-        public string LobbyId ;
-
-        /// <summary>
-        /// State to set for the specified game server instance.
-        /// </summary>
-        public GameInstanceState State ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class SetGameServerInstanceStateResult : PlayFabResultCommon
-    {
-    }
-
-    [Obsolete("No longer available", true)]
-    public class SetGameServerInstanceTagsRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// Unique identifier of the Game Server Instance to be updated.
-        /// </summary>
-        public string LobbyId ;
-
-        /// <summary>
-        /// Tags to set for the specified Game Server Instance. Note that this is the complete list of tags to be associated with
-        /// the Game Server Instance.
-        /// </summary>
-        public Dictionary<string,string> Tags ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class SetGameServerInstanceTagsResult : PlayFabResultCommon
-    {
     }
 
     /// <summary>

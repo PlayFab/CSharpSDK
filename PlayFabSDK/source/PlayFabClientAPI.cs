@@ -821,34 +821,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Get details about all current running game servers matching the given parameters.
-        /// </summary>
-        [Obsolete("Use 'MultiplayerServer/ListMultiplayerServers' instead", true)]
-        public static async Task<PlayFabResult<CurrentGamesResult>> GetCurrentGamesAsync(CurrentGamesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/GetCurrentGames", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<CurrentGamesResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CurrentGamesResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<CurrentGamesResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Retrieves a list of ranked friends of the current player for the given statistic, starting from the indicated point in
         /// the leaderboard
         /// </summary>
@@ -930,34 +902,6 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetFriendsListResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Get details about the regions hosting game servers matching the given parameters.
-        /// </summary>
-        [Obsolete("Use 'MultiplayerServer/ListMultiplayerServers' instead", true)]
-        public static async Task<PlayFabResult<GameServerRegionsResult>> GetGameServerRegionsAsync(GameServerRegionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/GetGameServerRegions", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GameServerRegionsResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GameServerRegionsResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GameServerRegionsResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -3143,39 +3087,6 @@ namespace PlayFab
             PlayFabSettings.staticPlayer.CopyFrom(result.AuthenticationContext);
 
             return new PlayFabResult<LoginResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
-        /// Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific
-        /// active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required
-        /// parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is
-        /// found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the
-        /// availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be
-        /// GameNotFound.
-        /// </summary>
-        [Obsolete("Use 'Match/CreateMatchmakingTicket' instead", true)]
-        public static async Task<PlayFabResult<MatchmakeResult>> MatchmakeAsync(MatchmakeRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Client/Matchmake", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<MatchmakeResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<MatchmakeResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<MatchmakeResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
