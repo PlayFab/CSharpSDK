@@ -1826,6 +1826,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Request a party session.
+        /// </summary>
+        public static async Task<PlayFabResult<RequestPartyServiceResponse>> RequestPartyServiceAsync(RequestPartyServiceRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Party/RequestPartyService", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RequestPartyServiceResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RequestPartyServiceResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RequestPartyServiceResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Rolls over the credentials to the container registry.
         /// </summary>
         public static async Task<PlayFabResult<RolloverContainerRegistryCredentialsResponse>> RolloverContainerRegistryCredentialsAsync(RolloverContainerRegistryCredentialsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
