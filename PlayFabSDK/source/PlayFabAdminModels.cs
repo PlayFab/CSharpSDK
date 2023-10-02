@@ -21,12 +21,64 @@ namespace PlayFab.AdminModels
 
     }
 
+    /// <summary>
+    /// The work to be performed on each entity which can only be of one type.
+    /// </summary>
+    public class Action
+    {
+        /// <summary>
+        /// Action content to ban player
+        /// </summary>
+        public BanPlayerContent BanPlayerContent ;
+
+        /// <summary>
+        /// Action content to delete player
+        /// </summary>
+        public DeletePlayerContent DeletePlayerContent ;
+
+        /// <summary>
+        /// Action content to execute cloud script
+        /// </summary>
+        public ExecuteCloudScriptContent ExecuteCloudScriptContent ;
+
+        /// <summary>
+        /// Action content to execute azure function
+        /// </summary>
+        public ExecuteFunctionContent ExecuteFunctionContent ;
+
+        /// <summary>
+        /// Action content to grant item
+        /// </summary>
+        public GrantItemContent GrantItemContent ;
+
+        /// <summary>
+        /// Action content to grant virtual currency
+        /// </summary>
+        public GrantVirtualCurrencyContent GrantVirtualCurrencyContent ;
+
+        /// <summary>
+        /// Action content to increment player statistic
+        /// </summary>
+        public IncrementPlayerStatisticContent IncrementPlayerStatisticContent ;
+
+        /// <summary>
+        /// Action content to send push notification
+        /// </summary>
+        public PushNotificationContent PushNotificationContent ;
+
+        /// <summary>
+        /// Action content to send email
+        /// </summary>
+        public SendEmailContent SendEmailContent ;
+
+    }
+
     public class ActionsOnPlayersInSegmentTaskParameter
     {
         /// <summary>
-        /// ID of the action to perform on each player in segment.
+        /// List of actions to perform on each player in a segment. Each action object can contain only one action type.
         /// </summary>
-        public string ActionId ;
+        public List<Action> Actions ;
 
         /// <summary>
         /// ID of the segment to perform actions on.
@@ -346,6 +398,20 @@ namespace PlayFab.AdminModels
         /// The reason why this ban was applied.
         /// </summary>
         public string Reason ;
+
+    }
+
+    public class BanPlayerContent
+    {
+        /// <summary>
+        /// Duration(in hours) to ban a player. If not provided, the player will be banned permanently.
+        /// </summary>
+        public int BanDurationHours ;
+
+        /// <summary>
+        /// Reason to ban a player
+        /// </summary>
+        public string BanReason ;
 
     }
 
@@ -1615,6 +1681,10 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class DeletePlayerContent
+    {
+    }
+
     /// <summary>
     /// Deletes all data associated with the player, including statistics, custom data, inventory, purchases, virtual currency
     /// balances, characters and shared group memberships. Removes the player from all leaderboards and player search indexes.
@@ -1828,6 +1898,25 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class ExecuteCloudScriptContent
+    {
+        /// <summary>
+        /// Arguments(JSON) to be passed into the cloudscript method
+        /// </summary>
+        public string CloudScriptMethodArguments ;
+
+        /// <summary>
+        /// Cloudscript method name
+        /// </summary>
+        public string CloudScriptMethodName ;
+
+        /// <summary>
+        /// Publish cloudscript results as playstream event
+        /// </summary>
+        public bool PublishResultsToPlayStream ;
+
+    }
+
     public class ExecuteCloudScriptResult : PlayFabResultCommon
     {
         /// <summary>
@@ -1911,6 +2000,25 @@ namespace PlayFab.AdminModels
         /// Cloud script function parameter json text.
         /// </summary>
         public string FunctionParameterJson ;
+
+    }
+
+    public class ExecuteFunctionContent
+    {
+        /// <summary>
+        /// Arguments(JSON) to be passed into the cloudscript azure function
+        /// </summary>
+        public string CloudScriptFunctionArguments ;
+
+        /// <summary>
+        /// Cloudscript azure function name
+        /// </summary>
+        public string CloudScriptFunctionName ;
+
+        /// <summary>
+        /// Publish results from executing the azure function as playstream event
+        /// </summary>
+        public bool PublishResultsToPlayStream ;
 
     }
 
@@ -2547,6 +2655,7 @@ namespace PlayFab.AdminModels
         InvalidServiceConfiguration,
         InvalidNamespaceMismatch,
         LeaderboardColumnLengthMismatch,
+        InvalidStatisticScore,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2691,6 +2800,12 @@ namespace PlayFab.AdminModels
         LobbyNewOwnerMustBeConnected,
         LobbyCurrentOwnerStillConnected,
         LobbyMemberIsNotOwner,
+        LobbyAssociatedServerMismatch,
+        LobbyAssociatedServerNotFound,
+        LobbyAssociatedToDifferentServer,
+        LobbyServerAlreadyAssociated,
+        LobbyIsNotClientOwned,
+        LobbyDoesNotUseConnections,
         EventSamplingInvalidRatio,
         EventSamplingInvalidEventNamespace,
         EventSamplingInvalidEventName,
@@ -3757,6 +3872,25 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class GrantItemContent
+    {
+        /// <summary>
+        /// Publish cloudscript results as playstream event
+        /// </summary>
+        public string CatalogVersion ;
+
+        /// <summary>
+        /// Publish cloudscript results as playstream event
+        /// </summary>
+        public string ItemId ;
+
+        /// <summary>
+        /// Publish cloudscript results as playstream event
+        /// </summary>
+        public int ItemQuantity ;
+
+    }
+
     public class GrantItemSegmentAction
     {
         /// <summary>
@@ -3814,6 +3948,20 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class GrantVirtualCurrencyContent
+    {
+        /// <summary>
+        /// Amount of currency to be granted to a player
+        /// </summary>
+        public int CurrencyAmount ;
+
+        /// <summary>
+        /// Code of the currency to be granted to a player
+        /// </summary>
+        public string CurrencyCode ;
+
+    }
+
     public class GrantVirtualCurrencySegmentAction
     {
         /// <summary>
@@ -3858,6 +4006,20 @@ namespace PlayFab.AdminModels
 
     public class IncrementLimitedEditionItemAvailabilityResult : PlayFabResultCommon
     {
+    }
+
+    public class IncrementPlayerStatisticContent
+    {
+        /// <summary>
+        /// Amount(in whole number) to increase the player statistic by
+        /// </summary>
+        public int StatisticChangeBy ;
+
+        /// <summary>
+        /// Name of the player statistic to be incremented
+        /// </summary>
+        public string StatisticName ;
+
     }
 
     public class IncrementPlayerStatisticSegmentAction
@@ -4925,6 +5087,25 @@ namespace PlayFab.AdminModels
         /// version of the statistic
         /// </summary>
         public uint Version ;
+
+    }
+
+    public class PushNotificationContent
+    {
+        /// <summary>
+        /// Text of message to send.
+        /// </summary>
+        public string Message ;
+
+        /// <summary>
+        /// Id of the push notification template.
+        /// </summary>
+        public string PushNotificationTemplateId ;
+
+        /// <summary>
+        /// Subject of message to send (may not be displayed in all platforms)
+        /// </summary>
+        public string Subject ;
 
     }
 
@@ -6162,6 +6343,15 @@ namespace PlayFab.AdminModels
 
     public class SendAccountRecoveryEmailResult : PlayFabResultCommon
     {
+    }
+
+    public class SendEmailContent
+    {
+        /// <summary>
+        /// The email template id of the email template to send.
+        /// </summary>
+        public string EmailTemplateId ;
+
     }
 
     /// <summary>
