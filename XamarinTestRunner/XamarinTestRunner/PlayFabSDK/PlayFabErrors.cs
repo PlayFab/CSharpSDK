@@ -737,6 +737,7 @@ namespace PlayFab
         EventSinkTenantNotFound = 15009,
         EventSinkAadNotFound = 15010,
         EventSinkDatabaseNotFound = 15011,
+        EventSinkTitleUnauthorized = 15012,
         OperationCanceled = 16000,
         InvalidDisplayNameRandomSuffixLength = 17000,
         AllowNonUniquePlayerDisplayNamesDisableNotAllowed = 17001,
@@ -756,7 +757,9 @@ namespace PlayFab
         PlayerCustomPropertiesDuplicatePropertyName = 19006,
         PlayerCustomPropertiesPropertyDoesNotExist = 19007,
         AddonAlreadyExists = 19008,
-        AddonDoesntExist = 19009
+        AddonDoesntExist = 19009,
+        CopilotDisabled = 19100,
+        CopilotInvalidRequest = 19101
     }
 
     public class PlayFabError

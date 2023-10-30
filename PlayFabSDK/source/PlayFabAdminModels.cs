@@ -406,7 +406,7 @@ namespace PlayFab.AdminModels
         /// <summary>
         /// Duration(in hours) to ban a player. If not provided, the player will be banned permanently.
         /// </summary>
-        public int BanDurationHours ;
+        public int? BanDurationHours ;
 
         /// <summary>
         /// Reason to ban a player
@@ -2834,6 +2834,7 @@ namespace PlayFab.AdminModels
         EventSinkTenantNotFound,
         EventSinkAadNotFound,
         EventSinkDatabaseNotFound,
+        EventSinkTitleUnauthorized,
         OperationCanceled,
         InvalidDisplayNameRandomSuffixLength,
         AllowNonUniquePlayerDisplayNamesDisableNotAllowed,
@@ -2853,7 +2854,9 @@ namespace PlayFab.AdminModels
         PlayerCustomPropertiesDuplicatePropertyName,
         PlayerCustomPropertiesPropertyDoesNotExist,
         AddonAlreadyExists,
-        AddonDoesntExist
+        AddonDoesntExist,
+        CopilotDisabled,
+        CopilotInvalidRequest
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
