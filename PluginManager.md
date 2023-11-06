@@ -66,7 +66,7 @@ Then use PluginManager class to set custom plugins before using any other PlayFa
         // will help your services follow better fault tolerance practices 
         // and proper retrying logic against the PlayFab services. For more
         // information, see the PlayFabPollyHttp class summary.
-        PluginManager.SetPlugin(new PlayFabPollyHttp(), PluginContract.PlayFab_Transport, "PluginWithPolly");
+        PluginManager.SetPlugin(new PlayFabPollyHttp(), PluginContract.PlayFab_Transport);
 
         // Optionally set your own custom JSON serializer
         PluginManager.SetPlugin(new MyJsonSerializer(), PluginContract.PlayFab_Serializer);
