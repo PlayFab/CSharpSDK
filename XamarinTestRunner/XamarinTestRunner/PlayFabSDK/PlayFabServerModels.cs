@@ -2092,6 +2092,7 @@ namespace PlayFab.ServerModels
         InvalidNamespaceMismatch,
         LeaderboardColumnLengthMismatch,
         InvalidStatisticScore,
+        LeaderboardColumnsNotSpecified,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,

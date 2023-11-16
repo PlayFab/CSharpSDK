@@ -27,9 +27,19 @@ namespace PlayFab.AdminModels
     public class Action
     {
         /// <summary>
+        /// Action content to Add Inventory item v2
+        /// </summary>
+        public AddInventoryItemV2Content AddInventoryItemV2Content ;
+
+        /// <summary>
         /// Action content to ban player
         /// </summary>
         public BanPlayerContent BanPlayerContent ;
+
+        /// <summary>
+        /// Action content to delete inventory item v2
+        /// </summary>
+        public DeleteInventoryItemV2Content DeleteInventoryItemV2Content ;
 
         /// <summary>
         /// Action content to delete player
@@ -70,6 +80,11 @@ namespace PlayFab.AdminModels
         /// Action content to send email
         /// </summary>
         public SendEmailContent SendEmailContent ;
+
+        /// <summary>
+        /// Action content to Subtract Inventory item v2
+        /// </summary>
+        public SubtractInventoryItemV2Content SubtractInventoryItemV2Content ;
 
     }
 
@@ -205,6 +220,35 @@ namespace PlayFab.AdminModels
         /// Campaign comparison.
         /// </summary>
         public SegmentFilterComparison? Comparison ;
+
+    }
+
+    public class AddInventoryItemV2Content
+    {
+        /// <summary>
+        /// Amount of the item to be granted to a player
+        /// </summary>
+        public int? Amount ;
+
+        /// <summary>
+        /// The collection id for where the item will be granted in the player inventory
+        /// </summary>
+        public string CollectionId ;
+
+        /// <summary>
+        /// The duration in seconds of the subscription to be granted to a player
+        /// </summary>
+        public int? DurationInSeconds ;
+
+        /// <summary>
+        /// The id of item to be granted to the player
+        /// </summary>
+        public string ItemId ;
+
+        /// <summary>
+        /// The stack id for where the item will be granted in the player inventory
+        /// </summary>
+        public string StackId ;
 
     }
 
@@ -1589,6 +1633,25 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class DeleteInventoryItemV2Content
+    {
+        /// <summary>
+        /// The collection id for where the item will be removed from the player inventory
+        /// </summary>
+        public string CollectionId ;
+
+        /// <summary>
+        /// The id of item to be removed from the player
+        /// </summary>
+        public string ItemId ;
+
+        /// <summary>
+        /// The stack id for where the item will be removed from the player inventory
+        /// </summary>
+        public string StackId ;
+
+    }
+
     /// <summary>
     /// Deletes all data associated with the master player account, including data from all titles the player has played, such
     /// as statistics, custom data, inventory, purchases, virtual currency balances, characters, group memberships, publisher
@@ -2661,6 +2724,7 @@ namespace PlayFab.AdminModels
         InvalidNamespaceMismatch,
         LeaderboardColumnLengthMismatch,
         InvalidStatisticScore,
+        LeaderboardColumnsNotSpecified,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -3883,17 +3947,17 @@ namespace PlayFab.AdminModels
     public class GrantItemContent
     {
         /// <summary>
-        /// Publish cloudscript results as playstream event
+        /// The catalog version of the item to be granted to the player
         /// </summary>
         public string CatalogVersion ;
 
         /// <summary>
-        /// Publish cloudscript results as playstream event
+        /// The id of item to be granted to the player
         /// </summary>
         public string ItemId ;
 
         /// <summary>
-        /// Publish cloudscript results as playstream event
+        /// Quantity of the item to be granted to a player
         /// </summary>
         public int ItemQuantity ;
 
@@ -6793,6 +6857,35 @@ namespace PlayFab.AdminModels
         CustomerDidNotAcceptPriceChange,
         FreeTrial,
         PaymentPending
+    }
+
+    public class SubtractInventoryItemV2Content
+    {
+        /// <summary>
+        /// Amount of the item to removed from the player
+        /// </summary>
+        public int? Amount ;
+
+        /// <summary>
+        /// The collection id for where the item will be removed from the player inventory
+        /// </summary>
+        public string CollectionId ;
+
+        /// <summary>
+        /// The duration in seconds to be removed from the subscription in the players inventory
+        /// </summary>
+        public int? DurationInSeconds ;
+
+        /// <summary>
+        /// The id of item to be removed from the player
+        /// </summary>
+        public string ItemId ;
+
+        /// <summary>
+        /// The stack id for where the item will be removed from the player inventory
+        /// </summary>
+        public string StackId ;
+
     }
 
     public class SubtractUserVirtualCurrencyRequest : PlayFabRequestCommon
