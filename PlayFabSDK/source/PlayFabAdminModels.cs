@@ -27,7 +27,7 @@ namespace PlayFab.AdminModels
     public class Action
     {
         /// <summary>
-        /// Action content to Add Inventory item v2
+        /// Action content to add inventory item v2
         /// </summary>
         public AddInventoryItemV2Content AddInventoryItemV2Content ;
 
@@ -82,7 +82,7 @@ namespace PlayFab.AdminModels
         public SendEmailContent SendEmailContent ;
 
         /// <summary>
-        /// Action content to Subtract Inventory item v2
+        /// Action content to subtract inventory item v2
         /// </summary>
         public SubtractInventoryItemV2Content SubtractInventoryItemV2Content ;
 
@@ -2869,10 +2869,10 @@ namespace PlayFab.AdminModels
         LobbyNewOwnerMustBeConnected,
         LobbyCurrentOwnerStillConnected,
         LobbyMemberIsNotOwner,
-        LobbyAssociatedServerMismatch,
-        LobbyAssociatedServerNotFound,
-        LobbyAssociatedToDifferentServer,
-        LobbyServerAlreadyAssociated,
+        LobbyServerMismatch,
+        LobbyServerNotFound,
+        LobbyDifferentServerAlreadyJoined,
+        LobbyServerAlreadyJoined,
         LobbyIsNotClientOwned,
         LobbyDoesNotUseConnections,
         EventSamplingInvalidRatio,
@@ -2920,7 +2920,8 @@ namespace PlayFab.AdminModels
         AddonAlreadyExists,
         AddonDoesntExist,
         CopilotDisabled,
-        CopilotInvalidRequest
+        CopilotInvalidRequest,
+        TrueSkillUnauthorized
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
