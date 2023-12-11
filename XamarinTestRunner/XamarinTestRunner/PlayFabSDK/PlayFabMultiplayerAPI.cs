@@ -1285,6 +1285,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Preview: Join a lobby as a server entity. This is restricted to client lobbies which are using connections.
+        /// </summary>
+        public static async Task<PlayFabResult<JoinLobbyAsServerResult>> JoinLobbyAsServerAsync(JoinLobbyAsServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Lobby/JoinLobbyAsServer", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<JoinLobbyAsServerResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<JoinLobbyAsServerResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<JoinLobbyAsServerResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Join a matchmaking ticket.
         /// </summary>
         public static async Task<PlayFabResult<JoinMatchmakingTicketResult>> JoinMatchmakingTicketAsync(JoinMatchmakingTicketRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1324,6 +1351,33 @@ namespace PlayFab
 
 
             var httpResult = await PlayFabHttp.DoPost("/Lobby/LeaveLobby", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LobbyEmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LobbyEmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LobbyEmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Preview: Request for server to leave a lobby. This is restricted to client owned lobbies which are using connections.
+        /// </summary>
+        public static async Task<PlayFabResult<LobbyEmptyResult>> LeaveLobbyAsServerAsync(LeaveLobbyAsServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Lobby/LeaveLobbyAsServer", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -2191,6 +2245,35 @@ namespace PlayFab
 
 
             var httpResult = await PlayFabHttp.DoPost("/Lobby/UpdateLobby", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LobbyEmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LobbyEmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LobbyEmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Preview: Update fields related to a joined server in the lobby the server is in. Servers can keep a lobby from expiring
+        /// by being the one to "update" the lobby in some way. Servers have no impact on last member leave/last member disconnect
+        /// behavior.
+        /// </summary>
+        public static async Task<PlayFabResult<LobbyEmptyResult>> UpdateLobbyAsServerAsync(UpdateLobbyAsServerRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Lobby/UpdateLobbyAsServer", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
