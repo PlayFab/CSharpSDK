@@ -3911,6 +3911,11 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> SearchData ;
 
         /// <summary>
+        /// Preview: Lobby joined server. This is not the server owner, rather the server that has joined a client owned lobby.
+        /// </summary>
+        public LobbyServer Server ;
+
+        /// <summary>
         /// A flag which determines if connections are used. Defaults to true. Only set on create.
         /// </summary>
         public bool UseConnections ;
@@ -3919,6 +3924,25 @@ namespace PlayFab.MultiplayerModels
 
     public class LobbyEmptyResult : PlayFabResultCommon
     {
+    }
+
+    public class LobbyServer
+    {
+        /// <summary>
+        /// Opaque string, stored on a Subscribe call, which indicates the connection a joined server has with PubSub.
+        /// </summary>
+        public string PubSubConnectionHandle ;
+
+        /// <summary>
+        /// Key-value pairs specific to the joined server.
+        /// </summary>
+        public Dictionary<string,string> ServerData ;
+
+        /// <summary>
+        /// The server entity key.
+        /// </summary>
+        public EntityKey ServerEntity ;
+
     }
 
     public class LobbySummary
@@ -5531,12 +5555,6 @@ namespace PlayFab.MultiplayerModels
         public string LobbyId ;
 
         /// <summary>
-        /// The lobby server. Optional. Set a different server as the joined server of the lobby (there can only be 1 joined
-        /// server). When changing the server the previous server will automatically be unsubscribed.
-        /// </summary>
-        public EntityKey Server ;
-
-        /// <summary>
         /// The private key-value pairs which are visible to all entities in the lobby and modifiable by the joined server.
         /// Optional. Sets or updates key-value pairs on the lobby. Only the current lobby lobby server can set serverData. Keys may
         /// be an arbitrary string of at most 30 characters. The total size of all serverData values may not exceed 4096 bytes.
@@ -5551,6 +5569,12 @@ namespace PlayFab.MultiplayerModels
         /// request.
         /// </summary>
         public List<string> ServerDataToDelete ;
+
+        /// <summary>
+        /// The lobby server. Optional. Set a different server as the joined server of the lobby (there can only be 1 joined
+        /// server). When changing the server the previous server will automatically be unsubscribed.
+        /// </summary>
+        public EntityKey ServerEntity ;
 
     }
 
