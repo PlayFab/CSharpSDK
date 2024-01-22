@@ -2775,6 +2775,8 @@ namespace PlayFab.AdminModels
         LeaderboardColumnsNotSpecified,
         LeaderboardMaxSizeTooLarge,
         InvalidAttributeStatisticsSpecified,
+        LeaderboardNotFound,
+        TokenSigningKeyNotFound,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
