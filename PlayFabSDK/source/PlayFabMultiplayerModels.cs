@@ -3094,13 +3094,6 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string LobbyId ;
 
-        /// <summary>
-        /// A setting that describes the state of the ServerData after JoinLobbyAsServer call is completed. It is "Initialized", the
-        /// first time a server joins the lobby. It is "Ignored" in any subsequent JoinLobbyAsServer calls after it has been
-        /// initialized. Any new server taking over should call UpdateLobbyAsServer to update ServerData fields.
-        /// </summary>
-        public ServerDataStatus ServerDataStatus ;
-
     }
 
     /// <summary>
@@ -3721,6 +3714,11 @@ namespace PlayFab.MultiplayerModels
         /// deployed for the title.
         /// </summary>
         public bool? IncludeAllRegions ;
+
+        /// <summary>
+        /// Indicates the Routing Preference used by the Qos servers. The default Routing Preference is Microsoft
+        /// </summary>
+        public string RoutingPreference ;
 
     }
 
@@ -4893,12 +4891,6 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public List<Schedule> ScheduleList ;
 
-    }
-
-    public enum ServerDataStatus
-    {
-        Initialized,
-        Ignored
     }
 
     public class ServerDetails

@@ -2095,6 +2095,8 @@ namespace PlayFab.ServerModels
         LeaderboardColumnsNotSpecified,
         LeaderboardMaxSizeTooLarge,
         InvalidAttributeStatisticsSpecified,
+        LeaderboardNotFound,
+        TokenSigningKeyNotFound,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
