@@ -1282,6 +1282,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of PlayStation :tm: Network identifiers.
+        /// </summary>
+        public async Task<PlayFabResult<GetPlayFabIDsFromPSNOnlineIDsResult>> GetPlayFabIDsFromPSNOnlineIDsAsync(GetPlayFabIDsFromPSNOnlineIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayFabIDsFromPSNOnlineIDs", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromPSNOnlineIDsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromPSNOnlineIDsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromPSNOnlineIDsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers are the profile
         /// IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
         /// </summary>
