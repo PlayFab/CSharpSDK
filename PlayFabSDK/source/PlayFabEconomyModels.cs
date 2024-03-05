@@ -2194,6 +2194,10 @@ namespace PlayFab.EconomyModels
 
     }
 
+    public class RealMoneyPriceDetails
+    {
+    }
+
     /// <summary>
     /// Redeem items from the Apple App Store.
     /// </summary>

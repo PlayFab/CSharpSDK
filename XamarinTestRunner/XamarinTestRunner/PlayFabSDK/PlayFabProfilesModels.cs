@@ -216,32 +216,8 @@ namespace PlayFab.ProfilesModels
 
     }
 
-    public class EntityStatisticAttributeValue
-    {
-        /// <summary>
-        /// Metadata associated with the Statistic.
-        /// </summary>
-        public string Metadata ;
-
-        /// <summary>
-        /// Attribute name.
-        /// </summary>
-        public string Name ;
-
-        /// <summary>
-        /// Attribute Statistic scores.
-        /// </summary>
-        public List<string> Scores ;
-
-    }
-
     public class EntityStatisticValue
     {
-        /// <summary>
-        /// Attribute Statistic values.
-        /// </summary>
-        public Dictionary<string,EntityStatisticAttributeValue> AttributeStatistics ;
-
         /// <summary>
         /// Metadata associated with the Statistic.
         /// </summary>
@@ -256,11 +232,6 @@ namespace PlayFab.ProfilesModels
         /// Statistic scores
         /// </summary>
         public List<string> Scores ;
-
-        /// <summary>
-        /// Statistic value
-        /// </summary>
-        public int? Value ;
 
         /// <summary>
         /// Statistic version
