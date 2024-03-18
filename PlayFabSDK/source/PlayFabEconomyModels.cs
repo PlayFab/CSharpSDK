@@ -1738,6 +1738,12 @@ namespace PlayFab.EconomyModels
         /// </summary>
         public string Filter ;
 
+        /// <summary>
+        /// An OData orderby to order TransactionHistory results. The only supported values are 'timestamp asc' or 'timestamp desc'.
+        /// Default orderby is 'timestamp asc'
+        /// </summary>
+        public string OrderBy ;
+
     }
 
     public class GetTransactionHistoryResponse : PlayFabResultCommon
@@ -1945,6 +1951,16 @@ namespace PlayFab.EconomyModels
 
     public class PayoutDetails
     {
+    }
+
+    public class Permissions
+    {
+        /// <summary>
+        /// The list of ids of Segments that the a player can be in to purchase from the store. When a value is provided, the player
+        /// must be in at least one of the segments listed for the purchase to be allowed.
+        /// </summary>
+        public List<string> SegmentIds ;
+
     }
 
     /// <summary>
@@ -2851,6 +2867,11 @@ namespace PlayFab.EconomyModels
         /// The options for the filter in filter-based stores. These options are mutually exclusive with item references.
         /// </summary>
         public FilterOptions FilterOptions ;
+
+        /// <summary>
+        /// The permissions that control which players can purchase from the store.
+        /// </summary>
+        public Permissions Permissions ;
 
         /// <summary>
         /// The global prices utilized in the store. These options are mutually exclusive with price options in item references.

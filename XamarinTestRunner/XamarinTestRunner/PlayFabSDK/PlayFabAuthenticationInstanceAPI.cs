@@ -170,7 +170,7 @@ namespace PlayFab
             var requestContext = request?.AuthenticationContext ?? authenticationContext;
             var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
 
-            var entityToken = request?.AuthenticationContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken;
+            var entityToken = requestContext?.EntityToken ?? PlayFabSettings.staticPlayer.EntityToken;
             if ((entityToken) == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
             var httpResult = await PlayFabHttp.DoPost("/Authentication/ValidateEntityToken", request, "X-EntityToken", entityToken, extraHeaders, requestSettings);
