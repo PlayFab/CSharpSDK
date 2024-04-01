@@ -1095,6 +1095,99 @@ namespace PlayFab.EconomyModels
 
     }
 
+    /// <summary>
+    /// Transfer the specified list of inventory items of an entity's container Id to another entity's container Id.
+    /// </summary>
+    public class ExecuteTransferOperationsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The inventory collection id the request is transferring from. (Default="default")
+        /// </summary>
+        public string GivingCollectionId ;
+
+        /// <summary>
+        /// The entity the request is transferring from. Set to the caller by default.
+        /// </summary>
+        public EntityKey GivingEntity ;
+
+        /// <summary>
+        /// ETags are used for concurrency checking when updating resources. More information about using ETags can be found here:
+        /// https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+        /// </summary>
+        public string GivingETag ;
+
+        /// <summary>
+        /// The idempotency id for the request.
+        /// </summary>
+        public string IdempotencyId ;
+
+        /// <summary>
+        /// The transfer operations to run transactionally. The operations will be executed in-order sequentially and will succeed
+        /// or fail as a batch. Up to 50 operations can be added.
+        /// </summary>
+        public List<TransferInventoryItemsOperation> Operations ;
+
+        /// <summary>
+        /// The inventory collection id the request is transferring to. (Default="default")
+        /// </summary>
+        public string ReceivingCollectionId ;
+
+        /// <summary>
+        /// The entity the request is transferring to. Set to the caller by default.
+        /// </summary>
+        public EntityKey ReceivingEntity ;
+
+    }
+
+    public class ExecuteTransferOperationsResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// ETags are used for concurrency checking when updating resources (before transferring from). This value will be empty if
+        /// the operation has not completed yet. More information about using ETags can be found here:
+        /// https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/catalog/etags
+        /// </summary>
+        public string GivingETag ;
+
+        /// <summary>
+        /// The ids of transactions that occurred as a result of the request's giving action.
+        /// </summary>
+        public List<string> GivingTransactionIds ;
+
+        /// <summary>
+        /// The Idempotency ID for this request.
+        /// </summary>
+        public string IdempotencyId ;
+
+        /// <summary>
+        /// The transfer operation status. Possible values are 'InProgress' or 'Completed'. If the operation has completed, the
+        /// response code will be 200. Otherwise, it will be 202.
+        /// </summary>
+        public string OperationStatus ;
+
+        /// <summary>
+        /// The token that can be used to get the status of the transfer operation. This will only have a value if OperationStatus
+        /// is 'InProgress'.
+        /// </summary>
+        public string OperationToken ;
+
+        /// <summary>
+        /// ETags are used for concurrency checking when updating resources (before transferring to). This value will be empty if
+        /// the operation has not completed yet.
+        /// </summary>
+        public string ReceivingETag ;
+
+        /// <summary>
+        /// The ids of transactions that occurred as a result of the request's receiving action.
+        /// </summary>
+        public List<string> ReceivingTransactionIds ;
+
+    }
+
     public class FileConfig
     {
         /// <summary>
@@ -1390,6 +1483,37 @@ namespace PlayFab.EconomyModels
         /// The requested inventory items.
         /// </summary>
         public List<InventoryItem> Items ;
+
+    }
+
+    /// <summary>
+    /// Get the status of an Inventory Operation using an OperationToken.
+    /// </summary>
+    public class GetInventoryOperationStatusRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The id of the entity's collection to perform this action on. (Default="default")
+        /// </summary>
+        public string CollectionId ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity ;
+
+    }
+
+    public class GetInventoryOperationStatusResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The inventory operation status.
+        /// </summary>
+        public string OperationStatus ;
 
     }
 
@@ -3326,6 +3450,12 @@ namespace PlayFab.EconomyModels
         /// response code will be 200. Otherwise, it will be 202.
         /// </summary>
         public string OperationStatus ;
+
+        /// <summary>
+        /// The token that can be used to get the status of the transfer operation. This will only have a value if OperationStatus
+        /// is 'InProgress'.
+        /// </summary>
+        public string OperationToken ;
 
         /// <summary>
         /// The ids of transactions that occurred as a result of the request's receiving action.
