@@ -269,6 +269,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Transfer a list of inventory items. A maximum list of 50 operations can be performed by a single request. When the
+        /// response code is 202, one or more operations did not complete within the timeframe of the request. You can identify the
+        /// pending operations by looking for OperationStatus = 'InProgress'. You can check on the operation status at anytime
+        /// within 1 day of the request by passing the TransactionToken to the GetInventoryOperationStatus API.
+        /// </summary>
+        public async Task<PlayFabResult<ExecuteTransferOperationsResponse>> ExecuteTransferOperationsAsync(ExecuteTransferOperationsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/ExecuteTransferOperations", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ExecuteTransferOperationsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ExecuteTransferOperationsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ExecuteTransferOperationsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Gets the configuration for the catalog. Only Title Entities can call this API. There is a limit of 100 requests in 10
         /// seconds for this API. More information about the Catalog Config can be found here:
         /// https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/settings
@@ -457,6 +486,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Get the status of an inventory operation using an OperationToken. You can check on the operation status at anytime
+        /// within 1 day of the request by passing the TransactionToken to the this API.
+        /// </summary>
+        public async Task<PlayFabResult<GetInventoryOperationStatusResponse>> GetInventoryOperationStatusAsync(GetInventoryOperationStatusRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/GetInventoryOperationStatus", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetInventoryOperationStatusResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetInventoryOperationStatusResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetInventoryOperationStatusResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -1133,7 +1189,9 @@ namespace PlayFab
         /// <summary>
         /// Transfer inventory items. When transferring across collections, a 202 response indicates that the transfer did not
         /// complete within the timeframe of the request. You can identify the pending operations by looking for OperationStatus =
-        /// 'InProgress'. More information about item transfer scenarios can be found here:
+        /// 'InProgress'. You can check on the operation status at anytime within 1 day of the request by passing the
+        /// TransactionToken to the GetInventoryOperationStatus API. More information about item transfer scenarios can be found
+        /// here:
         /// https://learn.microsoft.com/en-us/gaming/playfab/features/economy-v2/inventory/?tabs=inventory-game-manager#transfer-inventory-items
         /// </summary>
         public async Task<PlayFabResult<TransferInventoryItemsResponse>> TransferInventoryItemsAsync(TransferInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
