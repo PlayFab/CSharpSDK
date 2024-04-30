@@ -343,6 +343,25 @@ namespace PlayFab.CloudScriptModels
 
     }
 
+    public class EventHubFunctionModel
+    {
+        /// <summary>
+        /// The connection string for the event hub.
+        /// </summary>
+        public string ConnectionString ;
+
+        /// <summary>
+        /// The name of the event hub that triggers the Azure Function.
+        /// </summary>
+        public string EventHubName ;
+
+        /// <summary>
+        /// The name the function was registered under.
+        /// </summary>
+        public string FunctionName ;
+
+    }
+
     public class ExecuteCloudScriptResult : PlayFabResultCommon
     {
         /// <summary>
@@ -624,6 +643,15 @@ namespace PlayFab.CloudScriptModels
         /// Linked account username of the user on the platform, if available
         /// </summary>
         public string Username ;
+
+    }
+
+    public class ListEventHubFunctionsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The list of EventHub triggered functions that are currently registered for the title.
+        /// </summary>
+        public List<EventHubFunctionModel> Functions ;
 
     }
 
@@ -1047,6 +1075,34 @@ namespace PlayFab.CloudScriptModels
 
     }
 
+    /// <summary>
+    /// A title can have many functions, RegisterEventHubFunction associates a function name with an event hub name and
+    /// connection string.
+    /// </summary>
+    public class RegisterEventHubFunctionRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// A connection string for the namespace of the event hub for the Azure Function.
+        /// </summary>
+        public string ConnectionString ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The name of the event hub for the Azure Function.
+        /// </summary>
+        public string EventHubName ;
+
+        /// <summary>
+        /// The name of the function to register
+        /// </summary>
+        public string FunctionName ;
+
+    }
+
     public class RegisterHttpFunctionRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1196,7 +1252,8 @@ namespace PlayFab.CloudScriptModels
     public enum TriggerType
     {
         HTTP,
-        Queue
+        Queue,
+        EventHub
     }
 
     public class UnregisterFunctionRequest : PlayFabRequestCommon
