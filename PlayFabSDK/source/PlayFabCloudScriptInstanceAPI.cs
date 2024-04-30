@@ -133,6 +133,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Lists all currently registered Event Hub triggered Azure Functions for a given title.
+        /// </summary>
+        public async Task<PlayFabResult<ListEventHubFunctionsResult>> ListEventHubFunctionsAsync(ListFunctionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/CloudScript/ListEventHubFunctions", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListEventHubFunctionsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListEventHubFunctionsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListEventHubFunctionsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Lists all currently registered Azure Functions for a given title.
         /// </summary>
         public async Task<PlayFabResult<ListFunctionsResult>> ListFunctionsAsync(ListFunctionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -300,6 +326,32 @@ namespace PlayFab
             if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
 
             var httpResult = await PlayFabHttp.DoPost("/CloudScript/PostFunctionResultForScheduledTask", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Registers an event hub triggered Azure Function with a title.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResult>> RegisterEventHubFunctionAsync(RegisterEventHubFunctionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/CloudScript/RegisterEventHubFunction", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
