@@ -2180,6 +2180,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Signs the user in using a PlayStation :tm: Network authentication code, returning a session identifier that can
+        /// subsequently be used for API calls which require an authenticated user
+        /// </summary>
+        public async Task<PlayFabResult<ServerLoginResult>> LoginWithPSNAsync(LoginWithPSNRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LoginWithPSN", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ServerLoginResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ServerLoginResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ServerLoginResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Securely login a game client from an external server backend using a custom identifier for that player. Server Custom ID
         /// and Client Custom ID are mutually exclusive and cannot be used to retrieve the same player account.
         /// </summary>
