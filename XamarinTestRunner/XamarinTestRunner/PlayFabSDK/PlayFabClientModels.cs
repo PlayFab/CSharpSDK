@@ -4138,7 +4138,8 @@ namespace PlayFab.ClientModels
         OpenIdConnect,
         Apple,
         NintendoSwitchAccount,
-        GooglePlayGames
+        GooglePlayGames,
+        XboxMobileStore
     }
 
     public class LoginResult : PlayFabLoginResultCommon
@@ -7717,7 +7718,8 @@ namespace PlayFab.ClientModels
         OpenIdConnect,
         Apple,
         NintendoSwitchAccount,
-        GooglePlayGames
+        GooglePlayGames,
+        XboxMobileStore
     }
 
     public class UserPrivateAccountInfo

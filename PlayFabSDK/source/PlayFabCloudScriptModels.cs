@@ -747,7 +747,8 @@ namespace PlayFab.CloudScriptModels
         OpenIdConnect,
         Apple,
         NintendoSwitchAccount,
-        GooglePlayGames
+        GooglePlayGames,
+        XboxMobileStore
     }
 
     public class LogStatement
