@@ -1935,7 +1935,8 @@ namespace PlayFab.MultiplayerModels
         SameEntityLoginProvider,
         DifferentEntityLoginProvider,
         AnyEntityLoginProvider,
-        AnyPlatformTypeAndEntityLoginProvider
+        AnyPlatformTypeAndEntityLoginProvider,
+        OnlyServers
     }
 
     public class DynamicStandbySettings
