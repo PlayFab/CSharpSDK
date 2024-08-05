@@ -2127,7 +2127,11 @@ namespace PlayFab.ServerModels
         LinkedStatisticColumnNotFound,
         LinkedStatisticColumnRequired,
         MultipleLinkedStatisticsNotAllowed,
+        DuplicateLinkedStatisticColumnNameFound,
+        AggregationTypeNotAllowedForMultiColumnStatistic,
         MaxQueryableVerionsValueNotAllowedForTier,
+        StatisticDefinitionHasNullOrEmptyVersionConfiguration,
+        StatisticColumnLengthMismatch,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -4579,7 +4583,7 @@ namespace PlayFab.ServerModels
         public string PlayFabId ;
 
         /// <summary>
-        /// Id of the PlayStation :tm: Network user.
+        /// Id of the PlayStation :tm: Network user. Also known as the PSN Account Id.
         /// </summary>
         public string PSNUserId ;
 
