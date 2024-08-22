@@ -1,6 +1,6 @@
 #if !DISABLE_PLAYFABENTITY_API
 
-using PlayFab.LeaderboardsModels;
+using PlayFab.ProgressionModels;
 using PlayFab.Internal;
 #pragma warning disable 0649
 using System;
@@ -13,21 +13,21 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// Manage entity statistics Manage entity statistics
+    /// Manage entity statistics Manage entity leaderboards
     /// </summary>
-    public class PlayFabLeaderboardsInstanceAPI
+    public class PlayFabProgressionInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
 
-        public PlayFabLeaderboardsInstanceAPI(PlayFabAuthenticationContext context)
+        public PlayFabProgressionInstanceAPI(PlayFabAuthenticationContext context)
         {
             if (context == null)
                 throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, "Context cannot be null, create a PlayFabAuthenticationContext for each player in advance, or get <PlayFabClientInstanceAPI>.authenticationContext");
             authenticationContext = context;
         }
 
-        public PlayFabLeaderboardsInstanceAPI(PlayFabApiSettings settings, PlayFabAuthenticationContext context)
+        public PlayFabProgressionInstanceAPI(PlayFabApiSettings settings, PlayFabAuthenticationContext context)
         {
             if (context == null)
                 throw new PlayFabException(PlayFabExceptionCode.AuthContextRequired, "Context cannot be null, create a PlayFabAuthenticationContext for each player in advance, or get <PlayFabClientInstanceAPI>.authenticationContext");

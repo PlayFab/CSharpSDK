@@ -2,7 +2,7 @@ using PlayFab.Internal;
 using System;
 using System.Collections.Generic;
 
-namespace PlayFab.LeaderboardsModels
+namespace PlayFab.ProgressionModels
 {
     public class CreateLeaderboardDefinitionRequest : PlayFabRequestCommon
     {

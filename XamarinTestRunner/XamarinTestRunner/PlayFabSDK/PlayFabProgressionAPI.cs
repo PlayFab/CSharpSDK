@@ -1,6 +1,6 @@
 #if !DISABLE_PLAYFABENTITY_API && !DISABLE_PLAYFAB_STATIC_API
 
-using PlayFab.LeaderboardsModels;
+using PlayFab.ProgressionModels;
 using PlayFab.Internal;
 #pragma warning disable 0649
 using System;
@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 namespace PlayFab
 {
     /// <summary>
-    /// Manage entity statistics Manage entity statistics
+    /// Manage entity statistics Manage entity leaderboards
     /// </summary>
-    public static class PlayFabLeaderboardsAPI
+    public static class PlayFabProgressionAPI
     {
         /// <summary>
         /// Verify entity login.
