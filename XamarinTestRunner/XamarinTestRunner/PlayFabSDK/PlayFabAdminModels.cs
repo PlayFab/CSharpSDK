@@ -2809,7 +2809,7 @@ namespace PlayFab.AdminModels
         MultipleLinkedStatisticsNotAllowed,
         DuplicateLinkedStatisticColumnNameFound,
         AggregationTypeNotAllowedForMultiColumnStatistic,
-        MaxQueryableVerionsValueNotAllowedForTier,
+        MaxQueryableVersionsValueNotAllowedForTier,
         StatisticDefinitionHasNullOrEmptyVersionConfiguration,
         StatisticColumnLengthMismatch,
         MatchmakingEntityInvalid,

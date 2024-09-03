@@ -1497,7 +1497,7 @@ namespace PlayFab.ServerModels
     public class FriendInfo
     {
         /// <summary>
-        /// Available Facebook information (if the user and PlayFab friend are also connected in Facebook).
+        /// Available Facebook information (if the user and connected Facebook friend both have PlayFab Accounts in the same title).
         /// </summary>
         public UserFacebookInfo FacebookInfo ;
 
@@ -1507,7 +1507,8 @@ namespace PlayFab.ServerModels
         public string FriendPlayFabId ;
 
         /// <summary>
-        /// Available Game Center information (if the user and PlayFab friend are also connected in Game Center).
+        /// Available Game Center information (if the user and connected Game Center friend both have PlayFab Accounts in the same
+        /// title).
         /// </summary>
         public UserGameCenterInfo GameCenterInfo ;
 
@@ -1517,13 +1518,13 @@ namespace PlayFab.ServerModels
         public PlayerProfileModel Profile ;
 
         /// <summary>
-        /// Available PlayStation :tm: Network information, if the user and PlayFab friend are both connected to PlayStation :tm:
-        /// Network.
+        /// Available PlayStation :tm: Network information, if the user connected PlayStation :tm Network friend both have PlayFab
+        /// Accounts in the same title.
         /// </summary>
         public UserPsnInfo PSNInfo ;
 
         /// <summary>
-        /// Available Steam information (if the user and PlayFab friend are also connected in Steam).
+        /// Available Steam information (if the user and connected Steam friend both have PlayFab Accounts in the same title).
         /// </summary>
         public UserSteamInfo SteamInfo ;
 
@@ -1543,7 +1544,7 @@ namespace PlayFab.ServerModels
         public string Username ;
 
         /// <summary>
-        /// Available Xbox information, if the user and PlayFab friend are both connected to Xbox Live.
+        /// Available Xbox information, (if the user and connected Xbox Live friend both have PlayFab Accounts in the same title).
         /// </summary>
         public UserXboxInfo XboxInfo ;
 
@@ -2129,7 +2130,7 @@ namespace PlayFab.ServerModels
         MultipleLinkedStatisticsNotAllowed,
         DuplicateLinkedStatisticColumnNameFound,
         AggregationTypeNotAllowedForMultiColumnStatistic,
-        MaxQueryableVerionsValueNotAllowedForTier,
+        MaxQueryableVersionsValueNotAllowedForTier,
         StatisticDefinitionHasNullOrEmptyVersionConfiguration,
         StatisticColumnLengthMismatch,
         MatchmakingEntityInvalid,
