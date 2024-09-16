@@ -365,32 +365,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Get all current statistic definitions information
-        /// </summary>
-        public async Task<PlayFabResult<GetStatisticDefinitionsResponse>> GetStatisticDefinitionsAsync(GetStatisticDefinitionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Statistic/GetStatisticDefinitions", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetStatisticDefinitionsResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetStatisticDefinitionsResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetStatisticDefinitionsResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Gets statistics for the specified entity.
         /// </summary>
         public async Task<PlayFabResult<GetStatisticsResponse>> GetStatisticsAsync(GetStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)

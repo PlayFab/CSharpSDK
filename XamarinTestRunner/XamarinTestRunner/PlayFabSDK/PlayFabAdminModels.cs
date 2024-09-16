@@ -4621,7 +4621,8 @@ namespace PlayFab.AdminModels
         Apple,
         NintendoSwitchAccount,
         GooglePlayGames,
-        XboxMobileStore
+        XboxMobileStore,
+        King
     }
 
     public class LogStatement
@@ -8161,7 +8162,8 @@ namespace PlayFab.AdminModels
         Apple,
         NintendoSwitchAccount,
         GooglePlayGames,
-        XboxMobileStore
+        XboxMobileStore,
+        King
     }
 
     public class UserOriginationSegmentFilter
