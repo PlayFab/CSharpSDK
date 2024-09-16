@@ -4141,7 +4141,8 @@ namespace PlayFab.ClientModels
         Apple,
         NintendoSwitchAccount,
         GooglePlayGames,
-        XboxMobileStore
+        XboxMobileStore,
+        King
     }
 
     public class LoginResult : PlayFabLoginResultCommon
@@ -7727,7 +7728,8 @@ namespace PlayFab.ClientModels
         Apple,
         NintendoSwitchAccount,
         GooglePlayGames,
-        XboxMobileStore
+        XboxMobileStore,
+        King
     }
 
     public class UserPrivateAccountInfo

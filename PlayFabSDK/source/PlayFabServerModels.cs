@@ -4775,7 +4775,8 @@ namespace PlayFab.ServerModels
         Apple,
         NintendoSwitchAccount,
         GooglePlayGames,
-        XboxMobileStore
+        XboxMobileStore,
+        King
     }
 
     /// <summary>
@@ -7684,7 +7685,8 @@ namespace PlayFab.ServerModels
         Apple,
         NintendoSwitchAccount,
         GooglePlayGames,
-        XboxMobileStore
+        XboxMobileStore,
+        King
     }
 
     public class UserPrivateAccountInfo
