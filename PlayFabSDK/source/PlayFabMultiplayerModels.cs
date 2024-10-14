@@ -4542,7 +4542,7 @@ namespace PlayFab.MultiplayerModels
         public string DirectPeerConnectivityOptions ;
 
         /// <summary>
-        /// The maximum number of devices allowed to connect to the network. Must be between 1 and 32, inclusive.
+        /// The maximum number of devices allowed to connect to the network. Must be between 1 and 128, inclusive.
         /// </summary>
         public uint MaxDevices ;
 
