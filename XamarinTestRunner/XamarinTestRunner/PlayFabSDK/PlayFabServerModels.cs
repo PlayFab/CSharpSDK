@@ -2133,6 +2133,8 @@ namespace PlayFab.ServerModels
         MaxQueryableVersionsValueNotAllowedForTier,
         StatisticDefinitionHasNullOrEmptyVersionConfiguration,
         StatisticColumnLengthMismatch,
+        InvalidExternalEntityId,
+        UpdatingStatisticsUsingTransactionIdNotAvailableForFreeTier,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
