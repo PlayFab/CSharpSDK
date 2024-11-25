@@ -2135,6 +2135,8 @@ namespace PlayFab.ServerModels
         StatisticColumnLengthMismatch,
         InvalidExternalEntityId,
         UpdatingStatisticsUsingTransactionIdNotAvailableForFreeTier,
+        TransactionAlreadyApplied,
+        ReportDataNotRetrievedSuccessfully,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2414,6 +2416,8 @@ namespace PlayFab.ServerModels
         GameSaveFileNotUploaded,
         GameSaveBadRequest,
         GameSaveOperationNotAllowed,
+        GameSaveDataStorageQuotaExceeded,
+        GameSaveNewerManifestExists,
         StateShareForbidden,
         StateShareTitleNotInFlight,
         StateShareStateNotFound,
@@ -3575,6 +3579,28 @@ namespace PlayFab.ServerModels
         /// Mapping of Steam identifiers to PlayFab identifiers.
         /// </summary>
         public List<SteamPlayFabIdPair> Data ;
+
+    }
+
+    public class GetPlayFabIDsFromSteamNamesRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique Steam identifiers for which the title needs to get PlayFab identifiers. The array cannot exceed 2,000 in
+        /// length.
+        /// </summary>
+        public List<string> SteamNames ;
+
+    }
+
+    /// <summary>
+    /// For Steam identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
+    public class GetPlayFabIDsFromSteamNamesResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of Steam identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<SteamNamePlayFabIdPair> Data ;
 
     }
 
@@ -6521,6 +6547,20 @@ namespace PlayFab.ServerModels
         /// for updates to an existing statistic value for a player, the version of the statistic when it was loaded
         /// </summary>
         public uint Version ;
+
+    }
+
+    public class SteamNamePlayFabIdPair
+    {
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Steam identifier.
+        /// </summary>
+        public string PlayFabId ;
+
+        /// <summary>
+        /// Unique Steam identifier for a user, also known as Steam persona name.
+        /// </summary>
+        public string SteamName ;
 
     }
 
