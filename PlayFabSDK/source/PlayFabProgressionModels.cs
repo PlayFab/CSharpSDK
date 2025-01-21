@@ -953,6 +953,12 @@ namespace PlayFab.ProgressionModels
         /// </summary>
         public List<StatisticUpdate> Statistics ;
 
+        /// <summary>
+        /// Optional transactionId of this update which can be used to ensure idempotence. Using this field is still in testing
+        /// stage.
+        /// </summary>
+        public string TransactionId ;
+
     }
 
     public class UpdateStatisticsResponse : PlayFabResultCommon
