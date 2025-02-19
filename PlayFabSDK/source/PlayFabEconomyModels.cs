@@ -314,6 +314,11 @@ namespace PlayFab.EconomyModels
         public Rating Rating ;
 
         /// <summary>
+        /// The real price the item was purchased for per marketplace.
+        /// </summary>
+        public RealMoneyPriceDetails RealMoneyPriceDetails ;
+
+        /// <summary>
         /// The date of when the item will be available. If not provided then the product will appear immediately.
         /// </summary>
         public DateTime? StartDate ;
@@ -515,10 +520,6 @@ namespace PlayFab.EconomyModels
         /// </summary>
         public string Url ;
 
-    }
-
-    public class ContentFeed
-    {
     }
 
     public enum CountryCode
@@ -2087,10 +2088,6 @@ namespace PlayFab.EconomyModels
         Rejected
     }
 
-    public class PayoutDetails
-    {
-    }
-
     public class Permissions
     {
         /// <summary>
@@ -2282,10 +2279,6 @@ namespace PlayFab.EconomyModels
 
     }
 
-    public class PurchaseOverride
-    {
-    }
-
     public class PurchaseOverridesInfo
     {
     }
@@ -2350,6 +2343,36 @@ namespace PlayFab.EconomyModels
 
     public class RealMoneyPriceDetails
     {
+        /// <summary>
+        /// The 'AppleAppStore' price amount per CurrencyCode. 'USD' supported only.
+        /// </summary>
+        public Dictionary<string,int> AppleAppStorePrices ;
+
+        /// <summary>
+        /// The 'GooglePlay' price amount per CurrencyCode. 'USD' supported only.
+        /// </summary>
+        public Dictionary<string,int> GooglePlayPrices ;
+
+        /// <summary>
+        /// The 'MicrosoftStore' price amount per CurrencyCode. 'USD' supported only.
+        /// </summary>
+        public Dictionary<string,int> MicrosoftStorePrices ;
+
+        /// <summary>
+        /// The 'NintendoEShop' price amount per CurrencyCode. 'USD' supported only.
+        /// </summary>
+        public Dictionary<string,int> NintendoEShopPrices ;
+
+        /// <summary>
+        /// The 'PlayStationStore' price amount per CurrencyCode. 'USD' supported only.
+        /// </summary>
+        public Dictionary<string,int> PlayStationStorePrices ;
+
+        /// <summary>
+        /// The 'Steam' price amount per CurrencyCode. 'USD' supported only.
+        /// </summary>
+        public Dictionary<string,int> SteamPrices ;
+
     }
 
     /// <summary>
@@ -2814,11 +2837,6 @@ namespace PlayFab.EconomyModels
         public EntityKey ReviewerEntity ;
 
         /// <summary>
-        /// Deprecated. Use ReviewerEntity instead. This property will be removed in a future release.
-        /// </summary>
-        public string ReviewerId ;
-
-        /// <summary>
         /// The ID of the review.
         /// </summary>
         public string ReviewId ;
@@ -2898,15 +2916,6 @@ namespace PlayFab.EconomyModels
         /// The ID of the review to take down.
         /// </summary>
         public string ReviewId ;
-
-    }
-
-    public class ScanResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// The URL of the item which failed the scan.
-        /// </summary>
-        public string Url ;
 
     }
 
@@ -3082,15 +3091,6 @@ namespace PlayFab.EconomyModels
 
     public class SubmitItemReviewVoteResponse : PlayFabResultCommon
     {
-    }
-
-    public class SubscriptionDetails
-    {
-        /// <summary>
-        /// The length of time that the subscription will last in seconds.
-        /// </summary>
-        public double DurationInSeconds ;
-
     }
 
     public class SubtractInventoryItemsOperation
