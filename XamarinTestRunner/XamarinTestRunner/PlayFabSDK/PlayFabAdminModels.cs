@@ -473,7 +473,7 @@ namespace PlayFab.AdminModels
         public string Reason ;
 
         /// <summary>
-        /// The family type of the suer that is included in the ban.
+        /// The family type of the user that is included in the ban.
         /// </summary>
         public string UserFamilyType ;
 
@@ -2816,6 +2816,8 @@ namespace PlayFab.AdminModels
         UpdatingStatisticsUsingTransactionIdNotAvailableForFreeTier,
         TransactionAlreadyApplied,
         ReportDataNotRetrievedSuccessfully,
+        ResetIntervalCannotBeModified,
+        VersionIncrementRateExceeded,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -3099,6 +3101,7 @@ namespace PlayFab.AdminModels
         GameSaveDataStorageQuotaExceeded,
         GameSaveNewerManifestExists,
         GameSaveBaseVersionNotAvailable,
+        GameSaveManifestVersionQuarantined,
         StateShareForbidden,
         StateShareTitleNotInFlight,
         StateShareStateNotFound,
