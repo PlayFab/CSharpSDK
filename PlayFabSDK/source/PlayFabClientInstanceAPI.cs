@@ -523,6 +523,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes title-specific custom properties for a player
+        /// </summary>
+        public async Task<PlayFabResult<DeletePlayerCustomPropertiesResult>> DeletePlayerCustomPropertiesAsync(DeletePlayerCustomPropertiesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/DeletePlayerCustomProperties", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeletePlayerCustomPropertiesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeletePlayerCustomPropertiesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeletePlayerCustomPropertiesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Executes a CloudScript function, with the 'currentPlayerId' set to the PlayFab ID of the authenticated player. The
         /// PlayFab ID is the entity ID of the player's master_player_account entity.
         /// </summary>
@@ -1083,6 +1109,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerCombinedInfoResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves a title-specific custom property value for a player.
+        /// </summary>
+        public async Task<PlayFabResult<GetPlayerCustomPropertyResult>> GetPlayerCustomPropertyAsync(GetPlayerCustomPropertyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetPlayerCustomProperty", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayerCustomPropertyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerCustomPropertyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayerCustomPropertyResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2486,6 +2538,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<LinkXboxAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves title-specific custom property values for a player.
+        /// </summary>
+        public async Task<PlayFabResult<ListPlayerCustomPropertiesResult>> ListPlayerCustomPropertiesAsync(ListPlayerCustomPropertiesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/ListPlayerCustomProperties", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListPlayerCustomPropertiesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListPlayerCustomPropertiesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListPlayerCustomPropertiesResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -4204,6 +4282,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCharacterStatisticsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Updates the title-specific custom property values for a player
+        /// </summary>
+        public async Task<PlayFabResult<UpdatePlayerCustomPropertiesResult>> UpdatePlayerCustomPropertiesAsync(UpdatePlayerCustomPropertiesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/UpdatePlayerCustomProperties", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UpdatePlayerCustomPropertiesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdatePlayerCustomPropertiesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UpdatePlayerCustomPropertiesResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

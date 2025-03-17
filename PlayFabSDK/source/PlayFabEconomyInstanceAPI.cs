@@ -80,7 +80,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Creates a new item in the working catalog using provided metadata.
+        /// Creates a new item in the working catalog using provided metadata. Note: SAS tokens provided are valid for 1 hour.
         /// </summary>
         public async Task<PlayFabResult<CreateDraftItemResponse>> CreateDraftItemAsync(CreateDraftItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -328,7 +328,8 @@ namespace PlayFab
         /// <summary>
         /// Retrieves an item from the working catalog. This item represents the current working state of the item. GetDraftItem
         /// does not work off a cache of the Catalog and should be used when trying to get recent item updates. However, please note
-        /// that item references data is cached and may take a few moments for changes to propagate.
+        /// that item references data is cached and may take a few moments for changes to propagate. Note: SAS tokens provided are
+        /// valid for 1 hour.
         /// </summary>
         public async Task<PlayFabResult<GetDraftItemResponse>> GetDraftItemAsync(GetDraftItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -355,7 +356,8 @@ namespace PlayFab
 
         /// <summary>
         /// Retrieves a paginated list of the items from the draft catalog. Up to 50 IDs can be retrieved in a single request.
-        /// GetDraftItems does not work off a cache of the Catalog and should be used when trying to get recent item updates.
+        /// GetDraftItems does not work off a cache of the Catalog and should be used when trying to get recent item updates. Note:
+        /// SAS tokens provided are valid for 1 hour.
         /// </summary>
         public async Task<PlayFabResult<GetDraftItemsResponse>> GetDraftItemsAsync(GetDraftItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1246,7 +1248,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Update the metadata for an item in the working catalog.
+        /// Update the metadata for an item in the working catalog. Note: SAS tokens provided are valid for 1 hour.
         /// </summary>
         public async Task<PlayFabResult<UpdateDraftItemResponse>> UpdateDraftItemAsync(UpdateDraftItemRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

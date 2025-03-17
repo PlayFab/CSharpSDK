@@ -400,6 +400,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes title-specific custom properties for a player
+        /// </summary>
+        public async Task<PlayFabResult<DeletePlayerCustomPropertiesResult>> DeletePlayerCustomPropertiesAsync(DeletePlayerCustomPropertiesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/DeletePlayerCustomProperties", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeletePlayerCustomPropertiesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeletePlayerCustomPropertiesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeletePlayerCustomPropertiesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Deletes push notification template for title
         /// </summary>
         public async Task<PlayFabResult<DeletePushNotificationTemplateResult>> DeletePushNotificationTemplateAsync(DeletePushNotificationTemplateRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -961,6 +987,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayerCombinedInfoResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves a title-specific custom property value for a player.
+        /// </summary>
+        public async Task<PlayFabResult<GetPlayerCustomPropertyResult>> GetPlayerCustomPropertyAsync(GetPlayerCustomPropertyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayerCustomProperty", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayerCustomPropertyResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayerCustomPropertyResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayerCustomPropertyResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2207,6 +2259,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves title-specific custom property values for a player.
+        /// </summary>
+        public async Task<PlayFabResult<ListPlayerCustomPropertiesResult>> ListPlayerCustomPropertiesAsync(ListPlayerCustomPropertiesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/ListPlayerCustomProperties", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListPlayerCustomPropertiesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListPlayerCustomPropertiesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListPlayerCustomPropertiesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Signs the user in using a PlayStation :tm: Network authentication code, returning a session identifier that can
         /// subsequently be used for API calls which require an authenticated user
         /// </summary>
@@ -3406,6 +3484,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCharacterStatisticsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Updates the title-specific custom property values for a player
+        /// </summary>
+        public async Task<PlayFabResult<UpdatePlayerCustomPropertiesResult>> UpdatePlayerCustomPropertiesAsync(UpdatePlayerCustomPropertiesRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UpdatePlayerCustomProperties", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UpdatePlayerCustomPropertiesResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdatePlayerCustomPropertiesResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UpdatePlayerCustomPropertiesResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
