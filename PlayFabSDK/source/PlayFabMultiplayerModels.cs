@@ -1351,6 +1351,13 @@ namespace PlayFab.MultiplayerModels
         public OwnerMigrationPolicy? OwnerMigrationPolicy ;
 
         /// <summary>
+        /// A setting that controls whether only the lobby owner can send invites to join the lobby. When true, only the lobby owner
+        /// can send invites. When false or not specified, any member can send invites. Defaults to false if not specified.
+        /// Restricted to client owned lobbies.
+        /// </summary>
+        public bool RestrictInvitesToLobbyOwner ;
+
+        /// <summary>
         /// The public key-value pairs which allow queries to differentiate between lobbies. Queries will refer to these key-value
         /// pairs in their filter and order by clauses to retrieve lobbies fitting the specified criteria. At most 30 key-value
         /// pairs may be stored here. Keys are of the format string_key1, string_key2 ... string_key30 for string values, or
@@ -3134,6 +3141,13 @@ namespace PlayFab.MultiplayerModels
         public OwnerMigrationPolicy? OwnerMigrationPolicy ;
 
         /// <summary>
+        /// A setting that controls whether only the lobby owner can send invites to join the lobby. When true, only the lobby owner
+        /// can send invites. When false or not specified, any member can send invites. Defaults to false if not specified.
+        /// Restricted to client owned lobbies.
+        /// </summary>
+        public bool RestrictInvitesToLobbyOwner ;
+
+        /// <summary>
         /// A setting to control whether connections are used. Defaults to true. When true, notifications are sent to subscribed
         /// players, disconnect detection removes connectionHandles, only owner migration policies using connections are allowed,
         /// and lobbies must have at least one connected member to be searchable or be a server hosted lobby with a connected
@@ -4033,6 +4047,12 @@ namespace PlayFab.MultiplayerModels
         /// PubSub.
         /// </summary>
         public string PubSubConnectionHandle ;
+
+        /// <summary>
+        /// A setting that controls lobby invites. When true only owners can invite new players, when false all members area allowed
+        /// to invite.
+        /// </summary>
+        public bool RestrictInvitesToLobbyOwner ;
 
         /// <summary>
         /// Search data.
