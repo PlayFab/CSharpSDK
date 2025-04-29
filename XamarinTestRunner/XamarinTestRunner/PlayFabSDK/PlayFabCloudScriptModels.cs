@@ -749,7 +749,8 @@ namespace PlayFab.CloudScriptModels
         NintendoSwitchAccount,
         GooglePlayGames,
         XboxMobileStore,
-        King
+        King,
+        BattleNet
     }
 
     public class LogStatement

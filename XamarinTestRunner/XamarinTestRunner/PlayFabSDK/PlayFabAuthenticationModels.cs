@@ -207,7 +207,8 @@ namespace PlayFab.AuthenticationModels
         NintendoSwitchAccount,
         GooglePlayGames,
         XboxMobileStore,
-        King
+        King,
+        BattleNet
     }
 
     /// <summary>
