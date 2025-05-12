@@ -63,6 +63,33 @@ namespace PlayFab
         } 
 
         /// <summary>
+        /// Deletes a Data Connection from a title.
+        /// </summary>
+        public static async Task<PlayFabResult<DeleteDataConnectionResponse>> DeleteDataConnectionAsync(DeleteDataConnectionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Event/DeleteDataConnection", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteDataConnectionResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteDataConnectionResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteDataConnectionResponse> { Result = result, CustomData = customData };
+        } 
+
+        /// <summary>
         /// Deletes a telemetry key configured for the title.
         /// </summary>
         public static async Task<PlayFabResult<DeleteTelemetryKeyResponse>> DeleteTelemetryKeyAsync(DeleteTelemetryKeyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -87,6 +114,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<DeleteTelemetryKeyResponse> { Result = result, CustomData = customData };
+        } 
+
+        /// <summary>
+        /// Retrieves a single Data Connection associated with a title.
+        /// </summary>
+        public static async Task<PlayFabResult<GetDataConnectionResponse>> GetDataConnectionAsync(GetDataConnectionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Event/GetDataConnection", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetDataConnectionResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetDataConnectionResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetDataConnectionResponse> { Result = result, CustomData = customData };
         } 
 
         /// <summary>
@@ -117,6 +171,33 @@ namespace PlayFab
         } 
 
         /// <summary>
+        /// Retrieves the list of Data Connections associated with a title.
+        /// </summary>
+        public static async Task<PlayFabResult<ListDataConnectionsResponse>> ListDataConnectionsAsync(ListDataConnectionsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Event/ListDataConnections", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ListDataConnectionsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ListDataConnectionsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ListDataConnectionsResponse> { Result = result, CustomData = customData };
+        } 
+
+        /// <summary>
         /// Lists all telemetry keys configured for the title.
         /// </summary>
         public static async Task<PlayFabResult<ListTelemetryKeysResponse>> ListTelemetryKeysAsync(ListTelemetryKeysRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -141,6 +222,60 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<ListTelemetryKeysResponse> { Result = result, CustomData = customData };
+        } 
+
+        /// <summary>
+        /// Creates or updates a Data Connection on a title.
+        /// </summary>
+        public static async Task<PlayFabResult<SetDataConnectionResponse>> SetDataConnectionAsync(SetDataConnectionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Event/SetDataConnection", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SetDataConnectionResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetDataConnectionResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SetDataConnectionResponse> { Result = result, CustomData = customData };
+        } 
+
+        /// <summary>
+        /// Sets a Data Connection for the title to either the active or deactivated state.
+        /// </summary>
+        public static async Task<PlayFabResult<SetDataConnectionActiveResponse>> SetDataConnectionActiveAsync(SetDataConnectionActiveRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Event/SetDataConnectionActive", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<SetDataConnectionActiveResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<SetDataConnectionActiveResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<SetDataConnectionActiveResponse> { Result = result, CustomData = customData };
         } 
 
         /// <summary>

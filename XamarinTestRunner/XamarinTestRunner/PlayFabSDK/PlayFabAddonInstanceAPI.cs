@@ -261,6 +261,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Creates the ToxMod addon on a title, or updates it if it already exists.
+        /// </summary>
+        public async Task<PlayFabResult<CreateOrUpdateToxModResponse>> CreateOrUpdateToxModAsync(CreateOrUpdateToxModRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Addon/CreateOrUpdateToxMod", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<CreateOrUpdateToxModResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateOrUpdateToxModResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<CreateOrUpdateToxModResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Creates the Twitch addon on a title, or updates it if it already exists.
         /// </summary>
         public async Task<PlayFabResult<CreateOrUpdateTwitchResponse>> CreateOrUpdateTwitchAsync(CreateOrUpdateTwitchRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -495,6 +521,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Deletes the ToxMod addon on a title.
+        /// </summary>
+        public async Task<PlayFabResult<DeleteToxModResponse>> DeleteToxModAsync(DeleteToxModRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Addon/DeleteToxMod", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<DeleteToxModResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<DeleteToxModResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<DeleteToxModResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Deletes the Twitch addon on a title.
         /// </summary>
         public async Task<PlayFabResult<DeleteTwitchResponse>> DeleteTwitchAsync(DeleteTwitchRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -726,6 +778,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetSteamResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Gets information of the ToxMod addon on a title, omits secrets.
+        /// </summary>
+        public async Task<PlayFabResult<GetToxModResponse>> GetToxModAsync(GetToxModRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Addon/GetToxMod", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetToxModResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetToxModResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetToxModResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>
