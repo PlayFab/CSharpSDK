@@ -32,6 +32,171 @@ namespace PlayFab.EventsModels
 
     }
 
+    public class DataConnectionAzureBlobSettings
+    {
+        /// <summary>
+        /// Name of the storage account.
+        /// </summary>
+        public string AccountName ;
+
+        /// <summary>
+        /// Name of the container.
+        /// </summary>
+        public string ContainerName ;
+
+        /// <summary>
+        /// Azure Entra Tenant Id.
+        /// </summary>
+        public string TenantId ;
+
+    }
+
+    public class DataConnectionAzureDataExplorerSettings
+    {
+        /// <summary>
+        /// The URI of the ADX cluster.
+        /// </summary>
+        public string ClusterUri ;
+
+        /// <summary>
+        /// The database to write to.
+        /// </summary>
+        public string Database ;
+
+        /// <summary>
+        /// The table to write to.
+        /// </summary>
+        public string Table ;
+
+    }
+
+    public class DataConnectionDetails
+    {
+        /// <summary>
+        /// Settings of the data connection.
+        /// </summary>
+        public DataConnectionSettings ConnectionSettings ;
+
+        /// <summary>
+        /// Whether or not the connection is currently active.
+        /// </summary>
+        public bool IsActive ;
+
+        /// <summary>
+        /// The name of the data connection.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// Current status of the data connection, if any.
+        /// </summary>
+        public DataConnectionStatusDetails Status ;
+
+        /// <summary>
+        /// The type of data connection.
+        /// </summary>
+        public DataConnectionType Type ;
+
+    }
+
+    public enum DataConnectionErrorState
+    {
+        OK,
+        Error
+    }
+
+    public class DataConnectionFabricKQLSettings
+    {
+        /// <summary>
+        /// The URI of the Fabric cluster.
+        /// </summary>
+        public string ClusterUri ;
+
+        /// <summary>
+        /// The database to write to.
+        /// </summary>
+        public string Database ;
+
+        /// <summary>
+        /// The table to write to.
+        /// </summary>
+        public string Table ;
+
+    }
+
+    public class DataConnectionSettings
+    {
+        /// <summary>
+        /// Settings if the type of connection is AzureBlobStorage.
+        /// </summary>
+        public DataConnectionAzureBlobSettings AzureBlobSettings ;
+
+        /// <summary>
+        /// Settings if the type of connection is AzureDataExplorer.
+        /// </summary>
+        public DataConnectionAzureDataExplorerSettings AzureDataExplorerSettings ;
+
+        /// <summary>
+        /// Settings if the type of connection is FabricKQL.
+        /// </summary>
+        public DataConnectionFabricKQLSettings AzureFabricKQLSettings ;
+
+    }
+
+    public class DataConnectionStatusDetails
+    {
+        /// <summary>
+        /// The name of the error affecting the data connection, if any.
+        /// </summary>
+        public string Error ;
+
+        /// <summary>
+        /// A description of the error affecting the data connection, if any. This may be empty for some errors.
+        /// </summary>
+        public string ErrorMessage ;
+
+        /// <summary>
+        /// The most recent time of the error affecting the data connection, if any.
+        /// </summary>
+        public DateTime? MostRecentErrorTime ;
+
+        /// <summary>
+        /// Indicates if the connection is in a normal state or error state.
+        /// </summary>
+        public DataConnectionErrorState? State ;
+
+    }
+
+    public enum DataConnectionType
+    {
+        AzureBlobStorage,
+        AzureDataExplorer,
+        FabricKQL
+    }
+
+    public class DeleteDataConnectionRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The name of the data connection to delete.
+        /// </summary>
+        public string Name ;
+
+    }
+
+    public class DeleteDataConnectionResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Indicates whether or not the connection was deleted as part of the request.
+        /// </summary>
+        public bool WasDeleted ;
+
+    }
+
     public class DeleteTelemetryKeyRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -126,6 +291,29 @@ namespace PlayFab.EventsModels
 
     }
 
+    public class GetDataConnectionRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The name of the data connection to retrieve.
+        /// </summary>
+        public string Name ;
+
+    }
+
+    public class GetDataConnectionResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The details of the queried Data Connection.
+        /// </summary>
+        public DataConnectionDetails DataConnection ;
+
+    }
+
     public class GetTelemetryKeyRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -154,6 +342,24 @@ namespace PlayFab.EventsModels
 
     }
 
+    public class ListDataConnectionsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+    }
+
+    public class ListDataConnectionsResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The list of existing Data Connections.
+        /// </summary>
+        public List<DataConnectionDetails> DataConnections ;
+
+    }
+
     public class ListTelemetryKeysRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -174,6 +380,78 @@ namespace PlayFab.EventsModels
         /// The telemetry keys configured for the title.
         /// </summary>
         public List<TelemetryKeyDetails> KeyDetails ;
+
+    }
+
+    public class SetDataConnectionActiveRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Whether to set the data connection to active (true) or deactivated (false).
+        /// </summary>
+        public bool Active ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The name of the data connection to update.
+        /// </summary>
+        public string Name ;
+
+    }
+
+    public class SetDataConnectionActiveResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The most current details about the data connection that was to be updated.
+        /// </summary>
+        public DataConnectionDetails DataConnection ;
+
+        /// <summary>
+        /// Indicates whether or not the data connection was updated. If false, the data connection was already in the desired
+        /// state.
+        /// </summary>
+        public bool WasUpdated ;
+
+    }
+
+    public class SetDataConnectionRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Settings of the data connection.
+        /// </summary>
+        public DataConnectionSettings ConnectionSettings ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Whether or not the connection is currently active.
+        /// </summary>
+        public bool IsActive ;
+
+        /// <summary>
+        /// The name of the data connection to update or create.
+        /// </summary>
+        public string Name ;
+
+        /// <summary>
+        /// The type of data connection.
+        /// </summary>
+        public DataConnectionType Type ;
+
+    }
+
+    public class SetDataConnectionResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The details of the Data Connection to be created or updated.
+        /// </summary>
+        public DataConnectionDetails DataConnection ;
 
     }
 

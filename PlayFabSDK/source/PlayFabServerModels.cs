@@ -2235,6 +2235,7 @@ namespace PlayFab.ServerModels
         DataNotAvailable,
         InvalidReportName,
         ResourceNotModified,
+        StudioCreationLimitExceeded,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2539,6 +2540,8 @@ namespace PlayFab.ServerModels
         GameSaveManifestDescriptionUpdateNotAllowed,
         GameSaveTitleConfigNotFound,
         GameSaveTitleAlreadyOnboarded,
+        GameSaveServiceNotEnabledForTitle,
+        GameSaveServiceOnboardingPending,
         StateShareForbidden,
         StateShareTitleNotInFlight,
         StateShareStateNotFound,
@@ -2548,7 +2551,15 @@ namespace PlayFab.ServerModels
         StateShareCreatedStatesLimitExceeded,
         StateShareIdMissingOrMalformed,
         PlayerCreationDisabled,
-        AccountAlreadyExists
+        AccountAlreadyExists,
+        TagInvalid,
+        TagTooLong,
+        StatisticColumnAggregationMismatch,
+        StatisticResetIntervalMismatch,
+        VersionConfigurationCannotBeSpecifiedForLinkedStat,
+        VersionConfigurationIsRequired,
+        InvalidEntityTypeForAggregation,
+        MultiLevelAggregationNotAllowed
     }
 
     public class GenericPlayFabIdPair
@@ -7789,6 +7800,11 @@ namespace PlayFab.ServerModels
         public UserAppleIdInfo AppleAccountInfo ;
 
         /// <summary>
+        /// Battle.net account information, if a Battle.net account has been linked
+        /// </summary>
+        public UserBattleNetInfo BattleNetAccountInfo ;
+
+        /// <summary>
         /// Timestamp indicating when the user account was created
         /// </summary>
         public DateTime Created ;
@@ -7910,6 +7926,20 @@ namespace PlayFab.ServerModels
         /// Apple subject ID
         /// </summary>
         public string AppleSubjectId ;
+
+    }
+
+    public class UserBattleNetInfo
+    {
+        /// <summary>
+        /// Battle.net identifier
+        /// </summary>
+        public string BattleNetAccountId ;
+
+        /// <summary>
+        /// Battle.net display name
+        /// </summary>
+        public string BattleNetBattleTag ;
 
     }
 
