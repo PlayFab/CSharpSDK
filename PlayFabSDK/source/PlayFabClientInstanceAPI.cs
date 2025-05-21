@@ -16,7 +16,7 @@ namespace PlayFab
     /// APIs which provide the full range of PlayFab features available to the client - authentication, account and data
     /// management, inventory, friends, matchmaking, reporting, and platform-specific functionality
     /// </summary>
-    public class PlayFabClientInstanceAPI
+    public class PlayFabClientInstanceAPI : IPlayFabClientInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;

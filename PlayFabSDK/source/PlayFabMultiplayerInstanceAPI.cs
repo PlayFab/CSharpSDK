@@ -18,7 +18,7 @@ namespace PlayFab
     /// The TrueSkill service helps titles to estimate a player's skill based on their match results. The player skill values
     /// from this service are commonly used by a matchmaking service to provide players with balanced matches.
     /// </summary>
-    public class PlayFabMultiplayerInstanceAPI
+    public class PlayFabMultiplayerInstanceAPI : IPlayFabMultiplayerInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
