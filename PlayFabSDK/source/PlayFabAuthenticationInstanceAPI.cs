@@ -18,7 +18,7 @@ namespace PlayFab
     /// game_server API is designed to create uniquely identifiable game_server entities. The game_server Entity token can be
     /// used to call Matchmaking Lobby and Pubsub for server scenarios.
     /// </summary>
-    public class PlayFabAuthenticationInstanceAPI : IPlayFabAuthentication
+    public class PlayFabAuthenticationInstanceAPI : IPlayFabAuthenticationInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
