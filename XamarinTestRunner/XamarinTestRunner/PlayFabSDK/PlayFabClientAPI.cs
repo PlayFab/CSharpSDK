@@ -2228,7 +2228,7 @@ namespace PlayFab
         /// <summary>
         /// Links the Battle.net account associated with the token to the user's PlayFab account.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResponse>> LinkBattleNetAsync(LinkBattleNetRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> LinkBattleNetAccountAsync(LinkBattleNetAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
 
@@ -2237,7 +2237,7 @@ namespace PlayFab
             if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/LinkBattleNet", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Client/LinkBattleNetAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;
@@ -3953,7 +3953,7 @@ namespace PlayFab
         /// <summary>
         /// Unlinks the related Battle.net account from the user's PlayFab account.
         /// </summary>
-        public static async Task<PlayFabResult<EmptyResponse>> UnlinkBattleNetAsync(UnlinkBattleNetRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        public static async Task<PlayFabResult<EmptyResponse>> UnlinkBattleNetAccountAsync(UnlinkBattleNetAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
 
@@ -3962,7 +3962,7 @@ namespace PlayFab
             if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
 
 
-            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkBattleNet", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
+            var httpResult = await PlayFabHttp.DoPost("/Client/UnlinkBattleNetAccount", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

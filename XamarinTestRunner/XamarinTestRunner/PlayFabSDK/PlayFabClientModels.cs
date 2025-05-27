@@ -3766,7 +3766,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class LinkBattleNetRequest : PlayFabRequestCommon
+    public class LinkBattleNetAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
@@ -7095,7 +7095,7 @@ namespace PlayFab.ClientModels
 
     }
 
-    public class UnlinkBattleNetRequest : PlayFabRequestCommon
+    public class UnlinkBattleNetAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
