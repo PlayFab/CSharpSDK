@@ -15,7 +15,7 @@ namespace PlayFab
     /// <summary>
     /// API methods for executing CloudScript using an Entity Profile
     /// </summary>
-    public class PlayFabCloudScriptInstanceAPI
+    public class PlayFabCloudScriptInstanceAPI : IPlayFabCloudScriptInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;

@@ -15,7 +15,7 @@ namespace PlayFab
     /// <summary>
     /// Manage the Insights performance level and data storage retention settings.
     /// </summary>
-    public class PlayFabInsightsInstanceAPI
+    public class PlayFabInsightsInstanceAPI : IPlayFabInsightsInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
