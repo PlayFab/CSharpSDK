@@ -212,12 +212,12 @@ namespace PlayFab.ProgressionModels
     public class EntityStatistics
     {
         /// <summary>
-        /// Entity key
+        /// The entity for which the statistics are returned.
         /// </summary>
         public EntityKey EntityKey ;
 
         /// <summary>
-        /// All statistics for the given entitykey
+        /// The statistics for the given entity key.
         /// </summary>
         public List<EntityStatisticValue> Statistics ;
 
@@ -560,6 +560,11 @@ namespace PlayFab.ProgressionModels
         /// </summary>
         public List<EntityKey> Entities ;
 
+        /// <summary>
+        /// The list of statistics to return for the user. If set to null, the current version of all statistics are returned.
+        /// </summary>
+        public List<string> StatisticNames ;
+
     }
 
     public class GetStatisticsForEntitiesResponse : PlayFabResultCommon
@@ -587,6 +592,11 @@ namespace PlayFab.ProgressionModels
         /// The optional entity to perform this action on. Defaults to the currently logged in entity.
         /// </summary>
         public EntityKey Entity ;
+
+        /// <summary>
+        /// The list of statistics to return for the user. If set to null, the current version of all statistics are returned.
+        /// </summary>
+        public List<string> StatisticNames ;
 
     }
 
