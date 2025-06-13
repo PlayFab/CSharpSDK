@@ -15,7 +15,7 @@ namespace PlayFab
     /// <summary>
     /// APIs for managing addons.
     /// </summary>
-    public class PlayFabAddonInstanceAPI
+    public class PlayFabAddonInstanceAPI :IPlayFabAddonInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;

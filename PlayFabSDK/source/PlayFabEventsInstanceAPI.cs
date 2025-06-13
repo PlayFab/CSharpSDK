@@ -16,7 +16,7 @@ namespace PlayFab
     /// Write custom PlayStream and Telemetry events for any PlayFab entity. Telemetry events can be used for analytic,
     /// reporting, or debugging. PlayStream events can do all of that and also trigger custom actions in near real-time.
     /// </summary>
-    public class PlayFabEventsInstanceAPI
+    public class PlayFabEventsInstanceAPI : IPlayFabEventsInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;

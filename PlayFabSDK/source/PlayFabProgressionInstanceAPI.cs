@@ -15,7 +15,7 @@ namespace PlayFab
     /// <summary>
     /// Manage entity statistics Manage entity leaderboards
     /// </summary>
-    public class PlayFabProgressionInstanceAPI
+    public class PlayFabProgressionInstanceAPI : IPlayFabProgressionInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;

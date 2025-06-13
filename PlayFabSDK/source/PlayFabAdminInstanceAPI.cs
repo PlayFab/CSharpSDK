@@ -15,7 +15,7 @@ namespace PlayFab
     /// <summary>
     /// APIs for managing title configurations, uploaded Game Server code executables, and user data
     /// </summary>
-    public class PlayFabAdminInstanceAPI
+    public class PlayFabAdminInstanceAPI : IPlayFabAdminInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;

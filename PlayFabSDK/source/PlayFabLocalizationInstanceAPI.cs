@@ -15,7 +15,7 @@ namespace PlayFab
     /// <summary>
     /// The Localization APIs give you the tools needed to manage language setup in your title.
     /// </summary>
-    public class PlayFabLocalizationInstanceAPI
+    public class PlayFabLocalizationInstanceAPI : IPlayFabLocalizationInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
