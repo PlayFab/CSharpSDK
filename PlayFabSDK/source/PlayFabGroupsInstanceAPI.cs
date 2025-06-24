@@ -17,7 +17,7 @@ namespace PlayFab
     /// want to make Guilds/Clans/Corporations/etc., then you should use groups. Groups can also be used to make chatrooms,
     /// parties, or any other persistent collection of entities.
     /// </summary>
-    public class PlayFabGroupsInstanceAPI
+    public class PlayFabGroupsInstanceAPI : IPlayFabGroupsInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
