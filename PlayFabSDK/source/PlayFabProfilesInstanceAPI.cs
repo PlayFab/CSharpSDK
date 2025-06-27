@@ -16,7 +16,7 @@ namespace PlayFab
     /// All PlayFab entities have profiles, which hold top-level properties about the entity. These APIs give you the tools
     /// needed to manage entity profiles.
     /// </summary>
-    public class PlayFabProfilesInstanceAPI
+    public class PlayFabProfilesInstanceAPI : IPlayFabProfilesInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
