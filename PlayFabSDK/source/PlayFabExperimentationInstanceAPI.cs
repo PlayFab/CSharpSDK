@@ -15,7 +15,7 @@ namespace PlayFab
     /// <summary>
     /// APIs for managing experiments.
     /// </summary>
-    public class PlayFabExperimentationInstanceAPI
+    public class PlayFabExperimentationInstanceAPI : IPlayFabExperimentationInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
