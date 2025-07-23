@@ -16,7 +16,7 @@ namespace PlayFab
     /// Provides functionality to allow external (developer-controlled) servers to interact with user inventories and data in a
     /// trusted manner, and to handle matchmaking and client connection orchestration
     /// </summary>
-    public class PlayFabServerInstanceAPI
+    public class PlayFabServerInstanceAPI : IPlayFabServerInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;

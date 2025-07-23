@@ -18,7 +18,7 @@ namespace PlayFab
     /// and CloudScript functions. Files can efficiently store data of any size or format. Both objects and files support a
     /// flexible permissions system to control read and write access by other entities.
     /// </summary>
-    public class PlayFabDataInstanceAPI
+    public class PlayFabDataInstanceAPI : IPlayFabDataInstanceAPI
     {
         public readonly PlayFabApiSettings apiSettings = null;
         public readonly PlayFabAuthenticationContext authenticationContext = null;
