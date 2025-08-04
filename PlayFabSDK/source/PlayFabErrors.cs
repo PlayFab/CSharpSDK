@@ -607,6 +607,7 @@ namespace PlayFab
         InvalidReportName = 1605,
         ResourceNotModified = 1606,
         StudioCreationLimitExceeded = 1607,
+        StudioDeletionInitiated = 1608,
         MatchmakingEntityInvalid = 2001,
         MatchmakingPlayerAttributesInvalid = 2002,
         MatchmakingQueueNotFound = 2016,
@@ -935,7 +936,8 @@ namespace PlayFab
         VersionConfigurationIsRequired = 23005,
         InvalidEntityTypeForAggregation = 23006,
         MultiLevelAggregationNotAllowed = 23007,
-        AggregationTypeNotAllowedForLinkedStat = 23008
+        AggregationTypeNotAllowedForLinkedStat = 23008,
+        StoreMetricsRequestInvalidInput = 23501
     }
 
     public class PlayFabError
