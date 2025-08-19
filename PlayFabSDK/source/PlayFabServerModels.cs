@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace PlayFab.ServerModels
 {
+    [Obsolete("No longer available", false)]
     public class AdCampaignAttribution
     {
         /// <summary>
@@ -713,6 +714,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class ContactEmailInfo
     {
         /// <summary>
@@ -3397,6 +3399,7 @@ namespace PlayFab.ServerModels
     /// generate high request volumes. Only one request to this API at a time should be made per title. Concurrent requests to
     /// the API may be rejected with the APIConcurrentRequestLimitExceeded error.
     /// </summary>
+    [Obsolete("No longer available", false)]
     public class GetPlayersInSegmentRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3435,6 +3438,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class GetPlayersInSegmentResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5646,6 +5650,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerLinkedAccount
     {
         /// <summary>
@@ -5670,6 +5675,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerLocation
     {
         /// <summary>
@@ -5699,6 +5705,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerProfile
     {
         /// <summary>
@@ -6014,6 +6021,7 @@ namespace PlayFab.ServerModels
 
     }
 
+    [Obsolete("No longer available", false)]
     public class PlayerStatistic
     {
         /// <summary>
@@ -6142,6 +6150,7 @@ namespace PlayFab.ServerModels
         GoogleCloudMessaging
     }
 
+    [Obsolete("No longer available", false)]
     public class PushNotificationRegistration
     {
         /// <summary>

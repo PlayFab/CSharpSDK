@@ -24,6 +24,11 @@ namespace PlayFab.ProgressionModels
         public string EntityType ;
 
         /// <summary>
+        /// [In Preview]: The configuration for the events emitted by this leaderboard. If not specified, no events will be emitted.
+        /// </summary>
+        public LeaderboardEventEmissionConfig EventEmissionConfig ;
+
+        /// <summary>
         /// A name for the leaderboard, unique per title.
         /// </summary>
         public string Name ;
@@ -63,6 +68,11 @@ namespace PlayFab.ProgressionModels
         /// The entity type allowed to have score(s) for this statistic.
         /// </summary>
         public string EntityType ;
+
+        /// <summary>
+        /// [In Preview]: Configurations for different Statistics events that can be emitted by the service.
+        /// </summary>
+        public StatisticsEventEmissionConfig EventEmissionConfig ;
 
         /// <summary>
         /// Name of the statistic. Must be less than 150 characters. Restricted to a-Z, 0-9, '(', ')', '_', '-' and '.'.
@@ -247,6 +257,13 @@ namespace PlayFab.ProgressionModels
 
     }
 
+    public enum EventType
+    {
+        None,
+        Telemetry,
+        PlayStream
+    }
+
     public enum ExternalFriendSources
     {
         None,
@@ -425,6 +442,11 @@ namespace PlayFab.ProgressionModels
         public string EntityType ;
 
         /// <summary>
+        /// [In Preview]: The configuration for the events emitted by this leaderboard. If not specified, no events will be emitted.
+        /// </summary>
+        public LeaderboardEventEmissionConfig EventEmissionConfig ;
+
+        /// <summary>
         /// Last time, in UTC, leaderboard version was incremented.
         /// </summary>
         public DateTime? LastResetTime ;
@@ -520,6 +542,11 @@ namespace PlayFab.ProgressionModels
         /// The entity type that can have this statistic.
         /// </summary>
         public string EntityType ;
+
+        /// <summary>
+        /// [In Preview]: Configurations for different Statistics events that can be emitted by the service.
+        /// </summary>
+        public StatisticsEventEmissionConfig EventEmissionConfig ;
 
         /// <summary>
         /// Last time, in UTC, statistic version was incremented.
@@ -704,6 +731,11 @@ namespace PlayFab.ProgressionModels
         public string EntityType ;
 
         /// <summary>
+        /// [In Preview]: The configuration for the events emitted by this leaderboard. If not specified, no events will be emitted.
+        /// </summary>
+        public LeaderboardEventEmissionConfig EventEmissionConfig ;
+
+        /// <summary>
         /// Last time, in UTC, leaderboard version was incremented.
         /// </summary>
         public DateTime? LastResetTime ;
@@ -730,6 +762,20 @@ namespace PlayFab.ProgressionModels
 
     }
 
+    public class LeaderboardEntityRankOnVersionEndConfig
+    {
+        /// <summary>
+        /// The type of event to emit when the leaderboard version end.
+        /// </summary>
+        public EventType EventType ;
+
+        /// <summary>
+        /// The maximum number of entity to return on leaderboard version end. Range is 1 to 1000.
+        /// </summary>
+        public int RankLimit ;
+
+    }
+
     public class LeaderboardEntryUpdate
     {
         /// <summary>
@@ -751,10 +797,33 @@ namespace PlayFab.ProgressionModels
 
     }
 
+    public class LeaderboardEventEmissionConfig
+    {
+        /// <summary>
+        /// This event emits the top ranks of the leaderboard when the leaderboard version end.
+        /// </summary>
+        public LeaderboardEntityRankOnVersionEndConfig EntityRankOnVersionEndConfig ;
+
+        /// <summary>
+        /// This event is emitted when the leaderboard version end.
+        /// </summary>
+        public LeaderboardVersionEndConfig VersionEndConfig ;
+
+    }
+
     public enum LeaderboardSortDirection
     {
         Descending,
         Ascending
+    }
+
+    public class LeaderboardVersionEndConfig
+    {
+        /// <summary>
+        /// The type of event to emit when the leaderboard version end.
+        /// </summary>
+        public EventType EventType ;
+
     }
 
     public class LinkedStatisticColumn
@@ -882,6 +951,11 @@ namespace PlayFab.ProgressionModels
         public string EntityType ;
 
         /// <summary>
+        /// [In Preview]: Configurations for different Statistics events that can be emitted by the service.
+        /// </summary>
+        public StatisticsEventEmissionConfig EventEmissionConfig ;
+
+        /// <summary>
         /// Last time, in UTC, statistic version was incremented.
         /// </summary>
         public DateTime? LastResetTime ;
@@ -914,6 +988,24 @@ namespace PlayFab.ProgressionModels
         /// Name of the statistic, as originally configured.
         /// </summary>
         public string Name ;
+
+    }
+
+    public class StatisticsEventEmissionConfig
+    {
+        /// <summary>
+        /// Emitted when statistics are updated.
+        /// </summary>
+        public StatisticsUpdateEventConfig UpdateEventConfig ;
+
+    }
+
+    public class StatisticsUpdateEventConfig
+    {
+        /// <summary>
+        /// The event type to emit when statistics are updated.
+        /// </summary>
+        public EventType EventType ;
 
     }
 
@@ -972,6 +1064,11 @@ namespace PlayFab.ProgressionModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
+        /// [In Preview]: The configuration for the events emitted by this leaderboard. If not specified, no events will be emitted.
+        /// </summary>
+        public LeaderboardEventEmissionConfig EventEmissionConfig ;
+
+        /// <summary>
         /// The name of the leaderboard to update the definition for.
         /// </summary>
         public string Name ;
@@ -1013,6 +1110,11 @@ namespace PlayFab.ProgressionModels
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
         public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// [In Preview]: Configurations for different Statistics events that can be emitted by the service.
+        /// </summary>
+        public StatisticsEventEmissionConfig EventEmissionConfig ;
 
         /// <summary>
         /// Name of the statistic. Must be less than 150 characters. Restricted to a-Z, 0-9, '(', ')', '_', '-' and '.'.
