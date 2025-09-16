@@ -166,7 +166,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class AdCampaignAttribution
     {
         /// <summary>
@@ -915,7 +915,7 @@ namespace PlayFab.AdminModels
         False
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class ContactEmailInfo
     {
         /// <summary>
@@ -2980,6 +2980,8 @@ namespace PlayFab.AdminModels
         ResourceNotModified,
         StudioCreationLimitExceeded,
         StudioDeletionInitiated,
+        ProductDisabledForTitle,
+        PreconditionFailed,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -3112,6 +3114,7 @@ namespace PlayFab.AdminModels
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
         AnalyticsSegmentCountOverLimit,
+        GetPlayersInSegmentDeprecated,
         SnapshotNotFound,
         InventoryApiNotImplemented,
         InventoryCollectionDeletionDisallowed,
@@ -3309,7 +3312,13 @@ namespace PlayFab.AdminModels
         InvalidEntityTypeForAggregation,
         MultiLevelAggregationNotAllowed,
         AggregationTypeNotAllowedForLinkedStat,
-        StoreMetricsRequestInvalidInput
+        OperationDeniedDueToDefinitionPolicy,
+        StatisticUpdateNotAllowedWhileLinked,
+        UnsupportedEntityType,
+        EntityTypeSpecifiedRequiresAggregationSource,
+        PlayFabErrorEventNotSupportedForEntityType,
+        StoreMetricsRequestInvalidInput,
+        StoreMetricsErrorRetrievingMetrics
     }
 
     public class GetActionsOnPlayersInSegmentTaskInstanceResult : PlayFabResultCommon
@@ -3703,7 +3712,7 @@ namespace PlayFab.AdminModels
     /// generate high request volumes. Only one request to this API at a time should be made per title. Concurrent requests to
     /// the API may be rejected with the APIConcurrentRequestLimitExceeded error.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetPlayersInSegmentRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3742,7 +3751,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetPlayersInSegmentResult : PlayFabResultCommon
     {
         /// <summary>
@@ -5174,7 +5183,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerLinkedAccount
     {
         /// <summary>
@@ -5199,7 +5208,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerLocation
     {
         /// <summary>
@@ -5229,7 +5238,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerProfile
     {
         /// <summary>
@@ -5545,7 +5554,7 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerStatistic
     {
         /// <summary>
@@ -5663,7 +5672,7 @@ namespace PlayFab.AdminModels
         GoogleCloudMessaging
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PushNotificationRegistration
     {
         /// <summary>
