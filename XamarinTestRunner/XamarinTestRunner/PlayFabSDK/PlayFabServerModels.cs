@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PlayFab.ServerModels
 {
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class AdCampaignAttribution
     {
         /// <summary>
@@ -714,7 +714,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class ContactEmailInfo
     {
         /// <summary>
@@ -2239,6 +2239,8 @@ namespace PlayFab.ServerModels
         ResourceNotModified,
         StudioCreationLimitExceeded,
         StudioDeletionInitiated,
+        ProductDisabledForTitle,
+        PreconditionFailed,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2371,6 +2373,7 @@ namespace PlayFab.ServerModels
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
         AnalyticsSegmentCountOverLimit,
+        GetPlayersInSegmentDeprecated,
         SnapshotNotFound,
         InventoryApiNotImplemented,
         InventoryCollectionDeletionDisallowed,
@@ -2568,7 +2571,13 @@ namespace PlayFab.ServerModels
         InvalidEntityTypeForAggregation,
         MultiLevelAggregationNotAllowed,
         AggregationTypeNotAllowedForLinkedStat,
-        StoreMetricsRequestInvalidInput
+        OperationDeniedDueToDefinitionPolicy,
+        StatisticUpdateNotAllowedWhileLinked,
+        UnsupportedEntityType,
+        EntityTypeSpecifiedRequiresAggregationSource,
+        PlayFabErrorEventNotSupportedForEntityType,
+        StoreMetricsRequestInvalidInput,
+        StoreMetricsErrorRetrievingMetrics
     }
 
     public class GenericPlayFabIdPair
@@ -3399,7 +3408,7 @@ namespace PlayFab.ServerModels
     /// generate high request volumes. Only one request to this API at a time should be made per title. Concurrent requests to
     /// the API may be rejected with the APIConcurrentRequestLimitExceeded error.
     /// </summary>
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetPlayersInSegmentRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -3438,7 +3447,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class GetPlayersInSegmentResult : PlayFabResultCommon
     {
         /// <summary>
@@ -4898,7 +4907,7 @@ namespace PlayFab.ServerModels
         public bool? ForceLink ;
 
         /// <summary>
-        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Xbox Live identifier.
+        /// PlayFab unique identifier of the user to link.
         /// </summary>
         public string PlayFabId ;
 
@@ -4926,7 +4935,7 @@ namespace PlayFab.ServerModels
         public bool? ForceLink ;
 
         /// <summary>
-        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Xbox Live identifier.
+        /// PlayFab unique identifier of the user to link.
         /// </summary>
         public string PlayFabId ;
 
@@ -4939,6 +4948,35 @@ namespace PlayFab.ServerModels
 
     public class LinkXboxAccountResult : PlayFabResultCommon
     {
+    }
+
+    public class LinkXboxIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// If another user is already linked to the account, unlink the other user and re-link.
+        /// </summary>
+        public bool? ForceLink ;
+
+        /// <summary>
+        /// PlayFab unique identifier of the user to link.
+        /// </summary>
+        public string PlayFabId ;
+
+        /// <summary>
+        /// The id of Xbox Live sandbox.
+        /// </summary>
+        public string Sandbox ;
+
+        /// <summary>
+        /// Unique Xbox identifier for a user.
+        /// </summary>
+        public string XboxId ;
+
     }
 
     public class ListPlayerCustomPropertiesRequest : PlayFabRequestCommon
@@ -5650,7 +5688,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerLinkedAccount
     {
         /// <summary>
@@ -5675,7 +5713,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerLocation
     {
         /// <summary>
@@ -5705,7 +5743,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerProfile
     {
         /// <summary>
@@ -6021,7 +6059,7 @@ namespace PlayFab.ServerModels
 
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PlayerStatistic
     {
         /// <summary>
@@ -6150,7 +6188,7 @@ namespace PlayFab.ServerModels
         GoogleCloudMessaging
     }
 
-    [Obsolete("No longer available", false)]
+    [Obsolete("No longer available", true)]
     public class PushNotificationRegistration
     {
         /// <summary>
@@ -7342,7 +7380,7 @@ namespace PlayFab.ServerModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Xbox Live identifier.
+        /// PlayFab unique identifier of the user to unlink.
         /// </summary>
         public string PlayFabId ;
 

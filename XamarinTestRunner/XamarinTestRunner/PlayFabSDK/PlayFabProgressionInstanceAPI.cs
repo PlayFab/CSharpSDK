@@ -521,6 +521,32 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks an aggregation source from a statistic definition.
+        /// </summary>
+        public async Task<PlayFabResult<EmptyResponse>> UnlinkAggregationSourceFromStatisticAsync(UnlinkAggregationSourceFromStatisticRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Statistic/UnlinkAggregationSourceFromStatistic", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<EmptyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<EmptyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<EmptyResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Unlinks a leaderboard definition from it's linked statistic definition.
         /// </summary>
         public async Task<PlayFabResult<EmptyResponse>> UnlinkLeaderboardFromStatisticAsync(UnlinkLeaderboardFromStatisticRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)

@@ -158,6 +158,14 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Unlinks an aggregation source from a statistic definition.
+        /// </summary>
+        Task<PlayFabResult<EmptyResponse>> UnlinkAggregationSourceFromStatisticAsync(
+            UnlinkAggregationSourceFromStatisticRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Unlinks a leaderboard definition from it's linked statistic definition.
         /// </summary>
         Task<PlayFabResult<EmptyResponse>> UnlinkLeaderboardFromStatisticAsync(

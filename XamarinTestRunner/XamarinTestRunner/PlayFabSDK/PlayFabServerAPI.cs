@@ -1091,7 +1091,7 @@ namespace PlayFab
         /// in the results. AB Test segments are currently not supported by this operation. NOTE: This API is limited to being
         /// called 30 times in one minute. You will be returned an error if you exceed this threshold.
         /// </summary>
-        [Obsolete("No longer available", false)]
+        [Obsolete("No longer available", true)]
         public static async Task<PlayFabResult<GetPlayersInSegmentResult>> GetPlayersInSegmentAsync(GetPlayersInSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
@@ -2361,6 +2361,33 @@ namespace PlayFab
 
 
             var httpResult = await PlayFabHttp.DoPost("/Server/LinkXboxAccount", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<LinkXboxAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<LinkXboxAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<LinkXboxAccountResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Links the Xbox Live account associated with the provided Xbox ID and Sandbox to the user's PlayFab account
+        /// </summary>
+        public static async Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxIdAsync(LinkXboxIdRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/LinkXboxId", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
             if (httpResult is PlayFabError)
             {
                 var error = (PlayFabError)httpResult;

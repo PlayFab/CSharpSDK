@@ -356,7 +356,7 @@ namespace PlayFab
         /// in the results. AB Test segments are currently not supported by this operation. NOTE: This API is limited to being
         /// called 30 times in one minute. You will be returned an error if you exceed this threshold.
         /// </summary>
-[Obsolete("No longer available", false)]        Task<PlayFabResult<GetPlayersInSegmentResult>> GetPlayersInSegmentAsync(
+[Obsolete("No longer available", true)]        Task<PlayFabResult<GetPlayersInSegmentResult>> GetPlayersInSegmentAsync(
             GetPlayersInSegmentRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
@@ -743,6 +743,14 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(
             LinkXboxAccountRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Links the Xbox Live account associated with the provided Xbox ID and Sandbox to the user's PlayFab account
+        /// </summary>
+        Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxIdAsync(
+            LinkXboxIdRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 
