@@ -1532,6 +1532,11 @@ namespace PlayFab.EconomyModels
         /// </summary>
         public EntityKey Entity ;
 
+        /// <summary>
+        /// The token to get the status of the inventory operation.
+        /// </summary>
+        public string OperationToken ;
+
     }
 
     public class GetInventoryOperationStatusResponse : PlayFabResultCommon
@@ -2290,6 +2295,10 @@ namespace PlayFab.EconomyModels
 
     }
 
+    public class PurchaseOverride
+    {
+    }
+
     public class PurchaseOverridesInfo
     {
     }
@@ -2414,6 +2423,55 @@ namespace PlayFab.EconomyModels
     }
 
     public class RedeemAppleAppStoreInventoryItemsResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// The list of failed redemptions from the external marketplace.
+        /// </summary>
+        public List<RedemptionFailure> Failed ;
+
+        /// <summary>
+        /// The list of successful redemptions from the external marketplace.
+        /// </summary>
+        public List<RedemptionSuccess> Succeeded ;
+
+        /// <summary>
+        /// The Transaction IDs associated with the inventory modifications
+        /// </summary>
+        public List<string> TransactionIds ;
+
+    }
+
+    /// <summary>
+    /// The request for a redeem Apple AppStore With JWS
+    /// </summary>
+    public class RedeemAppleAppStoreWithJwsInventoryItemsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The id of the entity's collection to perform this action on. (Default="default")
+        /// </summary>
+        public string CollectionId ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The entity to perform this action on.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// The JWS representation of a transaction.
+        /// </summary>
+        public List<string> JWSTransactions ;
+
+    }
+
+    /// <summary>
+    /// The response for a redeem Apple AppStore With JWS
+    /// </summary>
+    public class RedeemAppleAppStoreWithJwsInventoryItemsResponse : PlayFabResultCommon
     {
         /// <summary>
         /// The list of failed redemptions from the external marketplace.

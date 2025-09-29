@@ -847,6 +847,32 @@ namespace PlayFab
         /// <summary>
         /// Redeem items.
         /// </summary>
+        public async Task<PlayFabResult<RedeemAppleAppStoreWithJwsInventoryItemsResponse>> RedeemAppleAppStoreWithJwsInventoryItemsAsync(RedeemAppleAppStoreWithJwsInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Inventory/RedeemAppleAppStoreWithJwsInventoryItems", request, "X-EntityToken", requestContext.EntityToken, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RedeemAppleAppStoreWithJwsInventoryItemsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RedeemAppleAppStoreWithJwsInventoryItemsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RedeemAppleAppStoreWithJwsInventoryItemsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
         public async Task<PlayFabResult<RedeemGooglePlayInventoryItemsResponse>> RedeemGooglePlayInventoryItemsAsync(RedeemGooglePlayInventoryItemsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
             await new PlayFabUtil.SynchronizationContextRemover();
