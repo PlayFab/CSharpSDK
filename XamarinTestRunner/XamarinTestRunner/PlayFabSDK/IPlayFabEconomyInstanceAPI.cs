@@ -286,6 +286,14 @@ namespace PlayFab
         /// <summary>
         /// Redeem items.
         /// </summary>
+        Task<PlayFabResult<RedeemAppleAppStoreWithJwsInventoryItemsResponse>> RedeemAppleAppStoreWithJwsInventoryItemsAsync(
+            RedeemAppleAppStoreWithJwsInventoryItemsRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Redeem items.
+        /// </summary>
         Task<PlayFabResult<RedeemGooglePlayInventoryItemsResponse>> RedeemGooglePlayInventoryItemsAsync(
             RedeemGooglePlayInventoryItemsRequest request,
             object customData = null,
