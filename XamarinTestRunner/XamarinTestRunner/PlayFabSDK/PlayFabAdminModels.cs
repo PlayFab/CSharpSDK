@@ -2984,6 +2984,7 @@ namespace PlayFab.AdminModels
         PreconditionFailed,
         CannotEnableAnonymousPlayerCreation,
         ParentCustomerAccountNotFound,
+        AccountLinkedToABannedPlayer,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
