@@ -192,7 +192,7 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Bans users by PlayFab ID with optional IP address, or MAC address for the provided game.
+        /// Bans users by PlayFab ID with optional IP address for the provided game.
         /// </summary>
         public static async Task<PlayFabResult<BanUsersResult>> BanUsersAsync(BanUsersRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {

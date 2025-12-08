@@ -1594,6 +1594,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of OpenId subject identifiers. A OpenId identifier is the
+        /// service name plus the service-specific ID for the player, as specified by the title when the OpenId identifier was added
+        /// to the player account.
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayFabIDsFromOpenIdsResult>> GetPlayFabIDsFromOpenIdSubjectIdentifiersAsync(GetPlayFabIDsFromOpenIdsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.ClientSessionTicket == null) throw new PlayFabException(PlayFabExceptionCode.NotLoggedIn, "Must be logged in to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Client/GetPlayFabIDsFromOpenIdSubjectIdentifiers", request, "X-Authorization", requestContext.ClientSessionTicket, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayFabIDsFromOpenIdsResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayFabIDsFromOpenIdsResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayFabIDsFromOpenIdsResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of PlayStation :tm: Network identifiers.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(GetPlayFabIDsFromPSNAccountIDsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)

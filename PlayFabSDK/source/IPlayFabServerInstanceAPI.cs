@@ -87,7 +87,7 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
-        /// Bans users by PlayFab ID with optional IP address, or MAC address for the provided game.
+        /// Bans users by PlayFab ID with optional IP address for the provided game.
         /// </summary>
         Task<PlayFabResult<BanUsersResult>> BanUsersAsync(
             BanUsersRequest request,
@@ -436,6 +436,16 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Retrieves the unique PlayFab identifiers for the given set of OpenId subject identifiers. A OpenId subject identifier is
+        /// the OpenId issuer plus the OpenId subject for the player, as specified by the title when the OpenId identifier was added
+        /// to the player account.
+        /// </summary>
+        Task<PlayFabResult<GetPlayFabIDsFromOpenIdsResult>> GetPlayFabIDsFromOpenIdSubjectIdentifiersAsync(
+            GetPlayFabIDsFromOpenIdsRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of PlayStation :tm: Network identifiers.
         /// </summary>
         Task<PlayFabResult<GetPlayFabIDsFromPSNAccountIDsResult>> GetPlayFabIDsFromPSNAccountIDsAsync(
@@ -739,6 +749,14 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Links the Twitch account associated with the token to the user's PlayFab account.
+        /// </summary>
+        Task<PlayFabResult<EmptyResult>> LinkTwitchAccountAsync(
+            LinkTwitchAccountRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Links the Xbox Live account associated with the provided access code to the user's PlayFab account
         /// </summary>
         Task<PlayFabResult<LinkXboxAccountResult>> LinkXboxAccountAsync(
@@ -821,6 +839,14 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<ServerLoginResult>> LoginWithSteamIdAsync(
             LoginWithSteamIdRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Sign in the user with a Twitch access token
+        /// </summary>
+        Task<PlayFabResult<ServerLoginResult>> LoginWithTwitchAsync(
+            LoginWithTwitchRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 
@@ -1115,6 +1141,14 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<UnlinkSteamIdResult>> UnlinkSteamIdAsync(
             UnlinkSteamIdRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Unlinks the related Twitch account from the user's PlayFab account.
+        /// </summary>
+        Task<PlayFabResult<EmptyResult>> UnlinkTwitchAccountAsync(
+            UnlinkTwitchAccountRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 

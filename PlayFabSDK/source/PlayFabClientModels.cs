@@ -2983,6 +2983,28 @@ namespace PlayFab.ClientModels
 
     }
 
+    public class GetPlayFabIDsFromOpenIdsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique OpenId Connect identifiers for which the title needs to get PlayFab identifiers. The array cannot exceed
+        /// 10 in length.
+        /// </summary>
+        public List<OpenIdSubjectIdentifier> OpenIdSubjectIdentifiers ;
+
+    }
+
+    /// <summary>
+    /// For OpenId identifiers which have not been linked to PlayFab accounts, null will be returned.
+    /// </summary>
+    public class GetPlayFabIDsFromOpenIdsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of OpenId Connect identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<OpenIdSubjectIdentifierPlayFabIdPair> Data ;
+
+    }
+
     public class GetPlayFabIDsFromPSNAccountIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5515,6 +5537,34 @@ namespace PlayFab.ClientModels
 
         /// <summary>
         /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the Nintendo Switch Device identifier.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class OpenIdSubjectIdentifier
+    {
+        /// <summary>
+        /// The issuer URL for the OpenId Connect provider, or the override URL if an override exists.
+        /// </summary>
+        public string Issuer ;
+
+        /// <summary>
+        /// The unique subject identifier within the context of the issuer.
+        /// </summary>
+        public string Subject ;
+
+    }
+
+    public class OpenIdSubjectIdentifierPlayFabIdPair
+    {
+        /// <summary>
+        /// Unique OpenId Connect identifier for a user.
+        /// </summary>
+        public OpenIdSubjectIdentifier OpenIdSubjectIdentifier ;
+
+        /// <summary>
+        /// Unique PlayFab identifier for a user, or null if no PlayFab account is linked to the OpenId Connect identifier.
         /// </summary>
         public string PlayFabId ;
 
