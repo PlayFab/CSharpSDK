@@ -784,8 +784,7 @@ namespace PlayFab.ProgressionModels
         public string EntityId ;
 
         /// <summary>
-        /// Arbitrary metadata to store along side the leaderboard entry, will be returned by all Leaderboard APIs. Must be less
-        /// than 50 UTF8 encoded characters.
+        /// Arbitrary metadata to store along side the leaderboard entry, will be returned by all Leaderboard APIs.
         /// </summary>
         public string Metadata ;
 
@@ -1047,8 +1046,7 @@ namespace PlayFab.ProgressionModels
     public class StatisticUpdate
     {
         /// <summary>
-        /// Arbitrary metadata to store along side the statistic, will be returned by all Leaderboard APIs. Must be less than 50
-        /// UTF8 encoded characters.
+        /// Arbitrary metadata to store along side the statistic, will be returned by all Leaderboard APIs.
         /// </summary>
         public string Metadata ;
 

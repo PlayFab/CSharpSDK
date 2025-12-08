@@ -65,7 +65,7 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
-        /// Bans users by PlayFab ID with optional IP address, or MAC address for the provided game.
+        /// Bans users by PlayFab ID with optional IP address for the provided game.
         /// </summary>
         Task<PlayFabResult<BanUsersResult>> BanUsersAsync(
             BanUsersRequest request,
