@@ -2009,6 +2009,11 @@ namespace PlayFab.EconomyModels
         public string StackId ;
 
         /// <summary>
+        /// Only used for subscriptions. The date of when the item started in UTC.
+        /// </summary>
+        public DateTime? StartDate ;
+
+        /// <summary>
         /// The type of the item. This should correspond to the item type in the catalog.
         /// </summary>
         public string Type ;
