@@ -300,7 +300,7 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
-        /// Redeem items.
+        /// Redeem items from the Microsoft Store. Supported entitlement types are Developer Manager Consumable and Durable.
         /// </summary>
         Task<PlayFabResult<RedeemMicrosoftStoreInventoryItemsResponse>> RedeemMicrosoftStoreInventoryItemsAsync(
             RedeemMicrosoftStoreInventoryItemsRequest request,
