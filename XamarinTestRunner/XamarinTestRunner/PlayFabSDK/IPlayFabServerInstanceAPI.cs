@@ -1105,6 +1105,22 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Unlinks the related Facebook account from the user's PlayFab account
+        /// </summary>
+        Task<PlayFabResult<UnlinkFacebookAccountResult>> UnlinkFacebookAccountAsync(
+            UnlinkFacebookAccountRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Unlinks the related Facebook Instant Games identifier from the user's PlayFab account
+        /// </summary>
+        Task<PlayFabResult<UnlinkFacebookInstantGamesIdResult>> UnlinkFacebookInstantGamesIdAsync(
+            UnlinkFacebookInstantGamesIdRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Unlinks the related Nintendo account from the user's PlayFab account
         /// </summary>
         Task<PlayFabResult<EmptyResponse>> UnlinkNintendoServiceAccountAsync(
