@@ -2360,6 +2360,7 @@ namespace PlayFab.ServerModels
         ExperimentationExclusionGroupInvalidTrafficAllocation,
         ExperimentationExclusionGroupInvalidName,
         ExperimentationLegacyExperimentInvalidOperation,
+        ExperimentationExperimentStopFailed,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SegmentManagementTitleNotInFlight,
@@ -7397,6 +7398,47 @@ namespace PlayFab.ServerModels
         /// </summary>
         public string PlayFabId ;
 
+    }
+
+    public class UnlinkFacebookAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// PlayFab unique identifier of the user to unlink.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class UnlinkFacebookAccountResult : PlayFabResultCommon
+    {
+    }
+
+    public class UnlinkFacebookInstantGamesIdRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Facebook Instant Games identifier for the user. If not specified, the most recently linked identifier will be used.
+        /// </summary>
+        public string FacebookInstantGamesId ;
+
+        /// <summary>
+        /// PlayFab unique identifier of the user to unlink.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class UnlinkFacebookInstantGamesIdResult : PlayFabResultCommon
+    {
     }
 
     public class UnlinkNintendoServiceAccountRequest : PlayFabRequestCommon
