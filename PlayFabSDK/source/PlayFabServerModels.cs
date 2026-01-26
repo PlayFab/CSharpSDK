@@ -2289,6 +2289,7 @@ namespace PlayFab.ServerModels
         CatalogBadRequest,
         CatalogTooManyRequests,
         InvalidCatalogItemConfiguration,
+        LegacyEconomyDisabled,
         ExportInvalidStatusUpdate,
         ExportInvalidPrefix,
         ExportBlobContainerDoesNotExist,
