@@ -717,33 +717,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Gets the access tokens.
-        /// </summary>
-        public static async Task<PlayFabResult<GetMicrosoftStoreAccessTokensResponse>> GetMicrosoftStoreAccessTokensAsync(GetMicrosoftStoreAccessTokensRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Inventory/GetMicrosoftStoreAccessTokens", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetMicrosoftStoreAccessTokensResponse> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetMicrosoftStoreAccessTokensResponse>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetMicrosoftStoreAccessTokensResponse> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Get transaction history for a player. Up to 250 Events can be returned at once. You can use continuation tokens to
         /// paginate through results that return greater than the limit. Getting transaction history has a lower RPS limit than
         /// getting a Player's inventory with Player Entities having a limit of 30 requests in 300 seconds.
