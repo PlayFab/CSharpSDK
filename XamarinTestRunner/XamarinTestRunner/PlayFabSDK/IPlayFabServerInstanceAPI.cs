@@ -43,6 +43,14 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Adds or updates a contact email to the specified player's profile.
+        /// </summary>
+        Task<PlayFabResult<AddOrUpdateContactEmailResult>> AddOrUpdateContactEmailAsync(
+            AddOrUpdateContactEmailRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag.
         /// </summary>
         Task<PlayFabResult<AddPlayerTagResult>> AddPlayerTagAsync(
