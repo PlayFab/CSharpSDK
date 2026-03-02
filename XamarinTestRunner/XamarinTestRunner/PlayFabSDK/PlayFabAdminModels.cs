@@ -3325,6 +3325,7 @@ namespace PlayFab.AdminModels
         EntityTypeSpecifiedRequiresAggregationSource,
         PlayFabErrorEventNotSupportedForEntityType,
         MetadataLengthExceeded,
+        MaxQueryableVersionsExceeded,
         StoreMetricsRequestInvalidInput,
         StoreMetricsErrorRetrievingMetrics
     }
