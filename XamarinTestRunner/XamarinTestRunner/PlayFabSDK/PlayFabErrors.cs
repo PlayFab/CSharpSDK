@@ -748,7 +748,7 @@ namespace PlayFab
         AsyncExportNotFound = 10012,
         AsyncExportRateLimitExceeded = 10013,
         AnalyticsSegmentCountOverLimit = 10014,
-        GetPlayersInSegmentDeprecated = 10015,
+        GetPlayersInSegmentRetired = 10015,
         SnapshotNotFound = 11000,
         InventoryApiNotImplemented = 12000,
         InventoryCollectionDeletionDisallowed = 12001,
