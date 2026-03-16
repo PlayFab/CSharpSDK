@@ -3120,7 +3120,7 @@ namespace PlayFab.AdminModels
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
         AnalyticsSegmentCountOverLimit,
-        GetPlayersInSegmentDeprecated,
+        GetPlayersInSegmentRetired,
         SnapshotNotFound,
         InventoryApiNotImplemented,
         InventoryCollectionDeletionDisallowed,

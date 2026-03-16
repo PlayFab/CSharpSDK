@@ -2406,7 +2406,7 @@ namespace PlayFab.ServerModels
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
         AnalyticsSegmentCountOverLimit,
-        GetPlayersInSegmentDeprecated,
+        GetPlayersInSegmentRetired,
         SnapshotNotFound,
         InventoryApiNotImplemented,
         InventoryCollectionDeletionDisallowed,
@@ -2968,7 +2968,8 @@ namespace PlayFab.ServerModels
         public PlayerProfileViewConstraints ProfileConstraints ;
 
         /// <summary>
-        /// Xbox token if Xbox friends should be included. Requires Xbox be configured on PlayFab.
+        /// Xbox token if Xbox friends should be included. Requires Xbox be configured on PlayFab. When provided, all Xbox Live
+        /// users the caller is following are included regardless of whether they follow the caller back.
         /// </summary>
         public string XboxToken ;
 
@@ -2978,7 +2979,9 @@ namespace PlayFab.ServerModels
     /// If any additional services are queried for the user's friends, those friends who also have a PlayFab account registered
     /// for the title will be returned in the results. For Facebook, user has to have logged into the title's Facebook app
     /// recently, and only friends who also plays this game will be included. For Xbox Live, user has to have logged into the
-    /// Xbox Live recently, and only friends who also play this game will be included.
+    /// Xbox Live recently, and only friends who also play this game will be included. Xbox Live friends include all users the
+    /// caller is following, regardless of whether those users follow the caller back. This differs from FindFriendLobbies,
+    /// which only considers mutual Xbox Live friends (where both users follow each other).
     /// </summary>
     public class GetFriendsListResult : PlayFabResultCommon
     {
