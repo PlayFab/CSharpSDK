@@ -182,6 +182,11 @@ namespace PlayFab.ProfilesModels
         public Dictionary<string,EntityStatisticValue> Statistics ;
 
         /// <summary>
+        /// A mapping of statistic name to the columns defined in the corresponding definition.
+        /// </summary>
+        public Dictionary<string,StatisticColumnCollection> StatisticsColumnDetails ;
+
+        /// <summary>
         /// The version number of the profile in persistent storage at the time of the read. Used for optional optimistic
         /// concurrency during update.
         /// </summary>
@@ -265,6 +270,11 @@ namespace PlayFab.ProfilesModels
         /// </summary>
         public EntityKey Entity ;
 
+        /// <summary>
+        /// Determines whether the entity statistics will be returned in the entity profile. Default is false.
+        /// </summary>
+        public bool IncludeStatistics ;
+
     }
 
     public class GetEntityProfileResponse : PlayFabResultCommon
@@ -297,6 +307,11 @@ namespace PlayFab.ProfilesModels
         /// Entity keys of the profiles to load. Must be between 1 and 25
         /// </summary>
         public List<EntityKey> Entities ;
+
+        /// <summary>
+        /// Determines whether the entity statistics will be returned in the entity profile. Default is false.
+        /// </summary>
+        public bool IncludeStatistics ;
 
     }
 
@@ -553,6 +568,37 @@ namespace PlayFab.ProfilesModels
         /// The updated version of the profile after the language update
         /// </summary>
         public int? VersionNumber ;
+
+    }
+
+    public enum StatisticAggregationMethod
+    {
+        Last,
+        Min,
+        Max,
+        Sum
+    }
+
+    public class StatisticColumn
+    {
+        /// <summary>
+        /// Aggregation method for calculating new value of a statistic.
+        /// </summary>
+        public StatisticAggregationMethod AggregationMethod ;
+
+        /// <summary>
+        /// Name of the statistic column, as originally configured.
+        /// </summary>
+        public string Name ;
+
+    }
+
+    public class StatisticColumnCollection
+    {
+        /// <summary>
+        /// Columns for the statistic defining the aggregation method for each column.
+        /// </summary>
+        public List<StatisticColumn> Columns ;
 
     }
 }
