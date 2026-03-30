@@ -2986,6 +2986,7 @@ namespace PlayFab.AdminModels
         ParentCustomerAccountNotFound,
         AccountLinkedToABannedPlayer,
         AzureSubscriptionNotEligibleForLinking,
+        EntityIsNotAMember,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -3103,6 +3104,8 @@ namespace PlayFab.AdminModels
         ExperimentationExclusionGroupInvalidName,
         ExperimentationLegacyExperimentInvalidOperation,
         ExperimentationExperimentStopFailed,
+        ExperimentationExperimentDeleteFailed,
+        ExperimentationExperimentStartFailed,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
         SegmentManagementTitleNotInFlight,
@@ -3300,6 +3303,7 @@ namespace PlayFab.AdminModels
         GameSaveConflict,
         GameSaveManifestNotEligibleForRollback,
         GameSaveTitleClientAnonymousAccountCreationNotDisabled,
+        GameSaveTitleConfigNoUpdatesRequested,
         StateShareForbidden,
         StateShareTitleNotInFlight,
         StateShareStateNotFound,
@@ -3896,7 +3900,8 @@ namespace PlayFab.AdminModels
     public class GetPolicyRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// The name of the policy to read. Only supported name is 'ApiPolicy'.
+        /// The name of the policy to read. Only 'ApiPolicy' is supported. This parameter is optional and defaults to 'ApiPolicy' if
+        /// omitted.
         /// </summary>
         public string PolicyName ;
 
@@ -3904,6 +3909,11 @@ namespace PlayFab.AdminModels
 
     public class GetPolicyResponse : PlayFabResultCommon
     {
+        /// <summary>
+        /// The UTC date and time when the policy was last updated. Null if the policy has never been customized.
+        /// </summary>
+        public DateTime? LastUpdated ;
+
         /// <summary>
         /// The name of the policy read.
         /// </summary>
@@ -5118,7 +5128,7 @@ namespace PlayFab.AdminModels
     public class PermissionStatement
     {
         /// <summary>
-        /// The action this statement effects. The only supported action is 'Execute'.
+        /// The action this statement effects. May only be '*'. This parameter is optional and defaults to '*' if omitted.
         /// </summary>
         public string Action ;
 
@@ -5138,7 +5148,8 @@ namespace PlayFab.AdminModels
         public EffectType Effect ;
 
         /// <summary>
-        /// The principal this statement will effect. The only supported principal is '*'.
+        /// The principal this statement will effect. May be '*' to match all callers, or a JSON object targeting a specific entity
+        /// type, e.g. {"title_player_account":"*"} for players or {"master_player_account":"*"} for master player accounts.
         /// </summary>
         public string Principal ;
 
@@ -7895,7 +7906,8 @@ namespace PlayFab.AdminModels
         public bool OverwritePolicy ;
 
         /// <summary>
-        /// The name of the policy being updated. Only supported name is 'ApiPolicy'
+        /// The name of the policy being updated. Only 'ApiPolicy' is supported. This parameter is optional and defaults to
+        /// 'ApiPolicy' if omitted.
         /// </summary>
         public string PolicyName ;
 
@@ -7922,6 +7934,12 @@ namespace PlayFab.AdminModels
         /// The statements included in the new version of the policy.
         /// </summary>
         public List<PermissionStatement> Statements ;
+
+        /// <summary>
+        /// Optional warnings about policy statements that may not have the intended effect. For example, resource paths that don't
+        /// match any known API endpoint. The policy update still succeeds when warnings are present.
+        /// </summary>
+        public List<string> Warnings ;
 
     }
 
