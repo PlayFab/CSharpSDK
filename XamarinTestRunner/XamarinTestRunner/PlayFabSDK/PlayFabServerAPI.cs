@@ -560,6 +560,35 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Starts an export for the player profiles in a segment. This API creates a snapshot of all the player profiles which
+        /// match the segment definition at the time of the API call. Profiles which change while an export is in progress will not
+        /// be reflected in the results.
+        /// </summary>
+        public static async Task<PlayFabResult<ExportPlayersInSegmentResult>> ExportPlayersInSegmentAsync(ExportPlayersInSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/ExportPlayersInSegment", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ExportPlayersInSegmentResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ExportPlayersInSegmentResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ExportPlayersInSegmentResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as
         /// GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
         /// </summary>
@@ -1112,38 +1141,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match
-        /// the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span
-        /// on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected
-        /// in the results. AB Test segments are currently not supported by this operation. NOTE: This API is limited to being
-        /// called 30 times in one minute. You will be returned an error if you exceed this threshold.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public static async Task<PlayFabResult<GetPlayersInSegmentResult>> GetPlayersInSegmentAsync(GetPlayersInSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
-            var requestSettings = PlayFabSettings.staticSettings;
-            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
-
-
-            var httpResult = await PlayFabHttp.DoPost("/Server/GetPlayersInSegment", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetPlayersInSegmentResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayersInSegmentResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetPlayersInSegmentResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Retrieves the current version and values for the indicated statistics, for the local player.
         /// </summary>
         public static async Task<PlayFabResult<GetPlayerStatisticsResult>> GetPlayerStatisticsAsync(GetPlayerStatisticsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1637,6 +1634,36 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetRandomResultTablesResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Retrieves the result of an export started by ExportPlayersInSegment API. If the ExportPlayersInSegment is successful and
+        /// complete, this API returns the IndexUrl from which the index file can be downloaded. The index file has a list of urls
+        /// from which the files containing the player profile data can be downloaded. Otherwise, it returns the current 'State' of
+        /// the export
+        /// </summary>
+        public static async Task<PlayFabResult<GetPlayersInSegmentExportResponse>> GetSegmentExportAsync(GetPlayersInSegmentExportRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetSegmentExport", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetPlayersInSegmentExportResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayersInSegmentExportResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetPlayersInSegmentExportResponse> { Result = result, CustomData = customData };
         }
 
         /// <summary>

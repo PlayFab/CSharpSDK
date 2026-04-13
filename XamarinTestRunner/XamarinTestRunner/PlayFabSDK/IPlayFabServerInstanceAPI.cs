@@ -186,6 +186,16 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Starts an export for the player profiles in a segment. This API creates a snapshot of all the player profiles which
+        /// match the segment definition at the time of the API call. Profiles which change while an export is in progress will not
+        /// be reflected in the results.
+        /// </summary>
+        Task<PlayFabResult<ExportPlayersInSegmentResult>> ExportPlayersInSegmentAsync(
+            ExportPlayersInSegmentRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as
         /// GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
         /// </summary>
@@ -358,18 +368,6 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
-        /// Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match
-        /// the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span
-        /// on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected
-        /// in the results. AB Test segments are currently not supported by this operation. NOTE: This API is limited to being
-        /// called 30 times in one minute. You will be returned an error if you exceed this threshold.
-        /// </summary>
-[Obsolete("No longer available", true)]        Task<PlayFabResult<GetPlayersInSegmentResult>> GetPlayersInSegmentAsync(
-            GetPlayersInSegmentRequest request,
-            object customData = null,
-            Dictionary<string, string> extraHeaders = null);
-
-        /// <summary>
         /// Retrieves the current version and values for the indicated statistics, for the local player.
         /// </summary>
         Task<PlayFabResult<GetPlayerStatisticsResult>> GetPlayerStatisticsAsync(
@@ -520,6 +518,17 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<GetRandomResultTablesResult>> GetRandomResultTablesAsync(
             GetRandomResultTablesRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Retrieves the result of an export started by ExportPlayersInSegment API. If the ExportPlayersInSegment is successful and
+        /// complete, this API returns the IndexUrl from which the index file can be downloaded. The index file has a list of urls
+        /// from which the files containing the player profile data can be downloaded. Otherwise, it returns the current 'State' of
+        /// the export
+        /// </summary>
+        Task<PlayFabResult<GetPlayersInSegmentExportResponse>> GetSegmentExportAsync(
+            GetPlayersInSegmentExportRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 

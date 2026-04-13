@@ -166,26 +166,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class AdCampaignAttribution
-    {
-        /// <summary>
-        /// UTC time stamp of attribution
-        /// </summary>
-        public DateTime AttributedAt ;
-
-        /// <summary>
-        /// Attribution campaign identifier
-        /// </summary>
-        public string CampaignId ;
-
-        /// <summary>
-        /// Attribution network name
-        /// </summary>
-        public string Platform ;
-
-    }
-
     public class AdCampaignAttributionModel
     {
         /// <summary>
@@ -913,26 +893,6 @@ namespace PlayFab.AdminModels
         Any,
         True,
         False
-    }
-
-    [Obsolete("No longer available", true)]
-    public class ContactEmailInfo
-    {
-        /// <summary>
-        /// The email address
-        /// </summary>
-        public string EmailAddress ;
-
-        /// <summary>
-        /// The name of the email info data
-        /// </summary>
-        public string Name ;
-
-        /// <summary>
-        /// The verification status of the email
-        /// </summary>
-        public EmailVerificationStatus? VerificationStatus ;
-
     }
 
     public class ContactEmailInfoModel
@@ -3124,6 +3084,8 @@ namespace PlayFab.AdminModels
         AsyncExportRateLimitExceeded,
         AnalyticsSegmentCountOverLimit,
         GetPlayersInSegmentRetired,
+        GetSegmentPlayerCountNotInFlight,
+        GetSegmentPlayerCountRateLimitExceeded,
         SnapshotNotFound,
         InventoryApiNotImplemented,
         InventoryCollectionDeletionDisallowed,
@@ -3304,6 +3266,7 @@ namespace PlayFab.AdminModels
         GameSaveManifestNotEligibleForRollback,
         GameSaveTitleClientAnonymousAccountCreationNotDisabled,
         GameSaveTitleConfigNoUpdatesRequested,
+        GameSavePlayerNotEligibleForTransfer,
         StateShareForbidden,
         StateShareTitleNotInFlight,
         StateShareStateNotFound,
@@ -3713,74 +3676,6 @@ namespace PlayFab.AdminModels
         /// Shows the current status of the export
         /// </summary>
         public string State ;
-
-    }
-
-    /// <summary>
-    /// Initial request must contain at least a Segment ID. Subsequent requests must contain the Segment ID as well as the
-    /// Continuation Token. Failure to send the Continuation Token will result in a new player segment list being generated.
-    /// Each time the Continuation Token is passed in the length of the Total Seconds to Live is refreshed. If too much time
-    /// passes between requests to the point that a subsequent request is past the Total Seconds to Live an error will be
-    /// returned and paging will be terminated. This API is resource intensive and should not be used in scenarios which might
-    /// generate high request volumes. Only one request to this API at a time should be made per title. Concurrent requests to
-    /// the API may be rejected with the APIConcurrentRequestLimitExceeded error.
-    /// </summary>
-    [Obsolete("No longer available", true)]
-    public class GetPlayersInSegmentRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// Continuation token if retrieving subsequent pages of results.
-        /// </summary>
-        public string ContinuationToken ;
-
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags ;
-
-        /// <summary>
-        /// If set to true, the profiles are loaded asynchronously and the response will include a continuation token and
-        /// approximate profile count until the first batch of profiles is loaded. Use this parameter to help avoid network
-        /// timeouts.
-        /// </summary>
-        public bool? GetProfilesAsync ;
-
-        /// <summary>
-        /// Maximum is 10,000. The value 0 will prevent loading any profiles and return only the count of profiles matching this
-        /// segment.
-        /// </summary>
-        public uint? MaxBatchSize ;
-
-        /// <summary>
-        /// Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging
-        /// results. Default is 300 (5 minutes). Maximum is 5,400 (90 minutes).
-        /// </summary>
-        public uint? SecondsToLive ;
-
-        /// <summary>
-        /// Unique identifier for this segment.
-        /// </summary>
-        public string SegmentId ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class GetPlayersInSegmentResult : PlayFabResultCommon
-    {
-        /// <summary>
-        /// Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results.
-        /// </summary>
-        public string ContinuationToken ;
-
-        /// <summary>
-        /// Array of player profiles in this segment.
-        /// </summary>
-        public List<PlayerProfile> PlayerProfiles ;
-
-        /// <summary>
-        /// Count of profiles matching this segment.
-        /// </summary>
-        public int ProfilesInSegment ;
 
     }
 
@@ -5203,181 +5098,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class PlayerLinkedAccount
-    {
-        /// <summary>
-        /// Linked account's email
-        /// </summary>
-        public string Email ;
-
-        /// <summary>
-        /// Authentication platform
-        /// </summary>
-        public LoginIdentityProvider? Platform ;
-
-        /// <summary>
-        /// Platform user identifier
-        /// </summary>
-        public string PlatformUserId ;
-
-        /// <summary>
-        /// Linked account's username
-        /// </summary>
-        public string Username ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class PlayerLocation
-    {
-        /// <summary>
-        /// City of the player's geographic location.
-        /// </summary>
-        public string City ;
-
-        /// <summary>
-        /// The two-character continent code for this location
-        /// </summary>
-        public ContinentCode ContinentCode ;
-
-        /// <summary>
-        /// The two-character ISO 3166-1 country code for the country associated with the location
-        /// </summary>
-        public CountryCode CountryCode ;
-
-        /// <summary>
-        /// Latitude coordinate of the player's geographic location.
-        /// </summary>
-        public double? Latitude ;
-
-        /// <summary>
-        /// Longitude coordinate of the player's geographic location.
-        /// </summary>
-        public double? Longitude ;
-
-    }
-
-    [Obsolete("No longer available", true)]
-    public class PlayerProfile
-    {
-        /// <summary>
-        /// Array of ad campaigns player has been attributed to
-        /// </summary>
-        public List<AdCampaignAttribution> AdCampaignAttributions ;
-
-        /// <summary>
-        /// Image URL of the player's avatar.
-        /// </summary>
-        public string AvatarUrl ;
-
-        /// <summary>
-        /// Banned until UTC Date. If permanent ban this is set for 20 years after the original ban date.
-        /// </summary>
-        public DateTime? BannedUntil ;
-
-        /// <summary>
-        /// The prediction of the player to churn within the next seven days.
-        /// </summary>
-        public ChurnRiskLevel? ChurnPrediction ;
-
-        /// <summary>
-        /// Array of contact email addresses associated with the player
-        /// </summary>
-        public List<ContactEmailInfo> ContactEmailAddresses ;
-
-        /// <summary>
-        /// Player record created
-        /// </summary>
-        public DateTime? Created ;
-
-        /// <summary>
-        /// Dictionary of player's custom properties.
-        /// </summary>
-        public Dictionary<string,object> CustomProperties ;
-
-        /// <summary>
-        /// Player Display Name
-        /// </summary>
-        public string DisplayName ;
-
-        /// <summary>
-        /// Last login
-        /// </summary>
-        public DateTime? LastLogin ;
-
-        /// <summary>
-        /// Array of third party accounts linked to this player
-        /// </summary>
-        public List<PlayerLinkedAccount> LinkedAccounts ;
-
-        /// <summary>
-        /// Dictionary of player's locations by type.
-        /// </summary>
-        public Dictionary<string,PlayerLocation> Locations ;
-
-        /// <summary>
-        /// Player account origination
-        /// </summary>
-        public LoginIdentityProvider? Origination ;
-
-        /// <summary>
-        /// List of player variants for experimentation
-        /// </summary>
-        public List<string> PlayerExperimentVariants ;
-
-        /// <summary>
-        /// PlayFab Player ID
-        /// </summary>
-        public string PlayerId ;
-
-        /// <summary>
-        /// Array of player statistics
-        /// </summary>
-        public List<PlayerStatistic> PlayerStatistics ;
-
-        /// <summary>
-        /// Publisher this player belongs to
-        /// </summary>
-        public string PublisherId ;
-
-        /// <summary>
-        /// Array of configured push notification end points
-        /// </summary>
-        public List<PushNotificationRegistration> PushNotificationRegistrations ;
-
-        /// <summary>
-        /// Dictionary of player's statistics using only the latest version's value
-        /// </summary>
-        public Dictionary<string,int> Statistics ;
-
-        /// <summary>
-        /// List of player's tags for segmentation.
-        /// </summary>
-        public List<string> Tags ;
-
-        /// <summary>
-        /// Title ID this profile applies to
-        /// </summary>
-        public string TitleId ;
-
-        /// <summary>
-        /// A sum of player's total purchases in USD across all currencies.
-        /// </summary>
-        public uint? TotalValueToDateInUSD ;
-
-        /// <summary>
-        /// Dictionary of player's total purchases by currency.
-        /// </summary>
-        public Dictionary<string,uint> ValuesToDate ;
-
-        /// <summary>
-        /// Dictionary of player's virtual currency balances
-        /// </summary>
-        public Dictionary<string,int> VirtualCurrencyBalances ;
-
-    }
-
     public class PlayerProfileModel
     {
         /// <summary>
@@ -5574,31 +5294,6 @@ namespace PlayFab.AdminModels
 
     }
 
-    [Obsolete("No longer available", true)]
-    public class PlayerStatistic
-    {
-        /// <summary>
-        /// Statistic ID
-        /// </summary>
-        public string Id ;
-
-        /// <summary>
-        /// Statistic name
-        /// </summary>
-        public string Name ;
-
-        /// <summary>
-        /// Current statistic value
-        /// </summary>
-        public int StatisticValue ;
-
-        /// <summary>
-        /// Statistic version (0 if not a versioned statistic)
-        /// </summary>
-        public int StatisticVersion ;
-
-    }
-
     public class PlayerStatisticDefinition
     {
         /// <summary>
@@ -5667,6 +5362,36 @@ namespace PlayFab.AdminModels
 
     }
 
+    public class PolicyDiffSummary
+    {
+        /// <summary>
+        /// Number of new statements that would be added.
+        /// </summary>
+        public int StatementsAdded ;
+
+        /// <summary>
+        /// Number of existing statements that would be removed. Only applicable when OverwritePolicy is true.
+        /// </summary>
+        public int StatementsRemoved ;
+
+        /// <summary>
+        /// Number of existing statements that would be replaced by functionally equivalent incoming statements (e.g., same
+        /// resource/effect/principal but different comment).
+        /// </summary>
+        public int StatementsReplaced ;
+
+        /// <summary>
+        /// Number of existing statements that would remain unchanged.
+        /// </summary>
+        public int StatementsUnchanged ;
+
+        /// <summary>
+        /// Total number of statements in the resulting policy.
+        /// </summary>
+        public int TotalResultingStatements ;
+
+    }
+
     public class PushNotificationContent
     {
         /// <summary>
@@ -5690,21 +5415,6 @@ namespace PlayFab.AdminModels
     {
         ApplePushNotificationService,
         GoogleCloudMessaging
-    }
-
-    [Obsolete("No longer available", true)]
-    public class PushNotificationRegistration
-    {
-        /// <summary>
-        /// Notification configured endpoint
-        /// </summary>
-        public string NotificationEndpointARN ;
-
-        /// <summary>
-        /// Push notification platform
-        /// </summary>
-        public PushNotificationPlatform? Platform ;
-
     }
 
     public class PushNotificationRegistrationModel
@@ -8733,6 +8443,75 @@ namespace PlayFab.AdminModels
         /// XBox user sandbox
         /// </summary>
         public string XboxUserSandbox ;
+
+    }
+
+    /// <summary>
+    /// Validates the proposed policy change and returns the resulting merged policy, validation errors, warnings, and a diff
+    /// summary showing what would change. Use this to validate the impact of a policy update before calling UpdatePolicy. No
+    /// changes are saved.
+    /// </summary>
+    public class ValidateApiPolicyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Whether the validation should simulate overwriting or appending to the existing policy.
+        /// </summary>
+        public bool OverwritePolicy ;
+
+        /// <summary>
+        /// The name of the policy to validate. Only 'ApiPolicy' is supported. This parameter is optional and defaults to
+        /// 'ApiPolicy' if omitted.
+        /// </summary>
+        public string PolicyName ;
+
+        /// <summary>
+        /// Version of the policy to validate against. Must be the latest (as returned by GetPolicy).
+        /// </summary>
+        public int PolicyVersion ;
+
+        /// <summary>
+        /// The statements to validate.
+        /// </summary>
+        public List<PermissionStatement> Statements ;
+
+    }
+
+    public class ValidateApiPolicyResponse : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Summary of what would change compared to the current policy.
+        /// </summary>
+        public PolicyDiffSummary Diff ;
+
+        /// <summary>
+        /// Whether the proposed policy is valid and would be accepted by UpdatePolicy.
+        /// </summary>
+        public bool IsValid ;
+
+        /// <summary>
+        /// The name of the policy validated.
+        /// </summary>
+        public string PolicyName ;
+
+        /// <summary>
+        /// Policy version.
+        /// </summary>
+        public int PolicyVersion ;
+
+        /// <summary>
+        /// The full set of statements that would result from applying this update.
+        /// </summary>
+        public List<PermissionStatement> ResultingStatements ;
+
+        /// <summary>
+        /// Validation errors that would cause UpdatePolicy to reject this request. Empty if IsValid is true.
+        /// </summary>
+        public List<string> ValidationErrors ;
+
+        /// <summary>
+        /// Non-blocking warnings about the proposed policy (e.g., near statement limit, duplicate statements).
+        /// </summary>
+        public List<string> Warnings ;
 
     }
 
