@@ -1234,37 +1234,6 @@ namespace PlayFab
         }
 
         /// <summary>
-        /// Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match
-        /// the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span
-        /// on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected
-        /// in the results. AB Test segments are currently not supported by this operation. NOTE: This API is limited to being
-        /// called 30 times in one minute. You will be returned an error if you exceed this threshold.
-        /// </summary>
-        [Obsolete("Use 'ExportPlayersInSegment' instead", true)]
-        public async Task<PlayFabResult<GetPlayersInSegmentResult>> GetPlayersInSegmentAsync(GetPlayersInSegmentRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
-        {
-            await new PlayFabUtil.SynchronizationContextRemover();
-
-            var requestContext = request?.AuthenticationContext ?? authenticationContext;
-            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
-            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
-
-            var httpResult = await PlayFabHttp.DoPost("/Admin/GetPlayersInSegment", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
-            if (httpResult is PlayFabError)
-            {
-                var error = (PlayFabError)httpResult;
-                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
-                return new PlayFabResult<GetPlayersInSegmentResult> { Error = error, CustomData = customData };
-            }
-
-            var resultRawJson = (string)httpResult;
-            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetPlayersInSegmentResult>>(resultRawJson);
-            var result = resultData.data;
-
-            return new PlayFabResult<GetPlayersInSegmentResult> { Result = result, CustomData = customData };
-        }
-
-        /// <summary>
         /// Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have
         /// a reset interval.
         /// </summary>
@@ -3139,6 +3108,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateUserTitleDisplayNameResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Validates the result of a policy update without persisting it.
+        /// </summary>
+        public async Task<PlayFabResult<ValidateApiPolicyResponse>> ValidateApiPolicyAsync(ValidateApiPolicyRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/ValidateApiPolicy", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ValidateApiPolicyResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ValidateApiPolicyResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ValidateApiPolicyResponse> { Result = result, CustomData = customData };
         }
 
 }
