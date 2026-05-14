@@ -1114,6 +1114,14 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Unlinks the related Apple account from the specified user's PlayFab account.
+        /// </summary>
+        Task<PlayFabResult<UnlinkAppleResult>> UnlinkAppleAsync(
+            UnlinkAppleRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Unlinks the related Battle.net account from the user's PlayFab account.
         /// </summary>
         Task<PlayFabResult<EmptyResponse>> UnlinkBattleNetAccountAsync(
@@ -1134,6 +1142,14 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<UnlinkFacebookInstantGamesIdResult>> UnlinkFacebookInstantGamesIdAsync(
             UnlinkFacebookInstantGamesIdRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Unlinks the related Game Center account from the specified user's PlayFab account.
+        /// </summary>
+        Task<PlayFabResult<UnlinkGameCenterAccountResult>> UnlinkGameCenterAccountAsync(
+            UnlinkGameCenterAccountRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 

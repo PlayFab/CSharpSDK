@@ -3293,6 +3293,7 @@ namespace PlayFab.AdminModels
         PlayFabErrorEventNotSupportedForEntityType,
         MetadataLengthExceeded,
         MaxQueryableVersionsExceeded,
+        StatisticVersionIncrementNotAllowedWhileLinked,
         StoreMetricsRequestInvalidInput,
         StoreMetricsErrorRetrievingMetrics
     }

@@ -430,7 +430,7 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// The entity key of the player whose tickets should be canceled.
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
         /// </summary>
         public EntityKey Entity ;
 
@@ -458,7 +458,7 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// The entity key of the player whose backfill tickets should be canceled.
+        /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity ;
 
@@ -3749,7 +3749,7 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// The entity key for which to find the ticket Ids.
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
         /// </summary>
         public EntityKey Entity ;
 
@@ -3945,7 +3945,7 @@ namespace PlayFab.MultiplayerModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
-        /// The entity key for which to find the ticket Ids.
+        /// The entity to perform this action on.
         /// </summary>
         public EntityKey Entity ;
 
@@ -5002,6 +5002,11 @@ namespace PlayFab.MultiplayerModels
         /// The guid string party ID of the party session.
         /// </summary>
         public string PartyId ;
+
+        /// <summary>
+        /// The region the party session is located in.
+        /// </summary>
+        public string Region ;
 
         /// <summary>
         /// A base-64 encoded string containing the serialized network descriptor for this party.

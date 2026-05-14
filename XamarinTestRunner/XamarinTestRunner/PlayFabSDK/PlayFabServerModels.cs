@@ -2597,6 +2597,7 @@ namespace PlayFab.ServerModels
         PlayFabErrorEventNotSupportedForEntityType,
         MetadataLengthExceeded,
         MaxQueryableVersionsExceeded,
+        StatisticVersionIncrementNotAllowedWhileLinked,
         StoreMetricsRequestInvalidInput,
         StoreMetricsErrorRetrievingMetrics
     }
@@ -7146,6 +7147,24 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class UnlinkAppleRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class UnlinkAppleResult : PlayFabResultCommon
+    {
+    }
+
     public class UnlinkBattleNetAccountRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -7198,6 +7217,24 @@ namespace PlayFab.ServerModels
     }
 
     public class UnlinkFacebookInstantGamesIdResult : PlayFabResultCommon
+    {
+    }
+
+    public class UnlinkGameCenterAccountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// Unique PlayFab assigned ID of the user on whom the operation will be performed.
+        /// </summary>
+        public string PlayFabId ;
+
+    }
+
+    public class UnlinkGameCenterAccountResult : PlayFabResultCommon
     {
     }
 
