@@ -3540,6 +3540,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Unlinks the related Apple account from the specified user's PlayFab account.
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkAppleResult>> UnlinkAppleAsync(UnlinkAppleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkApple", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkAppleResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkAppleResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkAppleResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Unlinks the related Battle.net account from the user's PlayFab account.
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> UnlinkBattleNetAccountAsync(UnlinkBattleNetAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -3618,6 +3645,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UnlinkFacebookInstantGamesIdResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Unlinks the related Game Center account from the specified user's PlayFab account.
+        /// </summary>
+        public static async Task<PlayFabResult<UnlinkGameCenterAccountResult>> UnlinkGameCenterAccountAsync(UnlinkGameCenterAccountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/UnlinkGameCenterAccount", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UnlinkGameCenterAccountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UnlinkGameCenterAccountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UnlinkGameCenterAccountResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
