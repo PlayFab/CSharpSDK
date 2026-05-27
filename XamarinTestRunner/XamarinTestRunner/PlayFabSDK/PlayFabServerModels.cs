@@ -2128,7 +2128,6 @@ namespace PlayFab.ServerModels
         InsightsManagementGetOperationStatusInvalidParameter,
         DuplicatePurchaseTransactionId,
         EvaluationModePlayerCountExceeded,
-        GetPlayersInSegmentRateLimitExceeded,
         CloudScriptFunctionNameSizeExceeded,
         PaidInsightsFeaturesNotEnabled,
         CloudScriptAzureFunctionsQueueRequestError,
@@ -2387,7 +2386,6 @@ namespace PlayFab.ServerModels
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
         AnalyticsSegmentCountOverLimit,
-        GetPlayersInSegmentRetired,
         GetSegmentPlayerCountNotInFlight,
         GetSegmentPlayerCountRateLimitExceeded,
         SnapshotNotFound,
@@ -2465,8 +2463,6 @@ namespace PlayFab.ServerModels
         PlayerCustomPropertiesPropertyDoesNotExist,
         AddonAlreadyExists,
         AddonDoesntExist,
-        CopilotDisabled,
-        CopilotInvalidRequest,
         TrueSkillUnauthorized,
         TrueSkillInvalidTitleId,
         TrueSkillInvalidScenarioId,
@@ -3917,6 +3913,27 @@ namespace PlayFab.ServerModels
         /// array of random result tables currently available
         /// </summary>
         public Dictionary<string,RandomResultTableListing> Tables ;
+
+    }
+
+    /// <summary>
+    /// Request must contain a valid Segment ID.
+    /// </summary>
+    public class GetSegmentPlayerCountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique identifier for the requested segment.
+        /// </summary>
+        public string SegmentId ;
+
+    }
+
+    public class GetSegmentPlayerCountResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Count of profiles matching this segment.
+        /// </summary>
+        public int ProfilesInSegment ;
 
     }
 

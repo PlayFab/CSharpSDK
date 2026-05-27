@@ -308,6 +308,11 @@ namespace PlayFab.AdminModels
         public Dictionary<string,string> CustomTags ;
 
         /// <summary>
+        /// Optional status for the new news item. If not set, defaults to Published.
+        /// </summary>
+        public NewsStatus? Status ;
+
+        /// <summary>
         /// Time this news was published. If not set, defaults to now.
         /// </summary>
         public DateTime? Timestamp ;
@@ -2824,7 +2829,6 @@ namespace PlayFab.AdminModels
         InsightsManagementGetOperationStatusInvalidParameter,
         DuplicatePurchaseTransactionId,
         EvaluationModePlayerCountExceeded,
-        GetPlayersInSegmentRateLimitExceeded,
         CloudScriptFunctionNameSizeExceeded,
         PaidInsightsFeaturesNotEnabled,
         CloudScriptAzureFunctionsQueueRequestError,
@@ -3083,7 +3087,6 @@ namespace PlayFab.AdminModels
         AsyncExportNotFound,
         AsyncExportRateLimitExceeded,
         AnalyticsSegmentCountOverLimit,
-        GetPlayersInSegmentRetired,
         GetSegmentPlayerCountNotInFlight,
         GetSegmentPlayerCountRateLimitExceeded,
         SnapshotNotFound,
@@ -3161,8 +3164,6 @@ namespace PlayFab.AdminModels
         PlayerCustomPropertiesPropertyDoesNotExist,
         AddonAlreadyExists,
         AddonDoesntExist,
-        CopilotDisabled,
-        CopilotInvalidRequest,
         TrueSkillUnauthorized,
         TrueSkillInvalidTitleId,
         TrueSkillInvalidScenarioId,
@@ -3866,6 +3867,27 @@ namespace PlayFab.AdminModels
         /// array of random result tables currently available
         /// </summary>
         public Dictionary<string,RandomResultTableListing> Tables ;
+
+    }
+
+    /// <summary>
+    /// Request must contain a valid Segment ID.
+    /// </summary>
+    public class GetSegmentPlayerCountRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique identifier for the requested segment.
+        /// </summary>
+        public string SegmentId ;
+
+    }
+
+    public class GetSegmentPlayerCountResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Count of profiles matching this segment.
+        /// </summary>
+        public int ProfilesInSegment ;
 
     }
 
@@ -4956,6 +4978,14 @@ namespace PlayFab.AdminModels
         /// </summary>
         public string Name ;
 
+    }
+
+    public enum NewsStatus
+    {
+        None,
+        Unpublished,
+        Published,
+        Archived
     }
 
     public class OpenIdConnection

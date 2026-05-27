@@ -591,7 +591,8 @@ namespace PlayFab
 
         /// <summary>
         /// Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as
-        /// GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
+        /// ExportPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not
+        /// change.
         /// </summary>
         public async Task<PlayFabResult<GetAllSegmentsResult>> GetAllSegmentsAsync(GetAllSegmentsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
         {
@@ -1626,6 +1627,32 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetPlayersInSegmentExportResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Returns the total number of players in a given segment.
+        /// </summary>
+        public async Task<PlayFabResult<GetSegmentPlayerCountResult>> GetSegmentPlayerCountAsync(GetSegmentPlayerCountRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? authenticationContext;
+            var requestSettings = apiSettings ?? PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+            var httpResult = await PlayFabHttp.DoPost("/Server/GetSegmentPlayerCount", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders, requestSettings);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetSegmentPlayerCountResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetSegmentPlayerCountResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetSegmentPlayerCountResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>

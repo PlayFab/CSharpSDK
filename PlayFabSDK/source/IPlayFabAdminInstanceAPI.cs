@@ -274,7 +274,8 @@ namespace PlayFab
 
         /// <summary>
         /// Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as
-        /// GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change.
+        /// ExportPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not
+        /// change.
         /// </summary>
         Task<PlayFabResult<GetAllSegmentsResult>> GetAllSegmentsAsync(
             GetAllSegmentsRequest request,
@@ -447,6 +448,14 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<GetPlayersInSegmentExportResponse>> GetSegmentExportAsync(
             GetPlayersInSegmentExportRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Returns the total number of players in a given segment.
+        /// </summary>
+        Task<PlayFabResult<GetSegmentPlayerCountResult>> GetSegmentPlayerCountAsync(
+            GetSegmentPlayerCountRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 
