@@ -263,6 +263,11 @@ namespace PlayFab.AddonModels
         /// </summary>
         public bool? ErrorIfExists ;
 
+        /// <summary>
+        /// List of Nintendo Subscription Environments, currently supporting up to 4. Needs Catalog enabled.
+        /// </summary>
+        public List<NintendoEnvironment> SubscriptionEnvironments ;
+
     }
 
     public class CreateOrUpdateNintendoResponse : PlayFabResultCommon
@@ -819,6 +824,11 @@ namespace PlayFab.AddonModels
         /// List of Nintendo Environments, currently supporting up to 4.
         /// </summary>
         public List<NintendoEnvironment> Environments ;
+
+        /// <summary>
+        /// List of Nintendo Subscription Environments, currently supporting up to 4.
+        /// </summary>
+        public List<NintendoEnvironment> SubscriptionEnvironments ;
 
     }
 
