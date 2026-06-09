@@ -469,6 +469,14 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Retrieves the associated PlayFab account identifiers for the given set of server custom player identifiers.
+        /// </summary>
+        Task<PlayFabResult<GetPlayFabIDsFromServerCustomIDsResult>> GetPlayFabIDsFromServerCustomIDsAsync(
+            GetPlayFabIDsFromServerCustomIDsRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers are the profile
         /// IDs for the user accounts, available as SteamId in the Steamworks Community API calls.
         /// </summary>
