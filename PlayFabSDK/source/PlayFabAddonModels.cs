@@ -826,6 +826,11 @@ namespace PlayFab.AddonModels
         public List<NintendoEnvironment> Environments ;
 
         /// <summary>
+        /// List of Nintendo Subscription Environments associated to a secondary AppId, currently supporting up to 4.
+        /// </summary>
+        public List<NintendoEnvironment> SecondarySubscriptionEnvironments ;
+
+        /// <summary>
         /// List of Nintendo Subscription Environments, currently supporting up to 4.
         /// </summary>
         public List<NintendoEnvironment> SubscriptionEnvironments ;

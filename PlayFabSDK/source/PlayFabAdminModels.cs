@@ -6750,7 +6750,7 @@ namespace PlayFab.AdminModels
     public class SetPlayerSecretRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// Player secret that is used to verify API request signatures.
         /// </summary>
         public string PlayerSecret ;
 

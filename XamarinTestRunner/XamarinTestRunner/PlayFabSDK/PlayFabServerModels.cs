@@ -3771,6 +3771,28 @@ namespace PlayFab.ServerModels
 
     }
 
+    public class GetPlayFabIDsFromServerCustomIDsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Array of unique server custom player identifiers for which the title needs to get PlayFab identifiers. Cannot contain
+        /// more than 25 identifiers.
+        /// </summary>
+        public List<string> ServerCustomIds ;
+
+    }
+
+    /// <summary>
+    /// For a server player that is not linked to a PlayFab account the PlayFabId will be returned null.
+    /// </summary>
+    public class GetPlayFabIDsFromServerCustomIDsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Mapping of server custom identifiers to PlayFab identifiers.
+        /// </summary>
+        public List<ServerCustomIDPlayFabIDPair> Data ;
+
+    }
+
     public class GetPlayFabIDsFromSteamIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -5354,7 +5376,7 @@ namespace PlayFab.ServerModels
         public GetPlayerCombinedInfoRequestParams InfoRequestParameters ;
 
         /// <summary>
-        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// Player secret that is used to verify API request signatures.
         /// </summary>
         public string PlayerSecret ;
 
@@ -6726,7 +6748,7 @@ namespace PlayFab.ServerModels
     public class SetPlayerSecretRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Player secret that is used to verify API request signatures (Enterprise Only).
+        /// Player secret that is used to verify API request signatures.
         /// </summary>
         public string PlayerSecret ;
 
