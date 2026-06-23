@@ -35,6 +35,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Configures PSN event streams for an existing PSN addon on a title, without requiring a full addon upsert.
+        /// </summary>
+        public static async Task<PlayFabResult<ConfigurePSNEventStreamsResponse>> ConfigurePSNEventStreamsAsync(ConfigurePSNEventStreamsRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestContext.EntityToken == null) throw new PlayFabException(PlayFabExceptionCode.EntityTokenNotSet, "Must call Client Login or GetEntityToken before calling this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Addon/ConfigurePSNEventStreams", request, "X-EntityToken", requestContext.EntityToken, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<ConfigurePSNEventStreamsResponse> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<ConfigurePSNEventStreamsResponse>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<ConfigurePSNEventStreamsResponse> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Creates the Apple addon on a title, or updates it if it already exists.
         /// </summary>
         public static async Task<PlayFabResult<CreateOrUpdateAppleResponse>> CreateOrUpdateAppleAsync(CreateOrUpdateAppleRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
