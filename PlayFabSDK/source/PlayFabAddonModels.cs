@@ -4,6 +4,29 @@ using System.Collections.Generic;
 
 namespace PlayFab.AddonModels
 {
+    public class ConfigurePSNEventStreamsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
+        /// </summary>
+        public EntityKey Entity ;
+
+        /// <summary>
+        /// Title name obtained after setting a back server for PS5. Used for clawback event listeners.
+        /// </summary>
+        public string TitleName ;
+
+    }
+
+    public class ConfigurePSNEventStreamsResponse : PlayFabResultCommon
+    {
+    }
+
     public class CreateOrUpdateAppleRequest : PlayFabRequestCommon
     {
         /// <summary>

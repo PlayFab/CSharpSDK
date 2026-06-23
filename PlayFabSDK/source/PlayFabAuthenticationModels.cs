@@ -140,12 +140,6 @@ namespace PlayFab.AuthenticationModels
         /// </summary>
         public Dictionary<string,string> CustomTags ;
 
-        /// <summary>
-        /// The optional entity to perform this action on. Defaults to the currently logged in entity.
-        /// </summary>
-        [Obsolete("No longer available", true)]
-        public EntityKey Entity ;
-
     }
 
     public class GetEntityTokenResponse : PlayFabResultCommon

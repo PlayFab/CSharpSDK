@@ -2142,6 +2142,12 @@ namespace PlayFab.ClientModels
         public ExternalFriendSources? ExternalPlatformFriends ;
 
         /// <summary>
+        /// If true, include friends from the same namespace even if they have not logged in to the current title. Defaults to
+        /// false.
+        /// </summary>
+        public bool? NamespaceWide ;
+
+        /// <summary>
         /// If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client,
         /// only the allowed client profile properties for the title may be requested. These allowed properties are configured in
         /// the Game Manager "Client Profile Options" tab in the "Settings" section.
@@ -2163,7 +2169,7 @@ namespace PlayFab.ClientModels
     /// AuthenticationToken when calling LoginWithFacebook, instead of AccessToken, an empty list will be returned. For Xbox
     /// Live, user has to have logged into the Xbox Live recently, and only friends who also play this game will be included.
     /// Xbox Live friends include all users the caller is following, regardless of whether those users follow the caller back.
-    /// This differs from FindFriendLobbies, which only considers mutual Xbox Live friends (where both users follow each other).
+    /// This differs from FindFriendLobbies, which only considers mutual Xbox Live friends.
     /// </summary>
     public class GetFriendsListResult : PlayFabResultCommon
     {

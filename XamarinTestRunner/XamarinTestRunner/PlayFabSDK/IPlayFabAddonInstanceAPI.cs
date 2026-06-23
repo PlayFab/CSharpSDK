@@ -14,6 +14,14 @@ namespace PlayFab
     public interface IPlayFabAddonInstanceAPI
     {
         /// <summary>
+        /// Configures PSN event streams for an existing PSN addon on a title, without requiring a full addon upsert.
+        /// </summary>
+        Task<PlayFabResult<ConfigurePSNEventStreamsResponse>> ConfigurePSNEventStreamsAsync(
+            ConfigurePSNEventStreamsRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Creates the Apple addon on a title, or updates it if it already exists.
         /// </summary>
         Task<PlayFabResult<CreateOrUpdateAppleResponse>> CreateOrUpdateAppleAsync(
