@@ -2951,6 +2951,12 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromNintendoServiceAccountIdsRequest : PlayFabRequestCommon
     {
         /// <summary>
+        /// Nintendo NSA issuer URL identifying the environment. When provided, only accounts registered in that environment are
+        /// returned. If null or empty, falls back to the default environment.
+        /// </summary>
+        public string Issuer ;
+
+        /// <summary>
         /// Array of unique Nintendo Switch Account identifiers for which the title needs to get PlayFab identifiers. The array
         /// cannot exceed 25 in length.
         /// </summary>
@@ -3027,6 +3033,11 @@ namespace PlayFab.ClientModels
         /// </summary>
         public List<string> PSNAccountIDs ;
 
+        /// <summary>
+        /// Optional sandbox id. When provided, resolves players that logged in from that PlayStation :tm: Network sandbox.
+        /// </summary>
+        public string SandboxId ;
+
     }
 
     /// <summary>
@@ -3053,6 +3064,11 @@ namespace PlayFab.ClientModels
         /// cannot exceed 25 in length.
         /// </summary>
         public List<string> PSNOnlineIDs ;
+
+        /// <summary>
+        /// Optional sandbox id. When provided, resolves players that logged in from that PlayStation :tm: Network sandbox.
+        /// </summary>
+        public string SandboxId ;
 
     }
 
@@ -4163,6 +4179,12 @@ namespace PlayFab.ClientModels
         public string AuthCode ;
 
         /// <summary>
+        /// Optional PlayStation :tm: Network auth version. Controls which PlayStation :tm: Network auth version is used. Accepted
+        /// values are "v2" and "v3".
+        /// </summary>
+        public string AuthVersion ;
+
+        /// <summary>
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
         public Dictionary<string,string> CustomTags ;
@@ -5217,6 +5239,12 @@ namespace PlayFab.ClientModels
         /// Auth code provided by the PlayStation :tm: Network OAuth provider.
         /// </summary>
         public string AuthCode ;
+
+        /// <summary>
+        /// Optional PlayStation :tm: Network auth version. Controls which PlayStation :tm: Network auth version is used. Accepted
+        /// values are "v2" and "v3".
+        /// </summary>
+        public string AuthVersion ;
 
         /// <summary>
         /// Automatically create a PlayFab account if one is not currently linked to this ID.

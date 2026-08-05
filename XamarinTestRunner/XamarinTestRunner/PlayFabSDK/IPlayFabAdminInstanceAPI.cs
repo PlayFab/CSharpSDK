@@ -106,6 +106,14 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Bans an IP address or CIDR range for a title.
+        /// </summary>
+        Task<PlayFabResult<CreateIPBanResult>> CreateIPBanAsync(
+            CreateIPBanRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Registers a relationship between a title and an Open ID Connect provider.
         /// </summary>
         Task<PlayFabResult<EmptyResponse>> CreateOpenIdConnectionAsync(
@@ -339,6 +347,22 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<GetDataReportResult>> GetDataReportAsync(
             GetDataReportRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Gets all IP bans that apply to a specific IP address.
+        /// </summary>
+        Task<PlayFabResult<GetIPBanResult>> GetIPBansForIPAsync(
+            GetIPBanRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Gets all IP bans for a title.
+        /// </summary>
+        Task<PlayFabResult<GetAllIPBansResult>> GetIPBansForTitleAsync(
+            GetAllIPBansRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 
@@ -726,6 +750,14 @@ namespace PlayFab
             Dictionary<string, string> extraHeaders = null);
 
         /// <summary>
+        /// Revokes an active IP ban.
+        /// </summary>
+        Task<PlayFabResult<RevokeIPBanResult>> RevokeIPBanAsync(
+            RevokeIPBanRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
         /// Run a task immediately regardless of its schedule.
         /// </summary>
         Task<PlayFabResult<RunTaskResult>> RunTaskAsync(
@@ -863,6 +895,14 @@ namespace PlayFab
         /// </summary>
         Task<PlayFabResult<UpdateCloudScriptResult>> UpdateCloudScriptAsync(
             UpdateCloudScriptRequest request,
+            object customData = null,
+            Dictionary<string, string> extraHeaders = null);
+
+        /// <summary>
+        /// Updates an existing IP ban.
+        /// </summary>
+        Task<PlayFabResult<UpdateIPBanResult>> UpdateIPBanAsync(
+            UpdateIPBanRequest request,
             object customData = null,
             Dictionary<string, string> extraHeaders = null);
 
