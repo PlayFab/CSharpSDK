@@ -1318,6 +1318,46 @@ namespace PlayFab.AdminModels
 
     }
 
+    /// <summary>
+    /// Request to create an IP ban for a title.
+    /// </summary>
+    public class CreateIPBanRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The UTC date and time when the IP ban expires. Leave this blank for a permanent ban. Must be later than the current time
+        /// and no more than 100 years in the future.
+        /// </summary>
+        public DateTime? Expires ;
+
+        /// <summary>
+        /// The IP address to be banned.
+        /// </summary>
+        public string IPAddress ;
+
+        /// <summary>
+        /// The reason for the IP ban. Maximum 140 characters.
+        /// </summary>
+        public string Reason ;
+
+    }
+
+    /// <summary>
+    /// Result of creating an IP ban.
+    /// </summary>
+    public class CreateIPBanResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the ban that was created
+        /// </summary>
+        public IPBanInfo IPBanData ;
+
+    }
+
     public class CreateOpenIdConnectionRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2951,6 +2991,9 @@ namespace PlayFab.AdminModels
         AccountLinkedToABannedPlayer,
         AzureSubscriptionNotEligibleForLinking,
         EntityIsNotAMember,
+        IPAddressNotFound,
+        PSNNextGenNotConfiguredForTitle,
+        InvalidNintendoIssuer,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -3268,6 +3311,7 @@ namespace PlayFab.AdminModels
         GameSaveTitleClientAnonymousAccountCreationNotDisabled,
         GameSaveTitleConfigNoUpdatesRequested,
         GameSavePlayerNotEligibleForTransfer,
+        GameSaveAlreadyAutoRolledBack,
         StateShareForbidden,
         StateShareTitleNotInFlight,
         StateShareStateNotFound,
@@ -3310,6 +3354,25 @@ namespace PlayFab.AdminModels
         /// Status summary of the actions-on-players-in-segment task instance
         /// </summary>
         public ActionsOnPlayersInSegmentTaskSummary Summary ;
+
+    }
+
+    /// <summary>
+    /// Request to retrieve all IP bans for a title.
+    /// </summary>
+    public class GetAllIPBansRequest : PlayFabRequestCommon
+    {
+    }
+
+    /// <summary>
+    /// Result containing all IP bans for a title.
+    /// </summary>
+    public class GetAllIPBansResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on all IP bans
+        /// </summary>
+        public List<IPBanInfo> IPBanData ;
 
     }
 
@@ -3507,6 +3570,30 @@ namespace PlayFab.AdminModels
         /// reports can be found at: https://docs.microsoft.com/en-us/gaming/playfab/features/analytics/reports/quickstart.
         /// </summary>
         public string DownloadUrl ;
+
+    }
+
+    /// <summary>
+    /// Request to retrieve IP bans matching a specific IP address.
+    /// </summary>
+    public class GetIPBanRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The IP address of the ban to retrieve information on.
+        /// </summary>
+        public string IPAddress ;
+
+    }
+
+    /// <summary>
+    /// Result containing IP bans that match the requested IP address.
+    /// </summary>
+    public class GetIPBanResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the ban
+        /// </summary>
+        public List<IPBanInfo> IPBanData ;
 
     }
 
@@ -4520,6 +4607,43 @@ namespace PlayFab.AdminModels
         /// Insights Performance Level to scale to.
         /// </summary>
         public int Level ;
+
+    }
+
+    /// <summary>
+    /// Contains information for an IP ban.
+    /// </summary>
+    public class IPBanInfo
+    {
+        /// <summary>
+        /// The active state of this ban.
+        /// </summary>
+        public bool Active ;
+
+        /// <summary>
+        /// PlayFab Developer ID of who issued the ban. Null if ban issued via Title Secret Key.
+        /// </summary>
+        public string BannedByDeveloperId ;
+
+        /// <summary>
+        /// The time when this IP ban was applied.
+        /// </summary>
+        public DateTime? Created ;
+
+        /// <summary>
+        /// The time when this ban expires. Permanent bans do not have expiration date.
+        /// </summary>
+        public DateTime? Expires ;
+
+        /// <summary>
+        /// The IP address on which the ban was applied.
+        /// </summary>
+        public string IPAddress ;
+
+        /// <summary>
+        /// The reason why this IP ban was applied.
+        /// </summary>
+        public string Reason ;
 
     }
 
@@ -5845,6 +5969,30 @@ namespace PlayFab.AdminModels
 
     public class RevokeInventoryResult : PlayFabResultCommon
     {
+    }
+
+    /// <summary>
+    /// Request to revoke an existing IP ban.
+    /// </summary>
+    public class RevokeIPBanRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The IP address of the ban to be revoked.
+        /// </summary>
+        public string IPAddress ;
+
+    }
+
+    /// <summary>
+    /// Result of revoking an IP ban.
+    /// </summary>
+    public class RevokeIPBanResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the ban that was revoked
+        /// </summary>
+        public IPBanInfo IPBanData ;
+
     }
 
     public class RevokeItemError
@@ -7474,6 +7622,55 @@ namespace PlayFab.AdminModels
         /// Cloud Script version updated
         /// </summary>
         public int Version ;
+
+    }
+
+    /// <summary>
+    /// Request to update an existing IP ban.
+    /// </summary>
+    public class UpdateIPBanRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// The updated active state for the IP ban. Null for no change.
+        /// </summary>
+        public bool? Active ;
+
+        /// <summary>
+        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
+        /// </summary>
+        public Dictionary<string,string> CustomTags ;
+
+        /// <summary>
+        /// The updated expiration date for the IP ban. Null for no change.
+        /// </summary>
+        public DateTime? Expires ;
+
+        /// <summary>
+        /// The IP address of the ban to be updated.
+        /// </summary>
+        public string IPAddress ;
+
+        /// <summary>
+        /// Whether to make this IP ban permanent. Set to true to make this IP ban permanent. This will not modify Active state.
+        /// </summary>
+        public bool? Permanent ;
+
+        /// <summary>
+        /// The updated reason for the IP ban. Maximum 140 characters. Null for no change.
+        /// </summary>
+        public string Reason ;
+
+    }
+
+    /// <summary>
+    /// Result of updating an IP ban.
+    /// </summary>
+    public class UpdateIPBanResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Information on the ban that was created
+        /// </summary>
+        public IPBanInfo IPBanData ;
 
     }
 

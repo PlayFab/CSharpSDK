@@ -328,6 +328,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Bans an IP address or CIDR range for a title.
+        /// </summary>
+        public static async Task<PlayFabResult<CreateIPBanResult>> CreateIPBanAsync(CreateIPBanRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/CreateIPBan", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<CreateIPBanResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<CreateIPBanResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<CreateIPBanResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Registers a relationship between a title and an Open ID Connect provider.
         /// </summary>
         public static async Task<PlayFabResult<EmptyResponse>> CreateOpenIdConnectionAsync(CreateOpenIdConnectionRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -1094,6 +1121,60 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<GetDataReportResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Gets all IP bans that apply to a specific IP address.
+        /// </summary>
+        public static async Task<PlayFabResult<GetIPBanResult>> GetIPBansForIPAsync(GetIPBanRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/GetIPBansForIP", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetIPBanResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetIPBanResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetIPBanResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Gets all IP bans for a title.
+        /// </summary>
+        public static async Task<PlayFabResult<GetAllIPBansResult>> GetIPBansForTitleAsync(GetAllIPBansRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/GetIPBansForTitle", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<GetAllIPBansResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<GetAllIPBansResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<GetAllIPBansResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
@@ -2354,6 +2435,33 @@ namespace PlayFab
         }
 
         /// <summary>
+        /// Revokes an active IP ban.
+        /// </summary>
+        public static async Task<PlayFabResult<RevokeIPBanResult>> RevokeIPBanAsync(RevokeIPBanRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/RevokeIPBan", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<RevokeIPBanResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<RevokeIPBanResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<RevokeIPBanResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
         /// Run a task immediately regardless of its schedule.
         /// </summary>
         public static async Task<PlayFabResult<RunTaskResult>> RunTaskAsync(RunTaskRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
@@ -2796,6 +2904,33 @@ namespace PlayFab
             var result = resultData.data;
 
             return new PlayFabResult<UpdateCloudScriptResult> { Result = result, CustomData = customData };
+        }
+
+        /// <summary>
+        /// Updates an existing IP ban.
+        /// </summary>
+        public static async Task<PlayFabResult<UpdateIPBanResult>> UpdateIPBanAsync(UpdateIPBanRequest request, object customData = null, Dictionary<string, string> extraHeaders = null)
+        {
+            await new PlayFabUtil.SynchronizationContextRemover();
+
+            var requestContext = request?.AuthenticationContext ?? PlayFabSettings.staticPlayer;
+            var requestSettings = PlayFabSettings.staticSettings;
+            if (requestSettings.DeveloperSecretKey == null) throw new PlayFabException(PlayFabExceptionCode.DeveloperKeyNotSet, "DeveloperSecretKey must be set in your local or global settings to call this method");
+
+
+            var httpResult = await PlayFabHttp.DoPost("/Admin/UpdateIPBan", request, "X-SecretKey", requestSettings.DeveloperSecretKey, extraHeaders);
+            if (httpResult is PlayFabError)
+            {
+                var error = (PlayFabError)httpResult;
+                PlayFabSettings.GlobalErrorHandler?.Invoke(error);
+                return new PlayFabResult<UpdateIPBanResult> { Error = error, CustomData = customData };
+            }
+
+            var resultRawJson = (string)httpResult;
+            var resultData = PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer).DeserializeObject<PlayFabJsonSuccess<UpdateIPBanResult>>(resultRawJson);
+            var result = resultData.data;
+
+            return new PlayFabResult<UpdateIPBanResult> { Result = result, CustomData = customData };
         }
 
         /// <summary>
