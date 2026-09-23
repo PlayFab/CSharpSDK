@@ -3023,7 +3023,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromPSNAccountIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment.
+        /// Id of the PlayStation :tm: Network issuer environment. If null, defaults to the production environment. This must match
+        /// the issuer the account signed in under, otherwise the lookup returns a null PlayFabId rather than an error.
         /// </summary>
         public int? IssuerId ;
 
@@ -3034,7 +3035,10 @@ namespace PlayFab.ClientModels
         public List<string> PSNAccountIDs ;
 
         /// <summary>
-        /// Optional sandbox id. When provided, resolves players that logged in from that PlayStation :tm: Network sandbox.
+        /// The PlayStation :tm: Network sandbox the account is keyed under. Sandbox membership is per account, not per title:
+        /// supply this only for accounts that sign in from a sandbox, and omit it for accounts that do not, including all retail
+        /// accounts. Supplying a sandbox id that an account is not keyed under, or omitting one that it is, returns a null
+        /// PlayFabId rather than an error.
         /// </summary>
         public string SandboxId ;
 
@@ -3055,7 +3059,8 @@ namespace PlayFab.ClientModels
     public class GetPlayFabIDsFromPSNOnlineIDsRequest : PlayFabRequestCommon
     {
         /// <summary>
-        /// Id of the PlayStation :tm: Network issuer environment. If null, defaults to production environment.
+        /// Id of the PlayStation :tm: Network issuer environment. If null, defaults to the production environment. This must match
+        /// the issuer the account signed in under, otherwise the lookup returns a null PlayFabId rather than an error.
         /// </summary>
         public int? IssuerId ;
 
@@ -3066,7 +3071,10 @@ namespace PlayFab.ClientModels
         public List<string> PSNOnlineIDs ;
 
         /// <summary>
-        /// Optional sandbox id. When provided, resolves players that logged in from that PlayStation :tm: Network sandbox.
+        /// The PlayStation :tm: Network sandbox the account is keyed under. Sandbox membership is per account, not per title:
+        /// supply this only for accounts that sign in from a sandbox, and omit it for accounts that do not, including all retail
+        /// accounts. Supplying a sandbox id that an account is not keyed under, or omitting one that it is, returns a null
+        /// PlayFabId rather than an error.
         /// </summary>
         public string SandboxId ;
 
@@ -8156,6 +8164,12 @@ namespace PlayFab.ClientModels
     public class UserPsnInfo
     {
         /// <summary>
+        /// Id of the PlayStation :tm: Network issuer environment this account is keyed under. Supply this value as IssuerId when
+        /// looking the account up.
+        /// </summary>
+        public int? IssuerId ;
+
+        /// <summary>
         /// PlayStation :tm: Network account ID
         /// </summary>
         public string PsnAccountId ;
@@ -8164,6 +8178,11 @@ namespace PlayFab.ClientModels
         /// PlayStation :tm: Network online ID
         /// </summary>
         public string PsnOnlineId ;
+
+        /// <summary>
+        /// PlayStation :tm: Network sandbox ID
+        /// </summary>
+        public string PsnSandboxId ;
 
     }
 
